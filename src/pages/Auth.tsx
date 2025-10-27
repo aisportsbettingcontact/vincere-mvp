@@ -44,13 +44,6 @@ export default function Auth() {
       (event, session) => {
         setSession(session);
         setUser(session?.user ?? null);
-        
-        // Redirect authenticated users to home
-        if (session?.user) {
-          setTimeout(() => {
-            navigate("/");
-          }, 0);
-        }
       }
     );
 
@@ -58,14 +51,10 @@ export default function Auth() {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
       setUser(session?.user ?? null);
-      
-      if (session?.user) {
-        navigate("/");
-      }
     });
 
     return () => subscription.unsubscribe();
-  }, [navigate]);
+  }, []);
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();

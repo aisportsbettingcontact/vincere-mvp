@@ -31,22 +31,11 @@ export default function Feed() {
       >
         <div className="container mx-auto px-4 py-4">
           <h1 
-            className="text-2xl font-bold"
-            style={{
-              background: "linear-gradient(135deg, var(--ma-accent-indigo), var(--ma-accent-cyan))",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text"
-            }}
+            className="text-2xl font-bold text-center font-['Inter',_sans-serif]"
+            style={{ color: "var(--ma-text-primary)" }}
           >
-            EdgeGuide
+            Feed
           </h1>
-          <p 
-            className="text-sm font-['Inter',_sans-serif]"
-            style={{ color: "var(--ma-text-secondary)" }}
-          >
-            Decision-first betting analysis
-          </p>
         </div>
       </header>
 
@@ -139,7 +128,7 @@ function FilterSelect({ value, onChange, options }: {
 }
 
 function GameCard({ game, market, mode }: { game: Game; market: Market; mode: FeedMode }) {
-  const [selectedMarket, setSelectedMarket] = useState<Market>(market);
+  const [selectedMarket, setSelectedMarket] = useState<Market>("ML");
   const analysis = analyzeGame(game, selectedMarket);
   const startTime = new Date(game.startTime);
 
@@ -205,6 +194,67 @@ function GameCard({ game, market, mode }: { game: Game; market: Market; mode: Fe
             {analysis.angle}
           </Badge>
         </div>
+      </div>
+
+      {/* Market Selection Buttons */}
+      <div 
+        className="relative flex gap-[8px] mb-[16px] px-[4px] py-[4px] rounded-[14px]"
+        style={{
+          background: "var(--ma-surface)",
+          border: "1px solid var(--ma-stroke)"
+        }}
+      >
+        {/* Selection indicator */}
+        <motion.div
+          className="absolute top-[4px] bottom-[4px] rounded-[10px]"
+          initial={false}
+          animate={{
+            left: selectedMarket === "ML" ? "4px" : selectedMarket === "Spread" ? "calc(33.33% + 1px)" : "calc(66.66% + 2px)",
+            width: "calc(33.33% - 3px)"
+          }}
+          transition={{ type: "spring", damping: 20, stiffness: 300 }}
+          style={{
+            background: "rgba(111, 116, 255, 0.14)",
+            border: "1px solid var(--ma-accent-indigo)"
+          }}
+        />
+        
+        <button
+          onClick={() => setSelectedMarket("ML")}
+          className="flex-1 font-['Inter',_sans-serif] relative z-10 px-[16px] py-[8px] rounded-[10px] transition-colors flex items-center justify-center"
+          style={{
+            color: selectedMarket === "ML" ? "var(--ma-text-primary)" : "var(--ma-text-secondary)",
+            fontSize: "15px",
+            fontWeight: 600,
+            lineHeight: "20px"
+          }}
+        >
+          ML
+        </button>
+        <button
+          onClick={() => setSelectedMarket("Spread")}
+          className="flex-1 font-['Inter',_sans-serif] relative z-10 px-[16px] py-[8px] rounded-[10px] transition-colors flex items-center justify-center"
+          style={{
+            color: selectedMarket === "Spread" ? "var(--ma-text-primary)" : "var(--ma-text-secondary)",
+            fontSize: "15px",
+            fontWeight: 600,
+            lineHeight: "20px"
+          }}
+        >
+          Spread
+        </button>
+        <button
+          onClick={() => setSelectedMarket("Total")}
+          className="flex-1 font-['Inter',_sans-serif] relative z-10 px-[16px] py-[8px] rounded-[10px] transition-colors flex items-center justify-center"
+          style={{
+            color: selectedMarket === "Total" ? "var(--ma-text-primary)" : "var(--ma-text-secondary)",
+            fontSize: "15px",
+            fontWeight: 600,
+            lineHeight: "20px"
+          }}
+        >
+          Total
+        </button>
       </div>
 
       {mode === "splits" && (

@@ -47,16 +47,34 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        sidebar: {
-          DEFAULT: "hsl(var(--sidebar-background))",
-          foreground: "hsl(var(--sidebar-foreground))",
-          primary: "hsl(var(--sidebar-primary))",
-          "primary-foreground": "hsl(var(--sidebar-primary-foreground))",
-          accent: "hsl(var(--sidebar-accent))",
-          "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
-          border: "hsl(var(--sidebar-border))",
-          ring: "hsl(var(--sidebar-ring))",
+        sharp: {
+          DEFAULT: "hsl(var(--sharp))",
+          foreground: "hsl(var(--sharp-foreground))",
         },
+        public: {
+          DEFAULT: "hsl(var(--public))",
+          foreground: "hsl(var(--public-foreground))",
+        },
+        balanced: {
+          DEFAULT: "hsl(var(--balanced))",
+          foreground: "hsl(var(--balanced-foreground))",
+        },
+        "confidence-high": {
+          DEFAULT: "hsl(var(--confidence-high))",
+          foreground: "hsl(var(--confidence-high-foreground))",
+        },
+        "confidence-medium": {
+          DEFAULT: "hsl(var(--confidence-medium))",
+          foreground: "hsl(var(--confidence-medium-foreground))",
+        },
+        "confidence-low": {
+          DEFAULT: "hsl(var(--confidence-low))",
+          foreground: "hsl(var(--confidence-low-foreground))",
+        },
+      },
+      backgroundImage: {
+        "gradient-hero": "var(--gradient-hero)",
+        "gradient-card": "var(--gradient-card)",
       },
       borderRadius: {
         lg: "var(--radius)",

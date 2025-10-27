@@ -105,7 +105,7 @@ export default function Feed() {
   }
 
   return (
-    <div style={{ background: "var(--ma-bg)", minHeight: "100vh", paddingBottom: "80px" }}>
+    <div style={{ background: "var(--ma-bg)", minHeight: "100vh" }}>
       <header 
         className="sticky top-0 z-40 backdrop-blur-sm"
         style={{
@@ -113,7 +113,7 @@ export default function Feed() {
           background: "var(--ma-card)"
         }}
       >
-        <div className="container mx-auto px-4 py-4">
+        <div className="container mx-auto px-4 py-2">
           <h1 
             className="text-2xl font-bold text-center font-['Inter',_sans-serif]"
             style={{ color: "var(--ma-text-primary)" }}
@@ -123,9 +123,9 @@ export default function Feed() {
         </div>
       </header>
 
-      <div className="px-3 pt-4">
+      <div className="px-2 pt-2">
         {/* Game Cards */}
-        <div className="space-y-3">
+        <div className="space-y-2">
           {mockGameOdds.map((game) => (
             <GameCard 
               key={game.gameId} 
@@ -170,9 +170,9 @@ function BettingSplitsCard({ game, selectedMarket, setSelectedMarket }: {
   }, [game.splits, selectedMarket]);
 
   return (
-    <div className="w-full mb-3 rounded-3xl border border-white/10 bg-white/[0.03] p-4 backdrop-blur-[2px]">
+    <div className="w-full mb-2 rounded-3xl border border-white/10 bg-white/[0.03] p-3 backdrop-blur-[2px]">
       {/* Game Header */}
-      <div className="flex items-center justify-between gap-3 mb-4">
+      <div className="flex items-center justify-between gap-3 mb-3">
         <div className="flex items-center gap-3 min-w-0">
           <img src={getTeamLogo(game.away.espnAbbr, game.sport)} alt={game.away.name} className="w-7 h-7 rounded" />
           <div className="text-sm font-semibold text-white truncate">{game.away.abbr}</div>
@@ -196,7 +196,7 @@ function BettingSplitsCard({ game, selectedMarket, setSelectedMarket }: {
 
       {/* Market Selection Buttons */}
       <div 
-        className="relative flex gap-[8px] mb-[16px] px-[4px] py-[4px] rounded-[14px]"
+        className="relative flex gap-[8px] mb-[12px] px-[4px] py-[4px] rounded-[14px]"
         style={{
           background: "var(--ma-surface)",
           border: "1px solid var(--ma-stroke)"
@@ -256,13 +256,13 @@ function BettingSplitsCard({ game, selectedMarket, setSelectedMarket }: {
 
       {/* Betting Splits Mirror Bars */}
       <div 
-        className="rounded-[14px] p-[12px]"
+        className="rounded-[14px] p-[8px]"
         style={{
           background: "#16171D",
           border: "1px solid var(--ma-stroke)"
         }}
       >
-        <div className="flex items-center justify-between mb-3 px-1">
+        <div className="flex items-center justify-between mb-2 px-1">
           <div className="flex items-center gap-1.5">
             <div 
               className="w-2 h-2 rounded-full"
@@ -308,7 +308,7 @@ function BettingSplitsCard({ game, selectedMarket, setSelectedMarket }: {
           homeColor={game.home.color}
         />
         
-        <div className="h-[8px]" />
+        <div className="h-[6px]" />
         
         <MirrorBar
           label="Money"

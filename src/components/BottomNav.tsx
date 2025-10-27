@@ -1,35 +1,45 @@
-import { NavLink } from "react-router-dom";
-import { LayoutGrid, DollarSign, TrendingUp } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { ReactNode, cloneElement, isValidElement } from "react";
 
-const navItems = [
-  { path: "/", icon: LayoutGrid, label: "Feed" },
-  { path: "/prices", icon: DollarSign, label: "Prices" },
-  { path: "/splits", icon: TrendingUp, label: "Splits" },
-];
+interface BottomNavigationProps {
+  children: ReactNode;
+}
 
-export default function BottomNav() {
+export function BottomNavigation({ children }: BottomNavigationProps) {
+  const childArray = Array.isArray(children) ? children : [children];
+
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-border bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80">
-      <div className="flex items-center justify-around h-16 max-w-lg mx-auto">
-        {navItems.map((item) => (
-          <NavLink
-            key={item.path}
-            to={item.path}
-            className={({ isActive }) =>
-              cn(
-                "flex flex-col items-center justify-center gap-1 px-6 py-2 transition-colors",
-                isActive
-                  ? "text-primary"
-                  : "text-muted-foreground hover:text-foreground"
-              )
-            }
+    <div 
+      className="fixed bottom-0 left-0 right-0 z-50 rounded-b-[44px]"
+      style={{
+        background: "#090909",
+        boxShadow: "0px -2px 4px 1px rgba(0,0,0,0.08)",
+        height: "79px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        padding: "20px 20px 2px 20px"
+      }}
+    >
+      {childArray.map((child, index) => {
+        // If child is already a button, render as-is
+        if (isValidElement(child) && child.type === 'button') {
+          const existingClassName = (child.props as any).className || '';
+          return cloneElement(child as React.ReactElement<any>, { 
+            key: index,
+            className: `hover:opacity-70 active:opacity-50 transition-opacity ${existingClassName}`
+          });
+        }
+        
+        // Otherwise wrap in button
+        return (
+          <button
+            key={index}
+            className="hover:opacity-70 active:opacity-50 transition-opacity"
           >
-            <item.icon className="h-5 w-5" />
-            <span className="text-xs font-medium">{item.label}</span>
-          </NavLink>
-        ))}
-      </div>
-    </nav>
+            {child}
+          </button>
+        );
+      })}
+    </div>
   );
 }

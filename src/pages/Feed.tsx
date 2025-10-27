@@ -1,25 +1,18 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
+import { motion } from "motion/react";
 import { games } from "@/data/games";
 import { analyzeGame } from "@/lib/edge";
 import { League, Market, DateTag, Game } from "@/types";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Calendar, TrendingUp, ExternalLink } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { TrendingUp } from "lucide-react";
 import { format } from "date-fns";
+import { FeedToggle, type FeedMode } from "@/components/FeedToggle";
 
 export default function Feed() {
   const [leagueFilter, setLeagueFilter] = useState<League | "All">("All");
   const [dateFilter, setDateFilter] = useState<DateTag | "All">("All");
   const [marketFilter, setMarketFilter] = useState<Market>("Spread");
+  const [feedMode, setFeedMode] = useState<FeedMode>("splits");
 
   const filteredGames = games.filter((game) => {
     if (leagueFilter !== "All" && game.league !== leagueFilter) return false;
@@ -28,75 +21,88 @@ export default function Feed() {
   });
 
   return (
-    <div className="min-h-screen bg-background pb-20">
-      <header className="sticky top-0 z-40 border-b border-border bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80">
+    <div style={{ background: "var(--ma-bg)", minHeight: "100vh", paddingBottom: "80px" }}>
+      <header 
+        className="sticky top-0 z-40 backdrop-blur-sm"
+        style={{
+          borderBottom: "1px solid var(--ma-stroke)",
+          background: "var(--ma-card)"
+        }}
+      >
         <div className="container mx-auto px-4 py-4">
-          <h1 className="text-2xl font-bold bg-gradient-hero bg-clip-text text-transparent">
+          <h1 
+            className="text-2xl font-bold"
+            style={{
+              background: "linear-gradient(135deg, var(--ma-accent-indigo), var(--ma-accent-cyan))",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text"
+            }}
+          >
             EdgeGuide
           </h1>
-          <p className="text-sm text-muted-foreground">
+          <p 
+            className="text-sm font-['Inter',_sans-serif]"
+            style={{ color: "var(--ma-text-secondary)" }}
+          >
             Decision-first betting analysis
           </p>
         </div>
       </header>
 
-      <div className="container mx-auto px-4 py-6 space-y-4">
+      <div className="px-3 pt-4">
+        {/* Feed Toggle */}
+        <div className="mb-4 flex justify-center">
+          <FeedToggle mode={feedMode} setMode={setFeedMode} />
+        </div>
+
         {/* Filters */}
-        <div className="flex flex-wrap gap-3">
-          <Select
+        <div className="flex flex-wrap gap-3 mb-4">
+          <FilterSelect
             value={leagueFilter}
-            onValueChange={(v) => setLeagueFilter(v as League | "All")}
-          >
-            <SelectTrigger className="w-[120px]">
-              <SelectValue placeholder="League" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="All">All Leagues</SelectItem>
-              <SelectItem value="NFL">NFL</SelectItem>
-              <SelectItem value="NBA">NBA</SelectItem>
-              <SelectItem value="NHL">NHL</SelectItem>
-            </SelectContent>
-          </Select>
-
-          <Select
+            onChange={setLeagueFilter}
+            options={[
+              { value: "All", label: "All Leagues" },
+              { value: "NFL", label: "NFL" },
+              { value: "NBA", label: "NBA" },
+              { value: "NHL", label: "NHL" },
+            ]}
+          />
+          <FilterSelect
             value={dateFilter}
-            onValueChange={(v) => setDateFilter(v as DateTag | "All")}
-          >
-            <SelectTrigger className="w-[120px]">
-              <SelectValue placeholder="Date" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="All">All Dates</SelectItem>
-              <SelectItem value="Today">Today</SelectItem>
-              <SelectItem value="Tomorrow">Tomorrow</SelectItem>
-            </SelectContent>
-          </Select>
-
-          <Select
+            onChange={setDateFilter}
+            options={[
+              { value: "All", label: "All Dates" },
+              { value: "Today", label: "Today" },
+              { value: "Tomorrow", label: "Tomorrow" },
+            ]}
+          />
+          <FilterSelect
             value={marketFilter}
-            onValueChange={(v) => setMarketFilter(v as Market)}
-          >
-            <SelectTrigger className="w-[120px]">
-              <SelectValue placeholder="Market" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="ML">Moneyline</SelectItem>
-              <SelectItem value="Spread">Spread</SelectItem>
-              <SelectItem value="Total">Total</SelectItem>
-            </SelectContent>
-          </Select>
+            onChange={setMarketFilter}
+            options={[
+              { value: "ML", label: "ML" },
+              { value: "Spread", label: "Spread" },
+              { value: "Total", label: "Total" },
+            ]}
+          />
         </div>
 
         {/* Game Cards */}
-        <div className="space-y-4">
+        <div className="space-y-3">
           {filteredGames.map((game) => (
-            <GameCard key={game.id} game={game} market={marketFilter} />
+            <GameCard 
+              key={game.id} 
+              game={game} 
+              market={marketFilter}
+              mode={feedMode}
+            />
           ))}
         </div>
 
         {filteredGames.length === 0 && (
           <div className="text-center py-12">
-            <p className="text-muted-foreground">
+            <p style={{ color: "var(--ma-text-secondary)" }}>
               No games match your filters
             </p>
           </div>
@@ -106,80 +112,276 @@ export default function Feed() {
   );
 }
 
-function GameCard({ game, market }: { game: Game; market: Market }) {
-  const analysis = analyzeGame(game, market);
+function FilterSelect({ value, onChange, options }: { 
+  value: string; 
+  onChange: (v: any) => void; 
+  options: Array<{ value: string; label: string }>;
+}) {
+  return (
+    <select
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      className="font-['Inter',_sans-serif] px-3 py-2 rounded-lg text-sm"
+      style={{
+        background: "var(--ma-surface)",
+        border: "1px solid var(--ma-stroke)",
+        color: "var(--ma-text-primary)",
+        outline: "none"
+      }}
+    >
+      {options.map((opt) => (
+        <option key={opt.value} value={opt.value}>
+          {opt.label}
+        </option>
+      ))}
+    </select>
+  );
+}
+
+function GameCard({ game, market, mode }: { game: Game; market: Market; mode: FeedMode }) {
+  const [selectedMarket, setSelectedMarket] = useState<Market>(market);
+  const analysis = analyzeGame(game, selectedMarket);
   const startTime = new Date(game.startTime);
 
-  const angleColors = {
-    Sharp: "bg-sharp text-sharp-foreground",
-    Public: "bg-public text-public-foreground",
-    Balanced: "bg-balanced text-balanced-foreground",
-  };
+  // Mock betting splits data
+  const splits = useMemo(() => ({
+    tickets: { away: 48, home: 52 },
+    money: { away: 70, home: 30 }
+  }), []);
 
-  const confidenceColors = {
-    High: "bg-confidence-high",
-    Medium: "bg-confidence-medium",
-    Low: "bg-confidence-low",
-  };
+  const divergence = splits.money.home - splits.tickets.home;
 
   return (
-    <Card className="overflow-hidden bg-gradient-card border-border/50 hover:border-primary/50 transition-colors">
-      <CardHeader className="pb-3">
-        <div className="flex items-start justify-between">
-          <div>
-            <div className="flex items-center gap-2 mb-1">
-              <Badge variant="outline" className="text-xs">
-                {game.league}
-              </Badge>
-              <Badge variant="secondary" className="text-xs">
-                {market}
-              </Badge>
-            </div>
-            <h3 className="text-lg font-bold">
-              {game.away} @ {game.home}
-            </h3>
+    <div 
+      className="w-full mb-3 rounded-3xl p-4"
+      style={{
+        border: "1px solid var(--ma-stroke)",
+        background: "rgba(255, 255, 255, 0.03)",
+        backdropFilter: "blur(2px)"
+      }}
+    >
+      {/* Game Header */}
+      <div className="flex items-center justify-between gap-3 mb-4">
+        <div className="flex items-center gap-3 min-w-0">
+          <div 
+            className="text-sm font-semibold font-['Inter',_sans-serif] truncate"
+            style={{ color: "var(--ma-text-primary)" }}
+          >
+            {game.away}
           </div>
-          <div className="flex items-center gap-2">
-            <div
-              className={cn(
-                "w-2 h-2 rounded-full",
-                confidenceColors[analysis.confidence]
-              )}
-              title={`${analysis.confidence} confidence`}
-            />
-            <Badge className={angleColors[analysis.angle]}>
-              {analysis.angle}
-            </Badge>
+          <span style={{ color: "rgba(255, 255, 255, 0.4)", fontSize: "12px" }}>@</span>
+          <div className="flex items-center gap-2 min-w-0">
+            <div 
+              className="text-sm font-semibold font-['Inter',_sans-serif] truncate"
+              style={{ color: "var(--ma-text-primary)" }}
+            >
+              {game.home}
+            </div>
           </div>
         </div>
-        <div className="flex items-center gap-2 text-xs text-muted-foreground">
-          <Calendar className="h-3 w-3" />
-          <span>
-            {format(startTime, "MMM d, h:mm a")} • {game.dateTag}
+        <div className="flex items-center gap-2">
+          <div 
+            className="text-xs px-2 py-1 rounded-md font-['Inter',_sans-serif]"
+            style={{
+              color: "rgba(255, 255, 255, 0.8)",
+              background: "rgba(255, 255, 255, 0.05)",
+              border: "1px solid var(--ma-stroke)"
+            }}
+          >
+            {format(startTime, "h:mm a")}
+          </div>
+          <Badge 
+            style={{
+              background: analysis.angle === "Sharp" 
+                ? "var(--ma-accent-cyan)" 
+                : analysis.angle === "Public"
+                ? "var(--ma-accent-red)"
+                : "var(--ma-accent-amber)",
+              color: "white",
+              fontSize: "10px",
+              padding: "2px 8px"
+            }}
+          >
+            {analysis.angle}
+          </Badge>
+        </div>
+      </div>
+
+      {mode === "splits" && (
+        <BettingSplitsView 
+          splits={splits} 
+          game={game}
+          divergence={divergence}
+        />
+      )}
+
+      {mode === "movement" && (
+        <LineMovementView game={game} analysis={analysis} />
+      )}
+    </div>
+  );
+}
+
+function BettingSplitsView({ splits, game, divergence }: any) {
+  return (
+    <div 
+      className="rounded-[14px] p-[12px]"
+      style={{
+        background: "#16171D",
+        border: "1px solid var(--ma-stroke)"
+      }}
+    >
+      <div className="flex items-center justify-between mb-3 px-1">
+        <div className="flex items-center gap-1.5">
+          <div 
+            className="w-2 h-2 rounded-full"
+            style={{ background: "var(--ma-accent-cyan)" }}
+          />
+          <span 
+            className="font-['Inter',_sans-serif]"
+            style={{
+              fontSize: "11px",
+              fontWeight: 600,
+              color: "var(--ma-text-secondary)",
+              letterSpacing: "0.01em"
+            }}
+          >
+            {game.away}
           </span>
         </div>
-      </CardHeader>
-
-      <CardContent className="space-y-3">
-        <div className="flex items-center gap-2 text-sm">
-          <TrendingUp className="h-4 w-4 text-primary" />
-          <p className="text-foreground/90">{analysis.explanation}</p>
+        <div className="flex items-center gap-1.5">
+          <span 
+            className="font-['Inter',_sans-serif]"
+            style={{
+              fontSize: "11px",
+              fontWeight: 600,
+              color: "var(--ma-text-secondary)",
+              letterSpacing: "0.01em"
+            }}
+          >
+            {game.home}
+          </span>
+          <div 
+            className="w-2 h-2 rounded-full"
+            style={{ background: "var(--ma-accent-indigo)" }}
+          />
         </div>
+      </div>
 
-        <div className="flex items-center justify-between pt-2 border-t border-border/50">
-          <div>
-            <p className="text-xs text-muted-foreground">Best Book</p>
-            <p className="font-semibold text-sm">
-              {analysis.bestBook.book}: {analysis.bestBook.price}
-            </p>
-          </div>
-          <Button size="sm" variant="outline" asChild>
-            <a href="#" className="gap-1">
-              View <ExternalLink className="h-3 w-3" />
-            </a>
-          </Button>
+      <div className="space-y-2">
+        <MirrorBar
+          label="Tickets"
+          leftPercent={splits.tickets.away}
+          rightPercent={splits.tickets.home}
+        />
+        <MirrorBar
+          label="Money"
+          leftPercent={splits.money.away}
+          rightPercent={splits.money.home}
+        />
+      </div>
+
+      <div 
+        className="mt-3 pt-3 text-center text-xs font-['Inter',_sans-serif]"
+        style={{
+          borderTop: "1px solid var(--ma-stroke)",
+          color: Math.abs(divergence) > 15 
+            ? "var(--ma-accent-green)" 
+            : "var(--ma-text-secondary)"
+        }}
+      >
+        {Math.abs(divergence) > 15 
+          ? `${Math.abs(divergence).toFixed(0)}% divergence - Sharp money detected`
+          : "Balanced action"}
+      </div>
+    </div>
+  );
+}
+
+function MirrorBar({ label, leftPercent, rightPercent }: any) {
+  return (
+    <div>
+      <div 
+        className="flex items-center justify-between mb-1 text-xs font-['Inter',_sans-serif]"
+        style={{ color: "var(--ma-text-secondary)" }}
+      >
+        <span>{label}</span>
+        <div className="flex gap-2">
+          <span>{leftPercent}%</span>
+          <span>{rightPercent}%</span>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+      <div className="flex gap-1 h-2">
+        <div 
+          className="rounded-l"
+          style={{
+            width: `${leftPercent}%`,
+            background: "var(--ma-accent-cyan)"
+          }}
+        />
+        <div 
+          className="rounded-r"
+          style={{
+            width: `${rightPercent}%`,
+            background: "var(--ma-accent-indigo)"
+          }}
+        />
+      </div>
+    </div>
+  );
+}
+
+function LineMovementView({ game, analysis }: any) {
+  return (
+    <div 
+      className="rounded-[14px] p-4"
+      style={{
+        background: "#16171D",
+        border: "1px solid var(--ma-stroke)"
+      }}
+    >
+      <div className="flex items-center gap-2 mb-3">
+        <TrendingUp 
+          className="w-4 h-4" 
+          style={{ color: "var(--ma-accent-green)" }} 
+        />
+        <p 
+          className="text-sm font-['Inter',_sans-serif]"
+          style={{ color: "var(--ma-text-primary)" }}
+        >
+          {analysis.explanation}
+        </p>
+      </div>
+
+      <div 
+        className="flex items-center justify-between pt-3"
+        style={{ borderTop: "1px solid var(--ma-stroke)" }}
+      >
+        <div>
+          <p 
+            className="text-xs font-['Inter',_sans-serif]"
+            style={{ color: "var(--ma-text-secondary)" }}
+          >
+            Best Book
+          </p>
+          <p 
+            className="font-semibold text-sm font-['Inter',_sans-serif]"
+            style={{ color: "var(--ma-text-primary)" }}
+          >
+            {analysis.bestBook.book}: {analysis.bestBook.price}
+          </p>
+        </div>
+        <button
+          className="px-3 py-1.5 text-xs rounded-md font-['Inter',_sans-serif]"
+          style={{
+            background: "var(--ma-surface)",
+            border: "1px solid var(--ma-stroke)",
+            color: "var(--ma-text-primary)"
+          }}
+        >
+          View Details
+        </button>
+      </div>
+    </div>
   );
 }

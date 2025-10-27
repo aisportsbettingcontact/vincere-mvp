@@ -15,6 +15,26 @@ function getTeamLogo(espnAbbr: string, sport: string) {
   return `https://a.espncdn.com/i/teamlogos/${sportPath}/500/${espnAbbr}.png`;
 }
 
+// Format date as MM/DD · HH:MM AM/PM ET
+function formatGameTime(dateString: string): string {
+  try {
+    const d = new Date(dateString);
+    if (isNaN(d.getTime())) return dateString;
+    
+    const month = (d.getMonth() + 1).toString().padStart(2, '0');
+    const day = d.getDate().toString().padStart(2, '0');
+    
+    let hours = d.getHours();
+    const minutes = d.getMinutes().toString().padStart(2, '0');
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12 || 12;
+    
+    return `${month}/${day} · ${hours}:${minutes} ${ampm} ET`;
+  } catch {
+    return dateString;
+  }
+}
+
 // Convert GameOdds to Matchup format for LineHistoryTable
 function convertGameOddsToMatchup(game: GameOdds): Matchup {
   const firstOdds = game.odds[0];
@@ -140,16 +160,8 @@ function BettingSplitsCard({ game, selectedMarket, setSelectedMarket }: {
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <div className="text-xs text-white/80 bg-white/5 px-2 py-1 rounded-md border border-white/10">
-            {(() => {
-              try {
-                const d = new Date(game.kickoff);
-                if (isNaN(d.getTime())) return game.kickoff;
-                return d.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
-              } catch {
-                return game.kickoff;
-              }
-            })()}
+          <div className="text-xs text-white/80 bg-white/5 px-2 py-1 rounded-md border border-white/10 whitespace-nowrap">
+            {formatGameTime(game.kickoff)}
           </div>
           {game.tvInfo && (
             <div className="text-[10px] text-white/60 px-2 py-1 rounded-md border border-white/10">
@@ -310,16 +322,8 @@ function LineMovementCard({ game, selectedMarket, setSelectedMarket }: {
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <div className="text-xs text-white/80 bg-white/5 px-2 py-1 rounded-md border border-white/10">
-            {(() => {
-              try {
-                const d = new Date(game.kickoff);
-                if (isNaN(d.getTime())) return game.kickoff;
-                return d.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
-              } catch {
-                return game.kickoff;
-              }
-            })()}
+          <div className="text-xs text-white/80 bg-white/5 px-2 py-1 rounded-md border border-white/10 whitespace-nowrap">
+            {formatGameTime(game.kickoff)}
           </div>
           {game.tvInfo && (
             <div className="text-[10px] text-white/60 px-2 py-1 rounded-md border border-white/10">
@@ -543,16 +547,8 @@ function AIAnalysisCard({ game, selectedMarket, setSelectedMarket }: {
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <div className="text-xs text-white/80 bg-white/5 px-2 py-1 rounded-md border border-white/10">
-            {(() => {
-              try {
-                const d = new Date(game.kickoff);
-                if (isNaN(d.getTime())) return game.kickoff;
-                return d.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
-              } catch {
-                return game.kickoff;
-              }
-            })()}
+          <div className="text-xs text-white/80 bg-white/5 px-2 py-1 rounded-md border border-white/10 whitespace-nowrap">
+            {formatGameTime(game.kickoff)}
           </div>
           {game.tvInfo && (
             <div className="text-[10px] text-white/60 px-2 py-1 rounded-md border border-white/10">

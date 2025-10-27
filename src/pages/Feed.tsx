@@ -17,21 +17,18 @@ function getTeamLogo(espnAbbr: string, sport: string) {
   return `https://a.espncdn.com/i/teamlogos/${sportPath}/500/${espnAbbr}.png`;
 }
 
-// Format date as MM/DD · HH:MM AM/PM ET
+// Format date as HH:MM am/pm ET
 function formatGameTime(dateString: string): string {
   try {
     const d = new Date(dateString);
     if (isNaN(d.getTime())) return dateString;
     
-    const month = (d.getMonth() + 1).toString().padStart(2, '0');
-    const day = d.getDate().toString().padStart(2, '0');
-    
     let hours = d.getHours();
     const minutes = d.getMinutes().toString().padStart(2, '0');
-    const ampm = hours >= 12 ? 'PM' : 'AM';
+    const ampm = hours >= 12 ? 'pm' : 'am';
     hours = hours % 12 || 12;
     
-    return `${month}/${day} · ${hours}:${minutes} ${ampm} ET`;
+    return `${hours}:${minutes}${ampm} ET`;
   } catch {
     return dateString;
   }

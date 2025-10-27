@@ -2,45 +2,6 @@ import { Game } from "@/types";
 
 export const games: Game[] = [
   {
-    id: "NBA-BOSPHI-001",
-    league: "NBA",
-    startTime: "2025-03-01T00:30:00Z",
-    dateTag: "Today",
-    home: "BOS",
-    away: "PHI",
-    odds: {
-      DK: {
-        ML: { home: 1.62, away: 2.35 },
-        Spread: { line: -4.5, home: 1.9, away: 1.95 },
-        Total: { line: 226.5, over: 1.91, under: 1.91 },
-      },
-      FD: {
-        ML: { home: 1.65, away: 2.3 },
-        Spread: { line: -4.0, home: 1.88, away: 1.98 },
-        Total: { line: 226.0, over: 1.9, under: 1.92 },
-      },
-      MGM: {
-        ML: { home: 1.6, away: 2.4 },
-        Spread: { line: -4.5, home: 1.92, away: 1.92 },
-        Total: { line: 227.0, over: 1.93, under: 1.89 },
-      },
-      Caesars: {
-        ML: { home: 1.63, away: 2.37 },
-        Spread: { line: -5.0, home: 1.96, away: 1.86 },
-        Total: { line: 226.5, over: 1.92, under: 1.9 },
-      },
-    },
-    splits: {
-      home: { betsPct: 48, moneyPct: 70 },
-      away: { betsPct: 52, moneyPct: 30 },
-    },
-    movement: [
-      { t: "2025-02-28T18:00:00Z", market: "Spread", side: "home", price: -4.0 },
-      { t: "2025-02-28T22:00:00Z", market: "Spread", side: "home", price: -4.5 },
-    ],
-    open: { Spread: { line: -4.0 }, Total: { line: 226.0 } },
-  },
-  {
     id: "NFL-KCBUF-002",
     league: "NFL",
     startTime: "2025-03-02T01:15:00Z",
@@ -117,45 +78,6 @@ export const games: Game[] = [
       { t: "2025-03-01T10:00:00Z", market: "Total", side: "over", price: 2.1 },
     ],
     open: { Total: { line: 6.5 } },
-  },
-  {
-    id: "NBA-LALGAL-004",
-    league: "NBA",
-    startTime: "2025-03-02T02:30:00Z",
-    dateTag: "Tomorrow",
-    home: "LAL",
-    away: "GSW",
-    odds: {
-      DK: {
-        ML: { home: 2.15, away: 1.72 },
-        Spread: { line: 3.5, home: 1.91, away: 1.91 },
-        Total: { line: 231.5, over: 1.95, under: 1.87 },
-      },
-      FD: {
-        ML: { home: 2.2, away: 1.69 },
-        Spread: { line: 4.0, home: 1.87, away: 1.95 },
-        Total: { line: 231.0, over: 1.92, under: 1.9 },
-      },
-      MGM: {
-        ML: { home: 2.1, away: 1.75 },
-        Spread: { line: 3.5, home: 1.88, away: 1.94 },
-        Total: { line: 232.0, over: 1.91, under: 1.91 },
-      },
-      Caesars: {
-        ML: { home: 2.17, away: 1.71 },
-        Spread: { line: 3.0, home: 1.93, away: 1.89 },
-        Total: { line: 231.5, over: 1.94, under: 1.88 },
-      },
-    },
-    splits: {
-      home: { betsPct: 38, moneyPct: 25 },
-      away: { betsPct: 62, moneyPct: 75 },
-    },
-    movement: [
-      { t: "2025-03-01T08:00:00Z", market: "Spread", side: "away", price: -3.0 },
-      { t: "2025-03-01T14:00:00Z", market: "Spread", side: "away", price: -3.5 },
-    ],
-    open: { Spread: { line: 3.0 } },
   },
   {
     id: "NFL-SFDET-005",

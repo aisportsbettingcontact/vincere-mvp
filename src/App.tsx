@@ -23,7 +23,7 @@ function AppContent() {
     const { data: { session } } = await supabase.auth.getSession();
     if (!session) {
       toast.error("You must be logged in to view the Betting Splits feed");
-      navigate("/auth");
+      navigate("/login");
     } else {
       navigate("/");
     }
@@ -35,7 +35,7 @@ function AppContent() {
         <Route path="/" element={<Feed />} />
         <Route path="/prices" element={<Prices />} />
         <Route path="/splits" element={<Splits />} />
-        <Route path="/auth" element={<Auth />} />
+        <Route path="/login" element={<Auth />} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
       </Routes>
@@ -43,7 +43,7 @@ function AppContent() {
         <button onClick={handleHomeClick} style={{ color: location.pathname === "/" ? "#6F74FF" : "#7C7C7C" }}>
           <Zap className="w-6 h-6" />
         </button>
-        <button onClick={() => navigate("/auth")} style={{ color: location.pathname === "/auth" ? "#6F74FF" : "#7C7C7C" }}>
+        <button onClick={() => navigate("/login")} style={{ color: location.pathname === "/login" ? "#6F74FF" : "#7C7C7C" }}>
           <User className="w-6 h-6" />
         </button>
       </BottomNavigation>

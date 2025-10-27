@@ -43,7 +43,7 @@ export const games: Game[] = [
   {
     id: "NFL-KCBUF-002",
     league: "NFL",
-    startTime: "2025-03-01T18:00:00Z",
+    startTime: "2025-03-02T01:15:00Z",
     dateTag: "Today",
     home: "KC",
     away: "BUF",

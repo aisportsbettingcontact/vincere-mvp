@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route, useLocation, useNavigate } from "react-ro
 import Feed from "./pages/Feed";
 import Prices from "./pages/Prices";
 import Splits from "./pages/Splits";
+import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
 import { BottomNavigation } from "./components/BottomNav";
 import AgeGateModal from "./components/AgeGateModal";
@@ -23,6 +24,7 @@ function AppContent() {
         <Route path="/" element={<Feed />} />
         <Route path="/prices" element={<Prices />} />
         <Route path="/splits" element={<Splits />} />
+        <Route path="/auth" element={<Auth />} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
       </Routes>
@@ -30,7 +32,7 @@ function AppContent() {
         <button onClick={() => navigate("/")} style={{ color: location.pathname === "/" ? "#6F74FF" : "#7C7C7C" }}>
           <Zap className="w-6 h-6" />
         </button>
-        <button style={{ color: "#7C7C7C" }}>
+        <button onClick={() => navigate("/auth")} style={{ color: location.pathname === "/auth" ? "#6F74FF" : "#7C7C7C" }}>
           <User className="w-6 h-6" />
         </button>
       </BottomNavigation>

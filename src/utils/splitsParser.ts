@@ -13,14 +13,22 @@ interface RawSplitGame {
   ml: [number, number, [number, number], [number, number]]; // [awayOdds, homeOdds, [awayTickets%, homeTickets%], [awayMoney%, homeMoney%]]
 }
 
-function formatDate(dateStr: string): string {
+// Map specific game IDs to their actual kickoff times (ET)
+const GAME_TIMES: Record<string, string> = {
+  "20251027NFL00044": "20:15", // WAS @ KC - 8:15pm ET
+};
+
+function formatDate(dateStr: string, gameId: string): string {
   // Convert YYYYMMDD to ISO format for Date constructor
   const year = dateStr.slice(0, 4);
   const month = dateStr.slice(4, 6);
   const day = dateStr.slice(6, 8);
   
+  // Use specific time for this game if available, otherwise default to 1:00pm
+  const time = GAME_TIMES[gameId] || "13:00";
+  
   // Return ISO format date string that will be parsed by formatGameTime in Feed.tsx
-  return `${year}-${month}-${day}T13:00:00`;
+  return `${year}-${month}-${day}T${time}:00`;
 }
 
 export function parseRawSplits(): GameOdds[] {
@@ -61,7 +69,7 @@ export function parseRawSplits(): GameOdds[] {
     return {
       gameId: game.id,
       sport: "NFL" as const,
-      kickoff: formatDate(game.d),
+      kickoff: formatDate(game.d, game.id),
       away: {
         name: awayTeam.name,
         abbr: awayTeam.abbr,

@@ -1,31 +1,36 @@
 import { motion } from "motion/react";
 
-export type FeedMode = "splits" | "movement";
+export type FeedMode = "splits" | "movement" | "ai";
 
 export function FeedToggle({ mode, setMode }: { mode: FeedMode; setMode: (m: FeedMode) => void }) {
-  const modes: FeedMode[] = ["splits", "movement"];
+  const modes: FeedMode[] = ["splits", "movement", "ai"];
   
   const getLabel = (m: FeedMode) => {
     if (m === "splits") return "Betting Splits";
-    return "Line Movement";
+    if (m === "movement") return "Line Movement";
+    return "AI Analysis";
   };
 
-  // Calculate precise indicator position for perfect symmetry
+  // Calculate precise indicator position for 3 modes
   const getIndicatorPosition = () => {
-    const containerPadding = 4; // px
-    const gap = 8; // px between buttons
-    
+    const containerPadding = 4;
+    const gap = 8;
     const modeIndex = modes.indexOf(mode);
     
     if (modeIndex === 0) {
       return {
         left: `${containerPadding}px`,
-        width: `calc((100% - ${containerPadding * 2}px - ${gap}px) / 2)`
+        width: `calc((100% - ${containerPadding * 2}px - ${gap * 2}px) / 3)`
+      };
+    } else if (modeIndex === 1) {
+      return {
+        left: `calc(${containerPadding}px + (100% - ${containerPadding * 2}px - ${gap * 2}px) / 3 + ${gap}px)`,
+        width: `calc((100% - ${containerPadding * 2}px - ${gap * 2}px) / 3)`
       };
     } else {
       return {
-        left: `calc(${containerPadding}px + (100% - ${containerPadding * 2}px - ${gap}px) / 2 + ${gap}px)`,
-        width: `calc((100% - ${containerPadding * 2}px - ${gap}px) / 2)`
+        left: `calc(${containerPadding}px + 2 * (100% - ${containerPadding * 2}px - ${gap * 2}px) / 3 + ${gap * 2}px)`,
+        width: `calc((100% - ${containerPadding * 2}px - ${gap * 2}px) / 3)`
       };
     }
   };

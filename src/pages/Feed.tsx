@@ -1,24 +1,54 @@
 import { useState, useMemo } from "react";
 import { motion } from "motion/react";
-import { games } from "@/data/games";
-import { analyzeGame } from "@/lib/edge";
-import { League, Market, DateTag, Game } from "@/types";
-import { Badge } from "@/components/ui/badge";
-import { TrendingUp } from "lucide-react";
-import { format } from "date-fns";
+import { mockGameOdds, type GameOdds } from "@/data/oddsData";
+import { MirrorBar } from "@/components/MirrorBar";
+import { LineHistoryTable } from "@/components/LineHistoryTable";
+import type { Matchup } from "@/data/sportsData";
+import type { Market } from "@/utils/bettingLogic";
+import { generateAIInsights } from "@/utils/aiAnalysis";
+import { formatSpreadLine } from "@/utils/bettingLogic";
+import { Brain, TrendingUp, Users } from "lucide-react";
 import { FeedToggle, type FeedMode } from "@/components/FeedToggle";
 
-export default function Feed() {
-  const [leagueFilter, setLeagueFilter] = useState<League | "All">("All");
-  const [dateFilter, setDateFilter] = useState<DateTag | "All">("All");
-  const [marketFilter, setMarketFilter] = useState<Market>("Spread");
-  const [feedMode, setFeedMode] = useState<FeedMode>("splits");
+function getTeamLogo(espnAbbr: string, sport: string) {
+  const sportPath = sport.toLowerCase();
+  return `https://a.espncdn.com/i/teamlogos/${sportPath}/500/${espnAbbr}.png`;
+}
 
-  const filteredGames = games.filter((game) => {
-    if (leagueFilter !== "All" && game.league !== leagueFilter) return false;
-    if (dateFilter !== "All" && game.dateTag !== dateFilter) return false;
-    return true;
-  });
+// Convert GameOdds to Matchup format for LineHistoryTable
+function convertGameOddsToMatchup(game: GameOdds): Matchup {
+  const firstOdds = game.odds[0];
+  return {
+    dateTime: game.kickoff,
+    away: {
+      name: game.away.name,
+      espnAbbr: game.away.espnAbbr,
+      color: game.away.color,
+      odds: {
+        ml: firstOdds?.moneyline?.away ? (firstOdds.moneyline.away.american > 0 ? `+${firstOdds.moneyline.away.american}` : `${firstOdds.moneyline.away.american}`) : "-110",
+        spread: firstOdds?.spread?.away ? formatSpreadLine(firstOdds.spread.away.line) : "+7.5",
+        spreadOdds: firstOdds?.spread?.away ? (firstOdds.spread.away.odds.american > 0 ? `+${firstOdds.spread.away.odds.american}` : `${firstOdds.spread.away.odds.american}`) : "-110",
+        total: firstOdds?.total?.over ? `O ${firstOdds.total.over.line}` : "O 40.5",
+        totalOdds: firstOdds?.total?.over ? (firstOdds.total.over.odds.american > 0 ? `+${firstOdds.total.over.odds.american}` : `${firstOdds.total.over.odds.american}`) : "-110",
+      },
+    },
+    home: {
+      name: game.home.name,
+      espnAbbr: game.home.espnAbbr,
+      color: game.home.color,
+      odds: {
+        ml: firstOdds?.moneyline?.home ? (firstOdds.moneyline.home.american > 0 ? `+${firstOdds.moneyline.home.american}` : `${firstOdds.moneyline.home.american}`) : "-110",
+        spread: firstOdds?.spread?.home ? formatSpreadLine(firstOdds.spread.home.line) : "-7.5",
+        spreadOdds: firstOdds?.spread?.home ? (firstOdds.spread.home.odds.american > 0 ? `+${firstOdds.spread.home.odds.american}` : `${firstOdds.spread.home.odds.american}`) : "-110",
+        total: firstOdds?.total?.under ? `U ${firstOdds.total.under.line}` : "U 40.5",
+        totalOdds: firstOdds?.total?.under ? (firstOdds.total.under.odds.american > 0 ? `+${firstOdds.total.under.odds.american}` : `${firstOdds.total.under.odds.american}`) : "-110",
+      },
+    },
+  };
+}
+
+export default function Feed() {
+  const [feedMode, setFeedMode] = useState<FeedMode>("splits");
 
   return (
     <div style={{ background: "var(--ma-bg)", minHeight: "100vh", paddingBottom: "80px" }}>
@@ -45,154 +75,89 @@ export default function Feed() {
           <FeedToggle mode={feedMode} setMode={setFeedMode} />
         </div>
 
-        {/* Filters */}
-        <div className="flex flex-wrap gap-3 mb-4">
-          <FilterSelect
-            value={leagueFilter}
-            onChange={setLeagueFilter}
-            options={[
-              { value: "All", label: "All Leagues" },
-              { value: "NFL", label: "NFL" },
-              { value: "NBA", label: "NBA" },
-              { value: "NHL", label: "NHL" },
-            ]}
-          />
-          <FilterSelect
-            value={dateFilter}
-            onChange={setDateFilter}
-            options={[
-              { value: "All", label: "All Dates" },
-              { value: "Today", label: "Today" },
-              { value: "Tomorrow", label: "Tomorrow" },
-            ]}
-          />
-          <FilterSelect
-            value={marketFilter}
-            onChange={setMarketFilter}
-            options={[
-              { value: "ML", label: "ML" },
-              { value: "Spread", label: "Spread" },
-              { value: "Total", label: "Total" },
-            ]}
-          />
-        </div>
-
         {/* Game Cards */}
         <div className="space-y-3">
-          {filteredGames.map((game) => (
+          {mockGameOdds.map((game) => (
             <GameCard 
-              key={game.id} 
+              key={game.gameId} 
               game={game} 
-              market={marketFilter}
               mode={feedMode}
             />
           ))}
         </div>
-
-        {filteredGames.length === 0 && (
-          <div className="text-center py-12">
-            <p style={{ color: "var(--ma-text-secondary)" }}>
-              No games match your filters
-            </p>
-          </div>
-        )}
       </div>
     </div>
   );
 }
 
-function FilterSelect({ value, onChange, options }: { 
-  value: string; 
-  onChange: (v: any) => void; 
-  options: Array<{ value: string; label: string }>;
-}) {
-  return (
-    <select
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-      className="font-['Inter',_sans-serif] px-3 py-2 rounded-lg text-sm"
-      style={{
-        background: "var(--ma-surface)",
-        border: "1px solid var(--ma-stroke)",
-        color: "var(--ma-text-primary)",
-        outline: "none"
-      }}
-    >
-      {options.map((opt) => (
-        <option key={opt.value} value={opt.value}>
-          {opt.label}
-        </option>
-      ))}
-    </select>
-  );
+function GameCard({ game, mode }: { game: GameOdds; mode: FeedMode }) {
+  const [selectedMarket, setSelectedMarket] = useState<Market>("ML");
+
+  if (mode === "splits") {
+    return <BettingSplitsCard game={game} selectedMarket={selectedMarket} setSelectedMarket={setSelectedMarket} />;
+  } else if (mode === "movement") {
+    return <LineMovementCard game={game} selectedMarket={selectedMarket} setSelectedMarket={setSelectedMarket} />;
+  } else {
+    return <AIAnalysisCard game={game} selectedMarket={selectedMarket} setSelectedMarket={setSelectedMarket} />;
+  }
 }
 
-function GameCard({ game, market, mode }: { game: Game; market: Market; mode: FeedMode }) {
-  const [selectedMarket, setSelectedMarket] = useState<Market>("ML");
-  const analysis = analyzeGame(game, selectedMarket);
-  const startTime = new Date(game.startTime);
-
-  // Mock betting splits data
-  const splits = useMemo(() => ({
-    tickets: { away: 48, home: 52 },
-    money: { away: 70, home: 30 }
-  }), []);
-
-  const divergence = splits.money.home - splits.tickets.home;
+function BettingSplitsCard({ game, selectedMarket, setSelectedMarket }: { 
+  game: GameOdds; 
+  selectedMarket: Market;
+  setSelectedMarket: (m: Market) => void;
+}) {
+  const currentData = useMemo(() => {
+    if (!game.splits) return { tickets: { away: 50, home: 50 }, money: { away: 50, home: 50 } };
+    
+    if (selectedMarket === "Moneyline" || selectedMarket === "ML") {
+      return {
+        tickets: { away: game.splits.moneyline.away.tickets, home: game.splits.moneyline.home.tickets },
+        money: { away: game.splits.moneyline.away.handle, home: game.splits.moneyline.home.handle }
+      };
+    } else if (selectedMarket === "Spread") {
+      return {
+        tickets: { away: game.splits.spread.away.tickets, home: game.splits.spread.home.tickets },
+        money: { away: game.splits.spread.away.handle, home: game.splits.spread.home.handle }
+      };
+    } else {
+      return {
+        tickets: { away: game.splits.total.over.tickets, home: game.splits.total.under.tickets },
+        money: { away: game.splits.total.over.handle, home: game.splits.total.under.handle }
+      };
+    }
+  }, [game.splits, selectedMarket]);
 
   return (
-    <div 
-      className="w-full mb-3 rounded-3xl p-4"
-      style={{
-        border: "1px solid var(--ma-stroke)",
-        background: "rgba(255, 255, 255, 0.03)",
-        backdropFilter: "blur(2px)"
-      }}
-    >
+    <div className="w-full mb-3 rounded-3xl border border-white/10 bg-white/[0.03] p-4 backdrop-blur-[2px]">
       {/* Game Header */}
       <div className="flex items-center justify-between gap-3 mb-4">
         <div className="flex items-center gap-3 min-w-0">
-          <div 
-            className="text-sm font-semibold font-['Inter',_sans-serif] truncate"
-            style={{ color: "var(--ma-text-primary)" }}
-          >
-            {game.away}
-          </div>
-          <span style={{ color: "rgba(255, 255, 255, 0.4)", fontSize: "12px" }}>@</span>
+          <img src={getTeamLogo(game.away.espnAbbr, game.sport)} alt={game.away.name} className="w-7 h-7 rounded" />
+          <div className="text-sm font-semibold text-white truncate">{game.away.abbr}</div>
+          <span className="text-white/40 text-xs">@</span>
           <div className="flex items-center gap-2 min-w-0">
-            <div 
-              className="text-sm font-semibold font-['Inter',_sans-serif] truncate"
-              style={{ color: "var(--ma-text-primary)" }}
-            >
-              {game.home}
-            </div>
+            <img src={getTeamLogo(game.home.espnAbbr, game.sport)} alt={game.home.name} className="w-7 h-7 rounded" />
+            <div className="text-sm font-semibold text-white truncate">{game.home.abbr}</div>
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <div 
-            className="text-xs px-2 py-1 rounded-md font-['Inter',_sans-serif]"
-            style={{
-              color: "rgba(255, 255, 255, 0.8)",
-              background: "rgba(255, 255, 255, 0.05)",
-              border: "1px solid var(--ma-stroke)"
-            }}
-          >
-            {format(startTime, "h:mm a")}
+          <div className="text-xs text-white/80 bg-white/5 px-2 py-1 rounded-md border border-white/10">
+            {(() => {
+              try {
+                const d = new Date(game.kickoff);
+                if (isNaN(d.getTime())) return game.kickoff;
+                return d.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+              } catch {
+                return game.kickoff;
+              }
+            })()}
           </div>
-          <Badge 
-            style={{
-              background: analysis.angle === "Sharp" 
-                ? "var(--ma-accent-cyan)" 
-                : analysis.angle === "Public"
-                ? "var(--ma-accent-red)"
-                : "var(--ma-accent-amber)",
-              color: "white",
-              fontSize: "10px",
-              padding: "2px 8px"
-            }}
-          >
-            {analysis.angle}
-          </Badge>
+          {game.tvInfo && (
+            <div className="text-[10px] text-white/60 px-2 py-1 rounded-md border border-white/10">
+              {game.tvInfo}
+            </div>
+          )}
         </div>
       </div>
 
@@ -204,12 +169,11 @@ function GameCard({ game, market, mode }: { game: Game; market: Market; mode: Fe
           border: "1px solid var(--ma-stroke)"
         }}
       >
-        {/* Selection indicator */}
         <motion.div
           className="absolute top-[4px] bottom-[4px] rounded-[10px]"
           initial={false}
           animate={{
-            left: selectedMarket === "ML" ? "4px" : selectedMarket === "Spread" ? "calc(33.33% + 1px)" : "calc(66.66% + 2px)",
+            left: (selectedMarket === "ML" || selectedMarket === "Moneyline") ? "4px" : selectedMarket === "Spread" ? "calc(33.33% + 1px)" : "calc(66.66% + 2px)",
             width: "calc(33.33% - 3px)"
           }}
           transition={{ type: "spring", damping: 20, stiffness: 300 }}
@@ -223,7 +187,7 @@ function GameCard({ game, market, mode }: { game: Game; market: Market; mode: Fe
           onClick={() => setSelectedMarket("ML")}
           className="flex-1 font-['Inter',_sans-serif] relative z-10 px-[16px] py-[8px] rounded-[10px] transition-colors flex items-center justify-center"
           style={{
-            color: selectedMarket === "ML" ? "var(--ma-text-primary)" : "var(--ma-text-secondary)",
+            color: (selectedMarket === "ML" || selectedMarket === "Moneyline") ? "var(--ma-text-primary)" : "var(--ma-text-secondary)",
             fontSize: "15px",
             fontWeight: 600,
             lineHeight: "20px"
@@ -257,180 +221,415 @@ function GameCard({ game, market, mode }: { game: Game; market: Market; mode: Fe
         </button>
       </div>
 
-      {mode === "splits" && (
-        <BettingSplitsView 
-          splits={splits} 
-          game={game}
-          divergence={divergence}
-        />
-      )}
-
-      {mode === "movement" && (
-        <LineMovementView game={game} analysis={analysis} />
-      )}
-    </div>
-  );
-}
-
-function BettingSplitsView({ splits, game, divergence }: any) {
-  return (
-    <div 
-      className="rounded-[14px] p-[12px]"
-      style={{
-        background: "#16171D",
-        border: "1px solid var(--ma-stroke)"
-      }}
-    >
-      <div className="flex items-center justify-between mb-3 px-1">
-        <div className="flex items-center gap-1.5">
-          <div 
-            className="w-2 h-2 rounded-full"
-            style={{ background: "var(--ma-accent-cyan)" }}
-          />
-          <span 
-            className="font-['Inter',_sans-serif]"
-            style={{
-              fontSize: "11px",
-              fontWeight: 600,
-              color: "var(--ma-text-secondary)",
-              letterSpacing: "0.01em"
-            }}
-          >
-            {game.away}
-          </span>
-        </div>
-        <div className="flex items-center gap-1.5">
-          <span 
-            className="font-['Inter',_sans-serif]"
-            style={{
-              fontSize: "11px",
-              fontWeight: 600,
-              color: "var(--ma-text-secondary)",
-              letterSpacing: "0.01em"
-            }}
-          >
-            {game.home}
-          </span>
-          <div 
-            className="w-2 h-2 rounded-full"
-            style={{ background: "var(--ma-accent-indigo)" }}
-          />
-        </div>
-      </div>
-
-      <div className="space-y-2">
-        <MirrorBar
-          label="Tickets"
-          leftPercent={splits.tickets.away}
-          rightPercent={splits.tickets.home}
-        />
-        <MirrorBar
-          label="Money"
-          leftPercent={splits.money.away}
-          rightPercent={splits.money.home}
-        />
-      </div>
-
+      {/* Betting Splits Mirror Bars */}
       <div 
-        className="mt-3 pt-3 text-center text-xs font-['Inter',_sans-serif]"
+        className="rounded-[14px] p-[12px]"
         style={{
-          borderTop: "1px solid var(--ma-stroke)",
-          color: Math.abs(divergence) > 15 
-            ? "var(--ma-accent-green)" 
-            : "var(--ma-text-secondary)"
+          background: "#16171D",
+          border: "1px solid var(--ma-stroke)"
         }}
       >
-        {Math.abs(divergence) > 15 
-          ? `${Math.abs(divergence).toFixed(0)}% divergence - Sharp money detected`
-          : "Balanced action"}
+        <div className="flex items-center justify-between mb-3 px-1">
+          <div className="flex items-center gap-1.5">
+            <div 
+              className="w-2 h-2 rounded-full"
+              style={{ background: selectedMarket === "Total" ? "#6F74FF" : game.away.color }}
+            />
+            <span 
+              className="font-['Inter',_sans-serif]"
+              style={{
+                fontSize: "11px",
+                fontWeight: 600,
+                color: "var(--ma-text-secondary)",
+                letterSpacing: "0.01em"
+              }}
+            >
+              {selectedMarket === "Total" ? "Over" : game.away.name}
+            </span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <span 
+              className="font-['Inter',_sans-serif]"
+              style={{
+                fontSize: "11px",
+                fontWeight: 600,
+                color: "var(--ma-text-secondary)",
+                letterSpacing: "0.01em"
+              }}
+            >
+              {selectedMarket === "Total" ? "Under" : game.home.name}
+            </span>
+            <div 
+              className="w-2 h-2 rounded-full"
+              style={{ background: selectedMarket === "Total" ? "#06B6D4" : game.home.color }}
+            />
+          </div>
+        </div>
+
+        <MirrorBar
+          label="Tickets"
+          leftPercent={currentData.tickets.away}
+          rightPercent={currentData.tickets.home}
+          market={selectedMarket}
+          awayColor={game.away.color}
+          homeColor={game.home.color}
+        />
+        
+        <div className="h-[8px]" />
+        
+        <MirrorBar
+          label="Money"
+          leftPercent={currentData.money.away}
+          rightPercent={currentData.money.home}
+          market={selectedMarket}
+          awayColor={game.away.color}
+          homeColor={game.home.color}
+        />
       </div>
     </div>
   );
 }
 
-function MirrorBar({ label, leftPercent, rightPercent }: any) {
+function LineMovementCard({ game, selectedMarket, setSelectedMarket }: { 
+  game: GameOdds;
+  selectedMarket: Market;
+  setSelectedMarket: (m: Market) => void;
+}) {
+  const [lineHistoryView, setLineHistoryView] = useState<"open" | "peak" | "current">("current");
+  const matchup = useMemo(() => convertGameOddsToMatchup(game), [game]);
+
   return (
-    <div>
-      <div 
-        className="flex items-center justify-between mb-1 text-xs font-['Inter',_sans-serif]"
-        style={{ color: "var(--ma-text-secondary)" }}
-      >
-        <span>{label}</span>
-        <div className="flex gap-2">
-          <span>{leftPercent}%</span>
-          <span>{rightPercent}%</span>
+    <div className="w-full mb-3 rounded-3xl border border-white/10 bg-white/[0.03] p-4 backdrop-blur-[2px]">
+      {/* Game Header - same as BettingSplitsCard */}
+      <div className="flex items-center justify-between gap-3 mb-4">
+        <div className="flex items-center gap-3 min-w-0">
+          <img src={getTeamLogo(game.away.espnAbbr, game.sport)} alt={game.away.name} className="w-7 h-7 rounded" />
+          <div className="text-sm font-semibold text-white truncate">{game.away.abbr}</div>
+          <span className="text-white/40 text-xs">@</span>
+          <div className="flex items-center gap-2 min-w-0">
+            <img src={getTeamLogo(game.home.espnAbbr, game.sport)} alt={game.home.name} className="w-7 h-7 rounded" />
+            <div className="text-sm font-semibold text-white truncate">{game.home.abbr}</div>
+          </div>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="text-xs text-white/80 bg-white/5 px-2 py-1 rounded-md border border-white/10">
+            {(() => {
+              try {
+                const d = new Date(game.kickoff);
+                if (isNaN(d.getTime())) return game.kickoff;
+                return d.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+              } catch {
+                return game.kickoff;
+              }
+            })()}
+          </div>
+          {game.tvInfo && (
+            <div className="text-[10px] text-white/60 px-2 py-1 rounded-md border border-white/10">
+              {game.tvInfo}
+            </div>
+          )}
         </div>
       </div>
-      <div className="flex gap-1 h-2">
-        <div 
-          className="rounded-l"
-          style={{
-            width: `${leftPercent}%`,
-            background: "var(--ma-accent-cyan)"
-          }}
-        />
-        <div 
-          className="rounded-r"
-          style={{
-            width: `${rightPercent}%`,
-            background: "var(--ma-accent-indigo)"
-          }}
-        />
-      </div>
-    </div>
-  );
-}
 
-function LineMovementView({ game, analysis }: any) {
-  return (
-    <div 
-      className="rounded-[14px] p-4"
-      style={{
-        background: "#16171D",
-        border: "1px solid var(--ma-stroke)"
-      }}
-    >
-      <div className="flex items-center gap-2 mb-3">
-        <TrendingUp 
-          className="w-4 h-4" 
-          style={{ color: "var(--ma-accent-green)" }} 
-        />
-        <p 
-          className="text-sm font-['Inter',_sans-serif]"
-          style={{ color: "var(--ma-text-primary)" }}
+      <div className="mt-[24px]">
+        <h2 
+          className="font-['Inter',_sans-serif] mb-[16px] text-center"
+          style={{
+            color: "var(--ma-text-primary)",
+            fontSize: "20px",
+            fontWeight: 700,
+            lineHeight: "26px"
+          }}
         >
-          {analysis.explanation}
-        </p>
-      </div>
+          Line History
+        </h2>
 
-      <div 
-        className="flex items-center justify-between pt-3"
-        style={{ borderTop: "1px solid var(--ma-stroke)" }}
-      >
-        <div>
-          <p 
-            className="text-xs font-['Inter',_sans-serif]"
-            style={{ color: "var(--ma-text-secondary)" }}
-          >
-            Best Book
-          </p>
-          <p 
-            className="font-semibold text-sm font-['Inter',_sans-serif]"
-            style={{ color: "var(--ma-text-primary)" }}
-          >
-            {analysis.bestBook.book}: {analysis.bestBook.price}
-          </p>
-        </div>
-        <button
-          className="px-3 py-1.5 text-xs rounded-md font-['Inter',_sans-serif]"
+        {/* Line History Toggle Buttons */}
+        <div 
+          className="relative flex gap-[8px] mb-[16px] justify-center px-[4px] py-[4px] rounded-[14px]"
           style={{
             background: "var(--ma-surface)",
-            border: "1px solid var(--ma-stroke)",
-            color: "var(--ma-text-primary)"
+            border: "1px solid var(--ma-stroke)"
           }}
         >
-          View Details
-        </button>
+          <motion.div
+            className="absolute top-[4px] bottom-[4px] rounded-[10px]"
+            initial={false}
+            animate={{
+              left: lineHistoryView === "open" ? "4px" : lineHistoryView === "peak" ? "calc(33.33% + 1px)" : "calc(66.66% + 2px)",
+              width: "calc(33.33% - 3px)"
+            }}
+            transition={{ type: "spring", damping: 20, stiffness: 300 }}
+            style={{
+              background: "rgba(111, 116, 255, 0.14)",
+              border: "1px solid var(--ma-accent-indigo)"
+            }}
+          />
+          
+          {["open", "peak", "current"].map((view) => (
+            <button
+              key={view}
+              onClick={() => setLineHistoryView(view as "open" | "peak" | "current")}
+              className="flex-1 font-['Inter',_sans-serif] relative z-10 px-[16px] py-[8px] rounded-[10px] transition-colors flex items-center justify-center"
+              style={{
+                color: lineHistoryView === view ? "var(--ma-text-primary)" : "var(--ma-text-secondary)",
+                fontSize: "15px",
+                fontWeight: 600,
+                lineHeight: "20px"
+              }}
+            >
+              {view.charAt(0).toUpperCase() + view.slice(1)}
+            </button>
+          ))}
+        </div>
+
+        <LineHistoryTable 
+          matchup={matchup}
+          sport={game.sport}
+          view={lineHistoryView}
+        />
+      </div>
+    </div>
+  );
+}
+
+function AIAnalysisCard({ game, selectedMarket, setSelectedMarket }: { 
+  game: GameOdds;
+  selectedMarket: Market;
+  setSelectedMarket: (m: Market) => void;
+}) {
+  const insights = useMemo(() => {
+    const firstOdds = game.odds[0];
+    let currentLine = "";
+    let openLine = "";
+    let tickets, money;
+    
+    if (selectedMarket === "Spread") {
+      const awaySpread = firstOdds?.spread?.away?.line;
+      currentLine = awaySpread !== undefined ? formatSpreadLine(awaySpread) : "+3.5";
+      openLine = awaySpread !== undefined ? formatSpreadLine(awaySpread + 0.5) : "+3";
+      tickets = { away: game.splits.spread.away.tickets, home: game.splits.spread.home.tickets };
+      money = { away: game.splits.spread.away.handle, home: game.splits.spread.home.handle };
+    } else if (selectedMarket === "Total") {
+      const total = firstOdds?.total?.over?.line;
+      currentLine = total !== undefined ? `${total}` : "47.5";
+      openLine = total !== undefined ? `${total - 0.5}` : "47";
+      tickets = { o: game.splits.total.over.tickets, u: game.splits.total.under.tickets };
+      money = { o: game.splits.total.over.handle, u: game.splits.total.under.handle };
+    } else {
+      const awayML = firstOdds?.moneyline?.away?.american;
+      currentLine = awayML !== undefined ? `${awayML > 0 ? "+" : ""}${awayML}` : "-110";
+      openLine = awayML !== undefined ? `${awayML > 0 ? "+" : ""}${Math.abs(awayML) > 100 ? awayML - 10 : awayML + 10}` : "-120";
+      tickets = { away: game.splits.moneyline.away.tickets, home: game.splits.moneyline.home.tickets };
+      money = { away: game.splits.moneyline.away.handle, home: game.splits.moneyline.home.handle };
+    }
+
+    return generateAIInsights({
+      matchup: `${game.away.abbr} @ ${game.home.abbr}`,
+      market: selectedMarket === "ML" ? "moneyline" : selectedMarket.toLowerCase() as "spread" | "moneyline" | "total",
+      current_line: currentLine,
+      tickets,
+      money,
+      move: { from: openLine, to: currentLine }
+    });
+  }, [game, selectedMarket]);
+
+  const extractPlay = (insightText: string) => {
+    const play = insightText.split('.')[0].trim();
+    const match = play.match(/^([\w\s]+?\s+[+-]?\d+\.?\d*|OVER\s+\d+\.?\d*|UNDER\s+\d+\.?\d*|Mixed signals)/);
+    return match ? match[0].trim() : play;
+  };
+
+  const getTeamFromPlay = (playText: string) => {
+    if (playText.includes(game.away.abbr)) {
+      return { team: game.away, espnAbbr: game.away.espnAbbr };
+    } else if (playText.includes(game.home.abbr)) {
+      return { team: game.home, espnAbbr: game.home.espnAbbr };
+    }
+    return null;
+  };
+
+  const InsightSection = ({ icon: Icon, iconBg, iconBorder, title, insight }: any) => {
+    const play = extractPlay(insight);
+    const teamInfo = getTeamFromPlay(play);
+    const isTotal = play.includes('OVER') || play.includes('UNDER');
+    const displayPlay = teamInfo && !isTotal
+      ? play.replace(game.away.abbr, game.away.name).replace(game.home.abbr, game.home.name)
+      : play;
+
+    return (
+      <div 
+        className="rounded-[14px] p-4"
+        style={{
+          background: "#16171D",
+          border: "1px solid var(--ma-stroke)"
+        }}
+      >
+        <div className="mb-3">
+          <div className="flex items-center gap-2 mb-2">
+            <div 
+              className="flex items-center justify-center w-6 h-6 rounded-lg"
+              style={{
+                background: iconBg,
+                border: `1px solid ${iconBorder}`
+              }}
+            >
+              <Icon className="w-4 h-4" style={{ color: iconBorder.replace('rgba', 'rgb').replace(/,\s*0\.\d+\)/, ')') }} />
+            </div>
+            <div 
+              className="font-['Inter',_sans-serif]"
+              style={{
+                color: "var(--ma-text-secondary)",
+                fontSize: "13px",
+                fontWeight: 700,
+                letterSpacing: "0.03em",
+                textTransform: "uppercase"
+              }}
+            >
+              {title}
+            </div>
+          </div>
+          
+          <div className="flex items-center gap-2.5">
+            {isTotal && selectedMarket === "Total" ? (
+              <div className="text-2xl">
+                {play.includes('OVER') ? '⬆️' : '⬇️'}
+              </div>
+            ) : teamInfo && (
+              <img 
+                src={getTeamLogo(teamInfo.espnAbbr, game.sport)} 
+                alt={teamInfo.team.name}
+                className="w-8 h-8 rounded"
+              />
+            )}
+            <h3 
+              className="font-['Inter',_sans-serif]"
+              style={{
+                color: "var(--ma-text-primary)",
+                fontSize: "20px",
+                fontWeight: 800,
+                letterSpacing: "-0.02em"
+              }}
+            >
+              {displayPlay}
+            </h3>
+          </div>
+        </div>
+        <p 
+          className="font-['Inter',_sans-serif]"
+          style={{
+            color: "var(--ma-text-secondary)",
+            fontSize: "13px",
+            fontWeight: 400,
+            lineHeight: "18px",
+            letterSpacing: "-0.01em"
+          }}
+        >
+          {insight.split('. ').slice(1).join('. ').trim()}
+        </p>
+      </div>
+    );
+  };
+
+  return (
+    <div className="w-full mb-3 rounded-3xl border border-white/10 bg-white/[0.03] p-4 backdrop-blur-[2px]">
+      {/* Game Header - same as other cards */}
+      <div className="flex items-center justify-between gap-3 mb-4">
+        <div className="flex items-center gap-3 min-w-0">
+          <img src={getTeamLogo(game.away.espnAbbr, game.sport)} alt={game.away.name} className="w-7 h-7 rounded" />
+          <div className="text-sm font-semibold text-white truncate">{game.away.abbr}</div>
+          <span className="text-white/40 text-xs">@</span>
+          <div className="flex items-center gap-2 min-w-0">
+            <img src={getTeamLogo(game.home.espnAbbr, game.sport)} alt={game.home.name} className="w-7 h-7 rounded" />
+            <div className="text-sm font-semibold text-white truncate">{game.home.abbr}</div>
+          </div>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="text-xs text-white/80 bg-white/5 px-2 py-1 rounded-md border border-white/10">
+            {(() => {
+              try {
+                const d = new Date(game.kickoff);
+                if (isNaN(d.getTime())) return game.kickoff;
+                return d.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+              } catch {
+                return game.kickoff;
+              }
+            })()}
+          </div>
+          {game.tvInfo && (
+            <div className="text-[10px] text-white/60 px-2 py-1 rounded-md border border-white/10">
+              {game.tvInfo}
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Market Toggle */}
+      <div className="mt-[24px]">
+        <div 
+          className="relative flex gap-[8px] mb-[16px] justify-center px-[4px] py-[4px] rounded-[14px]"
+          style={{
+            background: "var(--ma-surface)",
+            border: "1px solid var(--ma-stroke)"
+          }}
+        >
+          <motion.div
+            className="absolute top-[4px] bottom-[4px] rounded-[10px]"
+            initial={false}
+            animate={{
+              left: (selectedMarket === "Moneyline" || selectedMarket === "ML") ? "4px" : selectedMarket === "Spread" ? "calc(33.33% + 1px)" : "calc(66.66% + 2px)",
+              width: "calc(33.33% - 3px)"
+            }}
+            transition={{ type: "spring", damping: 20, stiffness: 300 }}
+            style={{
+              background: "rgba(111, 116, 255, 0.14)",
+              border: "1px solid var(--ma-accent-indigo)"
+            }}
+          />
+          
+          {[["ML", "ML"], ["Spread", "Spread"], ["Total", "Total"]].map(([label, market]) => (
+            <button
+              key={market}
+              onClick={() => setSelectedMarket(market as Market)}
+              className="flex-1 font-['Inter',_sans-serif] relative z-10 px-[16px] py-[8px] rounded-[10px] transition-colors flex items-center justify-center"
+              style={{
+                color: selectedMarket === market ? "var(--ma-text-primary)" : "var(--ma-text-secondary)",
+                fontSize: "15px",
+                fontWeight: 600,
+                lineHeight: "20px"
+              }}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+
+        {/* AI Insights Sections */}
+        <div className="space-y-3">
+          <InsightSection 
+            icon={TrendingUp}
+            iconBg="rgba(34, 197, 94, 0.12)"
+            iconBorder="rgba(34, 197, 94, 0.25)"
+            title="What Vegas Needs"
+            insight={insights.bookNeed}
+          />
+          
+          <InsightSection 
+            icon={Brain}
+            iconBg="rgba(245, 158, 11, 0.12)"
+            iconBorder="rgba(245, 158, 11, 0.25)"
+            title="Sharpest Play"
+            insight={insights.sharpSide}
+          />
+          
+          <InsightSection 
+            icon={Users}
+            iconBg="rgba(239, 68, 68, 0.12)"
+            iconBorder="rgba(239, 68, 68, 0.25)"
+            title="What The Public Is Hammering"
+            insight={insights.publicSide}
+          />
+        </div>
       </div>
     </div>
   );

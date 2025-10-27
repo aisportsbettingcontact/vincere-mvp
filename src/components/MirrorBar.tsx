@@ -20,10 +20,6 @@ export function MirrorBar({ label, leftPercent, rightPercent, market, awayColor,
         style={{ color: "var(--ma-text-secondary)" }}
       >
         <span>{label}</span>
-        <div className="flex gap-2">
-          <span>{leftPercent}%</span>
-          <span>{rightPercent}%</span>
-        </div>
       </div>
       <div className="flex gap-1 h-2">
         <div 
@@ -40,6 +36,22 @@ export function MirrorBar({ label, leftPercent, rightPercent, market, awayColor,
             background: rightColor
           }}
         />
+      </div>
+      
+      {/* Percentage Labels aligned with teams */}
+      <div className="flex items-center justify-between mt-1">
+        <span 
+          className="font-['Inter',_sans-serif] text-sm font-semibold"
+          style={{ color: "var(--ma-text-primary)" }}
+        >
+          {leftPercent}%
+        </span>
+        <span 
+          className="font-['Inter',_sans-serif] text-sm font-semibold"
+          style={{ color: "var(--ma-text-primary)" }}
+        >
+          {rightPercent}%
+        </span>
       </div>
     </div>
   );

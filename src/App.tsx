@@ -1,54 +1,40 @@
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, useLocation, useNavigate } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import Feed from "./pages/Feed";
-import Prices from "./pages/Prices";
-import Splits from "./pages/Splits";
 import Login from "./pages/Login";
-import NotFound from "./pages/NotFound";
-import { BottomNavigation } from "./components/BottomNav";
 import AgeGateModal from "./components/AgeGateModal";
-import { Zap, User } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { toast } from "sonner";
+import { useEffect, useState } from "react";
+import { User } from "@supabase/supabase-js";
 
 const queryClient = new QueryClient();
 
 function AppContent() {
-  const location = useLocation();
-  const navigate = useNavigate();
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  const handleHomeClick = async () => {
-    const { data: { session } } = await supabase.auth.getSession();
-    if (!session) {
-      toast.error("You must be logged in to view the Betting Splits feed");
-      navigate("/login");
-    } else {
-      navigate("/");
-    }
-  };
+  useEffect(() => {
+    // Check current session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+      setLoading(false);
+    });
 
-  return (
-    <>
-      <Routes>
-        <Route path="/" element={<Feed />} />
-        <Route path="/prices" element={<Prices />} />
-        <Route path="/splits" element={<Splits />} />
-        <Route path="/login" element={<Login />} />
-        {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-      <BottomNavigation>
-        <button onClick={handleHomeClick} style={{ color: location.pathname === "/" ? "#6F74FF" : "#7C7C7C" }}>
-          <Zap className="w-6 h-6" />
-        </button>
-        <button onClick={() => navigate("/login")} style={{ color: location.pathname === "/login" ? "#6F74FF" : "#7C7C7C" }}>
-          <User className="w-6 h-6" />
-        </button>
-      </BottomNavigation>
-    </>
-  );
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  if (loading) {
+    return null;
+  }
+
+  return user ? <Feed /> : <Login />;
 }
 
 function App() {

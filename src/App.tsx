@@ -39,15 +39,17 @@ function AppContent() {
   );
 }
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <Toaster />
-    <Sonner />
-    <AgeGateModal />
-    <BrowserRouter>
-      <AppContent />
-    </BrowserRouter>
-  </QueryClientProvider>
-);
+function App() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <Toaster />
+        <Sonner />
+        <AgeGateModal />
+        <AppContent />
+      </BrowserRouter>
+    </QueryClientProvider>
+  );
+}
 
 export default App;

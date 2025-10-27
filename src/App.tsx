@@ -10,12 +10,24 @@ import NotFound from "./pages/NotFound";
 import { BottomNavigation } from "./components/BottomNav";
 import AgeGateModal from "./components/AgeGateModal";
 import { Zap, User } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 const queryClient = new QueryClient();
 
 function AppContent() {
   const location = useLocation();
   const navigate = useNavigate();
+
+  const handleHomeClick = async () => {
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) {
+      toast.error("You must be logged in to view the Betting Splits feed");
+      navigate("/auth");
+    } else {
+      navigate("/");
+    }
+  };
 
   return (
     <>
@@ -28,7 +40,7 @@ function AppContent() {
         <Route path="*" element={<NotFound />} />
       </Routes>
       <BottomNavigation>
-        <button onClick={() => navigate("/")} style={{ color: location.pathname === "/" ? "#6F74FF" : "#7C7C7C" }}>
+        <button onClick={handleHomeClick} style={{ color: location.pathname === "/" ? "#6F74FF" : "#7C7C7C" }}>
           <Zap className="w-6 h-6" />
         </button>
         <button onClick={() => navigate("/auth")} style={{ color: location.pathname === "/auth" ? "#6F74FF" : "#7C7C7C" }}>

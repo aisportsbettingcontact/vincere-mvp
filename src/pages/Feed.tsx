@@ -95,10 +95,8 @@ function GameCard({ game, mode }: { game: GameOdds; mode: FeedMode }) {
 
   if (mode === "splits") {
     return <BettingSplitsCard game={game} selectedMarket={selectedMarket} setSelectedMarket={setSelectedMarket} />;
-  } else if (mode === "movement") {
-    return <LineMovementCard game={game} selectedMarket={selectedMarket} setSelectedMarket={setSelectedMarket} />;
   } else {
-    return <AIAnalysisCard game={game} selectedMarket={selectedMarket} setSelectedMarket={setSelectedMarket} />;
+    return <LineMovementCard game={game} selectedMarket={selectedMarket} setSelectedMarket={setSelectedMarket} />;
   }
 }
 

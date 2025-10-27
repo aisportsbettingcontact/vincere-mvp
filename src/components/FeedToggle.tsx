@@ -1,36 +1,38 @@
 import { motion } from "motion/react";
 
-export type FeedMode = "splits" | "movement" | "ai";
+export type FeedMode = "splits" | "movement";
 
 export function FeedToggle({ mode, setMode }: { mode: FeedMode; setMode: (m: FeedMode) => void }) {
-  const modes: FeedMode[] = ["splits", "movement", "ai"];
+  const modes: FeedMode[] = ["splits", "movement"];
   
   const getLabel = (m: FeedMode) => {
     if (m === "splits") return "Betting Splits";
-    if (m === "movement") return "Line Movement";
-    return "AI Analysis";
+    return "Line Movement";
   };
 
-  // Calculate precise indicator position for 3 modes
+  // Calculate precise indicator position for perfect symmetry
   const getIndicatorPosition = () => {
-    const containerPadding = 4;
-    const gap = 8;
+    const containerPadding = 4; // px
+    const gap = 8; // px between buttons
+    
+    // For 2 equal buttons with 1 gap between them
+    // Total gap space = 8px (1 × 8px)
+    // Each button gets exactly 1/2 of (100% - total padding - gap)
+    // Width per section = (100% - 8px - 8px - 8px) / 2 = (100% - 24px) / 2
+    
     const modeIndex = modes.indexOf(mode);
     
     if (modeIndex === 0) {
+      // First button: starts at left padding
       return {
         left: `${containerPadding}px`,
-        width: `calc((100% - ${containerPadding * 2}px - ${gap * 2}px) / 3)`
-      };
-    } else if (modeIndex === 1) {
-      return {
-        left: `calc(${containerPadding}px + (100% - ${containerPadding * 2}px - ${gap * 2}px) / 3 + ${gap}px)`,
-        width: `calc((100% - ${containerPadding * 2}px - ${gap * 2}px) / 3)`
+        width: `calc((100% - ${containerPadding * 2}px - ${gap}px) / 2)`
       };
     } else {
+      // Second button: left padding + 1 button width + 1 gap
       return {
-        left: `calc(${containerPadding}px + 2 * (100% - ${containerPadding * 2}px - ${gap * 2}px) / 3 + ${gap * 2}px)`,
-        width: `calc((100% - ${containerPadding * 2}px - ${gap * 2}px) / 3)`
+        left: `calc(${containerPadding}px + (100% - ${containerPadding * 2}px - ${gap}px) / 2 + ${gap}px)`,
+        width: `calc((100% - ${containerPadding * 2}px - ${gap}px) / 2)`
       };
     }
   };

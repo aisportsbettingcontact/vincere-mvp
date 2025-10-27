@@ -44,6 +44,12 @@ export default function Auth() {
       (event, session) => {
         setSession(session);
         setUser(session?.user ?? null);
+        
+        // When user logs in, redirect to feed and clear age gate flag
+        if (session?.user && event === 'SIGNED_IN') {
+          localStorage.removeItem("edgeguide-age-accepted");
+          navigate("/");
+        }
       }
     );
 
@@ -51,10 +57,15 @@ export default function Auth() {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
       setUser(session?.user ?? null);
+      
+      // If already logged in, redirect to feed
+      if (session?.user) {
+        navigate("/");
+      }
     });
 
     return () => subscription.unsubscribe();
-  }, []);
+  }, [navigate]);
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -90,7 +101,7 @@ export default function Auth() {
           toast.error(error.message);
         }
       } else {
-        toast.success("Account created successfully! You can now login.");
+        toast.success("Account created! Please check your email to confirm your account.");
         // Clear form
         setSignupUsername("");
         setSignupEmail("");
@@ -127,6 +138,8 @@ export default function Auth() {
       if (error) {
         if (error.message.includes("Invalid login credentials")) {
           toast.error("Invalid email or password");
+        } else if (error.message.includes("Email not confirmed")) {
+          toast.error("Please confirm your email before logging in");
         } else {
           toast.error(error.message);
         }

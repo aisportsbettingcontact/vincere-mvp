@@ -1,4 +1,5 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { motion } from "motion/react";
 import { mockGameOdds, type GameOdds } from "@/data/oddsData";
 import { MirrorBar } from "@/components/MirrorBar";
@@ -8,6 +9,7 @@ import type { Market } from "@/utils/bettingLogic";
 import { generateAIInsights } from "@/utils/aiAnalysis";
 import { formatSpreadLine } from "@/utils/bettingLogic";
 import { Brain, TrendingUp, Users } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 
 function getTeamLogo(espnAbbr: string, sport: string) {
@@ -68,6 +70,40 @@ function convertGameOddsToMatchup(game: GameOdds): Matchup {
 }
 
 export default function Feed() {
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Check if user is authenticated
+    const checkAuth = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        navigate("/auth");
+      } else {
+        setLoading(false);
+      }
+    };
+
+    checkAuth();
+
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (!session) {
+        navigate("/auth");
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, [navigate]);
+
+  if (loading) {
+    return (
+      <div style={{ background: "var(--ma-bg)", minHeight: "100vh" }} className="flex items-center justify-center">
+        <p style={{ color: "var(--ma-text-primary)" }}>Loading...</p>
+      </div>
+    );
+  }
+
   return (
     <div style={{ background: "var(--ma-bg)", minHeight: "100vh", paddingBottom: "80px" }}>
       <header 

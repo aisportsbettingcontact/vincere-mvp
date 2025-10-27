@@ -8,7 +8,7 @@ import type { Market } from "@/utils/bettingLogic";
 import { generateAIInsights } from "@/utils/aiAnalysis";
 import { formatSpreadLine } from "@/utils/bettingLogic";
 import { Brain, TrendingUp, Users } from "lucide-react";
-import { FeedToggle, type FeedMode } from "@/components/FeedToggle";
+
 
 function getTeamLogo(espnAbbr: string, sport: string) {
   const sportPath = sport.toLowerCase();
@@ -68,8 +68,6 @@ function convertGameOddsToMatchup(game: GameOdds): Matchup {
 }
 
 export default function Feed() {
-  const [feedMode, setFeedMode] = useState<FeedMode>("splits");
-
   return (
     <div style={{ background: "var(--ma-bg)", minHeight: "100vh", paddingBottom: "80px" }}>
       <header 
@@ -90,18 +88,12 @@ export default function Feed() {
       </header>
 
       <div className="px-3 pt-4">
-        {/* Feed Toggle */}
-        <div className="mb-4 flex justify-center">
-          <FeedToggle mode={feedMode} setMode={setFeedMode} />
-        </div>
-
         {/* Game Cards */}
         <div className="space-y-3">
           {mockGameOdds.map((game) => (
             <GameCard 
               key={game.gameId} 
-              game={game} 
-              mode={feedMode}
+              game={game}
             />
           ))}
         </div>
@@ -110,14 +102,9 @@ export default function Feed() {
   );
 }
 
-function GameCard({ game, mode }: { game: GameOdds; mode: FeedMode }) {
+function GameCard({ game }: { game: GameOdds }) {
   const [selectedMarket, setSelectedMarket] = useState<Market>("ML");
-
-  if (mode === "splits") {
-    return <BettingSplitsCard game={game} selectedMarket={selectedMarket} setSelectedMarket={setSelectedMarket} />;
-  } else {
-    return <LineMovementCard game={game} selectedMarket={selectedMarket} setSelectedMarket={setSelectedMarket} />;
-  }
+  return <BettingSplitsCard game={game} selectedMarket={selectedMarket} setSelectedMarket={setSelectedMarket} />;
 }
 
 function BettingSplitsCard({ game, selectedMarket, setSelectedMarket }: { 

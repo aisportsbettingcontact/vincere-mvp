@@ -14,16 +14,13 @@ interface RawSplitGame {
 }
 
 function formatDate(dateStr: string): string {
-  // Convert YYYYMMDD to readable format
+  // Convert YYYYMMDD to ISO format for Date constructor
   const year = dateStr.slice(0, 4);
   const month = dateStr.slice(4, 6);
   const day = dateStr.slice(6, 8);
   
-  const date = new Date(`${year}-${month}-${day}`);
-  const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-  const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  
-  return `${dayNames[date.getDay()]}, ${monthNames[date.getMonth()]} ${parseInt(day)} • 1:00 PM ET`;
+  // Return ISO format date string that will be parsed by formatGameTime in Feed.tsx
+  return `${year}-${month}-${day}T13:00:00`;
 }
 
 export function parseRawSplits(): GameOdds[] {

@@ -5,7 +5,7 @@ import { BrowserRouter, Routes, Route, useLocation, useNavigate } from "react-ro
 import Feed from "./pages/Feed";
 import Prices from "./pages/Prices";
 import Splits from "./pages/Splits";
-import Auth from "./pages/Auth";
+import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 import { BottomNavigation } from "./components/BottomNav";
 import AgeGateModal from "./components/AgeGateModal";
@@ -35,7 +35,7 @@ function AppContent() {
         <Route path="/" element={<Feed />} />
         <Route path="/prices" element={<Prices />} />
         <Route path="/splits" element={<Splits />} />
-        <Route path="/login" element={<Auth />} />
+        <Route path="/login" element={<Login />} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
       </Routes>

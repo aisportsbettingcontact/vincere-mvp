@@ -198,7 +198,6 @@ export default function Auth() {
                   <Input
                     id="login-email"
                     type="email"
-                    placeholder="your@email.com"
                     value={loginEmail}
                     onChange={(e) => setLoginEmail(e.target.value)}
                     required
@@ -209,7 +208,6 @@ export default function Auth() {
                   <Input
                     id="login-password"
                     type="password"
-                    placeholder="••••••••"
                     value={loginPassword}
                     onChange={(e) => setLoginPassword(e.target.value)}
                     required
@@ -228,7 +226,6 @@ export default function Auth() {
                   <Input
                     id="signup-username"
                     type="text"
-                    placeholder="johndoe"
                     value={signupUsername}
                     onChange={(e) => setSignupUsername(e.target.value)}
                     required
@@ -239,7 +236,6 @@ export default function Auth() {
                   <Input
                     id="signup-email"
                     type="email"
-                    placeholder="your@email.com"
                     value={signupEmail}
                     onChange={(e) => setSignupEmail(e.target.value)}
                     required
@@ -250,7 +246,6 @@ export default function Auth() {
                   <Input
                     id="signup-phone"
                     type="tel"
-                    placeholder="+1234567890"
                     value={signupPhone}
                     onChange={(e) => setSignupPhone(e.target.value)}
                   />
@@ -260,7 +255,6 @@ export default function Auth() {
                   <Input
                     id="signup-password"
                     type="password"
-                    placeholder="••••••••"
                     value={signupPassword}
                     onChange={(e) => setSignupPassword(e.target.value)}
                     required

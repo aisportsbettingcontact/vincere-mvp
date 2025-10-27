@@ -13,7 +13,7 @@ import { User, Session } from "@supabase/supabase-js";
 const signupSchema = z.object({
   username: z.string().trim().min(3, "Username must be at least 3 characters").max(50, "Username must be less than 50 characters"),
   email: z.string().trim().email("Invalid email address").max(255, "Email must be less than 255 characters"),
-  phone: z.string().trim().optional(),
+  phone: z.string().trim().min(1, "Phone number is required").max(20, "Phone number must be less than 20 characters"),
   password: z.string().min(6, "Password must be at least 6 characters").max(100, "Password must be less than 100 characters")
 });
 
@@ -78,7 +78,7 @@ export default function Auth() {
           emailRedirectTo: redirectUrl,
           data: {
             username: validatedData.username,
-            phone: validatedData.phone || null
+            phone: validatedData.phone
           }
         }
       });
@@ -242,12 +242,13 @@ export default function Auth() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="signup-phone">Phone (optional)</Label>
+                  <Label htmlFor="signup-phone">Phone</Label>
                   <Input
                     id="signup-phone"
                     type="tel"
                     value={signupPhone}
                     onChange={(e) => setSignupPhone(e.target.value)}
+                    required
                   />
                 </div>
                 <div className="space-y-2">

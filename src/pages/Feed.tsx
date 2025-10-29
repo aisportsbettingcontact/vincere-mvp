@@ -337,9 +337,19 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
     const bookFilter = selectedBook === "Circa" ? "CIRCA" : selectedBook;
     const matchingGame = mockGameOdds.find(g => g.gameId === game.gameId && g.book === bookFilter);
     return matchingGame || game;
-  }, [game.gameId, selectedBook]);
+  }, [game.gameId, selectedBook, game]);
   
   const firstOdds = displayGame.odds[0];
+  
+  // Ensure book selection is valid
+  useEffect(() => {
+    if (!hasDK && selectedBook === "DK") {
+      setSelectedBook("Circa");
+    }
+    if (!hasCirca && selectedBook === "Circa") {
+      setSelectedBook("DK");
+    }
+  }, [hasDK, hasCirca, selectedBook]);
   
   return (
     <motion.div 
@@ -384,7 +394,10 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
             />
             
             <button
-              onClick={() => setSelectedBook("DK")}
+              onClick={(e) => {
+                e.stopPropagation();
+                setSelectedBook("DK");
+              }}
               className="relative z-10 px-[8px] py-[6px] rounded-[10px] transition-all flex items-center justify-center"
               style={{
                 opacity: selectedBook === "DK" ? 1 : 0.5
@@ -393,7 +406,10 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
               <img src={draftKingsLogo} alt="DraftKings" className="h-5 w-auto" />
             </button>
             <button
-              onClick={() => setSelectedBook("Circa")}
+              onClick={(e) => {
+                e.stopPropagation();
+                setSelectedBook("Circa");
+              }}
               className="relative z-10 px-[8px] py-[6px] rounded-[10px] transition-all flex items-center justify-center"
               style={{
                 opacity: selectedBook === "Circa" ? 1 : 0.5

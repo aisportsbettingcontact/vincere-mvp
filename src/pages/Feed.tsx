@@ -324,7 +324,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
         
         {(hasDK || hasCirca) && (
           <div 
-            className="relative flex gap-[8px] px-[4px] py-[4px] rounded-[14px] flex-shrink-0"
+            className="relative flex gap-2 px-2 py-2 rounded-[14px] flex-shrink-0 justify-center items-center"
             style={{
               background: "var(--ma-surface)",
               border: "1px solid var(--ma-stroke)"
@@ -527,19 +527,19 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
         >
           <div></div>
 
-          {(hasDK || hasCirca) && (
-            <div 
-              className="relative flex gap-[8px] px-[4px] py-[4px] rounded-[14px] flex-shrink-0"
-              style={{
-                background: "var(--ma-surface)",
-                border: "1px solid var(--ma-stroke)"
-              }}
-            >
-              {hasDK && hasCirca && (
-                <div />
-              )}
-              
-              {hasDK && (
+            {(hasDK || hasCirca) && (
+              <div 
+                className="relative flex gap-2 px-2 py-2 rounded-[14px] flex-shrink-0 justify-center items-center"
+                style={{
+                  background: "var(--ma-surface)",
+                  border: "1px solid var(--ma-stroke)"
+                }}
+              >
+                {hasDK && hasCirca && (
+                  <div />
+                )}
+                
+                {hasDK && (
                 <button
                   onClick={() => setSelectedBook("DK")}
                   className="relative z-10 w-10 h-10 rounded-[10px] transition-all overflow-hidden"
@@ -849,7 +849,7 @@ function SplitsCard({ game }: { game: GameOdds }) {
           
           {(hasDK || hasCirca) && (
             <div 
-              className="relative flex gap-[6px] px-[4px] py-[4px] rounded-[10px] flex-shrink-0"
+              className="relative flex gap-2 px-2 py-2 rounded-[10px] flex-shrink-0 justify-center items-center"
               style={{
                 background: "var(--ma-surface)",
                 border: "1px solid var(--ma-stroke)"

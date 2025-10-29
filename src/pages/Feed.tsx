@@ -211,64 +211,7 @@ export default function Feed() {
           
           {/* Book Filter and Market Toggle Row */}
           <div className="flex items-center gap-2 max-w-md mx-auto">
-            {/* Market Toggle - only show for Splits tab */}
-            {activeTab === "splits" && (
-              <div 
-                className="relative flex gap-[8px] px-[4px] py-[4px] rounded-[14px] flex-1"
-                style={{
-                  background: "var(--ma-surface)",
-                  border: "1px solid var(--ma-stroke)"
-                }}
-              >
-                <motion.div
-                  className="absolute top-[4px] bottom-[4px] rounded-[10px]"
-                  initial={false}
-                  animate={{
-                    left: globalMarket === "ML" ? "4px" : globalMarket === "Spread" ? "calc(33.33% + 1px)" : "calc(66.66% + 2px)",
-                    width: "calc(33.33% - 3px)"
-                  }}
-                  transition={{ type: "spring", damping: 20, stiffness: 300 }}
-                  style={{
-                    background: "rgba(111, 116, 255, 0.14)",
-                    border: "1px solid var(--ma-accent-indigo)"
-                  }}
-                />
-                
-                <button
-                  onClick={() => setGlobalMarket("ML")}
-                  className="flex-1 font-['Inter',_sans-serif] relative z-10 px-[16px] py-[8px] rounded-[10px] transition-colors flex items-center justify-center"
-                  style={{
-                    color: globalMarket === "ML" ? "var(--ma-text-primary)" : "var(--ma-text-secondary)",
-                    fontSize: "15px",
-                    fontWeight: 600
-                  }}
-                >
-                  ML
-                </button>
-                <button
-                  onClick={() => setGlobalMarket("Spread")}
-                  className="flex-1 font-['Inter',_sans-serif] relative z-10 px-[16px] py-[8px] rounded-[10px] transition-colors flex items-center justify-center"
-                  style={{
-                    color: globalMarket === "Spread" ? "var(--ma-text-primary)" : "var(--ma-text-secondary)",
-                    fontSize: "15px",
-                    fontWeight: 600
-                  }}
-                >
-                  Spread
-                </button>
-                <button
-                  onClick={() => setGlobalMarket("Total")}
-                  className="flex-1 font-['Inter',_sans-serif] relative z-10 px-[16px] py-[8px] rounded-[10px] transition-colors flex items-center justify-center"
-                  style={{
-                    color: globalMarket === "Total" ? "var(--ma-text-primary)" : "var(--ma-text-secondary)",
-                    fontSize: "15px",
-                    fontWeight: 600
-                  }}
-                >
-                  Total
-                </button>
-              </div>
-            )}
+            {/* Market toggle removed - showing all splits in each card */}
           </div>
         </div>
       </header>
@@ -286,7 +229,6 @@ export default function Feed() {
               <SplitsCard 
                 key={`${game.gameId}-${game.book}`}
                 game={game}
-                market={globalMarket}
               />
             )
           ))}
@@ -792,58 +734,65 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
   );
 }
 
-// Splits Card - displays ticket/money percentages
-function SplitsCard({ game, market }: { game: GameOdds; market: Market }) {
+// Splits Card - displays ticket/money percentages for all markets
+function SplitsCard({ game }: { game: GameOdds }) {
   const [isExpanded, setIsExpanded] = useState(false);
   
-  const cardData = useMemo(() => {
-    const firstOdds = game.odds[0];
-    let tickets, money, leftLabel, rightLabel, lineDisplay, lineMovement;
-    
-    if (market === "Spread") {
-      tickets = { left: game.splits.spread.away.tickets, right: game.splits.spread.home.tickets };
-      money = { left: game.splits.spread.away.handle, right: game.splits.spread.home.handle };
-      leftLabel = game.away.abbr;
-      rightLabel = game.home.abbr;
-      const currentLine = firstOdds?.spread?.away?.line || -3.5;
-      lineDisplay = `${game.away.abbr} ${formatSpreadLine(currentLine)}`;
-      lineMovement = `${formatSpreadLine(currentLine + 1)} → ${formatSpreadLine(currentLine)}`;
-    } else if (market === "Total") {
-      tickets = { left: game.splits.total.over.tickets, right: game.splits.total.under.tickets };
-      money = { left: game.splits.total.over.handle, right: game.splits.total.under.handle };
-      leftLabel = "O";
-      rightLabel = "U";
-      const currentLine = firstOdds?.total?.over?.line || 47.5;
-      lineDisplay = `${currentLine}`;
-      lineMovement = `${currentLine + 1} → ${currentLine}`;
-    } else {
-      tickets = { left: game.splits.moneyline.away.tickets, right: game.splits.moneyline.home.tickets };
-      money = { left: game.splits.moneyline.away.handle, right: game.splits.moneyline.home.handle };
-      leftLabel = game.away.abbr;
-      rightLabel = game.home.abbr;
-      const awayML = firstOdds?.moneyline?.away?.american || -110;
-      lineDisplay = `${game.away.abbr} ${awayML > 0 ? '+' : ''}${awayML}`;
-      lineMovement = `${awayML > 0 ? '+' : ''}${awayML + 10} → ${awayML > 0 ? '+' : ''}${awayML}`;
-    }
-    
-    const leftDivergence = money.left - tickets.left;
-    const rightDivergence = money.right - tickets.right;
-    const maxDivergence = Math.max(Math.abs(leftDivergence), Math.abs(rightDivergence));
-    const sharpSide = Math.abs(leftDivergence) > Math.abs(rightDivergence) ? "left" : "right";
-    const sharpLabel = sharpSide === "left" ? leftLabel : rightLabel;
-    
-    return { tickets, money, leftLabel, rightLabel, lineDisplay, lineMovement, maxDivergence, sharpLabel };
-  }, [game, market]);
+  const firstOdds = game.odds[0];
+  
+  // Calculate data for all three markets
+  const spreadsData = useMemo(() => {
+    const tickets = { left: game.splits.spread.away.tickets, right: game.splits.spread.home.tickets };
+    const money = { left: game.splits.spread.away.handle, right: game.splits.spread.home.handle };
+    const currentLine = firstOdds?.spread?.away?.line || -3.5;
+    return {
+      tickets,
+      money,
+      leftLabel: game.away.abbr,
+      rightLabel: game.home.abbr,
+      lineDisplay: `${game.away.abbr} ${formatSpreadLine(currentLine)}`,
+      leftColor: game.away.color,
+      rightColor: game.home.color
+    };
+  }, [game, firstOdds]);
+  
+  const totalsData = useMemo(() => {
+    const tickets = { left: game.splits.total.over.tickets, right: game.splits.total.under.tickets };
+    const money = { left: game.splits.total.over.handle, right: game.splits.total.under.handle };
+    const currentLine = firstOdds?.total?.over?.line || 47.5;
+    return {
+      tickets,
+      money,
+      leftLabel: "O",
+      rightLabel: "U",
+      lineDisplay: `${currentLine}`,
+      leftColor: "#6F74FF",
+      rightColor: "#06B6D4"
+    };
+  }, [game, firstOdds]);
+  
+  const mlData = useMemo(() => {
+    const tickets = { left: game.splits.moneyline.away.tickets, right: game.splits.moneyline.home.tickets };
+    const money = { left: game.splits.moneyline.away.handle, right: game.splits.moneyline.home.handle };
+    const awayML = firstOdds?.moneyline?.away?.american || -110;
+    return {
+      tickets,
+      money,
+      leftLabel: game.away.abbr,
+      rightLabel: game.home.abbr,
+      lineDisplay: `${game.away.abbr} ${awayML > 0 ? '+' : ''}${awayML}`,
+      leftColor: game.away.color,
+      rightColor: game.home.color
+    };
+  }, [game, firstOdds]);
 
   return (
     <motion.div 
-      className="w-full rounded-xl overflow-hidden cursor-pointer"
+      className="w-full rounded-xl overflow-hidden"
       style={{
         background: "var(--ma-card)",
         border: "1px solid var(--ma-stroke)"
       }}
-      onClick={() => setIsExpanded(!isExpanded)}
-      whileTap={{ scale: 0.98 }}
     >
       <div className="p-3">
         {/* Teams Row */}
@@ -865,54 +814,87 @@ function SplitsCard({ game, market }: { game: GameOdds; market: Market }) {
           </div>
         </div>
         
-        {/* Single Combined Bar */}
-        <div className="relative h-8 rounded-lg overflow-hidden" style={{ background: "var(--ma-surface)" }}>
-          <div 
-            className="absolute inset-y-0 left-0"
-            style={{
-              width: `${cardData.money.left}%`,
-              background: market === "Total" ? "#6F74FF" : game.away.color
-            }}
-          />
-          <div 
-            className="absolute inset-y-0 right-0"
-            style={{
-              width: `${cardData.money.right}%`,
-              background: market === "Total" ? "#06B6D4" : game.home.color
-            }}
-          />
-          <div className="absolute inset-0 flex items-center justify-between px-3 text-sm font-bold" style={{ color: "var(--ma-text-primary)" }}>
-            <span>{cardData.money.left}%</span>
-            <span>{cardData.money.right}%</span>
+        {/* Spread Bar */}
+        <div className="mb-2">
+          <div className="text-[10px] font-semibold mb-1 text-center" style={{ color: "var(--ma-text-secondary)" }}>
+            Spread
+          </div>
+          <div className="relative h-8 rounded-lg overflow-hidden" style={{ background: "var(--ma-surface)" }}>
+            <div 
+              className="absolute inset-y-0 left-0"
+              style={{
+                width: `${spreadsData.money.left}%`,
+                background: spreadsData.leftColor
+              }}
+            />
+            <div 
+              className="absolute inset-y-0 right-0"
+              style={{
+                width: `${spreadsData.money.right}%`,
+                background: spreadsData.rightColor
+              }}
+            />
+            <div className="absolute inset-0 flex items-center justify-between px-3 text-xs font-bold" style={{ color: "var(--ma-text-primary)" }}>
+              <span>{spreadsData.money.left}%</span>
+              <span>{spreadsData.money.right}%</span>
+            </div>
+          </div>
+        </div>
+        
+        {/* Total Bar */}
+        <div className="mb-2">
+          <div className="text-[10px] font-semibold mb-1 text-center" style={{ color: "var(--ma-text-secondary)" }}>
+            Total
+          </div>
+          <div className="relative h-8 rounded-lg overflow-hidden" style={{ background: "var(--ma-surface)" }}>
+            <div 
+              className="absolute inset-y-0 left-0"
+              style={{
+                width: `${totalsData.money.left}%`,
+                background: totalsData.leftColor
+              }}
+            />
+            <div 
+              className="absolute inset-y-0 right-0"
+              style={{
+                width: `${totalsData.money.right}%`,
+                background: totalsData.rightColor
+              }}
+            />
+            <div className="absolute inset-0 flex items-center justify-between px-3 text-xs font-bold" style={{ color: "var(--ma-text-primary)" }}>
+              <span>{totalsData.money.left}%</span>
+              <span>{totalsData.money.right}%</span>
+            </div>
+          </div>
+        </div>
+        
+        {/* Moneyline Bar */}
+        <div>
+          <div className="text-[10px] font-semibold mb-1 text-center" style={{ color: "var(--ma-text-secondary)" }}>
+            Moneyline
+          </div>
+          <div className="relative h-8 rounded-lg overflow-hidden" style={{ background: "var(--ma-surface)" }}>
+            <div 
+              className="absolute inset-y-0 left-0"
+              style={{
+                width: `${mlData.money.left}%`,
+                background: mlData.leftColor
+              }}
+            />
+            <div 
+              className="absolute inset-y-0 right-0"
+              style={{
+                width: `${mlData.money.right}%`,
+                background: mlData.rightColor
+              }}
+            />
+            <div className="absolute inset-0 flex items-center justify-between px-3 text-xs font-bold" style={{ color: "var(--ma-text-primary)" }}>
+              <span>{mlData.money.left}%</span>
+              <span>{mlData.money.right}%</span>
+            </div>
           </div>
         </div>
       </div>
-      
-      {/* Expanded Details */}
-      {isExpanded && (
-        <motion.div 
-          initial={{ height: 0, opacity: 0 }}
-          animate={{ height: "auto", opacity: 1 }}
-          exit={{ height: 0, opacity: 0 }}
-          className="border-t px-3 py-3"
-          style={{ borderColor: "var(--ma-stroke)", background: "var(--ma-surface)" }}
-        >
-          <div className="text-xs space-y-2">
-            <div className="flex justify-between">
-              <span style={{ color: "var(--ma-text-secondary)" }}>Tickets:</span>
-              <span style={{ color: "var(--ma-text-primary)" }}>{cardData.tickets.left}% / {cardData.tickets.right}%</span>
-            </div>
-            <div className="flex justify-between">
-              <span style={{ color: "var(--ma-text-secondary)" }}>Money:</span>
-              <span style={{ color: "var(--ma-text-primary)" }}>{cardData.money.left}% / {cardData.money.right}%</span>
-            </div>
-            <div className="flex justify-between">
-              <span style={{ color: "var(--ma-text-secondary)" }}>Line:</span>
-              <span style={{ color: "var(--ma-text-primary)" }}>{cardData.lineDisplay}</span>
-            </div>
-          </div>
-        </motion.div>
-      )}
     </motion.div>
   );
 }

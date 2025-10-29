@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
 import { z } from "zod";
 import { User, Session } from "@supabase/supabase-js";
@@ -33,6 +34,9 @@ export default function Auth() {
   const [showLoginPassword, setShowLoginPassword] = useState(false);
   const [showSignupPassword, setShowSignupPassword] = useState(false);
   
+  // Stay signed in state
+  const [staySignedIn, setStaySignedIn] = useState(true);
+  
   // Signup form
   const [signupUsername, setSignupUsername] = useState("");
   const [signupEmail, setSignupEmail] = useState("");
@@ -44,6 +48,12 @@ export default function Auth() {
   const [loginPassword, setLoginPassword] = useState("");
 
   useEffect(() => {
+    // Check if user wants to stay signed in
+    const shouldStaySignedIn = localStorage.getItem("edgeguide-stay-signed-in");
+    if (shouldStaySignedIn !== null) {
+      setStaySignedIn(shouldStaySignedIn === "true");
+    }
+
     // Set up auth state listener FIRST
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
@@ -54,6 +64,14 @@ export default function Auth() {
         if (session?.user && event === 'SIGNED_IN') {
           localStorage.removeItem("edgeguide-age-accepted");
           navigate("/");
+        }
+        
+        // Handle sign out - clear session if not staying signed in
+        if (event === 'SIGNED_OUT') {
+          const shouldStaySignedIn = localStorage.getItem("edgeguide-stay-signed-in") === "true";
+          if (!shouldStaySignedIn) {
+            localStorage.clear();
+          }
         }
       }
     );
@@ -134,6 +152,9 @@ export default function Auth() {
         email: loginEmail,
         password: loginPassword
       });
+
+      // Store stay signed in preference
+      localStorage.setItem("edgeguide-stay-signed-in", staySignedIn.toString());
 
       const { error } = await supabase.auth.signInWithPassword({
         email: validatedData.email,
@@ -245,6 +266,20 @@ export default function Auth() {
                       )}
                     </button>
                   </div>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Checkbox
+                    id="stay-signed-in"
+                    checked={staySignedIn}
+                    onCheckedChange={(checked) => setStaySignedIn(checked as boolean)}
+                  />
+                  <label
+                    htmlFor="stay-signed-in"
+                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
+                    style={{ color: "var(--ma-text-secondary)" }}
+                  >
+                    Stay signed in
+                  </label>
                 </div>
                 <Button type="submit" className="w-full" disabled={loading}>
                   {loading ? "Logging in..." : "Login"}

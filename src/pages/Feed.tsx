@@ -595,21 +595,6 @@ function SplitsCard({ game, market }: { game: GameOdds; market: Market }) {
             <span>{cardData.money.right}%</span>
           </div>
         </div>
-        
-        {/* Action Button */}
-        <button
-          className="w-full mt-3 py-2 rounded-lg font-semibold text-sm transition-colors"
-          style={{
-            background: "var(--ma-accent-indigo)",
-            color: "white"
-          }}
-          onClick={(e) => {
-            e.stopPropagation();
-            // Handle bet action
-          }}
-        >
-          View {market} Market
-        </button>
       </div>
       
       {/* Expanded Details */}

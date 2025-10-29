@@ -846,7 +846,7 @@ function SplitsCard({ game }: { game: GameOdds }) {
       }}
     >
       <div className="p-3">
-        {/* Teams Row and Book Toggle */}
+        {/* Teams Row, Date/Time, and Book Toggle - All in one line */}
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
             <img src={getTeamLogo(displayGame.away.espnAbbr, displayGame.sport)} alt="" className="w-6 h-6 rounded" />
@@ -854,13 +854,14 @@ function SplitsCard({ game }: { game: GameOdds }) {
             <span className="text-xs" style={{ color: "var(--ma-text-secondary)" }}>@</span>
             <img src={getTeamLogo(displayGame.home.espnAbbr, displayGame.sport)} alt="" className="w-6 h-6 rounded" />
             <span className="font-semibold text-sm" style={{ color: "var(--ma-text-primary)" }}>{displayGame.home.abbr}</span>
-            <div 
-              className="text-[10px] px-2 py-1 rounded bg-white/5 ml-2"
-              style={{
-                color: "var(--ma-text-secondary)"
-              }}
-            >
-              {formatGameDate(game.kickoff)} {formatGameTime(game.kickoff)}
+          </div>
+          
+          <div className="flex flex-col items-center gap-0.5">
+            <div className="text-[10px] font-medium" style={{ color: "var(--ma-text-secondary)" }}>
+              {formatGameDate(game.kickoff)}
+            </div>
+            <div className="text-[10px] font-medium" style={{ color: "var(--ma-text-secondary)" }}>
+              {formatGameTime(game.kickoff)}
             </div>
           </div>
           

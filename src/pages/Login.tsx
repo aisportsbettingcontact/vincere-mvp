@@ -325,7 +325,7 @@ export default function Auth() {
             <TabsContent value="signup">
               <form onSubmit={handleSignup} className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="signup-username">Username</Label>
+                  <Label htmlFor="signup-username">Username *</Label>
                   <Input
                     id="signup-username"
                     type="text"
@@ -335,7 +335,7 @@ export default function Auth() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="signup-email">Email</Label>
+                  <Label htmlFor="signup-email">Email *</Label>
                   <Input
                     id="signup-email"
                     type="email"
@@ -345,7 +345,7 @@ export default function Auth() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="signup-phone">Phone</Label>
+                  <Label htmlFor="signup-phone">Phone *</Label>
                   <div className="flex gap-2">
                     <div className="flex items-center px-3 rounded-md border border-input bg-muted text-sm">
                       +1
@@ -362,7 +362,7 @@ export default function Auth() {
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="signup-password">Password</Label>
+                  <Label htmlFor="signup-password">Password *</Label>
                   <div className="relative">
                     <Input
                       id="signup-password"

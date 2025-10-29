@@ -18,6 +18,7 @@ interface RawSplitsDataFormat {
   generated_at: string;
   books: {
     DK: RawSplitGame[];
+    CIRCA: RawSplitGame[];
   };
 }
 
@@ -55,9 +56,20 @@ function formatDate(dateStr: string, gameId: string): string {
 
 export function parseRawSplits(): GameOdds[] {
   const rawData = rawSplitsDataImport as unknown as RawSplitsDataFormat;
-  const games = rawData.books.DK;
+  const allGames: GameOdds[] = [];
   
-  return games.map((game) => {
+  // Parse DK games
+  const dkGames = rawData.books.DK.map((game) => parseGame(game, "DK"));
+  allGames.push(...dkGames);
+  
+  // Parse CIRCA games
+  const circaGames = rawData.books.CIRCA.map((game) => parseGame(game, "CIRCA"));
+  allGames.push(...circaGames);
+  
+  return allGames;
+}
+
+function parseGame(game: RawSplitGame, book: string): GameOdds {
     const awayTeam = getTeamInfo(game.a);
     const homeTeam = getTeamInfo(game.h);
     
@@ -93,6 +105,7 @@ export function parseRawSplits(): GameOdds[] {
       gameId: game.id,
       sport: "NFL" as const,
       kickoff: formatDate(game.d, game.id),
+      book: book,
       away: {
         name: awayTeam.name,
         abbr: awayTeam.abbr,
@@ -168,5 +181,4 @@ export function parseRawSplits(): GameOdds[] {
         }
       }
     };
-  });
 }

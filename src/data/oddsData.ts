@@ -75,6 +75,7 @@ export interface GameOdds {
   gameId: string;
   sport: string;
   kickoff: string;
+  book: string; // DK or CIRCA
   away: {
     name: string;
     abbr: string;

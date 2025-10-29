@@ -66,7 +66,7 @@ export default function Profile() {
   }
 
   return (
-    <div style={{ background: "var(--ma-bg)", minHeight: "100vh", paddingBottom: "80px" }}>
+    <div style={{ background: "var(--ma-bg)", minHeight: "100vh" }}>
       {/* Header */}
       <header 
         className="sticky top-0 z-40 backdrop-blur-sm"

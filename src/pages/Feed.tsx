@@ -147,8 +147,8 @@ export default function Feed() {
   }
 
   return (
-    <div style={{ background: "var(--ma-bg)", minHeight: "100vh", paddingBottom: "80px" }}>
-      <header 
+    <div style={{ background: "var(--ma-bg)", minHeight: "100vh" }}>
+      <header
         className="sticky top-0 z-40 backdrop-blur-sm"
         style={{
           borderBottom: "1px solid var(--ma-stroke)",

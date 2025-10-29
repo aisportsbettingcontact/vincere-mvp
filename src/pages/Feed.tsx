@@ -859,7 +859,7 @@ function SplitsCard({ game }: { game: GameOdds }) {
             </div>
             
             {/* Date/Time Row */}
-            <div className="text-xs font-medium whitespace-nowrap" style={{ color: "var(--ma-text-secondary)" }}>
+            <div className="text-xs font-medium whitespace-nowrap text-center" style={{ color: "var(--ma-text-secondary)" }}>
               {formatGameDate(game.kickoff)} {formatGameTime(game.kickoff)}
             </div>
           </div>

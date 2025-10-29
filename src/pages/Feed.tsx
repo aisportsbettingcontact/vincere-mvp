@@ -616,7 +616,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
         <div className="px-2 md:px-4 py-2 md:py-3" style={{ background: "var(--ma-card)" }}>
           <div className="grid grid-cols-4 gap-1.5 md:gap-3">
             {/* Team Column with all 3 sections */}
-            <div className="flex flex-col gap-1.5 md:gap-2">
+            <div className="flex flex-col justify-between gap-1.5 md:gap-2">
               {/* Away Team */}
               <div className="flex items-center gap-2 md:gap-3 h-full">
                 <img src={getTeamLogo(displayGame.away.espnAbbr, displayGame.sport)} alt="" className="w-6 h-6 md:w-8 md:h-8 rounded flex-shrink-0" />
@@ -625,8 +625,8 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
                 </div>
               </div>
               
-              {/* AT */}
-              <div className="text-center text-[10px] md:text-xs font-semibold py-1" style={{ color: "var(--ma-text-secondary)" }}>
+              {/* AT - Centered */}
+              <div className="flex items-center justify-center text-[10px] md:text-xs font-semibold" style={{ color: "var(--ma-text-secondary)" }}>
                 AT
               </div>
               

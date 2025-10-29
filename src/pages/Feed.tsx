@@ -66,12 +66,52 @@ function convertGameOddsToMatchup(game: GameOdds): Matchup {
   };
 }
 
+// Calculate divergence for sorting
+function calculateDivergence(game: GameOdds, market: Market): { divergence: number; sharpSide: string; team: string } {
+  let tickets, money, awayName, homeName;
+  
+  if (market === "Spread") {
+    tickets = { away: game.splits.spread.away.tickets, home: game.splits.spread.home.tickets };
+    money = { away: game.splits.spread.away.handle, home: game.splits.spread.home.handle };
+    awayName = game.away.abbr;
+    homeName = game.home.abbr;
+  } else if (market === "Total") {
+    tickets = { away: game.splits.total.over.tickets, home: game.splits.total.under.tickets };
+    money = { away: game.splits.total.over.handle, home: game.splits.total.under.handle };
+    awayName = "Over";
+    homeName = "Under";
+  } else {
+    tickets = { away: game.splits.moneyline.away.tickets, home: game.splits.moneyline.home.tickets };
+    money = { away: game.splits.moneyline.away.handle, home: game.splits.moneyline.home.handle };
+    awayName = game.away.abbr;
+    homeName = game.home.abbr;
+  }
+  
+  const awayDivergence = money.away - tickets.away;
+  const homeDivergence = money.home - tickets.home;
+  
+  const maxDivergence = Math.max(Math.abs(awayDivergence), Math.abs(homeDivergence));
+  const sharpSide = Math.abs(awayDivergence) > Math.abs(homeDivergence) ? "away" : "home";
+  const team = sharpSide === "away" ? awayName : homeName;
+  
+  return { divergence: maxDivergence, sharpSide, team };
+}
+
 export default function Feed() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
+  const [globalMarket, setGlobalMarket] = useState<Market>("Spread");
+  
+  // Sort games by divergence
+  const sortedGames = useMemo(() => {
+    return [...mockGameOdds].sort((a, b) => {
+      const aDivergence = calculateDivergence(a, globalMarket).divergence;
+      const bDivergence = calculateDivergence(b, globalMarket).divergence;
+      return bDivergence - aDivergence;
+    });
+  }, [globalMarket]);
 
   useEffect(() => {
-    // Check if user is authenticated
     const checkAuth = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       if (!session) {
@@ -83,7 +123,6 @@ export default function Feed() {
 
     checkAuth();
 
-    // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       if (!session) {
         navigate("/login");
@@ -102,7 +141,7 @@ export default function Feed() {
   }
 
   return (
-    <div style={{ background: "var(--ma-bg)", minHeight: "100vh" }}>
+    <div style={{ background: "var(--ma-bg)", minHeight: "100vh", paddingBottom: "80px" }}>
       <header 
         className="sticky top-0 z-40 backdrop-blur-sm"
         style={{
@@ -110,23 +149,80 @@ export default function Feed() {
           background: "var(--ma-card)"
         }}
       >
-        <div className="container mx-auto px-4 py-2">
+        <div className="container mx-auto px-4 py-3">
           <h1 
-            className="text-2xl font-bold text-center font-['Inter',_sans-serif]"
+            className="text-2xl font-bold text-center font-['Inter',_sans-serif] mb-3"
             style={{ color: "var(--ma-text-primary)" }}
           >
-            Feed
+            One glance. One edge. One tap.
           </h1>
+          
+          {/* Sticky Market Toggle */}
+          <div 
+            className="relative flex gap-[8px] px-[4px] py-[4px] rounded-[14px] max-w-md mx-auto"
+            style={{
+              background: "var(--ma-surface)",
+              border: "1px solid var(--ma-stroke)"
+            }}
+          >
+            <motion.div
+              className="absolute top-[4px] bottom-[4px] rounded-[10px]"
+              initial={false}
+              animate={{
+                left: globalMarket === "ML" ? "4px" : globalMarket === "Spread" ? "calc(33.33% + 1px)" : "calc(66.66% + 2px)",
+                width: "calc(33.33% - 3px)"
+              }}
+              transition={{ type: "spring", damping: 20, stiffness: 300 }}
+              style={{
+                background: "rgba(111, 116, 255, 0.14)",
+                border: "1px solid var(--ma-accent-indigo)"
+              }}
+            />
+            
+            <button
+              onClick={() => setGlobalMarket("ML")}
+              className="flex-1 font-['Inter',_sans-serif] relative z-10 px-[16px] py-[8px] rounded-[10px] transition-colors flex items-center justify-center"
+              style={{
+                color: globalMarket === "ML" ? "var(--ma-text-primary)" : "var(--ma-text-secondary)",
+                fontSize: "15px",
+                fontWeight: 600
+              }}
+            >
+              ML
+            </button>
+            <button
+              onClick={() => setGlobalMarket("Spread")}
+              className="flex-1 font-['Inter',_sans-serif] relative z-10 px-[16px] py-[8px] rounded-[10px] transition-colors flex items-center justify-center"
+              style={{
+                color: globalMarket === "Spread" ? "var(--ma-text-primary)" : "var(--ma-text-secondary)",
+                fontSize: "15px",
+                fontWeight: 600
+              }}
+            >
+              Spread
+            </button>
+            <button
+              onClick={() => setGlobalMarket("Total")}
+              className="flex-1 font-['Inter',_sans-serif] relative z-10 px-[16px] py-[8px] rounded-[10px] transition-colors flex items-center justify-center"
+              style={{
+                color: globalMarket === "Total" ? "var(--ma-text-primary)" : "var(--ma-text-secondary)",
+                fontSize: "15px",
+                fontWeight: 600
+              }}
+            >
+              Total
+            </button>
+          </div>
         </div>
       </header>
 
-      <div className="px-2 pt-2">
-        {/* Game Cards */}
+      <div className="px-3 pt-3">
         <div className="space-y-2">
-          {mockGameOdds.map((game) => (
-            <GameCard 
+          {sortedGames.map((game) => (
+            <EdgeCard 
               key={game.gameId} 
               game={game}
+              market={globalMarket}
             />
           ))}
         </div>
@@ -135,188 +231,161 @@ export default function Feed() {
   );
 }
 
-function GameCard({ game }: { game: GameOdds }) {
-  const [selectedMarket, setSelectedMarket] = useState<Market>("ML");
-  return <BettingSplitsCard game={game} selectedMarket={selectedMarket} setSelectedMarket={setSelectedMarket} />;
-}
-
-function BettingSplitsCard({ game, selectedMarket, setSelectedMarket }: { 
-  game: GameOdds; 
-  selectedMarket: Market;
-  setSelectedMarket: (m: Market) => void;
-}) {
-  const currentData = useMemo(() => {
-    if (!game.splits) return { tickets: { away: 50, home: 50 }, money: { away: 50, home: 50 } };
+// New simplified edge-first card
+function EdgeCard({ game, market }: { game: GameOdds; market: Market }) {
+  const [isExpanded, setIsExpanded] = useState(false);
+  
+  const cardData = useMemo(() => {
+    const firstOdds = game.odds[0];
+    let tickets, money, leftLabel, rightLabel, lineDisplay, lineMovement;
     
-    if (selectedMarket === "Moneyline" || selectedMarket === "ML") {
-      return {
-        tickets: { away: game.splits.moneyline.away.tickets, home: game.splits.moneyline.home.tickets },
-        money: { away: game.splits.moneyline.away.handle, home: game.splits.moneyline.home.handle }
-      };
-    } else if (selectedMarket === "Spread") {
-      return {
-        tickets: { away: game.splits.spread.away.tickets, home: game.splits.spread.home.tickets },
-        money: { away: game.splits.spread.away.handle, home: game.splits.spread.home.handle }
-      };
+    if (market === "Spread") {
+      tickets = { left: game.splits.spread.away.tickets, right: game.splits.spread.home.tickets };
+      money = { left: game.splits.spread.away.handle, right: game.splits.spread.home.handle };
+      leftLabel = game.away.abbr;
+      rightLabel = game.home.abbr;
+      const currentLine = firstOdds?.spread?.away?.line || -3.5;
+      lineDisplay = `${game.away.abbr} ${formatSpreadLine(currentLine)}`;
+      lineMovement = `${formatSpreadLine(currentLine + 1)} → ${formatSpreadLine(currentLine)}`;
+    } else if (market === "Total") {
+      tickets = { left: game.splits.total.over.tickets, right: game.splits.total.under.tickets };
+      money = { left: game.splits.total.over.handle, right: game.splits.total.under.handle };
+      leftLabel = "O";
+      rightLabel = "U";
+      const currentLine = firstOdds?.total?.over?.line || 47.5;
+      lineDisplay = `${currentLine}`;
+      lineMovement = `${currentLine + 1} → ${currentLine}`;
     } else {
-      return {
-        tickets: { away: game.splits.total.over.tickets, home: game.splits.total.under.tickets },
-        money: { away: game.splits.total.over.handle, home: game.splits.total.under.handle }
-      };
+      tickets = { left: game.splits.moneyline.away.tickets, right: game.splits.moneyline.home.tickets };
+      money = { left: game.splits.moneyline.away.handle, right: game.splits.moneyline.home.handle };
+      leftLabel = game.away.abbr;
+      rightLabel = game.home.abbr;
+      const awayML = firstOdds?.moneyline?.away?.american || -110;
+      lineDisplay = `${game.away.abbr} ${awayML > 0 ? '+' : ''}${awayML}`;
+      lineMovement = `${awayML > 0 ? '+' : ''}${awayML + 10} → ${awayML > 0 ? '+' : ''}${awayML}`;
     }
-  }, [game.splits, selectedMarket]);
+    
+    const leftDivergence = money.left - tickets.left;
+    const rightDivergence = money.right - tickets.right;
+    const maxDivergence = Math.max(Math.abs(leftDivergence), Math.abs(rightDivergence));
+    const sharpSide = Math.abs(leftDivergence) > Math.abs(rightDivergence) ? "left" : "right";
+    const sharpLabel = sharpSide === "left" ? leftLabel : rightLabel;
+    
+    return { tickets, money, leftLabel, rightLabel, lineDisplay, lineMovement, maxDivergence, sharpLabel };
+  }, [game, market]);
 
   return (
-    <div className="w-full mb-2 rounded-3xl border border-white/10 bg-white/[0.03] p-3 backdrop-blur-[2px]">
-      {/* Game Header */}
-      <div className="flex items-center justify-between gap-3 mb-3">
-        <div className="flex items-center gap-3 min-w-0">
-          <img src={getTeamLogo(game.away.espnAbbr, game.sport)} alt={game.away.name} className="w-7 h-7 rounded" />
-          <div className="text-sm font-semibold text-white truncate">{game.away.abbr}</div>
-          <span className="text-white/40 text-xs">@</span>
-          <div className="flex items-center gap-2 min-w-0">
-            <img src={getTeamLogo(game.home.espnAbbr, game.sport)} alt={game.home.name} className="w-7 h-7 rounded" />
-            <div className="text-sm font-semibold text-white truncate">{game.home.abbr}</div>
+    <motion.div 
+      className="w-full rounded-xl overflow-hidden cursor-pointer"
+      style={{
+        background: "var(--ma-card)",
+        border: "1px solid var(--ma-stroke)"
+      }}
+      onClick={() => setIsExpanded(!isExpanded)}
+      whileTap={{ scale: 0.98 }}
+    >
+      <div className="p-3">
+        {/* Edge Badge */}
+        <div className="flex items-center justify-between mb-2">
+          <div 
+            className="px-2 py-1 rounded-md text-xs font-bold"
+            style={{
+              background: "rgba(111, 116, 255, 0.14)",
+              color: "var(--ma-accent-indigo)",
+              border: "1px solid var(--ma-accent-indigo)"
+            }}
+          >
+            Sharp +{Math.round(cardData.maxDivergence)}% on {cardData.sharpLabel}
           </div>
-        </div>
-        <div className="flex items-center gap-2">
-          <div className="text-xs text-white/80 bg-white/5 px-2 py-1 rounded-md border border-white/10 whitespace-nowrap">
+          <div className="text-[10px] px-2 py-1 rounded bg-white/5" style={{ color: "var(--ma-text-secondary)" }}>
             {formatGameTime(game.kickoff)}
           </div>
-          {game.tvInfo && (
-            <div className="text-[10px] text-white/60 px-2 py-1 rounded-md border border-white/10">
-              {game.tvInfo}
+        </div>
+        
+        {/* Teams Row */}
+        <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center gap-2">
+            <img src={getTeamLogo(game.away.espnAbbr, game.sport)} alt="" className="w-6 h-6 rounded" />
+            <span className="font-semibold text-sm" style={{ color: "var(--ma-text-primary)" }}>{game.away.abbr}</span>
+            <span className="text-xs" style={{ color: "var(--ma-text-secondary)" }}>@</span>
+            <img src={getTeamLogo(game.home.espnAbbr, game.sport)} alt="" className="w-6 h-6 rounded" />
+            <span className="font-semibold text-sm" style={{ color: "var(--ma-text-primary)" }}>{game.home.abbr}</span>
+          </div>
+          <div 
+            className="text-[10px] px-2 py-0.5 rounded"
+            style={{
+              background: "var(--ma-surface)",
+              color: "var(--ma-text-secondary)"
+            }}
+          >
+            {cardData.lineMovement}
+          </div>
+        </div>
+        
+        {/* Single Combined Bar */}
+        <div className="relative h-8 rounded-lg overflow-hidden" style={{ background: "var(--ma-surface)" }}>
+          <div 
+            className="absolute inset-y-0 left-0"
+            style={{
+              width: `${cardData.money.left}%`,
+              background: market === "Total" ? "#6F74FF" : game.away.color
+            }}
+          />
+          <div 
+            className="absolute inset-y-0 right-0"
+            style={{
+              width: `${cardData.money.right}%`,
+              background: market === "Total" ? "#06B6D4" : game.home.color
+            }}
+          />
+          <div className="absolute inset-0 flex items-center justify-between px-3 text-sm font-bold" style={{ color: "var(--ma-text-primary)" }}>
+            <span>{cardData.money.left}%</span>
+            <span>{cardData.money.right}%</span>
+          </div>
+        </div>
+        
+        {/* Action Button */}
+        <button
+          className="w-full mt-3 py-2 rounded-lg font-semibold text-sm transition-colors"
+          style={{
+            background: "var(--ma-accent-indigo)",
+            color: "white"
+          }}
+          onClick={(e) => {
+            e.stopPropagation();
+            // Handle bet action
+          }}
+        >
+          View {market} Market
+        </button>
+      </div>
+      
+      {/* Expanded Details */}
+      {isExpanded && (
+        <motion.div 
+          initial={{ height: 0, opacity: 0 }}
+          animate={{ height: "auto", opacity: 1 }}
+          exit={{ height: 0, opacity: 0 }}
+          className="border-t px-3 py-3"
+          style={{ borderColor: "var(--ma-stroke)", background: "var(--ma-surface)" }}
+        >
+          <div className="text-xs space-y-2">
+            <div className="flex justify-between">
+              <span style={{ color: "var(--ma-text-secondary)" }}>Tickets:</span>
+              <span style={{ color: "var(--ma-text-primary)" }}>{cardData.tickets.left}% / {cardData.tickets.right}%</span>
             </div>
-          )}
-        </div>
-      </div>
-
-      {/* Market Selection Buttons */}
-      <div 
-        className="relative flex gap-[8px] mb-[12px] px-[4px] py-[4px] rounded-[14px]"
-        style={{
-          background: "var(--ma-surface)",
-          border: "1px solid var(--ma-stroke)"
-        }}
-      >
-        <motion.div
-          className="absolute top-[4px] bottom-[4px] rounded-[10px]"
-          initial={false}
-          animate={{
-            left: (selectedMarket === "ML" || selectedMarket === "Moneyline") ? "4px" : selectedMarket === "Spread" ? "calc(33.33% + 1px)" : "calc(66.66% + 2px)",
-            width: "calc(33.33% - 3px)"
-          }}
-          transition={{ type: "spring", damping: 20, stiffness: 300 }}
-          style={{
-            background: "rgba(111, 116, 255, 0.14)",
-            border: "1px solid var(--ma-accent-indigo)"
-          }}
-        />
-        
-        <button
-          onClick={() => setSelectedMarket("ML")}
-          className="flex-1 font-['Inter',_sans-serif] relative z-10 px-[16px] py-[8px] rounded-[10px] transition-colors flex items-center justify-center"
-          style={{
-            color: (selectedMarket === "ML" || selectedMarket === "Moneyline") ? "var(--ma-text-primary)" : "var(--ma-text-secondary)",
-            fontSize: "15px",
-            fontWeight: 600,
-            lineHeight: "20px"
-          }}
-        >
-          ML
-        </button>
-        <button
-          onClick={() => setSelectedMarket("Spread")}
-          className="flex-1 font-['Inter',_sans-serif] relative z-10 px-[16px] py-[8px] rounded-[10px] transition-colors flex items-center justify-center"
-          style={{
-            color: selectedMarket === "Spread" ? "var(--ma-text-primary)" : "var(--ma-text-secondary)",
-            fontSize: "15px",
-            fontWeight: 600,
-            lineHeight: "20px"
-          }}
-        >
-          Spread
-        </button>
-        <button
-          onClick={() => setSelectedMarket("Total")}
-          className="flex-1 font-['Inter',_sans-serif] relative z-10 px-[16px] py-[8px] rounded-[10px] transition-colors flex items-center justify-center"
-          style={{
-            color: selectedMarket === "Total" ? "var(--ma-text-primary)" : "var(--ma-text-secondary)",
-            fontSize: "15px",
-            fontWeight: 600,
-            lineHeight: "20px"
-          }}
-        >
-          Total
-        </button>
-      </div>
-
-      {/* Betting Splits Mirror Bars */}
-      <div 
-        className="rounded-[14px] p-[8px]"
-        style={{
-          background: "#16171D",
-          border: "1px solid var(--ma-stroke)"
-        }}
-      >
-        <div className="flex items-center justify-between mb-2 px-1">
-          <div className="flex items-center gap-1.5">
-            <div 
-              className="w-2 h-2 rounded-full"
-              style={{ background: selectedMarket === "Total" ? "#6F74FF" : game.away.color }}
-            />
-            <span 
-              className="font-['Inter',_sans-serif]"
-              style={{
-                fontSize: "11px",
-                fontWeight: 600,
-                color: "var(--ma-text-secondary)",
-                letterSpacing: "0.01em"
-              }}
-            >
-              {selectedMarket === "Total" ? "Over" : game.away.name}
-            </span>
+            <div className="flex justify-between">
+              <span style={{ color: "var(--ma-text-secondary)" }}>Money:</span>
+              <span style={{ color: "var(--ma-text-primary)" }}>{cardData.money.left}% / {cardData.money.right}%</span>
+            </div>
+            <div className="flex justify-between">
+              <span style={{ color: "var(--ma-text-secondary)" }}>Line:</span>
+              <span style={{ color: "var(--ma-text-primary)" }}>{cardData.lineDisplay}</span>
+            </div>
           </div>
-          <div className="flex items-center gap-1.5">
-            <span 
-              className="font-['Inter',_sans-serif]"
-              style={{
-                fontSize: "11px",
-                fontWeight: 600,
-                color: "var(--ma-text-secondary)",
-                letterSpacing: "0.01em"
-              }}
-            >
-              {selectedMarket === "Total" ? "Under" : game.home.name}
-            </span>
-            <div 
-              className="w-2 h-2 rounded-full"
-              style={{ background: selectedMarket === "Total" ? "#06B6D4" : game.home.color }}
-            />
-          </div>
-        </div>
-
-        <MirrorBar
-          label="Tickets"
-          leftPercent={currentData.tickets.away}
-          rightPercent={currentData.tickets.home}
-          market={selectedMarket}
-          awayColor={game.away.color}
-          homeColor={game.home.color}
-        />
-        
-        <div className="h-[6px]" />
-        
-        <MirrorBar
-          label="Money"
-          leftPercent={currentData.money.away}
-          rightPercent={currentData.money.home}
-          market={selectedMarket}
-          awayColor={game.away.color}
-          homeColor={game.home.color}
-        />
-      </div>
-    </div>
+        </motion.div>
+      )}
+    </motion.div>
   );
 }
 

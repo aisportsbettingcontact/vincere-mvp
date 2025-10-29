@@ -432,7 +432,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
           }}
         >
           <div className="text-base font-semibold" style={{ color: "var(--ma-text-secondary)" }}>
-            {formatGameDate(game.kickoff)}
+            {formatGameDate(game.kickoff)} {formatGameTime(game.kickoff)}
           </div>
           <div className="grid grid-cols-3 gap-2">
             <div className="text-xs font-semibold text-center" style={{ color: "var(--ma-text-secondary)" }}>

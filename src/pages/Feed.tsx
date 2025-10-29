@@ -425,7 +425,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
       <div className="md:hidden">
         {/* Date Header with Column Labels */}
         <div 
-          className="grid grid-cols-[1fr_2fr] gap-4 px-4 py-3"
+          className="grid grid-cols-[1fr_2fr] gap-4 px-4 py-3 items-center"
           style={{
             background: "var(--ma-bg)",
             borderBottom: "1px solid var(--ma-stroke)"

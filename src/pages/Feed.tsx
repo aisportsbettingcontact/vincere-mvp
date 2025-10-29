@@ -861,7 +861,7 @@ function SplitsCard({ game, market }: { game: GameOdds; market: Market }) {
               color: "var(--ma-text-secondary)"
             }}
           >
-            {formatGameTime(game.kickoff)}
+            {formatGameDate(game.kickoff)} {formatGameTime(game.kickoff)}
           </div>
         </div>
         

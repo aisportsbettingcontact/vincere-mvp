@@ -317,14 +317,14 @@ export default function Feed() {
           {sortedGames.map((game) => (
             activeTab === "lines" ? (
               <LinesCard 
-                key={game.gameId} 
+                key={`${game.gameId}-${game.book}`}
                 game={game}
                 market={globalMarket}
                 book={selectedBook}
               />
             ) : (
               <SplitsCard 
-                key={game.gameId} 
+                key={`${game.gameId}-${game.book}`}
                 game={game}
                 market={globalMarket}
               />

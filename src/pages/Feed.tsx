@@ -296,26 +296,13 @@ export default function Feed() {
   );
 }
 
-// Format date for display (e.g., "SAT, 11/2" or "Tomorrow")
+// Format date for display (e.g., "Thu, 10/30")
 function formatGameDate(dateString: string): string {
   try {
     const gameDate = new Date(dateString);
     if (isNaN(gameDate.getTime())) return dateString;
     
-    const today = new Date();
-    const tomorrow = new Date(today);
-    tomorrow.setDate(today.getDate() + 1);
-    
-    // Check if game is tomorrow
-    if (
-      gameDate.getDate() === tomorrow.getDate() &&
-      gameDate.getMonth() === tomorrow.getMonth() &&
-      gameDate.getFullYear() === tomorrow.getFullYear()
-    ) {
-      return "Tomorrow";
-    }
-    
-    const dayNames = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+    const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     
     const dayName = dayNames[gameDate.getDay()];
     const month = gameDate.getMonth() + 1;
@@ -527,20 +514,8 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
             borderTop: "1px solid var(--ma-stroke)"
           }}
         >
-          <div className="flex items-center gap-2">
-            <div 
-              className="text-xs font-bold px-2.5 py-1 rounded"
-              style={{
-                background: "rgba(34, 197, 94, 0.14)",
-                color: "#22c55e",
-                border: "1px solid rgba(34, 197, 94, 0.25)"
-              }}
-            >
-              SGP
-            </div>
-            <div className="text-sm font-medium" style={{ color: "var(--ma-text-secondary)" }}>
-              {formatGameTime(game.kickoff)}
-            </div>
+          <div className="text-sm font-medium" style={{ color: "var(--ma-text-secondary)" }}>
+            {formatGameDate(game.kickoff)} {formatGameTime(game.kickoff)}
           </div>
 
           {hasDK && hasCirca && (
@@ -760,20 +735,8 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
           borderTop: "1px solid var(--ma-stroke)"
         }}
       >
-        <div className="flex items-center gap-2">
-          <div 
-            className="text-[10px] font-bold px-2 py-0.5 rounded"
-            style={{
-              background: "rgba(34, 197, 94, 0.14)",
-              color: "#22c55e",
-              border: "1px solid rgba(34, 197, 94, 0.25)"
-            }}
-          >
-            SGP
-          </div>
-          <div className="text-xs" style={{ color: "var(--ma-text-secondary)" }}>
-            {formatGameTime(game.kickoff)}
-          </div>
+        <div className="text-xs font-medium" style={{ color: "var(--ma-text-secondary)" }}>
+          {formatGameDate(game.kickoff)} {formatGameTime(game.kickoff)}
         </div>
 
         {/* Book Toggle */}

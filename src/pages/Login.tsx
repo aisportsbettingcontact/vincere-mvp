@@ -13,10 +13,22 @@ import { User, Session } from "@supabase/supabase-js";
 import { Eye, EyeOff } from "lucide-react";
 
 const signupSchema = z.object({
-  username: z.string().trim().min(3, "Username must be at least 3 characters").max(50, "Username must be less than 50 characters"),
+  username: z.string()
+    .trim()
+    .min(3, "Username must be at least 3 characters")
+    .max(50, "Username must be less than 50 characters")
+    .regex(/^[a-z0-9_-]+$/, "Username must be lowercase and contain only letters, numbers, hyphens, or underscores"),
   email: z.string().trim().email("Invalid email address").max(255, "Email must be less than 255 characters"),
-  phone: z.string().trim().min(1, "Phone number is required").max(20, "Phone number must be less than 20 characters"),
-  password: z.string().min(6, "Password must be at least 6 characters").max(100, "Password must be less than 100 characters")
+  phone: z.string()
+    .trim()
+    .regex(/^\d{10}$/, "Phone number must be exactly 10 digits"),
+  password: z.string()
+    .min(8, "Password must be at least 8 characters")
+    .max(100, "Password must be less than 100 characters")
+    .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
+    .regex(/[a-z]/, "Password must contain at least one lowercase letter")
+    .regex(/[0-9]/, "Password must contain at least one number")
+    .regex(/[^A-Za-z0-9]/, "Password must contain at least one special character")
 });
 
 const loginSchema = z.object({
@@ -103,7 +115,21 @@ export default function Auth() {
         password: signupPassword
       });
 
+      // Check if username already exists
+      const { data: existingUsername } = await supabase
+        .from('profiles')
+        .select('username')
+        .eq('username', validatedData.username)
+        .single();
+
+      if (existingUsername) {
+        toast.error("This username is already taken. Please choose another.");
+        setLoading(false);
+        return;
+      }
+
       const redirectUrl = `${window.location.origin}/`;
+      const fullPhone = `+1${validatedData.phone}`;
       
       const { error } = await supabase.auth.signUp({
         email: validatedData.email,
@@ -112,7 +138,7 @@ export default function Auth() {
           emailRedirectTo: redirectUrl,
           data: {
             username: validatedData.username,
-            phone: validatedData.phone
+            phone: fullPhone
           }
         }
       });
@@ -124,7 +150,9 @@ export default function Auth() {
           toast.error(error.message);
         }
       } else {
-        toast.success("Account created! Please check your email to confirm your account.");
+        toast.success("Account created! Please check your email to verify your account before logging in.", {
+          duration: 8000
+        });
         // Clear form
         setSignupUsername("");
         setSignupEmail("");
@@ -165,11 +193,18 @@ export default function Auth() {
         if (error.message.includes("Invalid login credentials")) {
           toast.error("Invalid email or password");
         } else if (error.message.includes("Email not confirmed")) {
-          toast.error("Please confirm your email before logging in");
+          toast.error("Please verify your email before logging in. Check your inbox for the verification link.");
         } else {
           toast.error(error.message);
         }
       } else {
+        // Check if email is verified
+        const { data: { user } } = await supabase.auth.getUser();
+        if (user && !user.email_confirmed_at) {
+          await supabase.auth.signOut();
+          toast.error("Please verify your email before logging in. Check your inbox for the verification link.");
+          return;
+        }
         toast.success("Logged in successfully!");
       }
     } catch (error) {
@@ -311,13 +346,20 @@ export default function Auth() {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="signup-phone">Phone</Label>
-                  <Input
-                    id="signup-phone"
-                    type="tel"
-                    value={signupPhone}
-                    onChange={(e) => setSignupPhone(e.target.value)}
-                    required
-                  />
+                  <div className="flex gap-2">
+                    <div className="flex items-center px-3 rounded-md border border-input bg-muted text-sm">
+                      +1
+                    </div>
+                    <Input
+                      id="signup-phone"
+                      type="tel"
+                      placeholder="1234567890"
+                      value={signupPhone}
+                      onChange={(e) => setSignupPhone(e.target.value.replace(/\D/g, '').slice(0, 10))}
+                      required
+                      maxLength={10}
+                    />
+                  </div>
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="signup-password">Password</Label>

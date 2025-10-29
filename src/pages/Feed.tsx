@@ -614,24 +614,26 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
 
         {/* Odds Values */}
         <div className="px-2 md:px-4 py-2 md:py-3" style={{ background: "var(--ma-card)" }}>
-          <div className="grid grid-cols-4 gap-1.5 md:gap-3">
-            {/* Team Column with all 3 sections */}
-            <div className="flex flex-col justify-between items-center gap-1.5 md:gap-2">
+          <div className="grid grid-cols-4 gap-1.5 md:gap-3 items-center">
+            {/* Team Column */}
+            <div className="flex flex-col items-center justify-center h-full">
               {/* Away Team */}
-              <div className="flex items-center gap-2 md:gap-3">
+              <div className="flex items-center justify-center gap-2 md:gap-3 py-1.5 md:py-2">
                 <img src={getTeamLogo(displayGame.away.espnAbbr, displayGame.sport)} alt="" className="w-6 h-6 md:w-8 md:h-8 rounded flex-shrink-0" />
                 <div className="text-xs md:text-base font-bold" style={{ color: "var(--ma-text-primary)" }}>
                   {displayGame.away.abbr}
                 </div>
               </div>
               
-              {/* AT - Centered */}
-              <div className="text-[10px] md:text-xs font-semibold" style={{ color: "var(--ma-text-secondary)" }}>
-                AT
+              {/* AT - Centered spacer */}
+              <div className="flex items-center justify-center py-1">
+                <div className="text-[10px] md:text-xs font-semibold" style={{ color: "var(--ma-text-secondary)" }}>
+                  AT
+                </div>
               </div>
               
               {/* Home Team */}
-              <div className="flex items-center gap-2 md:gap-3">
+              <div className="flex items-center justify-center gap-2 md:gap-3 py-1.5 md:py-2">
                 <img src={getTeamLogo(displayGame.home.espnAbbr, displayGame.sport)} alt="" className="w-6 h-6 md:w-8 md:h-8 rounded flex-shrink-0" />
                 <div className="text-xs md:text-base font-bold" style={{ color: "var(--ma-text-primary)" }}>
                   {displayGame.home.abbr}
@@ -640,10 +642,10 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
             </div>
             
             {/* Spread Column */}
-            <div className="flex flex-col gap-1.5 md:gap-2">
+            <div className="flex flex-col items-center justify-center h-full">
               {/* Away Spread */}
               <div 
-                className="rounded p-1.5 md:p-2"
+                className="rounded p-1.5 md:p-2 w-full"
                 style={{ background: "var(--ma-surface)" }}
               >
                 <div className="text-center text-sm md:text-base font-bold mb-0.5" style={{ color: "var(--ma-text-primary)" }}>
@@ -657,11 +659,12 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
                 </div>
               </div>
               
+              {/* Spacer to match AT */}
               <div className="py-1"></div>
               
               {/* Home Spread */}
               <div 
-                className="rounded p-1.5 md:p-2"
+                className="rounded p-1.5 md:p-2 w-full"
                 style={{ background: "var(--ma-surface)" }}
               >
                 <div className="text-center text-sm md:text-base font-bold mb-0.5" style={{ color: "var(--ma-text-primary)" }}>
@@ -677,10 +680,10 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
             </div>
             
             {/* Total Column */}
-            <div className="flex flex-col gap-1.5 md:gap-2">
+            <div className="flex flex-col items-center justify-center h-full">
               {/* Over */}
               <div 
-                className="rounded p-1.5 md:p-2"
+                className="rounded p-1.5 md:p-2 w-full"
                 style={{ background: "var(--ma-surface)" }}
               >
                 <div className="text-center text-sm md:text-base font-bold mb-0.5" style={{ color: "var(--ma-text-primary)" }}>
@@ -694,11 +697,12 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
                 </div>
               </div>
               
+              {/* Spacer to match AT */}
               <div className="py-1"></div>
               
               {/* Under */}
               <div 
-                className="rounded p-1.5 md:p-2"
+                className="rounded p-1.5 md:p-2 w-full"
                 style={{ background: "var(--ma-surface)" }}
               >
                 <div className="text-center text-sm md:text-base font-bold mb-0.5" style={{ color: "var(--ma-text-primary)" }}>
@@ -714,10 +718,10 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
             </div>
             
             {/* Moneyline Column */}
-            <div className="flex flex-col gap-1.5 md:gap-2">
+            <div className="flex flex-col items-center justify-center h-full">
               {/* Away ML */}
               <div 
-                className="rounded p-1.5 md:p-2 flex items-center justify-center"
+                className="rounded p-1.5 md:p-2 w-full flex items-center justify-center min-h-[44px] md:min-h-[52px]"
                 style={{ background: "var(--ma-surface)" }}
               >
                 <div className="text-center text-sm md:text-base font-bold" style={{ color: "#4ade80" }}>
@@ -728,11 +732,12 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
                 </div>
               </div>
               
+              {/* Spacer to match AT */}
               <div className="py-1"></div>
               
               {/* Home ML */}
               <div 
-                className="rounded p-1.5 md:p-2 flex items-center justify-center"
+                className="rounded p-1.5 md:p-2 w-full flex items-center justify-center min-h-[44px] md:min-h-[52px]"
                 style={{ background: "var(--ma-surface)" }}
               >
                 <div className="text-center text-sm md:text-base font-bold" style={{ color: "#4ade80" }}>

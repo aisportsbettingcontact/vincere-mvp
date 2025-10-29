@@ -41,6 +41,8 @@ export default function Auth() {
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(false);
+  const [showEmailConfirmation, setShowEmailConfirmation] = useState(false);
+  const [confirmationEmail, setConfirmationEmail] = useState("");
   
   // Password visibility state
   const [showLoginPassword, setShowLoginPassword] = useState(false);
@@ -153,9 +155,8 @@ export default function Auth() {
           toast.error(error.message);
         }
       } else {
-        toast.success("Account created! Please check your email to verify your account before logging in.", {
-          duration: 8000
-        });
+        setConfirmationEmail(validatedData.email);
+        setShowEmailConfirmation(true);
         // Clear form
         setSignupUsername("");
         setSignupEmail("");
@@ -264,11 +265,47 @@ export default function Auth() {
           <CardDescription>Sign in to your account or create a new one</CardDescription>
         </CardHeader>
         <CardContent>
-          <Tabs defaultValue="login" className="w-full">
-            <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="login">Login</TabsTrigger>
-              <TabsTrigger value="signup">Sign Up</TabsTrigger>
-            </TabsList>
+          {showEmailConfirmation ? (
+            <div className="text-center space-y-4 py-8">
+              <div className="mx-auto w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="text-primary"
+                >
+                  <rect width="20" height="16" x="2" y="4" rx="2" />
+                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold">Check Your Email</h3>
+              <p className="text-muted-foreground">
+                We've sent a verification link to<br />
+                <span className="font-medium text-foreground">{confirmationEmail}</span>
+              </p>
+              <p className="text-sm text-muted-foreground">
+                Click the link in the email to verify your account before logging in.
+              </p>
+              <Button
+                onClick={() => setShowEmailConfirmation(false)}
+                variant="outline"
+                className="w-full mt-4"
+              >
+                Back to Login
+              </Button>
+            </div>
+          ) : (
+            <Tabs defaultValue="login" className="w-full">
+              <TabsList className="grid w-full grid-cols-2">
+                <TabsTrigger value="login">Login</TabsTrigger>
+                <TabsTrigger value="signup">Sign Up</TabsTrigger>
+              </TabsList>
             
             <TabsContent value="login">
               <form onSubmit={handleLogin} className="space-y-4">
@@ -448,6 +485,7 @@ export default function Auth() {
               </form>
             </TabsContent>
           </Tabs>
+          )}
         </CardContent>
       </Card>
     </div>

@@ -294,7 +294,7 @@ export default function Feed() {
   );
 }
 
-// Format date for display (e.g., "THU OCT 30th" or "Tomorrow")
+// Format date for display (e.g., "SAT, 11/2" or "Tomorrow")
 function formatGameDate(dateString: string): string {
   try {
     const gameDate = new Date(dateString);
@@ -314,19 +314,12 @@ function formatGameDate(dateString: string): string {
     }
     
     const dayNames = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
-    const monthNames = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
     
     const dayName = dayNames[gameDate.getDay()];
-    const monthName = monthNames[gameDate.getMonth()];
+    const month = gameDate.getMonth() + 1;
     const date = gameDate.getDate();
     
-    // Add ordinal suffix
-    let suffix = 'th';
-    if (date === 1 || date === 21 || date === 31) suffix = 'st';
-    else if (date === 2 || date === 22) suffix = 'nd';
-    else if (date === 3 || date === 23) suffix = 'rd';
-    
-    return `${dayName} ${monthName} ${date}${suffix}`;
+    return `${dayName}, ${month}/${date}`;
   } catch {
     return dateString;
   }

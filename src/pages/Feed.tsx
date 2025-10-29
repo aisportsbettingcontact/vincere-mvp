@@ -496,22 +496,14 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
             </div>
 
             <div 
-              className="rounded-lg p-3 row-span-2 flex items-center justify-center"
+              className="rounded-lg p-3 flex items-center justify-center"
               style={{ background: "rgba(255, 255, 255, 0.05)" }}
             >
-              <div className="flex flex-col gap-4">
-                <div className="text-xl font-bold text-center" style={{ color: "#4ade80" }}>
-                  {(() => {
-                    const awayML = firstOdds?.moneyline?.away?.american || -110;
-                    return `${awayML > 0 ? '+' : ''}${awayML}`;
-                  })()}
-                </div>
-                <div className="text-xl font-bold text-center" style={{ color: "#4ade80" }}>
-                  {(() => {
-                    const homeML = firstOdds?.moneyline?.home?.american || -110;
-                    return `${homeML > 0 ? '+' : ''}${homeML}`;
-                  })()}
-                </div>
+              <div className="text-xl font-bold" style={{ color: "#4ade80" }}>
+                {(() => {
+                  const awayML = firstOdds?.moneyline?.away?.american || -110;
+                  return `${awayML > 0 ? '+' : ''}${awayML}`;
+                })()}
               </div>
             </div>
 
@@ -542,6 +534,18 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
                 {(() => {
                   const odds = firstOdds?.total?.under?.odds.american || -110;
                   return `${odds > 0 ? '+' : ''}${odds}`;
+                })()}
+              </div>
+            </div>
+
+            <div 
+              className="rounded-lg p-3 flex items-center justify-center"
+              style={{ background: "rgba(255, 255, 255, 0.05)" }}
+            >
+              <div className="text-xl font-bold" style={{ color: "#4ade80" }}>
+                {(() => {
+                  const homeML = firstOdds?.moneyline?.home?.american || -110;
+                  return `${homeML > 0 ? '+' : ''}${homeML}`;
                 })()}
               </div>
             </div>

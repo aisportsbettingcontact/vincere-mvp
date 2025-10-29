@@ -209,7 +209,8 @@ export default function Auth() {
         if (error.message.includes("Invalid login credentials")) {
           toast.error("Invalid email or password");
         } else if (error.message.includes("Email not confirmed")) {
-          toast.error("Please verify your email before logging in. Check your inbox for the verification link.");
+          setConfirmationEmail(validatedData.email);
+          setShowEmailConfirmation(true);
         } else {
           toast.error(error.message);
         }

@@ -397,67 +397,66 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
         </div>
       </div>
 
-      {/* Main Content Container */}
-      <div className="flex items-stretch" style={{ minHeight: "120px" }}>
+      {/* Main Content Container - Responsive Layout */}
+      <div className="flex flex-col md:flex-row md:items-stretch">
         {/* Left Side - Teams */}
         <div 
-          className="flex flex-col justify-center px-4 py-3"
+          className="flex items-center md:flex-col md:justify-center px-3 md:px-4 py-2 md:py-3 gap-2 md:gap-0 border-b md:border-b-0 md:border-r md:min-w-[160px]"
           style={{
             background: "var(--ma-card)",
-            borderRight: "1px solid var(--ma-stroke)",
-            minWidth: "200px"
+            borderColor: "var(--ma-stroke)"
           }}
         >
-          <div className="flex items-center gap-3 mb-2">
-            <img src={getTeamLogo(displayGame.away.espnAbbr, displayGame.sport)} alt="" className="w-8 h-8 rounded" />
-            <div className="text-sm font-bold" style={{ color: "var(--ma-text-primary)" }}>
-              {displayGame.away.name}
+          <div className="flex items-center gap-2 md:gap-3 md:mb-2">
+            <img src={getTeamLogo(displayGame.away.espnAbbr, displayGame.sport)} alt="" className="w-6 h-6 md:w-8 md:h-8 rounded flex-shrink-0" />
+            <div className="text-xs md:text-sm font-bold truncate" style={{ color: "var(--ma-text-primary)" }}>
+              {displayGame.away.abbr}
             </div>
           </div>
-          <div className="text-[10px] mb-2 ml-11" style={{ color: "var(--ma-text-secondary)" }}>
+          <div className="text-[10px] px-1" style={{ color: "var(--ma-text-secondary)" }}>
             AT
           </div>
-          <div className="flex items-center gap-3">
-            <img src={getTeamLogo(displayGame.home.espnAbbr, displayGame.sport)} alt="" className="w-8 h-8 rounded" />
-            <div className="text-sm font-bold" style={{ color: "var(--ma-text-primary)" }}>
-              {displayGame.home.name}
+          <div className="flex items-center gap-2 md:gap-3">
+            <img src={getTeamLogo(displayGame.home.espnAbbr, displayGame.sport)} alt="" className="w-6 h-6 md:w-8 md:h-8 rounded flex-shrink-0" />
+            <div className="text-xs md:text-sm font-bold truncate" style={{ color: "var(--ma-text-primary)" }}>
+              {displayGame.home.abbr}
             </div>
           </div>
         </div>
 
         {/* Right Side - Odds Grid */}
-        <div className="flex-1">
+        <div className="flex-1 min-w-0">
           {/* Column Headers */}
           <div 
-            className="grid grid-cols-3 gap-px px-4 py-2"
+            className="grid grid-cols-3 gap-px px-2 md:px-4 py-1.5 md:py-2"
             style={{
               background: "var(--ma-surface)",
               borderBottom: "1px solid var(--ma-stroke)"
             }}
           >
-            <div className="text-xs font-semibold text-center" style={{ color: "var(--ma-text-secondary)" }}>
+            <div className="text-[10px] md:text-xs font-semibold text-center" style={{ color: "var(--ma-text-secondary)" }}>
               Spread
             </div>
-            <div className="text-xs font-semibold text-center" style={{ color: "var(--ma-text-secondary)" }}>
+            <div className="text-[10px] md:text-xs font-semibold text-center" style={{ color: "var(--ma-text-secondary)" }}>
               Total
             </div>
-            <div className="text-xs font-semibold text-center" style={{ color: "var(--ma-text-secondary)" }}>
+            <div className="text-[10px] md:text-xs font-semibold text-center" style={{ color: "var(--ma-text-secondary)" }}>
               Moneyline
             </div>
           </div>
 
           {/* Odds Values */}
-          <div className="grid grid-cols-3 gap-3 px-4 py-3" style={{ background: "var(--ma-card)" }}>
+          <div className="grid grid-cols-3 gap-1.5 md:gap-3 px-2 md:px-4 py-2 md:py-3" style={{ background: "var(--ma-card)" }}>
             {/* Spread Column */}
-            <div className="space-y-2">
+            <div className="space-y-1.5 md:space-y-2 min-w-0">
               <div 
-                className="rounded p-2"
+                className="rounded p-1.5 md:p-2"
                 style={{ background: "var(--ma-surface)" }}
               >
-                <div className="text-center text-base font-bold mb-0.5" style={{ color: "var(--ma-text-primary)" }}>
+                <div className="text-center text-sm md:text-base font-bold mb-0.5" style={{ color: "var(--ma-text-primary)" }}>
                   {formatSpreadLine(firstOdds?.spread?.away?.line || -3.5)}
                 </div>
-                <div className="text-center text-xs font-semibold" style={{ color: "#4ade80" }}>
+                <div className="text-center text-[10px] md:text-xs font-semibold" style={{ color: "#4ade80" }}>
                   {(() => {
                     const odds = firstOdds?.spread?.away?.odds.american || -110;
                     return `${odds > 0 ? '+' : ''}${odds}`;
@@ -465,13 +464,13 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
                 </div>
               </div>
               <div 
-                className="rounded p-2"
+                className="rounded p-1.5 md:p-2"
                 style={{ background: "var(--ma-surface)" }}
               >
-                <div className="text-center text-base font-bold mb-0.5" style={{ color: "var(--ma-text-primary)" }}>
+                <div className="text-center text-sm md:text-base font-bold mb-0.5" style={{ color: "var(--ma-text-primary)" }}>
                   {formatSpreadLine(firstOdds?.spread?.home?.line || 3.5)}
                 </div>
-                <div className="text-center text-xs font-semibold" style={{ color: "#4ade80" }}>
+                <div className="text-center text-[10px] md:text-xs font-semibold" style={{ color: "#4ade80" }}>
                   {(() => {
                     const odds = firstOdds?.spread?.home?.odds.american || -110;
                     return `${odds > 0 ? '+' : ''}${odds}`;
@@ -481,15 +480,15 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
             </div>
             
             {/* Total Column */}
-            <div className="space-y-2">
+            <div className="space-y-1.5 md:space-y-2 min-w-0">
               <div 
-                className="rounded p-2"
+                className="rounded p-1.5 md:p-2"
                 style={{ background: "var(--ma-surface)" }}
               >
-                <div className="text-center text-base font-bold mb-0.5" style={{ color: "var(--ma-text-primary)" }}>
+                <div className="text-center text-sm md:text-base font-bold mb-0.5" style={{ color: "var(--ma-text-primary)" }}>
                   O {firstOdds?.total?.over?.line || 47.5}
                 </div>
-                <div className="text-center text-xs font-semibold" style={{ color: "#4ade80" }}>
+                <div className="text-center text-[10px] md:text-xs font-semibold" style={{ color: "#4ade80" }}>
                   {(() => {
                     const odds = firstOdds?.total?.over?.odds.american || -110;
                     return `${odds > 0 ? '+' : ''}${odds}`;
@@ -497,13 +496,13 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
                 </div>
               </div>
               <div 
-                className="rounded p-2"
+                className="rounded p-1.5 md:p-2"
                 style={{ background: "var(--ma-surface)" }}
               >
-                <div className="text-center text-base font-bold mb-0.5" style={{ color: "var(--ma-text-primary)" }}>
+                <div className="text-center text-sm md:text-base font-bold mb-0.5" style={{ color: "var(--ma-text-primary)" }}>
                   U {firstOdds?.total?.under?.line || 47.5}
                 </div>
-                <div className="text-center text-xs font-semibold" style={{ color: "#4ade80" }}>
+                <div className="text-center text-[10px] md:text-xs font-semibold" style={{ color: "#4ade80" }}>
                   {(() => {
                     const odds = firstOdds?.total?.under?.odds.american || -110;
                     return `${odds > 0 ? '+' : ''}${odds}`;
@@ -513,12 +512,12 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
             </div>
             
             {/* Moneyline Column */}
-            <div className="space-y-2">
+            <div className="space-y-1.5 md:space-y-2 min-w-0">
               <div 
-                className="rounded p-2"
+                className="rounded p-1.5 md:p-2"
                 style={{ background: "var(--ma-surface)" }}
               >
-                <div className="text-center text-base font-bold" style={{ color: "#4ade80" }}>
+                <div className="text-center text-sm md:text-base font-bold" style={{ color: "#4ade80" }}>
                   {(() => {
                     const awayML = firstOdds?.moneyline?.away?.american || -110;
                     return `${awayML > 0 ? '+' : ''}${awayML}`;
@@ -526,10 +525,10 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
                 </div>
               </div>
               <div 
-                className="rounded p-2"
+                className="rounded p-1.5 md:p-2"
                 style={{ background: "var(--ma-surface)" }}
               >
-                <div className="text-center text-base font-bold" style={{ color: "#4ade80" }}>
+                <div className="text-center text-sm md:text-base font-bold" style={{ color: "#4ade80" }}>
                   {(() => {
                     const homeML = firstOdds?.moneyline?.home?.american || -110;
                     return `${homeML > 0 ? '+' : ''}${homeML}`;

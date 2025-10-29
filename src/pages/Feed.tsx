@@ -338,8 +338,34 @@ export default function Feed() {
   );
 }
 
+// Format date for display (e.g., "THU OCT 30th")
+function formatGameDate(dateString: string): string {
+  try {
+    const d = new Date(dateString);
+    if (isNaN(d.getTime())) return dateString;
+    
+    const dayNames = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+    const monthNames = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+    
+    const dayName = dayNames[d.getDay()];
+    const monthName = monthNames[d.getMonth()];
+    const date = d.getDate();
+    
+    // Add ordinal suffix
+    let suffix = 'th';
+    if (date === 1 || date === 21 || date === 31) suffix = 'st';
+    else if (date === 2 || date === 22) suffix = 'nd';
+    else if (date === 3 || date === 23) suffix = 'rd';
+    
+    return `${dayName} ${monthName} ${date}${suffix}`;
+  } catch {
+    return dateString;
+  }
+}
+
 // Lines Card - displays all three markets at once
 function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
+  const [selectedBook, setSelectedBook] = useState<"DK" | "Circa">(book);
   const firstOdds = game.odds[0];
   
   return (
@@ -350,133 +376,233 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
         border: "1px solid var(--ma-stroke)"
       }}
     >
-      {/* Game Header */}
+      {/* Date Header */}
       <div 
-        className="px-4 py-3"
+        className="px-4 py-2"
         style={{
-          background: "var(--ma-surface)",
+          background: "var(--ma-bg)",
           borderBottom: "1px solid var(--ma-stroke)"
         }}
       >
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
+        <div className="text-xs font-semibold" style={{ color: "var(--ma-text-secondary)" }}>
+          {formatGameDate(game.kickoff)}
+        </div>
+      </div>
+
+      {/* Main Content Container */}
+      <div className="flex items-stretch" style={{ minHeight: "120px" }}>
+        {/* Left Side - Teams */}
+        <div 
+          className="flex flex-col justify-center px-4 py-3"
+          style={{
+            background: "var(--ma-card)",
+            borderRight: "1px solid var(--ma-stroke)",
+            minWidth: "200px"
+          }}
+        >
+          <div className="flex items-center gap-3 mb-2">
             <img src={getTeamLogo(game.away.espnAbbr, game.sport)} alt="" className="w-8 h-8 rounded" />
-            <div>
-              <div className="font-bold text-base" style={{ color: "var(--ma-text-primary)" }}>
-                {game.away.abbr}
-              </div>
-              <div className="text-xs" style={{ color: "var(--ma-text-secondary)" }}>
-                AT
-              </div>
-              <div className="font-bold text-base" style={{ color: "var(--ma-text-primary)" }}>
-                {game.home.abbr}
-              </div>
+            <div className="text-sm font-bold" style={{ color: "var(--ma-text-primary)" }}>
+              {game.away.name}
             </div>
           </div>
-          <div className="text-right">
-            <div className="text-xs font-semibold px-2 py-1 rounded mb-1" style={{ background: "var(--ma-accent-indigo)", color: "white" }}>
-              {book}
+          <div className="text-[10px] mb-2 ml-11" style={{ color: "var(--ma-text-secondary)" }}>
+            AT
+          </div>
+          <div className="flex items-center gap-3">
+            <img src={getTeamLogo(game.home.espnAbbr, game.sport)} alt="" className="w-8 h-8 rounded" />
+            <div className="text-sm font-bold" style={{ color: "var(--ma-text-primary)" }}>
+              {game.home.name}
             </div>
-            <div className="text-xs" style={{ color: "var(--ma-text-secondary)" }}>
-              {formatGameTime(game.kickoff)}
+          </div>
+        </div>
+
+        {/* Right Side - Odds Grid */}
+        <div className="flex-1">
+          {/* Column Headers */}
+          <div 
+            className="grid grid-cols-3 gap-px px-4 py-2"
+            style={{
+              background: "var(--ma-surface)",
+              borderBottom: "1px solid var(--ma-stroke)"
+            }}
+          >
+            <div className="text-xs font-semibold text-center" style={{ color: "var(--ma-text-secondary)" }}>
+              Spread
+            </div>
+            <div className="text-xs font-semibold text-center" style={{ color: "var(--ma-text-secondary)" }}>
+              Total
+            </div>
+            <div className="text-xs font-semibold text-center" style={{ color: "var(--ma-text-secondary)" }}>
+              Moneyline
+            </div>
+          </div>
+
+          {/* Odds Values */}
+          <div className="grid grid-cols-3 gap-3 px-4 py-3" style={{ background: "var(--ma-card)" }}>
+            {/* Spread Column */}
+            <div className="space-y-2">
+              <div 
+                className="rounded p-2"
+                style={{ background: "var(--ma-surface)" }}
+              >
+                <div className="text-center text-base font-bold mb-0.5" style={{ color: "var(--ma-text-primary)" }}>
+                  {formatSpreadLine(firstOdds?.spread?.away?.line || -3.5)}
+                </div>
+                <div className="text-center text-xs font-semibold" style={{ color: "#4ade80" }}>
+                  {(() => {
+                    const odds = firstOdds?.spread?.away?.odds.american || -110;
+                    return `${odds > 0 ? '+' : ''}${odds}`;
+                  })()}
+                </div>
+              </div>
+              <div 
+                className="rounded p-2"
+                style={{ background: "var(--ma-surface)" }}
+              >
+                <div className="text-center text-base font-bold mb-0.5" style={{ color: "var(--ma-text-primary)" }}>
+                  {formatSpreadLine(firstOdds?.spread?.home?.line || 3.5)}
+                </div>
+                <div className="text-center text-xs font-semibold" style={{ color: "#4ade80" }}>
+                  {(() => {
+                    const odds = firstOdds?.spread?.home?.odds.american || -110;
+                    return `${odds > 0 ? '+' : ''}${odds}`;
+                  })()}
+                </div>
+              </div>
+            </div>
+            
+            {/* Total Column */}
+            <div className="space-y-2">
+              <div 
+                className="rounded p-2"
+                style={{ background: "var(--ma-surface)" }}
+              >
+                <div className="text-center text-base font-bold mb-0.5" style={{ color: "var(--ma-text-primary)" }}>
+                  O {firstOdds?.total?.over?.line || 47.5}
+                </div>
+                <div className="text-center text-xs font-semibold" style={{ color: "#4ade80" }}>
+                  {(() => {
+                    const odds = firstOdds?.total?.over?.odds.american || -110;
+                    return `${odds > 0 ? '+' : ''}${odds}`;
+                  })()}
+                </div>
+              </div>
+              <div 
+                className="rounded p-2"
+                style={{ background: "var(--ma-surface)" }}
+              >
+                <div className="text-center text-base font-bold mb-0.5" style={{ color: "var(--ma-text-primary)" }}>
+                  U {firstOdds?.total?.under?.line || 47.5}
+                </div>
+                <div className="text-center text-xs font-semibold" style={{ color: "#4ade80" }}>
+                  {(() => {
+                    const odds = firstOdds?.total?.under?.odds.american || -110;
+                    return `${odds > 0 ? '+' : ''}${odds}`;
+                  })()}
+                </div>
+              </div>
+            </div>
+            
+            {/* Moneyline Column */}
+            <div className="space-y-2">
+              <div 
+                className="rounded p-2"
+                style={{ background: "var(--ma-surface)" }}
+              >
+                <div className="text-center text-base font-bold" style={{ color: "#4ade80" }}>
+                  {(() => {
+                    const awayML = firstOdds?.moneyline?.away?.american || -110;
+                    return `${awayML > 0 ? '+' : ''}${awayML}`;
+                  })()}
+                </div>
+              </div>
+              <div 
+                className="rounded p-2"
+                style={{ background: "var(--ma-surface)" }}
+              >
+                <div className="text-center text-base font-bold" style={{ color: "#4ade80" }}>
+                  {(() => {
+                    const homeML = firstOdds?.moneyline?.home?.american || -110;
+                    return `${homeML > 0 ? '+' : ''}${homeML}`;
+                  })()}
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      
-      {/* Odds Grid */}
-      <div className="grid grid-cols-3 gap-px" style={{ background: "var(--ma-stroke)" }}>
-        {/* Spread Column */}
-        <div className="p-3" style={{ background: "var(--ma-card)" }}>
-          <div className="text-xs font-semibold mb-3 text-center" style={{ color: "var(--ma-text-secondary)" }}>
-            Spread
+
+      {/* Footer */}
+      <div 
+        className="flex items-center justify-between px-4 py-2"
+        style={{
+          background: "var(--ma-surface)",
+          borderTop: "1px solid var(--ma-stroke)"
+        }}
+      >
+        <div className="flex items-center gap-2">
+          <div 
+            className="text-[10px] font-bold px-2 py-0.5 rounded"
+            style={{
+              background: "rgba(34, 197, 94, 0.14)",
+              color: "#22c55e",
+              border: "1px solid rgba(34, 197, 94, 0.25)"
+            }}
+          >
+            SGP
           </div>
-          <div className="space-y-2">
-            <div 
-              className="rounded p-2"
-              style={{ background: "var(--ma-surface)" }}
-            >
-              <div className="text-center text-sm font-bold mb-1" style={{ color: "var(--ma-text-primary)" }}>
-                {formatSpreadLine(firstOdds?.spread?.away?.line || -3.5)}
-              </div>
-              <div className="text-center text-xs font-semibold" style={{ color: "#4ade80" }}>
-                -110
-              </div>
-            </div>
-            <div 
-              className="rounded p-2"
-              style={{ background: "var(--ma-surface)" }}
-            >
-              <div className="text-center text-sm font-bold mb-1" style={{ color: "var(--ma-text-primary)" }}>
-                {formatSpreadLine(firstOdds?.spread?.home?.line || 3.5)}
-              </div>
-              <div className="text-center text-xs font-semibold" style={{ color: "#4ade80" }}>
-                -110
-              </div>
-            </div>
+          <div className="text-xs" style={{ color: "var(--ma-text-secondary)" }}>
+            {formatGameTime(game.kickoff)}
           </div>
         </div>
-        
-        {/* Total Column */}
-        <div className="p-3" style={{ background: "var(--ma-card)" }}>
-          <div className="text-xs font-semibold mb-3 text-center" style={{ color: "var(--ma-text-secondary)" }}>
-            Total
-          </div>
-          <div className="space-y-2">
-            <div 
-              className="rounded p-2"
-              style={{ background: "var(--ma-surface)" }}
-            >
-              <div className="text-center text-sm font-bold mb-1" style={{ color: "var(--ma-text-primary)" }}>
-                O {firstOdds?.total?.over?.line || 47.5}
-              </div>
-              <div className="text-center text-xs font-semibold" style={{ color: "#4ade80" }}>
-                -110
-              </div>
-            </div>
-            <div 
-              className="rounded p-2"
-              style={{ background: "var(--ma-surface)" }}
-            >
-              <div className="text-center text-sm font-bold mb-1" style={{ color: "var(--ma-text-primary)" }}>
-                U {firstOdds?.total?.under?.line || 47.5}
-              </div>
-              <div className="text-center text-xs font-semibold" style={{ color: "#4ade80" }}>
-                -110
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        {/* Moneyline Column */}
-        <div className="p-3" style={{ background: "var(--ma-card)" }}>
-          <div className="text-xs font-semibold mb-3 text-center" style={{ color: "var(--ma-text-secondary)" }}>
-            Moneyline
-          </div>
-          <div className="space-y-2">
-            <div 
-              className="rounded p-2"
-              style={{ background: "var(--ma-surface)" }}
-            >
-              <div className="text-center text-sm font-bold" style={{ color: "#4ade80" }}>
-                {(() => {
-                  const awayML = firstOdds?.moneyline?.away?.american || -110;
-                  return `${awayML > 0 ? '+' : ''}${awayML}`;
-                })()}
-              </div>
-            </div>
-            <div 
-              className="rounded p-2"
-              style={{ background: "var(--ma-surface)" }}
-            >
-              <div className="text-center text-sm font-bold" style={{ color: "#4ade80" }}>
-                {(() => {
-                  const homeML = firstOdds?.moneyline?.home?.american || -110;
-                  return `${homeML > 0 ? '+' : ''}${homeML}`;
-                })()}
-              </div>
-            </div>
-          </div>
+
+        {/* Book Toggle */}
+        <div 
+          className="relative flex gap-[6px] px-[3px] py-[3px] rounded-[10px]"
+          style={{
+            background: "var(--ma-card)",
+            border: "1px solid var(--ma-stroke)"
+          }}
+        >
+          <motion.div
+            className="absolute top-[3px] bottom-[3px] rounded-[7px]"
+            initial={false}
+            animate={{
+              left: selectedBook === "DK" ? "3px" : "calc(50% + 1.5px)",
+              width: "calc(50% - 4.5px)"
+            }}
+            transition={{ type: "spring", damping: 20, stiffness: 300 }}
+            style={{
+              background: "rgba(111, 116, 255, 0.14)",
+              border: "1px solid var(--ma-accent-indigo)"
+            }}
+          />
+          
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setSelectedBook("DK");
+            }}
+            className="relative z-10 px-3 py-1 rounded-[7px] transition-colors text-xs font-semibold"
+            style={{
+              color: selectedBook === "DK" ? "var(--ma-text-primary)" : "var(--ma-text-secondary)"
+            }}
+          >
+            DK
+          </button>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setSelectedBook("Circa");
+            }}
+            className="relative z-10 px-3 py-1 rounded-[7px] transition-colors text-xs font-semibold"
+            style={{
+              color: selectedBook === "Circa" ? "var(--ma-text-primary)" : "var(--ma-text-secondary)"
+            }}
+          >
+            Circa
+          </button>
         </div>
       </div>
     </motion.div>

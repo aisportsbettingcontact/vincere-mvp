@@ -53,6 +53,9 @@ export default function Auth() {
   const [signupUsername, setSignupUsername] = useState("");
   const [signupEmail, setSignupEmail] = useState("");
   const [signupPhone, setSignupPhone] = useState("");
+  const [signupPhoneArea, setSignupPhoneArea] = useState("");
+  const [signupPhonePrefix, setSignupPhonePrefix] = useState("");
+  const [signupPhoneLine, setSignupPhoneLine] = useState("");
   const [signupPassword, setSignupPassword] = useState("");
   
   // Login form
@@ -111,7 +114,7 @@ export default function Auth() {
       const validatedData = signupSchema.parse({
         username: signupUsername,
         email: signupEmail,
-        phone: signupPhone,
+        phone: `${signupPhoneArea}${signupPhonePrefix}${signupPhoneLine}`,
         password: signupPassword
       });
 
@@ -156,7 +159,9 @@ export default function Auth() {
         // Clear form
         setSignupUsername("");
         setSignupEmail("");
-        setSignupPhone("");
+        setSignupPhoneArea("");
+        setSignupPhonePrefix("");
+        setSignupPhoneLine("");
         setSignupPassword("");
       }
     } catch (error) {
@@ -346,18 +351,67 @@ export default function Auth() {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="signup-phone">Phone *</Label>
-                  <div className="flex gap-2">
-                    <div className="flex items-center px-3 rounded-md border border-input bg-muted text-sm">
+                  <div className="flex items-center gap-2">
+                    <div className="flex items-center px-3 py-2 rounded-md border border-input bg-muted text-sm h-10">
                       +1
                     </div>
+                    <span className="text-muted-foreground">(</span>
                     <Input
-                      id="signup-phone"
+                      id="signup-phone-area"
                       type="tel"
-                      placeholder="1234567890"
-                      value={signupPhone}
-                      onChange={(e) => setSignupPhone(e.target.value.replace(/\D/g, '').slice(0, 10))}
+                      placeholder="###"
+                      value={signupPhoneArea}
+                      onChange={(e) => {
+                        const val = e.target.value.replace(/\D/g, '').slice(0, 3);
+                        setSignupPhoneArea(val);
+                        if (val.length === 3) {
+                          document.getElementById('signup-phone-prefix')?.focus();
+                        }
+                      }}
                       required
-                      maxLength={10}
+                      maxLength={3}
+                      className="w-16 text-center"
+                    />
+                    <span className="text-muted-foreground">)</span>
+                    <Input
+                      id="signup-phone-prefix"
+                      type="tel"
+                      placeholder="###"
+                      value={signupPhonePrefix}
+                      onChange={(e) => {
+                        const val = e.target.value.replace(/\D/g, '').slice(0, 3);
+                        setSignupPhonePrefix(val);
+                        if (val.length === 3) {
+                          document.getElementById('signup-phone-line')?.focus();
+                        }
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Backspace' && signupPhonePrefix === '') {
+                          document.getElementById('signup-phone-area')?.focus();
+                        }
+                      }}
+                      required
+                      maxLength={3}
+                      className="w-16 text-center"
+                    />
+                    <span className="text-muted-foreground">-</span>
+                    <Input
+                      id="signup-phone-line"
+                      type="tel"
+                      placeholder="####"
+                      value={signupPhoneLine}
+                      onChange={(e) => {
+                        const val = e.target.value.replace(/\D/g, '').slice(0, 4);
+                        setSignupPhoneLine(val);
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Backspace' && signupPhoneLine === '') {
+                          document.getElementById('signup-phone-prefix')?.focus();
+                        }
+                      }}
+                      required
+                      maxLength={4}
+                      className="w-20 text-center"
                     />
                   </div>
                 </div>

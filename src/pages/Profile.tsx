@@ -9,7 +9,7 @@ import { ArrowLeft, Moon, Sun, Bell, BookOpen, Settings, LogOut } from "lucide-r
 import { toast } from "sonner";
 import { useTheme } from "@/contexts/ThemeContext";
 import draftKingsLogo from "@/assets/draftkings-logo.png";
-import circaLogo from "@/assets/circa-logo.png";
+import circaLogo from "@/assets/circa-logo.jpg";
 import { User } from "@supabase/supabase-js";
 
 export default function Profile() {

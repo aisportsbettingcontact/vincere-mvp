@@ -338,18 +338,31 @@ export default function Feed() {
   );
 }
 
-// Format date for display (e.g., "THU OCT 30th")
+// Format date for display (e.g., "THU OCT 30th" or "Tomorrow")
 function formatGameDate(dateString: string): string {
   try {
-    const d = new Date(dateString);
-    if (isNaN(d.getTime())) return dateString;
+    const gameDate = new Date(dateString);
+    if (isNaN(gameDate.getTime())) return dateString;
+    
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+    
+    // Check if game is tomorrow
+    if (
+      gameDate.getDate() === tomorrow.getDate() &&
+      gameDate.getMonth() === tomorrow.getMonth() &&
+      gameDate.getFullYear() === tomorrow.getFullYear()
+    ) {
+      return "Tomorrow";
+    }
     
     const dayNames = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
     const monthNames = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
     
-    const dayName = dayNames[d.getDay()];
-    const monthName = monthNames[d.getMonth()];
-    const date = d.getDate();
+    const dayName = dayNames[gameDate.getDay()];
+    const monthName = monthNames[gameDate.getMonth()];
+    const date = gameDate.getDate();
     
     // Add ordinal suffix
     let suffix = 'th';
@@ -384,9 +397,9 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
         border: "1px solid var(--ma-stroke)"
       }}
     >
-      {/* Date Header */}
+      {/* Date Header - Desktop Only */}
       <div 
-        className="px-4 py-2"
+        className="hidden md:block px-4 py-2"
         style={{
           background: "var(--ma-bg)",
           borderBottom: "1px solid var(--ma-stroke)"
@@ -397,8 +410,182 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
         </div>
       </div>
 
-      {/* Main Content Container - Responsive Layout */}
-      <div className="flex flex-col md:flex-row md:items-stretch">
+      {/* Mobile Layout */}
+      <div className="md:hidden">
+        {/* Date Header */}
+        <div 
+          className="px-4 py-2.5"
+          style={{
+            background: "var(--ma-bg)",
+            borderBottom: "1px solid var(--ma-stroke)"
+          }}
+        >
+          <div className="text-base font-semibold" style={{ color: "var(--ma-text-secondary)" }}>
+            {formatGameDate(game.kickoff)}
+          </div>
+        </div>
+
+        {/* Content Grid */}
+        <div className="flex gap-3 p-4">
+          {/* Left: Teams */}
+          <div className="flex flex-col gap-4 min-w-0 flex-shrink-0">
+            <div className="flex items-center gap-3">
+              <img src={getTeamLogo(displayGame.away.espnAbbr, displayGame.sport)} alt="" className="w-12 h-12 rounded flex-shrink-0" />
+              <div>
+                <div className="text-base font-bold whitespace-nowrap" style={{ color: "var(--ma-text-primary)" }}>
+                  {displayGame.away.name}
+                </div>
+                <div className="text-xs mt-0.5" style={{ color: "var(--ma-text-secondary)" }}>
+                  AT
+                </div>
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              <img src={getTeamLogo(displayGame.home.espnAbbr, displayGame.sport)} alt="" className="w-12 h-12 rounded flex-shrink-0" />
+              <div className="text-base font-bold whitespace-nowrap" style={{ color: "var(--ma-text-primary)" }}>
+                {displayGame.home.name}
+              </div>
+            </div>
+          </div>
+
+          {/* Right: Odds Grid */}
+          <div className="flex-1 min-w-0">
+            {/* Headers */}
+            <div className="grid grid-cols-3 gap-2 mb-2">
+              <div className="text-xs font-semibold text-center" style={{ color: "var(--ma-text-secondary)" }}>
+                Spread
+              </div>
+              <div className="text-xs font-semibold text-center" style={{ color: "var(--ma-text-secondary)" }}>
+                Total
+              </div>
+              <div className="text-xs font-semibold text-center" style={{ color: "var(--ma-text-secondary)" }}>
+                Moneyline
+              </div>
+            </div>
+
+            {/* Odds Boxes */}
+            <div className="grid grid-cols-3 gap-2">
+              {/* Away Row */}
+              <div 
+                className="rounded-lg p-2"
+                style={{ background: "rgba(255, 255, 255, 0.05)" }}
+              >
+                <div className="text-center text-base font-bold mb-1" style={{ color: "var(--ma-text-primary)" }}>
+                  {formatSpreadLine(firstOdds?.spread?.away?.line || -3.5)}
+                </div>
+                <div className="text-center text-xs font-semibold" style={{ color: "#4ade80" }}>
+                  {(() => {
+                    const odds = firstOdds?.spread?.away?.odds.american || -110;
+                    return `${odds > 0 ? '+' : ''}${odds}`;
+                  })()}
+                </div>
+              </div>
+              <div 
+                className="rounded-lg p-2"
+                style={{ background: "rgba(255, 255, 255, 0.05)" }}
+              >
+                <div className="text-center text-base font-bold mb-1" style={{ color: "var(--ma-text-primary)" }}>
+                  O {firstOdds?.total?.over?.line || 47.5}
+                </div>
+                <div className="text-center text-xs font-semibold" style={{ color: "#4ade80" }}>
+                  {(() => {
+                    const odds = firstOdds?.total?.over?.odds.american || -110;
+                    return `${odds > 0 ? '+' : ''}${odds}`;
+                  })()}
+                </div>
+              </div>
+              <div 
+                className="rounded-lg p-2 row-span-2 flex items-center justify-center"
+                style={{ background: "rgba(255, 255, 255, 0.05)" }}
+              >
+                <div>
+                  <div className="text-center text-base font-bold mb-2" style={{ color: "#4ade80" }}>
+                    {(() => {
+                      const awayML = firstOdds?.moneyline?.away?.american || -110;
+                      return `${awayML > 0 ? '+' : ''}${awayML}`;
+                    })()}
+                  </div>
+                  <div className="text-center text-base font-bold" style={{ color: "#4ade80" }}>
+                    {(() => {
+                      const homeML = firstOdds?.moneyline?.home?.american || -110;
+                      return `${homeML > 0 ? '+' : ''}${homeML}`;
+                    })()}
+                  </div>
+                </div>
+              </div>
+
+              {/* Home Row */}
+              <div 
+                className="rounded-lg p-2"
+                style={{ background: "rgba(255, 255, 255, 0.05)" }}
+              >
+                <div className="text-center text-base font-bold mb-1" style={{ color: "var(--ma-text-primary)" }}>
+                  {formatSpreadLine(firstOdds?.spread?.home?.line || 3.5)}
+                </div>
+                <div className="text-center text-xs font-semibold" style={{ color: "#4ade80" }}>
+                  {(() => {
+                    const odds = firstOdds?.spread?.home?.odds.american || -110;
+                    return `${odds > 0 ? '+' : ''}${odds}`;
+                  })()}
+                </div>
+              </div>
+              <div 
+                className="rounded-lg p-2"
+                style={{ background: "rgba(255, 255, 255, 0.05)" }}
+              >
+                <div className="text-center text-base font-bold mb-1" style={{ color: "var(--ma-text-primary)" }}>
+                  U {firstOdds?.total?.under?.line || 47.5}
+                </div>
+                <div className="text-center text-xs font-semibold" style={{ color: "#4ade80" }}>
+                  {(() => {
+                    const odds = firstOdds?.total?.under?.odds.american || -110;
+                    return `${odds > 0 ? '+' : ''}${odds}`;
+                  })()}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Footer */}
+        <div 
+          className="flex items-center justify-between px-4 py-3"
+          style={{
+            background: "var(--ma-surface)",
+            borderTop: "1px solid var(--ma-stroke)"
+          }}
+        >
+          <div className="flex items-center gap-2">
+            <div 
+              className="text-[10px] font-bold px-2 py-1 rounded"
+              style={{
+                background: "rgba(34, 197, 94, 0.14)",
+                color: "#22c55e",
+                border: "1px solid rgba(34, 197, 94, 0.25)"
+              }}
+            >
+              SGP
+            </div>
+            <div className="text-sm" style={{ color: "var(--ma-text-secondary)" }}>
+              {formatGameTime(game.kickoff)}
+            </div>
+          </div>
+
+          {/* More Bets Button */}
+          <button
+            className="flex items-center gap-2 text-sm font-semibold transition-colors"
+            style={{ color: "var(--ma-text-primary)" }}
+          >
+            More Bets
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      {/* Desktop Layout */}
+      <div className="hidden md:flex md:flex-row md:items-stretch">
         {/* Left Side - Teams */}
         <div 
           className="flex items-center md:flex-col md:justify-center px-3 md:px-4 py-2 md:py-3 gap-2 md:gap-0 border-b md:border-b-0 md:border-r md:min-w-[160px]"
@@ -540,9 +727,9 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
         </div>
       </div>
 
-      {/* Footer */}
+      {/* Footer - Desktop Only */}
       <div 
-        className="flex items-center justify-between px-4 py-2"
+        className="hidden md:flex items-center justify-between px-4 py-2"
         style={{
           background: "var(--ma-surface)",
           borderTop: "1px solid var(--ma-stroke)"
@@ -560,7 +747,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
             SGP
           </div>
           <div className="text-xs" style={{ color: "var(--ma-text-secondary)" }}>
-            {formatGameTime(displayGame.kickoff)}
+            {formatGameTime(game.kickoff)}
           </div>
         </div>
 

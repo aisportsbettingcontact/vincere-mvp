@@ -592,24 +592,24 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
       <div className="hidden md:flex md:flex-row md:items-stretch">
         {/* Left Side - Teams */}
         <div 
-          className="flex items-center md:flex-col md:justify-center px-3 md:px-4 py-2 md:py-3 gap-2 md:gap-0 border-b md:border-b-0 md:border-r md:min-w-[160px]"
+          className="flex items-center md:flex-col md:justify-center px-3 md:px-4 py-2 md:py-3 gap-2 md:gap-3 border-b md:border-b-0 md:border-r md:min-w-[160px]"
           style={{
             background: "var(--ma-card)",
             borderColor: "var(--ma-stroke)"
           }}
         >
-          <div className="flex items-center gap-2 md:gap-3 md:mb-2">
+          <div className="flex items-center gap-2 md:gap-3">
             <img src={getTeamLogo(displayGame.away.espnAbbr, displayGame.sport)} alt="" className="w-6 h-6 md:w-8 md:h-8 rounded flex-shrink-0" />
-            <div className="text-xs md:text-sm font-bold truncate" style={{ color: "var(--ma-text-primary)" }}>
+            <div className="text-xs md:text-base font-bold truncate" style={{ color: "var(--ma-text-primary)" }}>
               {displayGame.away.abbr}
             </div>
           </div>
-          <div className="text-[10px] px-1" style={{ color: "var(--ma-text-secondary)" }}>
+          <div className="text-[10px] md:text-xs font-semibold text-center" style={{ color: "var(--ma-text-secondary)" }}>
             AT
           </div>
           <div className="flex items-center gap-2 md:gap-3">
             <img src={getTeamLogo(displayGame.home.espnAbbr, displayGame.sport)} alt="" className="w-6 h-6 md:w-8 md:h-8 rounded flex-shrink-0" />
-            <div className="text-xs md:text-sm font-bold truncate" style={{ color: "var(--ma-text-primary)" }}>
+            <div className="text-xs md:text-base font-bold truncate" style={{ color: "var(--ma-text-primary)" }}>
               {displayGame.home.abbr}
             </div>
           </div>

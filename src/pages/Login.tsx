@@ -112,6 +112,7 @@ export default function Auth() {
     setLoading(true);
 
     try {
+      console.log("Starting signup process...");
       // Validate input
       const validatedData = signupSchema.parse({
         username: signupUsername,
@@ -119,13 +120,16 @@ export default function Auth() {
         phone: `${signupPhoneArea}${signupPhonePrefix}${signupPhoneLine}`,
         password: signupPassword
       });
+      console.log("Validation passed:", { username: validatedData.username, email: validatedData.email });
 
       // Check if username already exists
-      const { data: existingUsername } = await supabase
+      const { data: existingUsername, error: usernameCheckError } = await supabase
         .from('profiles')
         .select('username')
         .eq('username', validatedData.username)
-        .single();
+        .maybeSingle();
+
+      console.log("Username check:", { existingUsername, usernameCheckError });
 
       if (existingUsername) {
         toast.error("This username is already taken. Please choose another.");
@@ -136,7 +140,8 @@ export default function Auth() {
       const redirectUrl = `${window.location.origin}/`;
       const fullPhone = `+1${validatedData.phone}`;
       
-      const { error } = await supabase.auth.signUp({
+      console.log("Attempting signup...");
+      const { error, data } = await supabase.auth.signUp({
         email: validatedData.email,
         password: validatedData.password,
         options: {
@@ -148,13 +153,17 @@ export default function Auth() {
         }
       });
 
+      console.log("Signup result:", { error, data });
+
       if (error) {
+        console.error("Signup error:", error);
         if (error.message.includes("already registered")) {
           toast.error("This email is already registered. Please login instead.");
         } else {
           toast.error(error.message);
         }
       } else {
+        console.log("Signup successful! Showing confirmation screen...");
         setConfirmationEmail(validatedData.email);
         setShowEmailConfirmation(true);
         // Clear form
@@ -166,6 +175,7 @@ export default function Auth() {
         setSignupPassword("");
       }
     } catch (error) {
+      console.error("Caught error:", error);
       if (error instanceof z.ZodError) {
         toast.error(error.errors[0].message);
       } else {

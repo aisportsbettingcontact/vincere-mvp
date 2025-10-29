@@ -358,7 +358,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
         }}
       >
         <div className="text-xs font-semibold" style={{ color: "var(--ma-text-secondary)" }}>
-          {formatGameDate(game.kickoff)}
+          {formatGameDate(game.kickoff)} {formatGameTime(game.kickoff)}
         </div>
       </div>
 
@@ -514,9 +514,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
             borderTop: "1px solid var(--ma-stroke)"
           }}
         >
-          <div className="text-sm font-medium" style={{ color: "var(--ma-text-secondary)" }}>
-            {formatGameDate(game.kickoff)} {formatGameTime(game.kickoff)}
-          </div>
+          <div></div>
 
           {hasDK && hasCirca && (
             <div 
@@ -735,9 +733,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
           borderTop: "1px solid var(--ma-stroke)"
         }}
       >
-        <div className="text-xs font-medium" style={{ color: "var(--ma-text-secondary)" }}>
-          {formatGameDate(game.kickoff)} {formatGameTime(game.kickoff)}
-        </div>
+        <div></div>
 
         {/* Book Toggle */}
         <div 

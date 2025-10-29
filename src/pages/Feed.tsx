@@ -616,24 +616,24 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
         <div className="px-2 md:px-4 py-2 md:py-3" style={{ background: "var(--ma-card)" }}>
           <div className="grid grid-cols-4 gap-1.5 md:gap-3">
             {/* Team Column with all 3 sections */}
-            <div className="flex flex-col justify-between gap-1.5 md:gap-2">
+            <div className="flex flex-col justify-between items-center gap-1.5 md:gap-2">
               {/* Away Team */}
-              <div className="flex items-center gap-2 md:gap-3 h-full">
+              <div className="flex items-center gap-2 md:gap-3">
                 <img src={getTeamLogo(displayGame.away.espnAbbr, displayGame.sport)} alt="" className="w-6 h-6 md:w-8 md:h-8 rounded flex-shrink-0" />
-                <div className="text-xs md:text-base font-bold truncate" style={{ color: "var(--ma-text-primary)" }}>
+                <div className="text-xs md:text-base font-bold" style={{ color: "var(--ma-text-primary)" }}>
                   {displayGame.away.abbr}
                 </div>
               </div>
               
               {/* AT - Centered */}
-              <div className="flex items-center justify-center text-[10px] md:text-xs font-semibold" style={{ color: "var(--ma-text-secondary)" }}>
+              <div className="text-[10px] md:text-xs font-semibold" style={{ color: "var(--ma-text-secondary)" }}>
                 AT
               </div>
               
               {/* Home Team */}
-              <div className="flex items-center gap-2 md:gap-3 h-full">
+              <div className="flex items-center gap-2 md:gap-3">
                 <img src={getTeamLogo(displayGame.home.espnAbbr, displayGame.sport)} alt="" className="w-6 h-6 md:w-8 md:h-8 rounded flex-shrink-0" />
-                <div className="text-xs md:text-base font-bold truncate" style={{ color: "var(--ma-text-primary)" }}>
+                <div className="text-xs md:text-base font-bold" style={{ color: "var(--ma-text-primary)" }}>
                   {displayGame.home.abbr}
                 </div>
               </div>

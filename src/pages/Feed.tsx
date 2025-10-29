@@ -253,62 +253,64 @@ export default function Feed() {
               </button>
             </div>
             
-            {/* Market Toggle */}
-            <div 
-              className="relative flex gap-[8px] px-[4px] py-[4px] rounded-[14px] flex-1"
-              style={{
-                background: "var(--ma-surface)",
-                border: "1px solid var(--ma-stroke)"
-              }}
-            >
-              <motion.div
-                className="absolute top-[4px] bottom-[4px] rounded-[10px]"
-                initial={false}
-                animate={{
-                  left: globalMarket === "ML" ? "4px" : globalMarket === "Spread" ? "calc(33.33% + 1px)" : "calc(66.66% + 2px)",
-                  width: "calc(33.33% - 3px)"
-                }}
-                transition={{ type: "spring", damping: 20, stiffness: 300 }}
+            {/* Market Toggle - only show for Splits tab */}
+            {activeTab === "splits" && (
+              <div 
+                className="relative flex gap-[8px] px-[4px] py-[4px] rounded-[14px] flex-1"
                 style={{
-                  background: "rgba(111, 116, 255, 0.14)",
-                  border: "1px solid var(--ma-accent-indigo)"
-                }}
-              />
-              
-              <button
-                onClick={() => setGlobalMarket("ML")}
-                className="flex-1 font-['Inter',_sans-serif] relative z-10 px-[16px] py-[8px] rounded-[10px] transition-colors flex items-center justify-center"
-                style={{
-                  color: globalMarket === "ML" ? "var(--ma-text-primary)" : "var(--ma-text-secondary)",
-                  fontSize: "15px",
-                  fontWeight: 600
+                  background: "var(--ma-surface)",
+                  border: "1px solid var(--ma-stroke)"
                 }}
               >
-                ML
-              </button>
-              <button
-                onClick={() => setGlobalMarket("Spread")}
-                className="flex-1 font-['Inter',_sans-serif] relative z-10 px-[16px] py-[8px] rounded-[10px] transition-colors flex items-center justify-center"
-                style={{
-                  color: globalMarket === "Spread" ? "var(--ma-text-primary)" : "var(--ma-text-secondary)",
-                  fontSize: "15px",
-                  fontWeight: 600
-                }}
-              >
-                Spread
-              </button>
-              <button
-                onClick={() => setGlobalMarket("Total")}
-                className="flex-1 font-['Inter',_sans-serif] relative z-10 px-[16px] py-[8px] rounded-[10px] transition-colors flex items-center justify-center"
-                style={{
-                  color: globalMarket === "Total" ? "var(--ma-text-primary)" : "var(--ma-text-secondary)",
-                  fontSize: "15px",
-                  fontWeight: 600
-                }}
-              >
-                Total
-              </button>
-            </div>
+                <motion.div
+                  className="absolute top-[4px] bottom-[4px] rounded-[10px]"
+                  initial={false}
+                  animate={{
+                    left: globalMarket === "ML" ? "4px" : globalMarket === "Spread" ? "calc(33.33% + 1px)" : "calc(66.66% + 2px)",
+                    width: "calc(33.33% - 3px)"
+                  }}
+                  transition={{ type: "spring", damping: 20, stiffness: 300 }}
+                  style={{
+                    background: "rgba(111, 116, 255, 0.14)",
+                    border: "1px solid var(--ma-accent-indigo)"
+                  }}
+                />
+                
+                <button
+                  onClick={() => setGlobalMarket("ML")}
+                  className="flex-1 font-['Inter',_sans-serif] relative z-10 px-[16px] py-[8px] rounded-[10px] transition-colors flex items-center justify-center"
+                  style={{
+                    color: globalMarket === "ML" ? "var(--ma-text-primary)" : "var(--ma-text-secondary)",
+                    fontSize: "15px",
+                    fontWeight: 600
+                  }}
+                >
+                  ML
+                </button>
+                <button
+                  onClick={() => setGlobalMarket("Spread")}
+                  className="flex-1 font-['Inter',_sans-serif] relative z-10 px-[16px] py-[8px] rounded-[10px] transition-colors flex items-center justify-center"
+                  style={{
+                    color: globalMarket === "Spread" ? "var(--ma-text-primary)" : "var(--ma-text-secondary)",
+                    fontSize: "15px",
+                    fontWeight: 600
+                  }}
+                >
+                  Spread
+                </button>
+                <button
+                  onClick={() => setGlobalMarket("Total")}
+                  className="flex-1 font-['Inter',_sans-serif] relative z-10 px-[16px] py-[8px] rounded-[10px] transition-colors flex items-center justify-center"
+                  style={{
+                    color: globalMarket === "Total" ? "var(--ma-text-primary)" : "var(--ma-text-secondary)",
+                    fontSize: "15px",
+                    fontWeight: 600
+                  }}
+                >
+                  Total
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </header>
@@ -320,7 +322,6 @@ export default function Feed() {
               <LinesCard 
                 key={`${game.gameId}-${game.book}`}
                 game={game}
-                market={globalMarket}
                 book={selectedBook}
               />
             ) : (
@@ -337,88 +338,146 @@ export default function Feed() {
   );
 }
 
-// Lines Card - displays odds/lines
-function LinesCard({ game, market, book }: { game: GameOdds; market: Market; book: "DK" | "Circa" }) {
+// Lines Card - displays all three markets at once
+function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
   const firstOdds = game.odds[0];
-  
-  const getOddsDisplay = () => {
-    if (market === "ML") {
-      const awayML = firstOdds?.moneyline?.away?.american || -110;
-      const homeML = firstOdds?.moneyline?.home?.american || -110;
-      return {
-        away: `${awayML > 0 ? '+' : ''}${awayML}`,
-        home: `${homeML > 0 ? '+' : ''}${homeML}`
-      };
-    } else if (market === "Spread") {
-      const awayLine = firstOdds?.spread?.away?.line || -3.5;
-      const homeLine = firstOdds?.spread?.home?.line || 3.5;
-      return {
-        away: formatSpreadLine(awayLine),
-        home: formatSpreadLine(homeLine)
-      };
-    } else {
-      const line = firstOdds?.total?.over?.line || 47.5;
-      return {
-        away: `O ${line}`,
-        home: `U ${line}`
-      };
-    }
-  };
-  
-  const odds = getOddsDisplay();
   
   return (
     <motion.div 
-      className="w-full rounded-xl p-3 animate-fade-in"
+      className="w-full rounded-xl overflow-hidden animate-fade-in"
       style={{
         background: "var(--ma-card)",
         border: "1px solid var(--ma-stroke)"
       }}
     >
       {/* Game Header */}
-      <div className="flex items-center justify-between mb-3">
-        <div className="flex items-center gap-2">
-          <img src={getTeamLogo(game.away.espnAbbr, game.sport)} alt="" className="w-6 h-6 rounded" />
-          <span className="font-semibold text-sm" style={{ color: "var(--ma-text-primary)" }}>{game.away.abbr}</span>
-          <span className="text-xs" style={{ color: "var(--ma-text-secondary)" }}>@</span>
-          <img src={getTeamLogo(game.home.espnAbbr, game.sport)} alt="" className="w-6 h-6 rounded" />
-          <span className="font-semibold text-sm" style={{ color: "var(--ma-text-primary)" }}>{game.home.abbr}</span>
-        </div>
-        <div className="text-[10px] px-2 py-1 rounded bg-white/5" style={{ color: "var(--ma-text-secondary)" }}>
-          {formatGameTime(game.kickoff)}
-        </div>
-      </div>
-      
-      {/* Odds Display */}
       <div 
-        className="rounded-lg p-3"
-        style={{ background: "var(--ma-surface)", border: "1px solid var(--ma-stroke)" }}
+        className="px-4 py-3"
+        style={{
+          background: "var(--ma-surface)",
+          borderBottom: "1px solid var(--ma-stroke)"
+        }}
       >
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="text-xs font-semibold" style={{ color: "var(--ma-text-secondary)" }}>
-              {market === "Total" ? "Over" : game.away.abbr}
-            </span>
-            <span className="text-lg font-bold" style={{ color: "var(--ma-text-primary)" }}>
-              {odds.away}
-            </span>
+          <div className="flex items-center gap-3">
+            <img src={getTeamLogo(game.away.espnAbbr, game.sport)} alt="" className="w-8 h-8 rounded" />
+            <div>
+              <div className="font-bold text-base" style={{ color: "var(--ma-text-primary)" }}>
+                {game.away.abbr}
+              </div>
+              <div className="text-xs" style={{ color: "var(--ma-text-secondary)" }}>
+                AT
+              </div>
+              <div className="font-bold text-base" style={{ color: "var(--ma-text-primary)" }}>
+                {game.home.abbr}
+              </div>
+            </div>
           </div>
-          <div className="flex items-center gap-2">
-            <span className="text-lg font-bold" style={{ color: "var(--ma-text-primary)" }}>
-              {odds.home}
-            </span>
-            <span className="text-xs font-semibold" style={{ color: "var(--ma-text-secondary)" }}>
-              {market === "Total" ? "Under" : game.home.abbr}
-            </span>
+          <div className="text-right">
+            <div className="text-xs font-semibold px-2 py-1 rounded mb-1" style={{ background: "var(--ma-accent-indigo)", color: "white" }}>
+              {book}
+            </div>
+            <div className="text-xs" style={{ color: "var(--ma-text-secondary)" }}>
+              {formatGameTime(game.kickoff)}
+            </div>
           </div>
         </div>
       </div>
       
-      {/* Book Badge */}
-      <div className="mt-2 flex justify-end">
-        <span className="text-[10px] px-2 py-1 rounded" style={{ background: "var(--ma-surface)", color: "var(--ma-text-secondary)" }}>
-          {book}
-        </span>
+      {/* Odds Grid */}
+      <div className="grid grid-cols-3 gap-px" style={{ background: "var(--ma-stroke)" }}>
+        {/* Spread Column */}
+        <div className="p-3" style={{ background: "var(--ma-card)" }}>
+          <div className="text-xs font-semibold mb-3 text-center" style={{ color: "var(--ma-text-secondary)" }}>
+            Spread
+          </div>
+          <div className="space-y-2">
+            <div 
+              className="rounded p-2"
+              style={{ background: "var(--ma-surface)" }}
+            >
+              <div className="text-center text-sm font-bold mb-1" style={{ color: "var(--ma-text-primary)" }}>
+                {formatSpreadLine(firstOdds?.spread?.away?.line || -3.5)}
+              </div>
+              <div className="text-center text-xs font-semibold" style={{ color: "#4ade80" }}>
+                -110
+              </div>
+            </div>
+            <div 
+              className="rounded p-2"
+              style={{ background: "var(--ma-surface)" }}
+            >
+              <div className="text-center text-sm font-bold mb-1" style={{ color: "var(--ma-text-primary)" }}>
+                {formatSpreadLine(firstOdds?.spread?.home?.line || 3.5)}
+              </div>
+              <div className="text-center text-xs font-semibold" style={{ color: "#4ade80" }}>
+                -110
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        {/* Total Column */}
+        <div className="p-3" style={{ background: "var(--ma-card)" }}>
+          <div className="text-xs font-semibold mb-3 text-center" style={{ color: "var(--ma-text-secondary)" }}>
+            Total
+          </div>
+          <div className="space-y-2">
+            <div 
+              className="rounded p-2"
+              style={{ background: "var(--ma-surface)" }}
+            >
+              <div className="text-center text-sm font-bold mb-1" style={{ color: "var(--ma-text-primary)" }}>
+                O {firstOdds?.total?.over?.line || 47.5}
+              </div>
+              <div className="text-center text-xs font-semibold" style={{ color: "#4ade80" }}>
+                -110
+              </div>
+            </div>
+            <div 
+              className="rounded p-2"
+              style={{ background: "var(--ma-surface)" }}
+            >
+              <div className="text-center text-sm font-bold mb-1" style={{ color: "var(--ma-text-primary)" }}>
+                U {firstOdds?.total?.under?.line || 47.5}
+              </div>
+              <div className="text-center text-xs font-semibold" style={{ color: "#4ade80" }}>
+                -110
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        {/* Moneyline Column */}
+        <div className="p-3" style={{ background: "var(--ma-card)" }}>
+          <div className="text-xs font-semibold mb-3 text-center" style={{ color: "var(--ma-text-secondary)" }}>
+            Moneyline
+          </div>
+          <div className="space-y-2">
+            <div 
+              className="rounded p-2"
+              style={{ background: "var(--ma-surface)" }}
+            >
+              <div className="text-center text-sm font-bold" style={{ color: "#4ade80" }}>
+                {(() => {
+                  const awayML = firstOdds?.moneyline?.away?.american || -110;
+                  return `${awayML > 0 ? '+' : ''}${awayML}`;
+                })()}
+              </div>
+            </div>
+            <div 
+              className="rounded p-2"
+              style={{ background: "var(--ma-surface)" }}
+            >
+              <div className="text-center text-sm font-bold" style={{ color: "#4ade80" }}>
+                {(() => {
+                  const homeML = firstOdds?.moneyline?.home?.american || -110;
+                  return `${homeML > 0 ? '+' : ''}${homeML}`;
+                })()}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </motion.div>
   );

@@ -814,74 +814,25 @@ function SplitsCard({ game }: { game: GameOdds }) {
           </div>
         </div>
         
-        {/* Spread Bar */}
-        <div className="mb-2">
-          <div className="text-[10px] font-semibold mb-1 text-center" style={{ color: "var(--ma-text-secondary)" }}>
-            Spread
-          </div>
-          <div className="relative h-8 rounded-lg overflow-hidden" style={{ background: "var(--ma-surface)", border: "0.5px solid white" }}>
-            <div 
-              className="absolute inset-y-0 left-0"
-              style={{
-                width: `${spreadsData.money.left}%`,
-                background: spreadsData.leftColor,
-                borderRight: "0.5px solid white"
-              }}
-            />
-            <div 
-              className="absolute inset-y-0 right-0"
-              style={{
-                width: `${spreadsData.money.right}%`,
-                background: spreadsData.rightColor
-              }}
-            />
-            <div className="absolute inset-0 flex items-center justify-between px-3 text-xs font-bold" style={{ color: "var(--ma-text-primary)" }}>
-              <span>{spreadsData.money.left}%</span>
-              <span>{spreadsData.money.right}%</span>
+        {/* Moneyline */}
+        <div className="mb-3">
+          <div className="flex items-center justify-between mb-1">
+            <div className="flex items-center gap-2">
+              <span className="text-lg font-bold" style={{ color: "var(--ma-text-primary)" }}>{mlData.money.left}%</span>
+              <span className="text-xs" style={{ color: "var(--ma-text-secondary)" }}>{mlData.leftLabel}</span>
+            </div>
+            <span className="text-xs font-semibold" style={{ color: "var(--ma-text-secondary)" }}>Moneyline</span>
+            <div className="flex items-center gap-2">
+              <span className="text-xs" style={{ color: "var(--ma-text-secondary)" }}>{mlData.rightLabel}</span>
+              <span className="text-lg font-bold" style={{ color: "var(--ma-text-primary)" }}>{mlData.money.right}%</span>
             </div>
           </div>
-        </div>
-        
-        {/* Total Bar */}
-        <div className="mb-2">
-          <div className="text-[10px] font-semibold mb-1 text-center" style={{ color: "var(--ma-text-secondary)" }}>
-            Total
-          </div>
-          <div className="relative h-8 rounded-lg overflow-hidden" style={{ background: "var(--ma-surface)", border: "0.5px solid white" }}>
-            <div 
-              className="absolute inset-y-0 left-0"
-              style={{
-                width: `${totalsData.money.left}%`,
-                background: totalsData.leftColor,
-                borderRight: "0.5px solid white"
-              }}
-            />
-            <div 
-              className="absolute inset-y-0 right-0"
-              style={{
-                width: `${totalsData.money.right}%`,
-                background: totalsData.rightColor
-              }}
-            />
-            <div className="absolute inset-0 flex items-center justify-between px-3 text-xs font-bold" style={{ color: "var(--ma-text-primary)" }}>
-              <span>{totalsData.money.left}%</span>
-              <span>{totalsData.money.right}%</span>
-            </div>
-          </div>
-        </div>
-        
-        {/* Moneyline Bar */}
-        <div>
-          <div className="text-[10px] font-semibold mb-1 text-center" style={{ color: "var(--ma-text-secondary)" }}>
-            Moneyline
-          </div>
-          <div className="relative h-8 rounded-lg overflow-hidden" style={{ background: "var(--ma-surface)", border: "0.5px solid white" }}>
+          <div className="relative h-3 rounded-full overflow-hidden" style={{ border: "0.5px solid white" }}>
             <div 
               className="absolute inset-y-0 left-0"
               style={{
                 width: `${mlData.money.left}%`,
-                background: mlData.leftColor,
-                borderRight: "0.5px solid white"
+                background: mlData.leftColor
               }}
             />
             <div 
@@ -891,10 +842,76 @@ function SplitsCard({ game }: { game: GameOdds }) {
                 background: mlData.rightColor
               }}
             />
-            <div className="absolute inset-0 flex items-center justify-between px-3 text-xs font-bold" style={{ color: "var(--ma-text-primary)" }}>
-              <span>{mlData.money.left}%</span>
-              <span>{mlData.money.right}%</span>
+          </div>
+        </div>
+        
+        {/* Spread */}
+        <div className="mb-3">
+          <div className="flex items-center justify-between mb-1">
+            <div className="flex items-center gap-2">
+              <span className="text-lg font-bold" style={{ color: "var(--ma-text-primary)" }}>{spreadsData.money.left}%</span>
+              <span className="text-xs" style={{ color: "var(--ma-text-secondary)" }}>
+                {spreadsData.leftLabel} {formatSpreadLine(firstOdds?.spread?.away?.line || -3.5)}
+              </span>
             </div>
+            <span className="text-xs font-semibold" style={{ color: "var(--ma-text-secondary)" }}>Spread</span>
+            <div className="flex items-center gap-2">
+              <span className="text-xs" style={{ color: "var(--ma-text-secondary)" }}>
+                {spreadsData.rightLabel} {formatSpreadLine(firstOdds?.spread?.home?.line || 3.5)}
+              </span>
+              <span className="text-lg font-bold" style={{ color: "var(--ma-text-primary)" }}>{spreadsData.money.right}%</span>
+            </div>
+          </div>
+          <div className="relative h-3 rounded-full overflow-hidden" style={{ border: "0.5px solid white" }}>
+            <div 
+              className="absolute inset-y-0 left-0"
+              style={{
+                width: `${spreadsData.money.left}%`,
+                background: spreadsData.leftColor
+              }}
+            />
+            <div 
+              className="absolute inset-y-0 right-0"
+              style={{
+                width: `${spreadsData.money.right}%`,
+                background: spreadsData.rightColor
+              }}
+            />
+          </div>
+        </div>
+        
+        {/* Total */}
+        <div>
+          <div className="flex items-center justify-between mb-1">
+            <div className="flex items-center gap-2">
+              <span className="text-lg font-bold" style={{ color: "var(--ma-text-primary)" }}>{totalsData.money.left}%</span>
+              <span className="text-xs" style={{ color: "var(--ma-text-secondary)" }}>
+                Over {firstOdds?.total?.over?.line || 47.5}
+              </span>
+            </div>
+            <span className="text-xs font-semibold" style={{ color: "var(--ma-text-secondary)" }}>Total</span>
+            <div className="flex items-center gap-2">
+              <span className="text-xs" style={{ color: "var(--ma-text-secondary)" }}>
+                Under {firstOdds?.total?.under?.line || 47.5}
+              </span>
+              <span className="text-lg font-bold" style={{ color: "var(--ma-text-primary)" }}>{totalsData.money.right}%</span>
+            </div>
+          </div>
+          <div className="relative h-3 rounded-full overflow-hidden" style={{ border: "0.5px solid white" }}>
+            <div 
+              className="absolute inset-y-0 left-0"
+              style={{
+                width: `${totalsData.money.left}%`,
+                background: totalsData.leftColor
+              }}
+            />
+            <div 
+              className="absolute inset-y-0 right-0"
+              style={{
+                width: `${totalsData.money.right}%`,
+                background: totalsData.rightColor
+              }}
+            />
           </div>
         </div>
       </div>

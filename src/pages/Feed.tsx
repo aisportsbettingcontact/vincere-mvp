@@ -366,7 +366,15 @@ function formatGameDate(dateString: string): string {
 // Lines Card - displays all three markets at once
 function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
   const [selectedBook, setSelectedBook] = useState<"DK" | "Circa">(book);
-  const firstOdds = game.odds[0];
+  
+  // Find the game data for the selected book
+  const displayGame = useMemo(() => {
+    const bookFilter = selectedBook === "Circa" ? "CIRCA" : selectedBook;
+    const matchingGame = mockGameOdds.find(g => g.gameId === game.gameId && g.book === bookFilter);
+    return matchingGame || game;
+  }, [game.gameId, selectedBook]);
+  
+  const firstOdds = displayGame.odds[0];
   
   return (
     <motion.div 
@@ -401,18 +409,18 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
           }}
         >
           <div className="flex items-center gap-3 mb-2">
-            <img src={getTeamLogo(game.away.espnAbbr, game.sport)} alt="" className="w-8 h-8 rounded" />
+            <img src={getTeamLogo(displayGame.away.espnAbbr, displayGame.sport)} alt="" className="w-8 h-8 rounded" />
             <div className="text-sm font-bold" style={{ color: "var(--ma-text-primary)" }}>
-              {game.away.name}
+              {displayGame.away.name}
             </div>
           </div>
           <div className="text-[10px] mb-2 ml-11" style={{ color: "var(--ma-text-secondary)" }}>
             AT
           </div>
           <div className="flex items-center gap-3">
-            <img src={getTeamLogo(game.home.espnAbbr, game.sport)} alt="" className="w-8 h-8 rounded" />
+            <img src={getTeamLogo(displayGame.home.espnAbbr, displayGame.sport)} alt="" className="w-8 h-8 rounded" />
             <div className="text-sm font-bold" style={{ color: "var(--ma-text-primary)" }}>
-              {game.home.name}
+              {displayGame.home.name}
             </div>
           </div>
         </div>
@@ -553,7 +561,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
             SGP
           </div>
           <div className="text-xs" style={{ color: "var(--ma-text-secondary)" }}>
-            {formatGameTime(game.kickoff)}
+            {formatGameTime(displayGame.kickoff)}
           </div>
         </div>
 

@@ -442,19 +442,21 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
           style={{ background: "var(--ma-card)" }}
         >
           {/* Left: Teams */}
-          <div className="flex flex-col justify-between">
-            <div className="flex items-center gap-3 mb-4">
+          <div className="flex flex-col justify-center relative">
+            <div className="flex items-center gap-3 mb-1">
               <img src={getTeamLogo(displayGame.away.espnAbbr, displayGame.sport)} alt="" className="w-12 h-12 rounded flex-shrink-0" />
-              <div>
-                <div className="text-base font-bold leading-tight" style={{ color: "var(--ma-text-primary)" }}>
-                  {displayGame.away.abbr}
-                </div>
-                <div className="text-[11px] mt-0.5" style={{ color: "var(--ma-text-secondary)" }}>
-                  AT
-                </div>
+              <div className="text-base font-bold leading-tight" style={{ color: "var(--ma-text-primary)" }}>
+                {displayGame.away.abbr}
               </div>
             </div>
-            <div className="flex items-center gap-3">
+            
+            <div className="text-center py-2">
+              <div className="text-[11px] font-semibold" style={{ color: "var(--ma-text-secondary)" }}>
+                AT
+              </div>
+            </div>
+            
+            <div className="flex items-center gap-3 mt-1">
               <img src={getTeamLogo(displayGame.home.espnAbbr, displayGame.sport)} alt="" className="w-12 h-12 rounded flex-shrink-0" />
               <div className="text-base font-bold leading-tight" style={{ color: "var(--ma-text-primary)" }}>
                 {displayGame.home.abbr}

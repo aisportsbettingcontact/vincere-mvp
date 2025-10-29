@@ -847,21 +847,21 @@ function SplitsCard({ game, market }: { game: GameOdds; market: Market }) {
     >
       <div className="p-3">
         {/* Teams Row */}
-        <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center justify-center mb-3">
           <div className="flex items-center gap-2">
             <img src={getTeamLogo(game.away.espnAbbr, game.sport)} alt="" className="w-6 h-6 rounded" />
             <span className="font-semibold text-sm" style={{ color: "var(--ma-text-primary)" }}>{game.away.abbr}</span>
             <span className="text-xs" style={{ color: "var(--ma-text-secondary)" }}>@</span>
             <img src={getTeamLogo(game.home.espnAbbr, game.sport)} alt="" className="w-6 h-6 rounded" />
             <span className="font-semibold text-sm" style={{ color: "var(--ma-text-primary)" }}>{game.home.abbr}</span>
-          </div>
-          <div 
-            className="text-[10px] px-2 py-1 rounded bg-white/5"
-            style={{
-              color: "var(--ma-text-secondary)"
-            }}
-          >
-            {formatGameDate(game.kickoff)} {formatGameTime(game.kickoff)}
+            <div 
+              className="text-[10px] px-2 py-1 rounded bg-white/5 ml-2"
+              style={{
+                color: "var(--ma-text-secondary)"
+              }}
+            >
+              {formatGameDate(game.kickoff)} {formatGameTime(game.kickoff)}
+            </div>
           </div>
         </div>
         

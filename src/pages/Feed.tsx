@@ -637,9 +637,10 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
           </div>
 
           {/* Odds Values */}
-          <div className="px-2 md:px-4 py-2 md:py-3" style={{ background: "var(--ma-card)" }}>
-            <div className="grid grid-cols-3 gap-1.5 md:gap-3 grid-rows-2">
-              {/* Spread Column - Away */}
+          <div className="px-2 md:px-4 py-2 md:py-3 space-y-1.5 md:space-y-2" style={{ background: "var(--ma-card)" }}>
+            {/* Away Team Row */}
+            <div className="grid grid-cols-3 gap-1.5 md:gap-3">
+              {/* Away Spread */}
               <div 
                 className="rounded p-1.5 md:p-2"
                 style={{ background: "var(--ma-surface)" }}
@@ -655,7 +656,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
                 </div>
               </div>
               
-              {/* Total - Over */}
+              {/* Over */}
               <div 
                 className="rounded p-1.5 md:p-2"
                 style={{ background: "var(--ma-surface)" }}
@@ -671,30 +672,23 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
                 </div>
               </div>
               
-              {/* Moneyline - Both Teams (spans 2 rows) */}
+              {/* Away Moneyline */}
               <div 
-                className="rounded p-1.5 md:p-2 row-span-2 flex flex-col justify-center gap-1.5 md:gap-2"
+                className="rounded p-1.5 md:p-2 flex items-center justify-center"
                 style={{ background: "var(--ma-surface)" }}
               >
-                <div className="rounded p-1.5 md:p-0">
-                  <div className="text-center text-sm md:text-base font-bold" style={{ color: "#4ade80" }}>
-                    {(() => {
-                      const awayML = firstOdds?.moneyline?.away?.american || -110;
-                      return `${awayML > 0 ? '+' : ''}${awayML}`;
-                    })()}
-                  </div>
-                </div>
-                <div className="rounded p-1.5 md:p-0">
-                  <div className="text-center text-sm md:text-base font-bold" style={{ color: "#4ade80" }}>
-                    {(() => {
-                      const homeML = firstOdds?.moneyline?.home?.american || -110;
-                      return `${homeML > 0 ? '+' : ''}${homeML}`;
-                    })()}
-                  </div>
+                <div className="text-center text-sm md:text-base font-bold" style={{ color: "#4ade80" }}>
+                  {(() => {
+                    const awayML = firstOdds?.moneyline?.away?.american || -110;
+                    return `${awayML > 0 ? '+' : ''}${awayML}`;
+                  })()}
                 </div>
               </div>
-              
-              {/* Spread Column - Home */}
+            </div>
+            
+            {/* Home Team Row */}
+            <div className="grid grid-cols-3 gap-1.5 md:gap-3">
+              {/* Home Spread */}
               <div 
                 className="rounded p-1.5 md:p-2"
                 style={{ background: "var(--ma-surface)" }}
@@ -710,7 +704,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
                 </div>
               </div>
               
-              {/* Total - Under */}
+              {/* Under */}
               <div 
                 className="rounded p-1.5 md:p-2"
                 style={{ background: "var(--ma-surface)" }}
@@ -722,6 +716,19 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
                   {(() => {
                     const odds = firstOdds?.total?.under?.odds.american || -110;
                     return `${odds > 0 ? '+' : ''}${odds}`;
+                  })()}
+                </div>
+              </div>
+              
+              {/* Home Moneyline */}
+              <div 
+                className="rounded p-1.5 md:p-2 flex items-center justify-center"
+                style={{ background: "var(--ma-surface)" }}
+              >
+                <div className="text-center text-sm md:text-base font-bold" style={{ color: "#4ade80" }}>
+                  {(() => {
+                    const homeML = firstOdds?.moneyline?.home?.american || -110;
+                    return `${homeML > 0 ? '+' : ''}${homeML}`;
                   })()}
                 </div>
               </div>

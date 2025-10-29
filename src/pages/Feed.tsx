@@ -100,6 +100,7 @@ function calculateDivergence(game: GameOdds, market: Market): { divergence: numb
 export default function Feed() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
+  const [activeTab, setActiveTab] = useState<"lines" | "splits">("splits");
   const [globalMarket, setGlobalMarket] = useState<Market>("Spread");
   
   // Sort games by divergence
@@ -156,6 +157,52 @@ export default function Feed() {
           >
             One glance. One edge. One tap.
           </h1>
+          
+          {/* Lines/Splits Tabs */}
+          <div 
+            className="relative flex gap-[8px] px-[4px] py-[4px] rounded-[14px] max-w-xs mx-auto mb-2"
+            style={{
+              background: "var(--ma-surface)",
+              border: "1px solid var(--ma-stroke)"
+            }}
+          >
+            <motion.div
+              className="absolute top-[4px] bottom-[4px] rounded-[10px]"
+              initial={false}
+              animate={{
+                left: activeTab === "lines" ? "4px" : "calc(50% + 2px)",
+                width: "calc(50% - 6px)"
+              }}
+              transition={{ type: "spring", damping: 20, stiffness: 300 }}
+              style={{
+                background: "rgba(111, 116, 255, 0.14)",
+                border: "1px solid var(--ma-accent-indigo)"
+              }}
+            />
+            
+            <button
+              onClick={() => setActiveTab("lines")}
+              className="flex-1 font-['Inter',_sans-serif] relative z-10 px-[16px] py-[8px] rounded-[10px] transition-colors flex items-center justify-center"
+              style={{
+                color: activeTab === "lines" ? "var(--ma-text-primary)" : "var(--ma-text-secondary)",
+                fontSize: "15px",
+                fontWeight: 600
+              }}
+            >
+              Lines
+            </button>
+            <button
+              onClick={() => setActiveTab("splits")}
+              className="flex-1 font-['Inter',_sans-serif] relative z-10 px-[16px] py-[8px] rounded-[10px] transition-colors flex items-center justify-center"
+              style={{
+                color: activeTab === "splits" ? "var(--ma-text-primary)" : "var(--ma-text-secondary)",
+                fontSize: "15px",
+                fontWeight: 600
+              }}
+            >
+              Splits
+            </button>
+          </div>
           
           {/* Sticky Market Toggle */}
           <div 

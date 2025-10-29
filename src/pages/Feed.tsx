@@ -856,13 +856,12 @@ function SplitsCard({ game, market }: { game: GameOdds; market: Market }) {
             <span className="font-semibold text-sm" style={{ color: "var(--ma-text-primary)" }}>{game.home.abbr}</span>
           </div>
           <div 
-            className="text-[10px] px-2 py-0.5 rounded"
+            className="text-[10px] px-2 py-1 rounded bg-white/5"
             style={{
-              background: "var(--ma-surface)",
               color: "var(--ma-text-secondary)"
             }}
           >
-            {cardData.lineMovement}
+            {formatGameTime(game.kickoff)}
           </div>
         </div>
         

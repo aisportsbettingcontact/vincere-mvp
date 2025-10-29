@@ -8,8 +8,8 @@ import { Separator } from "@/components/ui/separator";
 import { ArrowLeft, Moon, Sun, Bell, BookOpen, Settings, LogOut } from "lucide-react";
 import { toast } from "sonner";
 import { useTheme } from "@/contexts/ThemeContext";
-import draftKingsLogo from "@/assets/draftkings-logo.png";
-import circaLogo from "@/assets/circa-logo.svg";
+import draftKingsLogo from "@/assets/draftkings-logo.svg";
+import circaLogo from "@/assets/circa-logo.png";
 import { User } from "@supabase/supabase-js";
 
 export default function Profile() {

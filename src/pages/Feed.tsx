@@ -10,8 +10,8 @@ import { generateAIInsights } from "@/utils/aiAnalysis";
 import { formatSpreadLine } from "@/utils/bettingLogic";
 import { Brain, TrendingUp, Users, UserCircle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import draftKingsLogo from "@/assets/draftkings-logo.png";
-import circaLogo from "@/assets/circa-logo.svg";
+import draftKingsLogo from "@/assets/draftkings-logo.svg";
+import circaLogo from "@/assets/circa-logo.png";
 
 
 function getTeamLogo(espnAbbr: string, sport: string) {

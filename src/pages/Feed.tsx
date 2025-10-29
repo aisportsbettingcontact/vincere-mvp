@@ -324,10 +324,11 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
         
         {(hasDK || hasCirca) && (
           <div 
-            className="relative flex gap-2 px-2 py-2 rounded-[14px] flex-shrink-0 justify-center items-center"
+            className="flex gap-2 rounded-[14px] flex-shrink-0 justify-center items-center"
             style={{
               background: "var(--ma-surface)",
-              border: "1px solid var(--ma-stroke)"
+              border: "1px solid var(--ma-stroke)",
+              padding: "8px"
             }}
           >
             {hasDK && (
@@ -529,16 +530,13 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
 
             {(hasDK || hasCirca) && (
               <div 
-                className="relative flex gap-2 px-2 py-2 rounded-[14px] flex-shrink-0 justify-center items-center"
+                className="flex gap-2 rounded-[14px] flex-shrink-0 justify-center items-center"
                 style={{
                   background: "var(--ma-surface)",
-                  border: "1px solid var(--ma-stroke)"
+                  border: "1px solid var(--ma-stroke)",
+                  padding: "8px"
                 }}
               >
-                {hasDK && hasCirca && (
-                  <div />
-                )}
-                
                 {hasDK && (
                 <button
                   onClick={() => setSelectedBook("DK")}
@@ -849,16 +847,13 @@ function SplitsCard({ game }: { game: GameOdds }) {
           
           {(hasDK || hasCirca) && (
             <div 
-              className="relative flex gap-2 px-2 py-2 rounded-[10px] flex-shrink-0 justify-center items-center"
+              className="flex gap-2 rounded-[10px] flex-shrink-0 justify-center items-center"
               style={{
                 background: "var(--ma-surface)",
-                border: "1px solid var(--ma-stroke)"
+                border: "1px solid var(--ma-stroke)",
+                padding: "8px"
               }}
             >
-              {hasDK && hasCirca && (
-                <div />
-              )}
-              
               {hasDK && (
                 <button
                   onClick={(e) => {

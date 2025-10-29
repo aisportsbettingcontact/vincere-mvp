@@ -327,7 +327,21 @@ function formatGameDate(dateString: string): string {
 
 // Lines Card - displays all three markets at once
 function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
-  const [selectedBook, setSelectedBook] = useState<"DK" | "Circa">(book);
+  // Check if both DK and CIRCA data exist for this game
+  const hasDK = useMemo(() => 
+    mockGameOdds.some(g => g.gameId === game.gameId && g.book === "DK"),
+    [game.gameId]
+  );
+  
+  const hasCirca = useMemo(() => 
+    mockGameOdds.some(g => g.gameId === game.gameId && g.book === "CIRCA"),
+    [game.gameId]
+  );
+  
+  // If only DK is available, force DK selection
+  const [selectedBook, setSelectedBook] = useState<"DK" | "Circa">(
+    hasCirca ? book : "DK"
+  );
   
   // Find the game data for the selected book
   const displayGame = useMemo(() => {
@@ -527,48 +541,50 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
             </div>
           </div>
 
-          <div 
-            className="relative flex gap-[8px] px-[4px] py-[4px] rounded-[14px] flex-shrink-0"
-            style={{
-              background: "var(--ma-surface)",
-              border: "1px solid var(--ma-stroke)"
-            }}
-          >
-            <motion.div
-              className="absolute top-[4px] bottom-[4px] rounded-[10px]"
-              initial={false}
-              animate={{
-                left: selectedBook === "DK" ? "4px" : "calc(50% + 2px)",
-                width: "calc(50% - 6px)"
-              }}
-              transition={{ type: "spring", damping: 20, stiffness: 300 }}
+          {hasDK && hasCirca && (
+            <div 
+              className="relative flex gap-[8px] px-[4px] py-[4px] rounded-[14px] flex-shrink-0"
               style={{
-                background: "rgba(111, 116, 255, 0.14)",
-                border: "1px solid var(--ma-accent-indigo)"
-              }}
-            />
-            
-            <button
-              onClick={() => setSelectedBook("DK")}
-              className="font-['Inter',_sans-serif] relative z-10 px-[12px] py-[6px] rounded-[10px] transition-colors flex items-center justify-center text-xs"
-              style={{
-                color: selectedBook === "DK" ? "var(--ma-text-primary)" : "var(--ma-text-secondary)",
-                fontWeight: 600
+                background: "var(--ma-surface)",
+                border: "1px solid var(--ma-stroke)"
               }}
             >
-              DK
-            </button>
-            <button
-              onClick={() => setSelectedBook("Circa")}
-              className="font-['Inter',_sans-serif] relative z-10 px-[12px] py-[6px] rounded-[10px] transition-colors flex items-center justify-center text-xs"
-              style={{
-                color: selectedBook === "Circa" ? "var(--ma-text-primary)" : "var(--ma-text-secondary)",
-                fontWeight: 600
-              }}
-            >
-              Circa
-            </button>
-          </div>
+              <motion.div
+                className="absolute top-[4px] bottom-[4px] rounded-[10px]"
+                initial={false}
+                animate={{
+                  left: selectedBook === "DK" ? "4px" : "calc(50% + 2px)",
+                  width: "calc(50% - 6px)"
+                }}
+                transition={{ type: "spring", damping: 20, stiffness: 300 }}
+                style={{
+                  background: "rgba(111, 116, 255, 0.14)",
+                  border: "1px solid var(--ma-accent-indigo)"
+                }}
+              />
+              
+              <button
+                onClick={() => setSelectedBook("DK")}
+                className="font-['Inter',_sans-serif] relative z-10 px-[12px] py-[6px] rounded-[10px] transition-colors flex items-center justify-center text-xs"
+                style={{
+                  color: selectedBook === "DK" ? "var(--ma-text-primary)" : "var(--ma-text-secondary)",
+                  fontWeight: 600
+                }}
+              >
+                DK
+              </button>
+              <button
+                onClick={() => setSelectedBook("Circa")}
+                className="font-['Inter',_sans-serif] relative z-10 px-[12px] py-[6px] rounded-[10px] transition-colors flex items-center justify-center text-xs"
+                style={{
+                  color: selectedBook === "Circa" ? "var(--ma-text-primary)" : "var(--ma-text-secondary)",
+                  fontWeight: 600
+                }}
+              >
+                Circa
+              </button>
+            </div>
+          )}
         </div>
       </div>
 

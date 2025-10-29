@@ -455,7 +455,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
               style={{ background: "rgba(255, 255, 255, 0.05)" }}
             >
               <div className="text-base font-bold leading-none mb-1 whitespace-nowrap" style={{ color: "var(--ma-text-primary)" }}>
-                O {firstOdds?.total?.over?.line || 47.5}
+                o {firstOdds?.total?.over?.line || 47.5}
               </div>
               <div className="text-xs font-semibold leading-none" style={{ color: "#4ade80" }}>
                 {(() => {
@@ -498,7 +498,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
               style={{ background: "rgba(255, 255, 255, 0.05)" }}
             >
               <div className="text-base font-bold leading-none mb-1 whitespace-nowrap" style={{ color: "var(--ma-text-primary)" }}>
-                U {firstOdds?.total?.under?.line || 47.5}
+                u {firstOdds?.total?.under?.line || 47.5}
               </div>
               <div className="text-xs font-semibold leading-none" style={{ color: "#4ade80" }}>
                 {(() => {
@@ -686,7 +686,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
                 style={{ background: "var(--ma-surface)" }}
               >
                 <div className="text-center text-sm md:text-base font-bold mb-0.5" style={{ color: "var(--ma-text-primary)" }}>
-                  O {firstOdds?.total?.over?.line || 47.5}
+                  o {firstOdds?.total?.over?.line || 47.5}
                 </div>
                 <div className="text-center text-[10px] md:text-xs font-semibold" style={{ color: "#4ade80" }}>
                   {(() => {
@@ -705,7 +705,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
                 style={{ background: "var(--ma-surface)" }}
               >
                 <div className="text-center text-sm md:text-base font-bold mb-0.5" style={{ color: "var(--ma-text-primary)" }}>
-                  U {firstOdds?.total?.under?.line || 47.5}
+                  u {firstOdds?.total?.under?.line || 47.5}
                 </div>
                 <div className="text-center text-[10px] md:text-xs font-semibold" style={{ color: "#4ade80" }}>
                   {(() => {

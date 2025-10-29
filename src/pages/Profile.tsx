@@ -8,7 +8,7 @@ import { Separator } from "@/components/ui/separator";
 import { ArrowLeft, Moon, Sun, Bell, BookOpen, Settings, LogOut } from "lucide-react";
 import { toast } from "sonner";
 import { useTheme } from "@/contexts/ThemeContext";
-import draftKingsLogo from "@/assets/draftkings-logo.svg";
+import draftKingsLogo from "@/assets/draftkings-logo.png";
 import circaLogo from "@/assets/circa-logo.png";
 import { User } from "@supabase/supabase-js";
 
@@ -162,7 +162,9 @@ export default function Profile() {
               {/* DraftKings */}
               <div className="flex items-center justify-between py-3">
                 <div className="flex items-center gap-3">
-                  <img src={draftKingsLogo} alt="DraftKings" className="h-8 w-8 object-contain" />
+                  <div className="w-12 h-12 flex items-center justify-center rounded-lg" style={{ background: "var(--ma-surface)" }}>
+                    <img src={draftKingsLogo} alt="DraftKings" className="w-10 h-10 object-contain" />
+                  </div>
                   <div>
                     <h4 className="font-semibold" style={{ color: "var(--ma-text-primary)" }}>DraftKings</h4>
                     <p className="text-sm" style={{ color: "#4ade80" }}>Synced</p>
@@ -175,7 +177,9 @@ export default function Profile() {
               {/* Circa */}
               <div className="flex items-center justify-between py-3">
                 <div className="flex items-center gap-3">
-                  <img src={circaLogo} alt="Circa" className="h-8 w-8 object-contain" />
+                  <div className="w-12 h-12 flex items-center justify-center rounded-lg" style={{ background: "var(--ma-surface)" }}>
+                    <img src={circaLogo} alt="Circa" className="w-10 h-10 object-contain" />
+                  </div>
                   <div>
                     <h4 className="font-semibold" style={{ color: "var(--ma-text-primary)" }}>Circa</h4>
                     <p className="text-sm" style={{ color: "#4ade80" }}>Synced</p>

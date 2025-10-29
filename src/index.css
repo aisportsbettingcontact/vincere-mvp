@@ -7,8 +7,9 @@ All colors MUST be HSL.
 */
 
 @layer base {
-  :root {
-    /* EdgeGuide Design System - Prototype Analysis 8 */
+  :root,
+  [data-theme="dark"] {
+    /* EdgeGuide Design System - Dark Mode */
     --font-size: 16px;
     
     /* Core Background Colors */
@@ -56,6 +57,59 @@ All colors MUST be HSL.
     --destructive-foreground: 210 40% 98%;
     --border: 218 30% 16%;
     --input: 215 28% 23%;
+    --ring: 240 74% 67%;
+    --radius: 0.75rem;
+  }
+
+  [data-theme="light"] {
+    /* EdgeGuide Design System - Light Mode */
+    --font-size: 16px;
+    
+    /* Core Background Colors */
+    --ma-bg: #f8fafc;
+    --ma-surface: #ffffff;
+    --ma-canvas: #f1f5f9;
+    --ma-card: #ffffff;
+    
+    /* Borders & Dividers */
+    --ma-stroke: #e2e8f0;
+    --ma-divider: #e2e8f0;
+    
+    /* Text Colors */
+    --ma-text-primary: #0f172a;
+    --ma-text-secondary: #475569;
+    
+    /* Accent Colors */
+    --ma-accent-cyan: #06b6d4;
+    --ma-accent-indigo: #6366f1;
+    --ma-accent-green: #22c55e;
+    --ma-accent-red: #ef4444;
+    --ma-accent-amber: #f59e0b;
+    
+    /* Spacing */
+    --ma-space-2: 8px;
+    --ma-space-3: 12px;
+    --ma-space-4: 16px;
+
+    /* Legacy Shadcn Variables (for compatibility) */
+    --background: 210 20% 98%;
+    --foreground: 222 47% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    --primary: 240 74% 67%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
+    --accent: 240 74% 67%;
+    --accent-foreground: 222 47% 11%;
+    --destructive: 0 63% 58%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
     --ring: 240 74% 67%;
     --radius: 0.75rem;
   }

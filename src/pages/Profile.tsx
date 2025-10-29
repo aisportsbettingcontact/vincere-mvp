@@ -7,16 +7,17 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Separator } from "@/components/ui/separator";
 import { ArrowLeft, Moon, Sun, Bell, BookOpen, Settings, LogOut } from "lucide-react";
 import { toast } from "sonner";
+import { useTheme } from "@/contexts/ThemeContext";
 import draftKingsLogo from "@/assets/draftkings-logo.png";
 import circaLogo from "@/assets/circa-logo.svg";
 import { User } from "@supabase/supabase-js";
 
 export default function Profile() {
   const navigate = useNavigate();
+  const { theme, toggleTheme } = useTheme();
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState<User | null>(null);
   const [profile, setProfile] = useState<any>(null);
-  const [darkMode, setDarkMode] = useState(true);
   const [pushNotifications, setPushNotifications] = useState(false);
 
   useEffect(() => {
@@ -112,17 +113,17 @@ export default function Profile() {
             <CardContent className="pt-6">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  {darkMode ? <Moon className="h-5 w-5" style={{ color: "var(--ma-text-primary)" }} /> : <Sun className="h-5 w-5" style={{ color: "var(--ma-text-primary)" }} />}
+                  {theme === "dark" ? <Moon className="h-5 w-5" style={{ color: "var(--ma-text-primary)" }} /> : <Sun className="h-5 w-5" style={{ color: "var(--ma-text-primary)" }} />}
                   <div>
                     <h3 className="font-semibold" style={{ color: "var(--ma-text-primary)" }}>Dark Mode</h3>
                     <p className="text-sm" style={{ color: "var(--ma-text-secondary)" }}>
-                      {darkMode ? "On" : "Off"}
+                      {theme === "dark" ? "On" : "Off"}
                     </p>
                   </div>
                 </div>
                 <Switch
-                  checked={darkMode}
-                  onCheckedChange={setDarkMode}
+                  checked={theme === "dark"}
+                  onCheckedChange={toggleTheme}
                 />
               </div>
             </CardContent>

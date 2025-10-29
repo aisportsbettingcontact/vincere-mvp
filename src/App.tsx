@@ -6,6 +6,7 @@ import Feed from "./pages/Feed";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import AgeGateModal from "./components/AgeGateModal";
+import { ThemeProvider } from "./contexts/ThemeContext";
 import { supabase } from "@/integrations/supabase/client";
 import { useEffect, useState } from "react";
 import { User } from "@supabase/supabase-js";
@@ -47,12 +48,14 @@ function AppContent() {
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <Toaster />
-        <Sonner />
-        <AgeGateModal />
-        <AppContent />
-      </BrowserRouter>
+      <ThemeProvider>
+        <BrowserRouter>
+          <Toaster />
+          <Sonner />
+          <AgeGateModal />
+          <AppContent />
+        </BrowserRouter>
+      </ThemeProvider>
     </QueryClientProvider>
   );
 }

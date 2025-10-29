@@ -360,7 +360,7 @@ export default function Auth() {
                       <Input
                         id="signup-phone-area"
                         type="tel"
-                        placeholder="555"
+                        placeholder=""
                         value={signupPhoneArea}
                         onChange={(e) => {
                           const val = e.target.value.replace(/\D/g, '').slice(0, 3);
@@ -378,7 +378,7 @@ export default function Auth() {
                     <Input
                       id="signup-phone-prefix"
                       type="tel"
-                      placeholder="555"
+                      placeholder=""
                       value={signupPhonePrefix}
                       onChange={(e) => {
                         const val = e.target.value.replace(/\D/g, '').slice(0, 3);
@@ -400,7 +400,7 @@ export default function Auth() {
                     <Input
                       id="signup-phone-line"
                       type="tel"
-                      placeholder="1234"
+                      placeholder=""
                       value={signupPhoneLine}
                       onChange={(e) => {
                         const val = e.target.value.replace(/\D/g, '').slice(0, 4);

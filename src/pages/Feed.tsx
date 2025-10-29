@@ -756,29 +756,60 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
 
 // Splits Card - displays ticket/money percentages for all markets
 function SplitsCard({ game }: { game: GameOdds }) {
-  const [isExpanded, setIsExpanded] = useState(false);
+  // Check if both DK and CIRCA data exist for this game
+  const hasDK = useMemo(() => 
+    mockGameOdds.some(g => g.gameId === game.gameId && g.book === "DK"),
+    [game.gameId]
+  );
   
-  const firstOdds = game.odds[0];
+  const hasCirca = useMemo(() => 
+    mockGameOdds.some(g => g.gameId === game.gameId && g.book === "CIRCA"),
+    [game.gameId]
+  );
+  
+  // If only DK is available, force DK selection
+  const [selectedBook, setSelectedBook] = useState<"DK" | "Circa">(
+    hasCirca ? (game.book === "CIRCA" ? "Circa" : "DK") : "DK"
+  );
+  
+  // Find the game data for the selected book
+  const displayGame = useMemo(() => {
+    const bookFilter = selectedBook === "Circa" ? "CIRCA" : selectedBook;
+    const matchingGame = mockGameOdds.find(g => g.gameId === game.gameId && g.book === bookFilter);
+    return matchingGame || game;
+  }, [game.gameId, selectedBook, game]);
+  
+  const firstOdds = displayGame.odds[0];
+  
+  // Ensure book selection is valid
+  useEffect(() => {
+    if (!hasDK && selectedBook === "DK") {
+      setSelectedBook("Circa");
+    }
+    if (!hasCirca && selectedBook === "Circa") {
+      setSelectedBook("DK");
+    }
+  }, [hasDK, hasCirca, selectedBook]);
   
   // Calculate data for all three markets
   const spreadsData = useMemo(() => {
-    const tickets = { left: game.splits.spread.away.tickets, right: game.splits.spread.home.tickets };
-    const money = { left: game.splits.spread.away.handle, right: game.splits.spread.home.handle };
+    const tickets = { left: displayGame.splits.spread.away.tickets, right: displayGame.splits.spread.home.tickets };
+    const money = { left: displayGame.splits.spread.away.handle, right: displayGame.splits.spread.home.handle };
     const currentLine = firstOdds?.spread?.away?.line || -3.5;
     return {
       tickets,
       money,
-      leftLabel: game.away.abbr,
-      rightLabel: game.home.abbr,
-      lineDisplay: `${game.away.abbr} ${formatSpreadLine(currentLine)}`,
-      leftColor: game.away.color,
-      rightColor: game.home.color
+      leftLabel: displayGame.away.abbr,
+      rightLabel: displayGame.home.abbr,
+      lineDisplay: `${displayGame.away.abbr} ${formatSpreadLine(currentLine)}`,
+      leftColor: displayGame.away.color,
+      rightColor: displayGame.home.color
     };
-  }, [game, firstOdds]);
+  }, [displayGame, firstOdds]);
   
   const totalsData = useMemo(() => {
-    const tickets = { left: game.splits.total.over.tickets, right: game.splits.total.under.tickets };
-    const money = { left: game.splits.total.over.handle, right: game.splits.total.under.handle };
+    const tickets = { left: displayGame.splits.total.over.tickets, right: displayGame.splits.total.under.tickets };
+    const money = { left: displayGame.splits.total.over.handle, right: displayGame.splits.total.under.handle };
     const currentLine = firstOdds?.total?.over?.line || 47.5;
     return {
       tickets,
@@ -786,25 +817,25 @@ function SplitsCard({ game }: { game: GameOdds }) {
       leftLabel: "O",
       rightLabel: "U",
       lineDisplay: `${currentLine}`,
-      leftColor: game.away.color,
-      rightColor: game.home.color
+      leftColor: displayGame.away.color,
+      rightColor: displayGame.home.color
     };
-  }, [game, firstOdds]);
+  }, [displayGame, firstOdds]);
   
   const mlData = useMemo(() => {
-    const tickets = { left: game.splits.moneyline.away.tickets, right: game.splits.moneyline.home.tickets };
-    const money = { left: game.splits.moneyline.away.handle, right: game.splits.moneyline.home.handle };
+    const tickets = { left: displayGame.splits.moneyline.away.tickets, right: displayGame.splits.moneyline.home.tickets };
+    const money = { left: displayGame.splits.moneyline.away.handle, right: displayGame.splits.moneyline.home.handle };
     const awayML = firstOdds?.moneyline?.away?.american || -110;
     return {
       tickets,
       money,
-      leftLabel: game.away.abbr,
-      rightLabel: game.home.abbr,
-      lineDisplay: `${game.away.abbr} ${awayML > 0 ? '+' : ''}${awayML}`,
-      leftColor: game.away.color,
-      rightColor: game.home.color
+      leftLabel: displayGame.away.abbr,
+      rightLabel: displayGame.home.abbr,
+      lineDisplay: `${displayGame.away.abbr} ${awayML > 0 ? '+' : ''}${awayML}`,
+      leftColor: displayGame.away.color,
+      rightColor: displayGame.home.color
     };
-  }, [game, firstOdds]);
+  }, [displayGame, firstOdds]);
 
   return (
     <motion.div 
@@ -815,14 +846,14 @@ function SplitsCard({ game }: { game: GameOdds }) {
       }}
     >
       <div className="p-3">
-        {/* Teams Row */}
-        <div className="flex items-center justify-center mb-3">
+        {/* Teams Row and Book Toggle */}
+        <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
-            <img src={getTeamLogo(game.away.espnAbbr, game.sport)} alt="" className="w-6 h-6 rounded" />
-            <span className="font-semibold text-sm" style={{ color: "var(--ma-text-primary)" }}>{game.away.abbr}</span>
+            <img src={getTeamLogo(displayGame.away.espnAbbr, displayGame.sport)} alt="" className="w-6 h-6 rounded" />
+            <span className="font-semibold text-sm" style={{ color: "var(--ma-text-primary)" }}>{displayGame.away.abbr}</span>
             <span className="text-xs" style={{ color: "var(--ma-text-secondary)" }}>@</span>
-            <img src={getTeamLogo(game.home.espnAbbr, game.sport)} alt="" className="w-6 h-6 rounded" />
-            <span className="font-semibold text-sm" style={{ color: "var(--ma-text-primary)" }}>{game.home.abbr}</span>
+            <img src={getTeamLogo(displayGame.home.espnAbbr, displayGame.sport)} alt="" className="w-6 h-6 rounded" />
+            <span className="font-semibold text-sm" style={{ color: "var(--ma-text-primary)" }}>{displayGame.home.abbr}</span>
             <div 
               className="text-[10px] px-2 py-1 rounded bg-white/5 ml-2"
               style={{
@@ -832,6 +863,65 @@ function SplitsCard({ game }: { game: GameOdds }) {
               {formatGameDate(game.kickoff)} {formatGameTime(game.kickoff)}
             </div>
           </div>
+          
+          {(hasDK || hasCirca) && (
+            <div 
+              className="relative flex gap-[6px] px-[3px] py-[3px] rounded-[10px] flex-shrink-0"
+              style={{
+                background: "var(--ma-surface)",
+                border: "1px solid var(--ma-stroke)"
+              }}
+            >
+              {hasDK && hasCirca && (
+                <motion.div
+                  className="absolute top-[3px] bottom-[3px] rounded-[7px]"
+                  initial={false}
+                  animate={{
+                    left: selectedBook === "DK" ? "3px" : "calc(50% + 1.5px)",
+                    width: "calc(50% - 4.5px)"
+                  }}
+                  transition={{ type: "spring", damping: 20, stiffness: 300 }}
+                  style={{
+                    background: "rgba(111, 116, 255, 0.14)",
+                    border: "1px solid var(--ma-accent-indigo)"
+                  }}
+                />
+              )}
+              
+              {hasDK && (
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedBook("DK");
+                  }}
+                  className="relative z-10 px-2 py-1 rounded-[7px] transition-all flex items-center justify-center"
+                  style={{
+                    opacity: selectedBook === "DK" ? 1 : 0.5,
+                    background: hasDK && !hasCirca ? "rgba(111, 116, 255, 0.14)" : "transparent",
+                    border: hasDK && !hasCirca ? "1px solid var(--ma-accent-indigo)" : "none"
+                  }}
+                >
+                  <img src={draftKingsLogo} alt="DraftKings" className="h-4 w-auto" />
+                </button>
+              )}
+              {hasCirca && (
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedBook("Circa");
+                  }}
+                  className="relative z-10 px-2 py-1 rounded-[7px] transition-all flex items-center justify-center"
+                  style={{
+                    opacity: selectedBook === "Circa" ? 1 : 0.5,
+                    background: hasCirca && !hasDK ? "rgba(111, 116, 255, 0.14)" : "transparent",
+                    border: hasCirca && !hasDK ? "1px solid var(--ma-accent-indigo)" : "none"
+                  }}
+                >
+                  <img src={circaLogo} alt="Circa" className="h-4 w-auto" />
+                </button>
+              )}
+            </div>
+          )}
         </div>
         
         {/* Moneyline */}

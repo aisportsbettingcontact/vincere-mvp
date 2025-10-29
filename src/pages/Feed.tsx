@@ -330,22 +330,6 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
               border: "1px solid var(--ma-stroke)"
             }}
           >
-            {hasDK && hasCirca && (
-              <motion.div
-                className="absolute top-[4px] bottom-[4px] rounded-[10px]"
-                initial={false}
-                animate={{
-                  left: selectedBook === "DK" ? "4px" : "calc(50% + 2px)",
-                  width: "calc(50% - 6px)"
-                }}
-                transition={{ type: "spring", damping: 20, stiffness: 300 }}
-                style={{
-                  background: "rgba(111, 116, 255, 0.14)",
-                  border: "1px solid var(--ma-accent-indigo)"
-                }}
-              />
-            )}
-            
             {hasDK && (
               <button
                 onClick={(e) => {
@@ -552,19 +536,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
               }}
             >
               {hasDK && hasCirca && (
-                <motion.div
-                  className="absolute top-[4px] bottom-[4px] rounded-[10px]"
-                  initial={false}
-                  animate={{
-                    left: selectedBook === "DK" ? "4px" : "calc(50% + 2px)",
-                    width: "calc(50% - 6px)"
-                  }}
-                  transition={{ type: "spring", damping: 20, stiffness: 300 }}
-                  style={{
-                    background: "rgba(111, 116, 255, 0.14)",
-                    border: "1px solid var(--ma-accent-indigo)"
-                  }}
-                />
+                <div />
               )}
               
               {hasDK && (
@@ -884,19 +856,7 @@ function SplitsCard({ game }: { game: GameOdds }) {
               }}
             >
               {hasDK && hasCirca && (
-                <motion.div
-                  className="absolute top-[4px] bottom-[4px] rounded-[7px]"
-                  initial={false}
-                  animate={{
-                    left: selectedBook === "DK" ? "4px" : "calc(50% + 2px)",
-                    width: "calc(50% - 4px)"
-                  }}
-                  transition={{ type: "spring", damping: 20, stiffness: 300 }}
-                  style={{
-                    background: "rgba(111, 116, 255, 0.14)",
-                    border: "1px solid var(--ma-accent-indigo)"
-                  }}
-                />
+                <div />
               )}
               
               {hasDK && (

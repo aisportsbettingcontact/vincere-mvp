@@ -676,10 +676,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
                 className="rounded p-1.5 md:p-2 row-span-2 flex flex-col justify-center gap-1.5 md:gap-2"
                 style={{ background: "var(--ma-surface)" }}
               >
-                <div 
-                  className="rounded p-1.5"
-                  style={{ background: "rgba(255, 255, 255, 0.05)" }}
-                >
+                <div className="rounded p-1.5 md:p-0">
                   <div className="text-center text-sm md:text-base font-bold" style={{ color: "#4ade80" }}>
                     {(() => {
                       const awayML = firstOdds?.moneyline?.away?.american || -110;
@@ -687,10 +684,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
                     })()}
                   </div>
                 </div>
-                <div 
-                  className="rounded p-1.5"
-                  style={{ background: "rgba(255, 255, 255, 0.05)" }}
-                >
+                <div className="rounded p-1.5 md:p-0">
                   <div className="text-center text-sm md:text-base font-bold" style={{ color: "#4ade80" }}>
                     {(() => {
                       const homeML = firstOdds?.moneyline?.home?.american || -110;

@@ -846,22 +846,21 @@ function SplitsCard({ game }: { game: GameOdds }) {
       }}
     >
       <div className="p-4">
-        {/* Teams Row, Date/Time, and Book Toggle - All in one line */}
-        <div className="flex items-center justify-between gap-3 mb-4">
-          <div className="flex items-center gap-2 flex-shrink-0">
-            <img src={getTeamLogo(displayGame.away.espnAbbr, displayGame.sport)} alt="" className="w-7 h-7 rounded" />
-            <span className="font-bold text-base" style={{ color: "var(--ma-text-primary)" }}>{displayGame.away.abbr}</span>
-            <span className="text-sm" style={{ color: "var(--ma-text-secondary)" }}>@</span>
-            <img src={getTeamLogo(displayGame.home.espnAbbr, displayGame.sport)} alt="" className="w-7 h-7 rounded" />
-            <span className="font-bold text-base" style={{ color: "var(--ma-text-primary)" }}>{displayGame.home.abbr}</span>
-          </div>
-          
-          <div className="flex flex-col items-center justify-center gap-0.5 flex-shrink-0">
-            <div className="text-xs font-semibold whitespace-nowrap" style={{ color: "var(--ma-text-secondary)" }}>
-              {formatGameDate(game.kickoff)}
+        {/* Teams and Date/Time on left, Book Toggle centered on right */}
+        <div className="flex items-center justify-between gap-4 mb-4">
+          <div className="flex flex-col gap-2 flex-1">
+            {/* Teams Row */}
+            <div className="flex items-center gap-2">
+              <img src={getTeamLogo(displayGame.away.espnAbbr, displayGame.sport)} alt="" className="w-7 h-7 rounded" />
+              <span className="font-bold text-base" style={{ color: "var(--ma-text-primary)" }}>{displayGame.away.abbr}</span>
+              <span className="text-sm" style={{ color: "var(--ma-text-secondary)" }}>@</span>
+              <img src={getTeamLogo(displayGame.home.espnAbbr, displayGame.sport)} alt="" className="w-7 h-7 rounded" />
+              <span className="font-bold text-base" style={{ color: "var(--ma-text-primary)" }}>{displayGame.home.abbr}</span>
             </div>
+            
+            {/* Date/Time Row */}
             <div className="text-xs font-medium whitespace-nowrap" style={{ color: "var(--ma-text-secondary)" }}>
-              {formatGameTime(game.kickoff)}
+              {formatGameDate(game.kickoff)} {formatGameTime(game.kickoff)}
             </div>
           </div>
           

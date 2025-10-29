@@ -766,8 +766,8 @@ function SplitsCard({ game }: { game: GameOdds }) {
       leftLabel: "O",
       rightLabel: "U",
       lineDisplay: `${currentLine}`,
-      leftColor: "#6F74FF",
-      rightColor: "#06B6D4"
+      leftColor: game.away.color,
+      rightColor: game.home.color
     };
   }, [game, firstOdds]);
   
@@ -824,14 +824,16 @@ function SplitsCard({ game }: { game: GameOdds }) {
               className="absolute inset-y-0 left-0"
               style={{
                 width: `${spreadsData.money.left}%`,
-                background: spreadsData.leftColor
+                background: spreadsData.leftColor,
+                border: "1px solid white"
               }}
             />
             <div 
               className="absolute inset-y-0 right-0"
               style={{
                 width: `${spreadsData.money.right}%`,
-                background: spreadsData.rightColor
+                background: spreadsData.rightColor,
+                border: "1px solid white"
               }}
             />
             <div className="absolute inset-0 flex items-center justify-between px-3 text-xs font-bold" style={{ color: "var(--ma-text-primary)" }}>
@@ -851,14 +853,16 @@ function SplitsCard({ game }: { game: GameOdds }) {
               className="absolute inset-y-0 left-0"
               style={{
                 width: `${totalsData.money.left}%`,
-                background: totalsData.leftColor
+                background: totalsData.leftColor,
+                border: "1px solid white"
               }}
             />
             <div 
               className="absolute inset-y-0 right-0"
               style={{
                 width: `${totalsData.money.right}%`,
-                background: totalsData.rightColor
+                background: totalsData.rightColor,
+                border: "1px solid white"
               }}
             />
             <div className="absolute inset-0 flex items-center justify-between px-3 text-xs font-bold" style={{ color: "var(--ma-text-primary)" }}>
@@ -878,14 +882,16 @@ function SplitsCard({ game }: { game: GameOdds }) {
               className="absolute inset-y-0 left-0"
               style={{
                 width: `${mlData.money.left}%`,
-                background: mlData.leftColor
+                background: mlData.leftColor,
+                border: "1px solid white"
               }}
             />
             <div 
               className="absolute inset-y-0 right-0"
               style={{
                 width: `${mlData.money.right}%`,
-                background: mlData.rightColor
+                background: mlData.rightColor,
+                border: "1px solid white"
               }}
             />
             <div className="absolute inset-0 flex items-center justify-between px-3 text-xs font-bold" style={{ color: "var(--ma-text-primary)" }}>

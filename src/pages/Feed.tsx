@@ -158,7 +158,7 @@ export default function Feed() {
             className="text-2xl font-bold text-center font-['Inter',_sans-serif] mb-3"
             style={{ color: "var(--ma-text-primary)" }}
           >
-            One glance. One edge. One tap.
+            Feed
           </h1>
           
           {/* Lines/Splits Tabs */}

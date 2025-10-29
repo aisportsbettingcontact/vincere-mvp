@@ -104,16 +104,16 @@ export default function Feed() {
   const [globalMarket, setGlobalMarket] = useState<Market>("Spread");
   const [selectedBook, setSelectedBook] = useState<"DK" | "Circa">("DK");
   
-  // Filter by book and sort games by divergence
+  // Filter by book and sort games by date (earliest first)
   const sortedGames = useMemo(() => {
     const bookFilter = selectedBook === "Circa" ? "CIRCA" : selectedBook;
     const filtered = mockGameOdds.filter(game => game.book === bookFilter);
     return filtered.sort((a, b) => {
-      const aDivergence = calculateDivergence(a, globalMarket).divergence;
-      const bDivergence = calculateDivergence(b, globalMarket).divergence;
-      return bDivergence - aDivergence;
+      const dateA = new Date(a.kickoff).getTime();
+      const dateB = new Date(b.kickoff).getTime();
+      return dateA - dateB;
     });
-  }, [globalMarket, selectedBook]);
+  }, [selectedBook]);
 
   useEffect(() => {
     const checkAuth = async () => {

@@ -465,10 +465,10 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
           </div>
 
           {/* Right: Odds Grid */}
-          <div className="grid grid-cols-3 gap-2 content-start">
+          <div className="grid grid-cols-3 gap-2 items-center h-full">
             {/* Row 1: Away Team Odds */}
             <div 
-              className="rounded-lg p-3 flex flex-col items-center justify-center"
+              className="rounded-lg p-3 flex flex-col items-center justify-center h-full"
               style={{ background: "rgba(255, 255, 255, 0.05)" }}
             >
               <div className="text-base font-bold leading-none mb-1" style={{ color: "var(--ma-text-primary)" }}>
@@ -483,7 +483,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
             </div>
 
             <div 
-              className="rounded-lg p-3 flex flex-col items-center justify-center"
+              className="rounded-lg p-3 flex flex-col items-center justify-center h-full"
               style={{ background: "rgba(255, 255, 255, 0.05)" }}
             >
               <div className="text-base font-bold leading-none mb-1 whitespace-nowrap" style={{ color: "var(--ma-text-primary)" }}>
@@ -498,7 +498,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
             </div>
 
             <div 
-              className="rounded-lg p-3 flex items-center justify-center"
+              className="rounded-lg p-3 flex items-center justify-center h-full"
               style={{ background: "rgba(255, 255, 255, 0.05)" }}
             >
               <div className="text-base font-bold" style={{ color: "#4ade80" }}>
@@ -511,7 +511,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
 
             {/* Row 2: Home Team Odds */}
             <div 
-              className="rounded-lg p-3 flex flex-col items-center justify-center"
+              className="rounded-lg p-3 flex flex-col items-center justify-center h-full"
               style={{ background: "rgba(255, 255, 255, 0.05)" }}
             >
               <div className="text-base font-bold leading-none mb-1" style={{ color: "var(--ma-text-primary)" }}>
@@ -526,7 +526,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
             </div>
 
             <div 
-              className="rounded-lg p-3 flex flex-col items-center justify-center"
+              className="rounded-lg p-3 flex flex-col items-center justify-center h-full"
               style={{ background: "rgba(255, 255, 255, 0.05)" }}
             >
               <div className="text-base font-bold leading-none mb-1 whitespace-nowrap" style={{ color: "var(--ma-text-primary)" }}>
@@ -541,7 +541,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
             </div>
 
             <div 
-              className="rounded-lg p-3 flex items-center justify-center"
+              className="rounded-lg p-3 flex items-center justify-center h-full"
               style={{ background: "rgba(255, 255, 255, 0.05)" }}
             >
               <div className="text-base font-bold" style={{ color: "#4ade80" }}>

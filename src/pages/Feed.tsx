@@ -571,7 +571,10 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
                   fontWeight: 600
                 }}
               >
-                DK
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="24" height="24" rx="4" fill={selectedBook === "DK" ? "#53D337" : "#2d3748"}/>
+                  <text x="12" y="17" fontFamily="system-ui, -apple-system" fontSize="13" fontWeight="700" textAnchor="middle" fill={selectedBook === "DK" ? "#000" : "#718096"}>DK</text>
+                </svg>
               </button>
               <button
                 onClick={() => setSelectedBook("Circa")}
@@ -581,7 +584,10 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
                   fontWeight: 600
                 }}
               >
-                Circa
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="24" height="24" rx="4" fill={selectedBook === "Circa" ? "#E31837" : "#2d3748"}/>
+                  <text x="12" y="17" fontFamily="system-ui, -apple-system" fontSize="13" fontWeight="700" textAnchor="middle" fill={selectedBook === "Circa" ? "#FFF" : "#718096"}>C</text>
+                </svg>
               </button>
             </div>
           )}

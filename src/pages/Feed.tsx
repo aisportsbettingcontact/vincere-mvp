@@ -106,7 +106,8 @@ export default function Feed() {
   
   // Filter by book and sort games by divergence
   const sortedGames = useMemo(() => {
-    const filtered = mockGameOdds.filter(game => game.book === selectedBook);
+    const bookFilter = selectedBook === "Circa" ? "CIRCA" : selectedBook;
+    const filtered = mockGameOdds.filter(game => game.book === bookFilter);
     return filtered.sort((a, b) => {
       const aDivergence = calculateDivergence(a, globalMarket).divergence;
       const bDivergence = calculateDivergence(b, globalMarket).divergence;

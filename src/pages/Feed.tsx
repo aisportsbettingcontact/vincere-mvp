@@ -486,7 +486,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
               className="rounded-lg p-3 flex flex-col items-center justify-center"
               style={{ background: "rgba(255, 255, 255, 0.05)" }}
             >
-              <div className="text-base font-bold leading-none mb-1" style={{ color: "var(--ma-text-primary)" }}>
+              <div className="text-base font-bold leading-none mb-1 whitespace-nowrap" style={{ color: "var(--ma-text-primary)" }}>
                 O {firstOdds?.total?.over?.line || 47.5}
               </div>
               <div className="text-xs font-semibold leading-none" style={{ color: "#4ade80" }}>
@@ -529,7 +529,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
               className="rounded-lg p-3 flex flex-col items-center justify-center"
               style={{ background: "rgba(255, 255, 255, 0.05)" }}
             >
-              <div className="text-base font-bold leading-none mb-1" style={{ color: "var(--ma-text-primary)" }}>
+              <div className="text-base font-bold leading-none mb-1 whitespace-nowrap" style={{ color: "var(--ma-text-primary)" }}>
                 U {firstOdds?.total?.under?.line || 47.5}
               </div>
               <div className="text-xs font-semibold leading-none" style={{ color: "#4ade80" }}>

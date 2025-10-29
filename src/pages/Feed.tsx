@@ -10,6 +10,8 @@ import { generateAIInsights } from "@/utils/aiAnalysis";
 import { formatSpreadLine } from "@/utils/bettingLogic";
 import { Brain, TrendingUp, Users } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import draftKingsLogo from "@/assets/draftkings-logo.png";
+import circaLogo from "@/assets/circa-logo.svg";
 
 
 function getTeamLogo(espnAbbr: string, sport: string) {
@@ -565,29 +567,21 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
               
               <button
                 onClick={() => setSelectedBook("DK")}
-                className="font-['Inter',_sans-serif] relative z-10 px-[12px] py-[6px] rounded-[10px] transition-colors flex items-center justify-center text-xs"
+                className="relative z-10 px-[8px] py-[6px] rounded-[10px] transition-all flex items-center justify-center"
                 style={{
-                  color: selectedBook === "DK" ? "var(--ma-text-primary)" : "var(--ma-text-secondary)",
-                  fontWeight: 600
+                  opacity: selectedBook === "DK" ? 1 : 0.5
                 }}
               >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <rect width="24" height="24" rx="4" fill={selectedBook === "DK" ? "#53D337" : "#2d3748"}/>
-                  <text x="12" y="17" fontFamily="system-ui, -apple-system" fontSize="13" fontWeight="700" textAnchor="middle" fill={selectedBook === "DK" ? "#000" : "#718096"}>DK</text>
-                </svg>
+                <img src={draftKingsLogo} alt="DraftKings" className="h-5 w-auto" />
               </button>
               <button
                 onClick={() => setSelectedBook("Circa")}
-                className="font-['Inter',_sans-serif] relative z-10 px-[12px] py-[6px] rounded-[10px] transition-colors flex items-center justify-center text-xs"
+                className="relative z-10 px-[8px] py-[6px] rounded-[10px] transition-all flex items-center justify-center"
                 style={{
-                  color: selectedBook === "Circa" ? "var(--ma-text-primary)" : "var(--ma-text-secondary)",
-                  fontWeight: 600
+                  opacity: selectedBook === "Circa" ? 1 : 0.5
                 }}
               >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <rect width="24" height="24" rx="4" fill={selectedBook === "Circa" ? "#E31837" : "#2d3748"}/>
-                  <text x="12" y="17" fontFamily="system-ui, -apple-system" fontSize="13" fontWeight="700" textAnchor="middle" fill={selectedBook === "Circa" ? "#FFF" : "#718096"}>C</text>
-                </svg>
+                <img src={circaLogo} alt="Circa" className="h-5 w-auto" />
               </button>
             </div>
           )}

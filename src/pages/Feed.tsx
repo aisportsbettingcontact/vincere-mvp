@@ -8,7 +8,7 @@ import type { Matchup } from "@/data/sportsData";
 import type { Market } from "@/utils/bettingLogic";
 import { generateAIInsights } from "@/utils/aiAnalysis";
 import { formatSpreadLine } from "@/utils/bettingLogic";
-import { Brain, TrendingUp, Users } from "lucide-react";
+import { Brain, TrendingUp, Users, UserCircle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import draftKingsLogo from "@/assets/draftkings-logo.png";
 import circaLogo from "@/assets/circa-logo.svg";
@@ -156,12 +156,21 @@ export default function Feed() {
         }}
       >
         <div className="container mx-auto px-4 py-3">
-          <h1 
-            className="text-2xl font-bold text-center font-['Inter',_sans-serif] mb-3"
-            style={{ color: "var(--ma-text-primary)" }}
-          >
-            Feed
-          </h1>
+          <div className="flex items-center justify-between mb-3">
+            <div className="w-10"></div>
+            <h1 
+              className="text-2xl font-bold text-center font-['Inter',_sans-serif]"
+              style={{ color: "var(--ma-text-primary)" }}
+            >
+              Feed
+            </h1>
+            <button
+              onClick={() => navigate("/profile")}
+              className="p-2 rounded-full hover:bg-white/5 transition-colors"
+            >
+              <UserCircle className="h-6 w-6" style={{ color: "var(--ma-text-primary)" }} />
+            </button>
+          </div>
           
           {/* Lines/Splits Tabs */}
           <div 

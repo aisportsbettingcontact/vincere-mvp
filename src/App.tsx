@@ -1,9 +1,10 @@
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Feed from "./pages/Feed";
 import Login from "./pages/Login";
+import Profile from "./pages/Profile";
 import AgeGateModal from "./components/AgeGateModal";
 import { supabase } from "@/integrations/supabase/client";
 import { useEffect, useState } from "react";
@@ -34,7 +35,13 @@ function AppContent() {
     return null;
   }
 
-  return user ? <Feed /> : <Login />;
+  return (
+    <Routes>
+      <Route path="/login" element={!user ? <Login /> : <Navigate to="/" />} />
+      <Route path="/" element={user ? <Feed /> : <Navigate to="/login" />} />
+      <Route path="/profile" element={user ? <Profile /> : <Navigate to="/login" />} />
+    </Routes>
+  );
 }
 
 function App() {

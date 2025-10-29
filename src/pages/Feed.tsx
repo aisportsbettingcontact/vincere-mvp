@@ -846,13 +846,6 @@ function SplitsCard({ game, market }: { game: GameOdds; market: Market }) {
       whileTap={{ scale: 0.98 }}
     >
       <div className="p-3">
-        {/* Edge Badge */}
-        <div className="flex items-center justify-end mb-2">
-          <div className="text-[10px] px-2 py-1 rounded bg-white/5" style={{ color: "var(--ma-text-secondary)" }}>
-            {formatGameTime(game.kickoff)}
-          </div>
-        </div>
-        
         {/* Teams Row */}
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">

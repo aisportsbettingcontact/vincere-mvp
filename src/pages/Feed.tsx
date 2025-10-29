@@ -845,29 +845,29 @@ function SplitsCard({ game }: { game: GameOdds }) {
         border: "1px solid var(--ma-stroke)"
       }}
     >
-      <div className="p-3">
+      <div className="p-4">
         {/* Teams Row, Date/Time, and Book Toggle - All in one line */}
-        <div className="flex items-center justify-between mb-3">
-          <div className="flex items-center gap-2">
-            <img src={getTeamLogo(displayGame.away.espnAbbr, displayGame.sport)} alt="" className="w-6 h-6 rounded" />
-            <span className="font-semibold text-sm" style={{ color: "var(--ma-text-primary)" }}>{displayGame.away.abbr}</span>
-            <span className="text-xs" style={{ color: "var(--ma-text-secondary)" }}>@</span>
-            <img src={getTeamLogo(displayGame.home.espnAbbr, displayGame.sport)} alt="" className="w-6 h-6 rounded" />
-            <span className="font-semibold text-sm" style={{ color: "var(--ma-text-primary)" }}>{displayGame.home.abbr}</span>
+        <div className="flex items-center justify-between gap-3 mb-4">
+          <div className="flex items-center gap-2 flex-shrink-0">
+            <img src={getTeamLogo(displayGame.away.espnAbbr, displayGame.sport)} alt="" className="w-7 h-7 rounded" />
+            <span className="font-bold text-base" style={{ color: "var(--ma-text-primary)" }}>{displayGame.away.abbr}</span>
+            <span className="text-sm" style={{ color: "var(--ma-text-secondary)" }}>@</span>
+            <img src={getTeamLogo(displayGame.home.espnAbbr, displayGame.sport)} alt="" className="w-7 h-7 rounded" />
+            <span className="font-bold text-base" style={{ color: "var(--ma-text-primary)" }}>{displayGame.home.abbr}</span>
           </div>
           
-          <div className="flex flex-col items-center gap-0.5">
-            <div className="text-[10px] font-medium" style={{ color: "var(--ma-text-secondary)" }}>
+          <div className="flex flex-col items-center justify-center gap-0.5 flex-shrink-0">
+            <div className="text-xs font-semibold whitespace-nowrap" style={{ color: "var(--ma-text-secondary)" }}>
               {formatGameDate(game.kickoff)}
             </div>
-            <div className="text-[10px] font-medium" style={{ color: "var(--ma-text-secondary)" }}>
+            <div className="text-xs font-medium whitespace-nowrap" style={{ color: "var(--ma-text-secondary)" }}>
               {formatGameTime(game.kickoff)}
             </div>
           </div>
           
           {(hasDK || hasCirca) && (
             <div 
-              className="relative flex gap-[6px] px-[3px] py-[3px] rounded-[10px] flex-shrink-0"
+              className="relative flex gap-[6px] px-[4px] py-[4px] rounded-[10px] flex-shrink-0"
               style={{
                 background: "var(--ma-surface)",
                 border: "1px solid var(--ma-stroke)"
@@ -875,11 +875,11 @@ function SplitsCard({ game }: { game: GameOdds }) {
             >
               {hasDK && hasCirca && (
                 <motion.div
-                  className="absolute top-[3px] bottom-[3px] rounded-[7px]"
+                  className="absolute top-[4px] bottom-[4px] rounded-[7px]"
                   initial={false}
                   animate={{
-                    left: selectedBook === "DK" ? "3px" : "calc(50% + 1.5px)",
-                    width: "calc(50% - 4.5px)"
+                    left: selectedBook === "DK" ? "4px" : "calc(50% + 2px)",
+                    width: "calc(50% - 4px)"
                   }}
                   transition={{ type: "spring", damping: 20, stiffness: 300 }}
                   style={{
@@ -895,7 +895,7 @@ function SplitsCard({ game }: { game: GameOdds }) {
                     e.stopPropagation();
                     setSelectedBook("DK");
                   }}
-                  className="relative z-10 px-2 py-1 rounded-[7px] transition-all flex items-center justify-center"
+                  className="relative z-10 px-2.5 py-1.5 rounded-[7px] transition-all flex items-center justify-center"
                   style={{
                     opacity: selectedBook === "DK" ? 1 : 0.5,
                     background: hasDK && !hasCirca ? "rgba(111, 116, 255, 0.14)" : "transparent",
@@ -911,7 +911,7 @@ function SplitsCard({ game }: { game: GameOdds }) {
                     e.stopPropagation();
                     setSelectedBook("Circa");
                   }}
-                  className="relative z-10 px-2 py-1 rounded-[7px] transition-all flex items-center justify-center"
+                  className="relative z-10 px-2.5 py-1.5 rounded-[7px] transition-all flex items-center justify-center"
                   style={{
                     opacity: selectedBook === "Circa" ? 1 : 0.5,
                     background: hasCirca && !hasDK ? "rgba(111, 116, 255, 0.14)" : "transparent",

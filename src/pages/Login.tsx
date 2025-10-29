@@ -351,32 +351,34 @@ export default function Auth() {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="signup-phone">Phone *</Label>
-                  <div className="flex items-center gap-2">
-                    <div className="flex items-center px-3 py-2 rounded-md border border-input bg-muted text-sm h-10">
+                  <div className="flex items-center justify-start gap-2">
+                    <div className="flex items-center justify-center px-3 py-2 rounded-md border border-input bg-muted text-sm font-medium h-10 min-w-[48px]">
                       +1
                     </div>
-                    <span className="text-muted-foreground">(</span>
-                    <Input
-                      id="signup-phone-area"
-                      type="tel"
-                      placeholder="###"
-                      value={signupPhoneArea}
-                      onChange={(e) => {
-                        const val = e.target.value.replace(/\D/g, '').slice(0, 3);
-                        setSignupPhoneArea(val);
-                        if (val.length === 3) {
-                          document.getElementById('signup-phone-prefix')?.focus();
-                        }
-                      }}
-                      required
-                      maxLength={3}
-                      className="w-16 text-center"
-                    />
-                    <span className="text-muted-foreground">)</span>
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-muted-foreground text-base">&#40;</span>
+                      <Input
+                        id="signup-phone-area"
+                        type="tel"
+                        placeholder="555"
+                        value={signupPhoneArea}
+                        onChange={(e) => {
+                          const val = e.target.value.replace(/\D/g, '').slice(0, 3);
+                          setSignupPhoneArea(val);
+                          if (val.length === 3) {
+                            document.getElementById('signup-phone-prefix')?.focus();
+                          }
+                        }}
+                        required
+                        maxLength={3}
+                        className="w-[60px] text-center px-2"
+                      />
+                      <span className="text-muted-foreground text-base">&#41;</span>
+                    </div>
                     <Input
                       id="signup-phone-prefix"
                       type="tel"
-                      placeholder="###"
+                      placeholder="555"
                       value={signupPhonePrefix}
                       onChange={(e) => {
                         const val = e.target.value.replace(/\D/g, '').slice(0, 3);
@@ -392,13 +394,13 @@ export default function Auth() {
                       }}
                       required
                       maxLength={3}
-                      className="w-16 text-center"
+                      className="w-[60px] text-center px-2"
                     />
-                    <span className="text-muted-foreground">-</span>
+                    <span className="text-muted-foreground text-base font-medium">-</span>
                     <Input
                       id="signup-phone-line"
                       type="tel"
-                      placeholder="####"
+                      placeholder="1234"
                       value={signupPhoneLine}
                       onChange={(e) => {
                         const val = e.target.value.replace(/\D/g, '').slice(0, 4);
@@ -411,7 +413,7 @@ export default function Auth() {
                       }}
                       required
                       maxLength={4}
-                      className="w-20 text-center"
+                      className="w-[72px] text-center px-2"
                     />
                   </div>
                 </div>

@@ -12,13 +12,19 @@ interface RawSplitGame {
   tot: [number, [number, number], [number, number]]; // [line, [overTickets%, underTickets%], [overMoney%, underMoney%]]
   ml: [number, number, [number, number], [number, number]]; // [awayOdds, homeOdds, [awayTickets%, homeTickets%], [awayMoney%, homeMoney%]]
   b: string; // book
+  s: string; // sport
 }
 
 interface RawSplitsDataFormat {
   generated_at: string;
   books: {
-    DK: RawSplitGame[];
-    CIRCA: RawSplitGame[];
+    DK: {
+      NFL: Record<string, RawSplitGame[]>;
+      NBA: Record<string, RawSplitGame[]>;
+    };
+    CIRCA: {
+      NFL: Record<string, RawSplitGame[]>;
+    };
   };
 }
 
@@ -41,14 +47,14 @@ const GAME_TIMES: Record<string, string> = {
   "20251103NFL00040": "20:15", // TB @ KC - Monday Night Football
 };
 
-function formatDate(dateStr: string, gameId: string): string {
+function formatDate(dateStr: string, gameId: string, sport: string): string {
   // Convert YYYYMMDD to ISO format for Date constructor
   const year = dateStr.slice(0, 4);
   const month = dateStr.slice(4, 6);
   const day = dateStr.slice(6, 8);
   
-  // Use specific time for this game if available, otherwise default to 1:00pm
-  const time = GAME_TIMES[gameId] || "13:00";
+  // NBA games default to 7:00pm ET, NFL uses specific times or 1:00pm default
+  const time = GAME_TIMES[gameId] || (sport === "NBA" ? "19:00" : "13:00");
   
   // Return ISO format date string that will be parsed by formatGameTime in Feed.tsx
   return `${year}-${month}-${day}T${time}:00`;
@@ -58,18 +64,41 @@ export function parseRawSplits(): GameOdds[] {
   const rawData = rawSplitsDataImport as unknown as RawSplitsDataFormat;
   const allGames: GameOdds[] = [];
   
-  // Parse DK games
-  const dkGames = rawData.books.DK.map((game) => parseGame(game, "DK"));
-  allGames.push(...dkGames);
+  // Parse DK NFL games
+  if (rawData.books.DK.NFL) {
+    Object.values(rawData.books.DK.NFL).forEach(dateGames => {
+      dateGames.forEach(game => {
+        allGames.push(parseGame(game, "DK"));
+      });
+    });
+  }
   
-  // Parse CIRCA games
-  const circaGames = rawData.books.CIRCA.map((game) => parseGame(game, "CIRCA"));
-  allGames.push(...circaGames);
+  // Parse DK NBA games
+  if (rawData.books.DK.NBA) {
+    Object.values(rawData.books.DK.NBA).forEach(dateGames => {
+      dateGames.forEach(game => {
+        allGames.push(parseGame(game, "DK"));
+      });
+    });
+  }
+  
+  // Parse CIRCA NFL games
+  if (rawData.books.CIRCA?.NFL) {
+    Object.values(rawData.books.CIRCA.NFL).forEach(dateGames => {
+      dateGames.forEach(game => {
+        allGames.push(parseGame(game, "CIRCA"));
+      });
+    });
+  }
+  
+  // Sort by date/time chronologically
+  allGames.sort((a, b) => new Date(a.kickoff).getTime() - new Date(b.kickoff).getTime());
   
   return allGames;
 }
 
 function parseGame(game: RawSplitGame, book: string): GameOdds {
+    const sport = game.s || "NFL";
     const awayTeam = getTeamInfo(game.a);
     const homeTeam = getTeamInfo(game.h);
     
@@ -103,8 +132,8 @@ function parseGame(game: RawSplitGame, book: string): GameOdds {
     
     return {
       gameId: game.id,
-      sport: "NFL" as const,
-      kickoff: formatDate(game.d, game.id),
+      sport: sport as "NFL" | "NBA",
+      kickoff: formatDate(game.d, game.id, sport),
       book: book,
       away: {
         name: awayTeam.name,

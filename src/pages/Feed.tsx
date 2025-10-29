@@ -351,7 +351,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
     >
       {/* Date Header - Desktop Only */}
       <div 
-        className="hidden md:block px-4 py-2"
+        className="hidden md:flex items-center justify-between px-4 py-2"
         style={{
           background: "var(--ma-bg)",
           borderBottom: "1px solid var(--ma-stroke)"
@@ -360,6 +360,49 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
         <div className="text-xs font-semibold" style={{ color: "var(--ma-text-secondary)" }}>
           {formatGameDate(game.kickoff)} {formatGameTime(game.kickoff)}
         </div>
+        
+        {hasDK && hasCirca && (
+          <div 
+            className="relative flex gap-[8px] px-[4px] py-[4px] rounded-[14px] flex-shrink-0"
+            style={{
+              background: "var(--ma-surface)",
+              border: "1px solid var(--ma-stroke)"
+            }}
+          >
+            <motion.div
+              className="absolute top-[4px] bottom-[4px] rounded-[10px]"
+              initial={false}
+              animate={{
+                left: selectedBook === "DK" ? "4px" : "calc(50% + 2px)",
+                width: "calc(50% - 6px)"
+              }}
+              transition={{ type: "spring", damping: 20, stiffness: 300 }}
+              style={{
+                background: "rgba(111, 116, 255, 0.14)",
+                border: "1px solid var(--ma-accent-indigo)"
+              }}
+            />
+            
+            <button
+              onClick={() => setSelectedBook("DK")}
+              className="relative z-10 px-[8px] py-[6px] rounded-[10px] transition-all flex items-center justify-center"
+              style={{
+                opacity: selectedBook === "DK" ? 1 : 0.5
+              }}
+            >
+              <img src={draftKingsLogo} alt="DraftKings" className="h-5 w-auto" />
+            </button>
+            <button
+              onClick={() => setSelectedBook("Circa")}
+              className="relative z-10 px-[8px] py-[6px] rounded-[10px] transition-all flex items-center justify-center"
+              style={{
+                opacity: selectedBook === "Circa" ? 1 : 0.5
+              }}
+            >
+              <img src={circaLogo} alt="Circa" className="h-5 w-auto" />
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Mobile Layout */}
@@ -722,65 +765,6 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
               </div>
             </div>
           </div>
-        </div>
-      </div>
-
-      {/* Footer - Desktop Only */}
-      <div 
-        className="hidden md:flex items-center justify-between px-4 py-2"
-        style={{
-          background: "var(--ma-surface)",
-          borderTop: "1px solid var(--ma-stroke)"
-        }}
-      >
-        <div></div>
-
-        {/* Book Toggle */}
-        <div 
-          className="relative flex gap-[6px] px-[3px] py-[3px] rounded-[10px]"
-          style={{
-            background: "var(--ma-card)",
-            border: "1px solid var(--ma-stroke)"
-          }}
-        >
-          <motion.div
-            className="absolute top-[3px] bottom-[3px] rounded-[7px]"
-            initial={false}
-            animate={{
-              left: selectedBook === "DK" ? "3px" : "calc(50% + 1.5px)",
-              width: "calc(50% - 4.5px)"
-            }}
-            transition={{ type: "spring", damping: 20, stiffness: 300 }}
-            style={{
-              background: "rgba(111, 116, 255, 0.14)",
-              border: "1px solid var(--ma-accent-indigo)"
-            }}
-          />
-          
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              setSelectedBook("DK");
-            }}
-            className="relative z-10 px-3 py-1 rounded-[7px] transition-colors text-xs font-semibold"
-            style={{
-              color: selectedBook === "DK" ? "var(--ma-text-primary)" : "var(--ma-text-secondary)"
-            }}
-          >
-            DK
-          </button>
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              setSelectedBook("Circa");
-            }}
-            className="relative z-10 px-3 py-1 rounded-[7px] transition-colors text-xs font-semibold"
-            style={{
-              color: selectedBook === "Circa" ? "var(--ma-text-primary)" : "var(--ma-text-secondary)"
-            }}
-          >
-            Circa
-          </button>
         </div>
       </div>
     </motion.div>

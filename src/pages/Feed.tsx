@@ -819,21 +819,20 @@ function SplitsCard({ game }: { game: GameOdds }) {
           <div className="text-[10px] font-semibold mb-1 text-center" style={{ color: "var(--ma-text-secondary)" }}>
             Spread
           </div>
-          <div className="relative h-8 rounded-lg overflow-hidden" style={{ background: "var(--ma-surface)" }}>
+          <div className="relative h-8 rounded-lg overflow-hidden" style={{ background: "var(--ma-surface)", border: "0.5px solid white" }}>
             <div 
               className="absolute inset-y-0 left-0"
               style={{
                 width: `${spreadsData.money.left}%`,
                 background: spreadsData.leftColor,
-                border: "1px solid white"
+                borderRight: "0.5px solid white"
               }}
             />
             <div 
               className="absolute inset-y-0 right-0"
               style={{
                 width: `${spreadsData.money.right}%`,
-                background: spreadsData.rightColor,
-                border: "1px solid white"
+                background: spreadsData.rightColor
               }}
             />
             <div className="absolute inset-0 flex items-center justify-between px-3 text-xs font-bold" style={{ color: "var(--ma-text-primary)" }}>
@@ -848,21 +847,20 @@ function SplitsCard({ game }: { game: GameOdds }) {
           <div className="text-[10px] font-semibold mb-1 text-center" style={{ color: "var(--ma-text-secondary)" }}>
             Total
           </div>
-          <div className="relative h-8 rounded-lg overflow-hidden" style={{ background: "var(--ma-surface)" }}>
+          <div className="relative h-8 rounded-lg overflow-hidden" style={{ background: "var(--ma-surface)", border: "0.5px solid white" }}>
             <div 
               className="absolute inset-y-0 left-0"
               style={{
                 width: `${totalsData.money.left}%`,
                 background: totalsData.leftColor,
-                border: "1px solid white"
+                borderRight: "0.5px solid white"
               }}
             />
             <div 
               className="absolute inset-y-0 right-0"
               style={{
                 width: `${totalsData.money.right}%`,
-                background: totalsData.rightColor,
-                border: "1px solid white"
+                background: totalsData.rightColor
               }}
             />
             <div className="absolute inset-0 flex items-center justify-between px-3 text-xs font-bold" style={{ color: "var(--ma-text-primary)" }}>
@@ -877,21 +875,20 @@ function SplitsCard({ game }: { game: GameOdds }) {
           <div className="text-[10px] font-semibold mb-1 text-center" style={{ color: "var(--ma-text-secondary)" }}>
             Moneyline
           </div>
-          <div className="relative h-8 rounded-lg overflow-hidden" style={{ background: "var(--ma-surface)" }}>
+          <div className="relative h-8 rounded-lg overflow-hidden" style={{ background: "var(--ma-surface)", border: "0.5px solid white" }}>
             <div 
               className="absolute inset-y-0 left-0"
               style={{
                 width: `${mlData.money.left}%`,
                 background: mlData.leftColor,
-                border: "1px solid white"
+                borderRight: "0.5px solid white"
               }}
             />
             <div 
               className="absolute inset-y-0 right-0"
               style={{
                 width: `${mlData.money.right}%`,
-                background: mlData.rightColor,
-                border: "1px solid white"
+                background: mlData.rightColor
               }}
             />
             <div className="absolute inset-0 flex items-center justify-between px-3 text-xs font-bold" style={{ color: "var(--ma-text-primary)" }}>

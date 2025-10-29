@@ -848,20 +848,18 @@ function SplitsCard({ game }: { game: GameOdds }) {
       <div className="p-4">
         {/* Teams, Date/Time, and Book Toggle - Vertical on mobile, Horizontal on desktop */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-3 md:gap-4 mb-4">
-          <div className="flex flex-col md:flex-row md:items-center gap-2 flex-1 w-full md:w-auto">
-            {/* Teams Row */}
-            <div className="flex items-center gap-2 justify-center md:justify-start">
-              <img src={getTeamLogo(displayGame.away.espnAbbr, displayGame.sport)} alt="" className="w-7 h-7 rounded" />
-              <span className="font-bold text-base" style={{ color: "var(--ma-text-primary)" }}>{displayGame.away.abbr}</span>
-              <span className="text-sm" style={{ color: "var(--ma-text-secondary)" }}>@</span>
-              <img src={getTeamLogo(displayGame.home.espnAbbr, displayGame.sport)} alt="" className="w-7 h-7 rounded" />
-              <span className="font-bold text-base" style={{ color: "var(--ma-text-primary)" }}>{displayGame.home.abbr}</span>
-            </div>
-            
-            {/* Date/Time Row */}
-            <div className="text-xs font-medium whitespace-nowrap text-center md:text-left" style={{ color: "var(--ma-text-secondary)" }}>
-              {formatGameDate(game.kickoff)} {formatGameTime(game.kickoff)}
-            </div>
+          {/* Teams Row */}
+          <div className="flex items-center gap-2 justify-center md:justify-start flex-shrink-0">
+            <img src={getTeamLogo(displayGame.away.espnAbbr, displayGame.sport)} alt="" className="w-7 h-7 rounded" />
+            <span className="font-bold text-base" style={{ color: "var(--ma-text-primary)" }}>{displayGame.away.abbr}</span>
+            <span className="text-sm" style={{ color: "var(--ma-text-secondary)" }}>@</span>
+            <img src={getTeamLogo(displayGame.home.espnAbbr, displayGame.sport)} alt="" className="w-7 h-7 rounded" />
+            <span className="font-bold text-base" style={{ color: "var(--ma-text-primary)" }}>{displayGame.home.abbr}</span>
+          </div>
+          
+          {/* Date/Time Row - Centered on mobile and desktop */}
+          <div className="text-xs font-medium whitespace-nowrap text-center flex-1 md:flex-none" style={{ color: "var(--ma-text-secondary)" }}>
+            {formatGameDate(game.kickoff)} {formatGameTime(game.kickoff)}
           </div>
           
           {(hasDK || hasCirca) && (

@@ -592,22 +592,22 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
       <div className="hidden md:block">
         {/* Column Headers */}
         <div 
-          className="grid grid-cols-4 gap-px px-2 md:px-4 py-1.5 md:py-2"
+          className="grid grid-cols-4 gap-px px-2 md:px-4 py-1.5 md:py-2 items-center"
           style={{
             background: "var(--ma-surface)",
             borderBottom: "1px solid var(--ma-stroke)"
           }}
         >
-          <div className="text-[10px] md:text-xs font-semibold text-center" style={{ color: "var(--ma-text-secondary)" }}>
+          <div className="text-[10px] md:text-xs font-semibold text-center flex items-center justify-center" style={{ color: "var(--ma-text-secondary)" }}>
             Team
           </div>
-          <div className="text-[10px] md:text-xs font-semibold text-center" style={{ color: "var(--ma-text-secondary)" }}>
+          <div className="text-[10px] md:text-xs font-semibold text-center flex items-center justify-center" style={{ color: "var(--ma-text-secondary)" }}>
             Spread
           </div>
-          <div className="text-[10px] md:text-xs font-semibold text-center" style={{ color: "var(--ma-text-secondary)" }}>
+          <div className="text-[10px] md:text-xs font-semibold text-center flex items-center justify-center" style={{ color: "var(--ma-text-secondary)" }}>
             Total
           </div>
-          <div className="text-[10px] md:text-xs font-semibold text-center" style={{ color: "var(--ma-text-secondary)" }}>
+          <div className="text-[10px] md:text-xs font-semibold text-center flex items-center justify-center" style={{ color: "var(--ma-text-secondary)" }}>
             Moneyline
           </div>
         </div>

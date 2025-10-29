@@ -847,17 +847,7 @@ function SplitsCard({ game, market }: { game: GameOdds; market: Market }) {
     >
       <div className="p-3">
         {/* Edge Badge */}
-        <div className="flex items-center justify-between mb-2">
-          <div 
-            className="px-2 py-1 rounded-md text-xs font-bold"
-            style={{
-              background: "rgba(111, 116, 255, 0.14)",
-              color: "var(--ma-accent-indigo)",
-              border: "1px solid var(--ma-accent-indigo)"
-            }}
-          >
-            Sharp +{Math.round(cardData.maxDivergence)}% on {cardData.sharpLabel}
-          </div>
+        <div className="flex items-center justify-end mb-2">
           <div className="text-[10px] px-2 py-1 rounded bg-white/5" style={{ color: "var(--ma-text-secondary)" }}>
             {formatGameTime(game.kickoff)}
           </div>

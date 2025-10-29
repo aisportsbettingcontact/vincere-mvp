@@ -209,50 +209,6 @@ export default function Feed() {
           
           {/* Book Filter and Market Toggle Row */}
           <div className="flex items-center gap-2 max-w-md mx-auto">
-            {/* Book Filter */}
-            <div 
-              className="relative flex gap-[8px] px-[4px] py-[4px] rounded-[14px] flex-shrink-0"
-              style={{
-                background: "var(--ma-surface)",
-                border: "1px solid var(--ma-stroke)"
-              }}
-            >
-              <motion.div
-                className="absolute top-[4px] bottom-[4px] rounded-[10px]"
-                initial={false}
-                animate={{
-                  left: selectedBook === "DK" ? "4px" : "calc(50% + 2px)",
-                  width: "calc(50% - 6px)"
-                }}
-                transition={{ type: "spring", damping: 20, stiffness: 300 }}
-                style={{
-                  background: "rgba(111, 116, 255, 0.14)",
-                  border: "1px solid var(--ma-accent-indigo)"
-                }}
-              />
-              
-              <button
-                onClick={() => setSelectedBook("DK")}
-                className="font-['Inter',_sans-serif] relative z-10 px-[12px] py-[6px] rounded-[10px] transition-colors flex items-center justify-center text-xs"
-                style={{
-                  color: selectedBook === "DK" ? "var(--ma-text-primary)" : "var(--ma-text-secondary)",
-                  fontWeight: 600
-                }}
-              >
-                DK
-              </button>
-              <button
-                onClick={() => setSelectedBook("Circa")}
-                className="font-['Inter',_sans-serif] relative z-10 px-[12px] py-[6px] rounded-[10px] transition-colors flex items-center justify-center text-xs"
-                style={{
-                  color: selectedBook === "Circa" ? "var(--ma-text-primary)" : "var(--ma-text-secondary)",
-                  fontWeight: 600
-                }}
-              >
-                Circa
-              </button>
-            </div>
-            
             {/* Market Toggle - only show for Splits tab */}
             {activeTab === "splits" && (
               <div 

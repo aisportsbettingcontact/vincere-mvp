@@ -162,8 +162,8 @@ export default function Profile() {
               {/* DraftKings */}
               <div className="flex items-center justify-between py-3">
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 p-0.5 flex items-center justify-center rounded-lg overflow-hidden" style={{ background: "var(--ma-surface)" }}>
-                    <img src={draftKingsLogo} alt="DraftKings" className="w-full h-full object-cover" />
+                  <div className="w-12 h-12 p-0 flex items-center justify-center rounded-lg overflow-hidden" style={{ background: "var(--ma-surface)" }}>
+                    <img src={draftKingsLogo} alt="DraftKings" className="w-full h-full object-cover rounded-lg" />
                   </div>
                   <div>
                     <h4 className="font-semibold" style={{ color: "var(--ma-text-primary)" }}>DraftKings</h4>

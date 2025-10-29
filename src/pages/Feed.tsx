@@ -352,14 +352,15 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
                   e.stopPropagation();
                   setSelectedBook("DK");
                 }}
-                className="relative z-10 w-10 h-10 p-0 rounded-[10px] transition-all flex items-center justify-center overflow-hidden"
+                className="relative z-10 w-10 h-10 rounded-[10px] transition-all overflow-hidden"
                 style={{
                   opacity: selectedBook === "DK" ? 1 : 0.5,
-                  background: hasDK && !hasCirca ? "rgba(111, 116, 255, 0.14)" : "transparent",
-                  border: hasDK && !hasCirca ? "1px solid var(--ma-accent-indigo)" : "none"
+                  background: "transparent",
+                  border: "none",
+                  padding: 0
                 }}
               >
-                <img src={draftKingsLogo} alt="DraftKings" className="w-full h-full object-cover rounded-[10px]" />
+                <img src={draftKingsLogo} alt="DraftKings" className="w-full h-full object-cover rounded-[10px]" style={{ display: "block" }} />
               </button>
             )}
             {hasCirca && (
@@ -368,14 +369,15 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
                   e.stopPropagation();
                   setSelectedBook("Circa");
                 }}
-                className="relative z-10 w-10 h-10 p-0.5 rounded-[10px] transition-all flex items-center justify-center overflow-hidden"
+                className="relative z-10 w-10 h-10 rounded-[10px] transition-all overflow-hidden"
                 style={{
                   opacity: selectedBook === "Circa" ? 1 : 0.5,
-                  background: hasCirca && !hasDK ? "rgba(111, 116, 255, 0.14)" : "transparent",
-                  border: hasCirca && !hasDK ? "1px solid var(--ma-accent-indigo)" : "none"
+                  background: "transparent",
+                  border: "none",
+                  padding: 0
                 }}
               >
-                <img src={circaLogo} alt="Circa" className="w-full h-full object-cover rounded-[10px]" />
+                <img src={circaLogo} alt="Circa" className="w-full h-full object-cover rounded-[10px]" style={{ display: "block" }} />
               </button>
             )}
           </div>
@@ -568,27 +570,29 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
               {hasDK && (
                 <button
                   onClick={() => setSelectedBook("DK")}
-                  className="relative z-10 w-10 h-10 p-0 rounded-[10px] transition-all flex items-center justify-center overflow-hidden"
+                  className="relative z-10 w-10 h-10 rounded-[10px] transition-all overflow-hidden"
                   style={{
                     opacity: selectedBook === "DK" ? 1 : 0.5,
-                    background: hasDK && !hasCirca ? "rgba(111, 116, 255, 0.14)" : "transparent",
-                    border: hasDK && !hasCirca ? "1px solid var(--ma-accent-indigo)" : "none"
+                    background: "transparent",
+                    border: "none",
+                    padding: 0
                   }}
                 >
-                  <img src={draftKingsLogo} alt="DraftKings" className="w-full h-full object-cover rounded-[10px]" />
+                  <img src={draftKingsLogo} alt="DraftKings" className="w-full h-full object-cover rounded-[10px]" style={{ display: "block" }} />
                 </button>
               )}
               {hasCirca && (
                 <button
                   onClick={() => setSelectedBook("Circa")}
-                  className="relative z-10 w-10 h-10 p-0.5 rounded-[10px] transition-all flex items-center justify-center overflow-hidden"
+                  className="relative z-10 w-10 h-10 rounded-[10px] transition-all overflow-hidden"
                   style={{
                     opacity: selectedBook === "Circa" ? 1 : 0.5,
-                    background: hasCirca && !hasDK ? "rgba(111, 116, 255, 0.14)" : "transparent",
-                    border: hasCirca && !hasDK ? "1px solid var(--ma-accent-indigo)" : "none"
+                    background: "transparent",
+                    border: "none",
+                    padding: 0
                   }}
                 >
-                  <img src={circaLogo} alt="Circa" className="w-full h-full object-cover rounded-[10px]" />
+                  <img src={circaLogo} alt="Circa" className="w-full h-full object-cover rounded-[10px]" style={{ display: "block" }} />
                 </button>
               )}
             </div>
@@ -901,14 +905,15 @@ function SplitsCard({ game }: { game: GameOdds }) {
                     e.stopPropagation();
                     setSelectedBook("DK");
                   }}
-                  className="relative z-10 w-9 h-9 p-0 rounded-[7px] transition-all flex items-center justify-center overflow-hidden"
+                  className="relative z-10 w-9 h-9 rounded-[7px] transition-all overflow-hidden"
                   style={{
                     opacity: selectedBook === "DK" ? 1 : 0.5,
-                    background: hasDK && !hasCirca ? "rgba(111, 116, 255, 0.14)" : "transparent",
-                    border: hasDK && !hasCirca ? "1px solid var(--ma-accent-indigo)" : "none"
+                    background: "transparent",
+                    border: "none",
+                    padding: 0
                   }}
                 >
-                  <img src={draftKingsLogo} alt="DraftKings" className="w-full h-full object-cover rounded-[7px]" />
+                  <img src={draftKingsLogo} alt="DraftKings" className="w-full h-full object-cover rounded-[7px]" style={{ display: "block" }} />
                 </button>
               )}
               {hasCirca && (
@@ -917,14 +922,15 @@ function SplitsCard({ game }: { game: GameOdds }) {
                     e.stopPropagation();
                     setSelectedBook("Circa");
                   }}
-                  className="relative z-10 w-9 h-9 p-0.5 rounded-[7px] transition-all flex items-center justify-center overflow-hidden"
+                  className="relative z-10 w-9 h-9 rounded-[7px] transition-all overflow-hidden"
                   style={{
                     opacity: selectedBook === "Circa" ? 1 : 0.5,
-                    background: hasCirca && !hasDK ? "rgba(111, 116, 255, 0.14)" : "transparent",
-                    border: hasCirca && !hasDK ? "1px solid var(--ma-accent-indigo)" : "none"
+                    background: "transparent",
+                    border: "none",
+                    padding: 0
                   }}
                 >
-                  <img src={circaLogo} alt="Circa" className="w-full h-full object-cover rounded-[7px]" />
+                  <img src={circaLogo} alt="Circa" className="w-full h-full object-cover rounded-[7px]" style={{ display: "block" }} />
                 </button>
               )}
             </div>

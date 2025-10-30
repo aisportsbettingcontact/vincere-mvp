@@ -120,7 +120,9 @@ export const CFB_TEAM_MAPPINGS: Record<string, {
   // Additional slug variations
   "mississippi": { name: "Mississippi State", abbr: "MSST", espnAbbr: "344", fullName: "Mississippi State Bulldogs" },
   "mississippi-st": { name: "Mississippi State", abbr: "MSST", espnAbbr: "344", fullName: "Mississippi State Bulldogs" },
+  "mississippi-st-bulldogs": { name: "Mississippi State", abbr: "MSST", espnAbbr: "344", fullName: "Mississippi State Bulldogs" },
   "florida-st": { name: "Florida State", abbr: "FSU", espnAbbr: "52", fullName: "Florida State Seminoles" },
+  "florida-st-seminoles": { name: "Florida State", abbr: "FSU", espnAbbr: "52", fullName: "Florida State Seminoles" },
   "iowa": { name: "Iowa", abbr: "IOWA", espnAbbr: "2294", fullName: "Iowa Hawkeyes" },
   "ole-miss": { name: "Ole Miss", abbr: "MISS", espnAbbr: "145", fullName: "Ole Miss Rebels" },
 };

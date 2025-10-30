@@ -46,10 +46,21 @@ export function MatchupCard({ matchup, sport }: MatchupCardProps) {
                       src={awayLogo}
                     />
                   </div>
-                  <div className="h-[18px] relative shrink-0" data-name="Container">
-                    <div className="bg-clip-padding border-0 border-[transparent] border-solid box-border content-stretch flex h-[18px] items-start relative">
-                      <p className="font-['Inter:Semi_Bold',_sans-serif] font-semibold leading-[18px] not-italic relative shrink-0 text-[14.5px] text-nowrap text-white tracking-[-0.1912px] whitespace-pre">{matchup.away.name}</p>
-                    </div>
+                  <div className="relative shrink-0" data-name="Container">
+                    {sport === "CFB" ? (
+                      <div className="flex flex-col">
+                        <p className="font-['Inter:Semi_Bold',_sans-serif] font-semibold leading-[14px] not-italic text-[14px] text-nowrap text-white tracking-[-0.1912px] whitespace-pre">
+                          {matchup.away.name.split(' ')[0]}
+                        </p>
+                        <p className="font-['Inter:Regular',_sans-serif] font-normal leading-[10px] not-italic text-[10px] text-nowrap text-white/70 whitespace-pre">
+                          {matchup.away.name.split(' ').slice(1).join(' ')}
+                        </p>
+                      </div>
+                    ) : (
+                      <div className="bg-clip-padding border-0 border-[transparent] border-solid box-border content-stretch flex h-[18px] items-start relative">
+                        <p className="font-['Inter:Semi_Bold',_sans-serif] font-semibold leading-[18px] not-italic relative shrink-0 text-[14.5px] text-nowrap text-white tracking-[-0.1912px] whitespace-pre">{matchup.away.name}</p>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -71,10 +82,21 @@ export function MatchupCard({ matchup, sport }: MatchupCardProps) {
                       src={homeLogo}
                     />
                   </div>
-                  <div className="h-[18px] relative shrink-0" data-name="Container">
-                    <div className="bg-clip-padding border-0 border-[transparent] border-solid box-border content-stretch flex h-[18px] items-start relative">
-                      <p className="font-['Inter:Semi_Bold',_sans-serif] font-semibold leading-[18px] not-italic relative shrink-0 text-[14.5px] text-nowrap text-white tracking-[-0.1912px] whitespace-pre">{matchup.home.name}</p>
-                    </div>
+                  <div className="relative shrink-0" data-name="Container">
+                    {sport === "CFB" ? (
+                      <div className="flex flex-col">
+                        <p className="font-['Inter:Semi_Bold',_sans-serif] font-semibold leading-[14px] not-italic text-[14px] text-nowrap text-white tracking-[-0.1912px] whitespace-pre">
+                          {matchup.home.name.split(' ')[0]}
+                        </p>
+                        <p className="font-['Inter:Regular',_sans-serif] font-normal leading-[10px] not-italic text-[10px] text-nowrap text-white/70 whitespace-pre">
+                          {matchup.home.name.split(' ').slice(1).join(' ')}
+                        </p>
+                      </div>
+                    ) : (
+                      <div className="bg-clip-padding border-0 border-[transparent] border-solid box-border content-stretch flex h-[18px] items-start relative">
+                        <p className="font-['Inter:Semi_Bold',_sans-serif] font-semibold leading-[18px] not-italic relative shrink-0 text-[14.5px] text-nowrap text-white tracking-[-0.1912px] whitespace-pre">{matchup.home.name}</p>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

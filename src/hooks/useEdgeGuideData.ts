@@ -176,17 +176,16 @@ export function useEdgeGuideData() {
     queryFn: async () => {
       try {
         const data = await fetchLatest();
+        console.log("✅ Fetched live EdgeGuide data");
         return parseEdgeGuideData(data);
       } catch (error) {
-        // Fallback to local mock data if API returns 404 "No run yet"
-        if (error instanceof Error && error.message.includes("404")) {
-          console.log("Using fallback mock data - no EdgeGuide run available yet");
-          const mockData = rawSplitsDataImport as unknown as EdgeGuideLatestResponse;
-          return parseEdgeGuideData(mockData);
-        }
-        throw error;
+        // Fallback to local mock data if API returns 404 "No run yet" or any other error
+        console.warn("⚠️ EdgeGuide API unavailable, using fallback mock data:", error instanceof Error ? error.message : String(error));
+        const mockData = rawSplitsDataImport as unknown as EdgeGuideLatestResponse;
+        return parseEdgeGuideData(mockData);
       }
     },
+    retry: false, // Don't retry on failure, use fallback immediately
     refetchInterval: 60000, // Refetch every minute
     staleTime: 30000, // Consider data stale after 30 seconds
   });

@@ -108,8 +108,8 @@ export default function Feed() {
   const [globalMarket, setGlobalMarket] = useState<Market>("Spread");
   const [selectedBook, setSelectedBook] = useState<"DK" | "Circa">("DK");
   
-  // Fetch live data from EdgeGuide
-  const { data: liveGames, isLoading: isLoadingGames, error: gamesError } = useEdgeGuideData();
+  // Fetch live data from EdgeGuide with automatic fallback to mock data
+  const { data: liveGames, isLoading: isLoadingGames } = useEdgeGuideData();
   
   // Filter by book and sort games by date (earliest first)
   const sortedGames = useMemo(() => {
@@ -148,17 +148,6 @@ export default function Feed() {
     return (
       <div style={{ background: "var(--ma-bg)", minHeight: "100vh" }} className="flex items-center justify-center">
         <p style={{ color: "var(--ma-text-primary)" }}>Loading odds data...</p>
-      </div>
-    );
-  }
-
-  if (gamesError) {
-    return (
-      <div style={{ background: "var(--ma-bg)", minHeight: "100vh" }} className="flex items-center justify-center flex-col gap-4 p-4">
-        <p style={{ color: "var(--ma-text-primary)" }}>Error loading odds data</p>
-        <p style={{ color: "var(--ma-text-secondary)", fontSize: "14px" }} className="text-center">
-          {gamesError instanceof Error ? gamesError.message : "Unknown error"}
-        </p>
       </div>
     );
   }

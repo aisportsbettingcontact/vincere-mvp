@@ -3,6 +3,7 @@ import { fetchLatest, EdgeGuideLatestResponse } from "@/lib/edgeguide";
 import type { GameOdds } from "@/data/oddsData";
 import { getTeamInfo } from "@/utils/teamMappings";
 import { getTeamColors } from "@/utils/teamColors";
+import rawSplitsDataImport from "@/data/nfl-splits-raw.json";
 
 // Map specific game IDs to their actual kickoff times (ET in 24h format)
 const GAME_TIMES: Record<string, string> = {
@@ -173,8 +174,18 @@ export function useEdgeGuideData() {
   return useQuery({
     queryKey: ["edgeguide-latest"],
     queryFn: async () => {
-      const data = await fetchLatest();
-      return parseEdgeGuideData(data);
+      try {
+        const data = await fetchLatest();
+        return parseEdgeGuideData(data);
+      } catch (error) {
+        // Fallback to local mock data if API returns 404 "No run yet"
+        if (error instanceof Error && error.message.includes("404")) {
+          console.log("Using fallback mock data - no EdgeGuide run available yet");
+          const mockData = rawSplitsDataImport as unknown as EdgeGuideLatestResponse;
+          return parseEdgeGuideData(mockData);
+        }
+        throw error;
+      }
     },
     refetchInterval: 60000, // Refetch every minute
     staleTime: 30000, // Consider data stale after 30 seconds

@@ -5,7 +5,7 @@ const EDGE_ADMIN = Deno.env.get("LOVABLE_EDGE_ADMIN");
 const cors = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "GET,POST,OPTIONS",
-  "Access-Control-Allow-Headers": "authorization, x-client-secret, x-edge-admin, content-type, x-client-info, apikey",
+  "Access-Control-Allow-Headers": "authorization, x-client-secret, x-edge-admin, x-trace-id, content-type, x-client-info, apikey",
   "Content-Type": "application/json",
 };
 

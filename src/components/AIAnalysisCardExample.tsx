@@ -42,7 +42,7 @@ const getTeamFromPlay = (playText: string, game: any) => {
 
 function getTeamLogo(espnAbbr: string, sport: string) {
   const sportPath = sport.toLowerCase();
-  return `https://a.espncdn.com/i/teamlogos/${sportPath}/500/${espnAbbr}.png`;
+  return `https://a.espncdn.com/combiner/i?img=/i/teamlogos/${sportPath}/500/${espnAbbr}.png&h=200&w=200`;
 }
 
 export function AIAnalysisCard({ game, sport }: { game: any; sport: string }) {

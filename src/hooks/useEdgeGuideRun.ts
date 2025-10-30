@@ -21,7 +21,12 @@ export function useEdgeGuideRun(): UseEdgeGuideRunReturn {
     for (let attempt = 0; attempt < maxAttempts; attempt++) {
       const { data: latestData, error: pollError } = await supabase.functions.invoke(
         'edgeguide-latest',
-        { method: 'GET' }
+        { 
+          method: 'GET',
+          headers: {
+            'X-Edge-Admin': import.meta.env.VITE_EDGE_ADMIN || '',
+          }
+        }
       );
 
       if (pollError) {

@@ -13,16 +13,9 @@ export interface EdgeGuideLatestResponse {
 }
 
 export async function triggerEdgeguideRun(trace?: string): Promise<EdgeGuideRunResponse> {
-  const edgeAdmin = import.meta.env.VITE_EDGE_ADMIN;
-  
-  if (!edgeAdmin) {
-    throw new Error("Missing VITE_EDGE_ADMIN");
-  }
-
-  const { data, error } = await supabase.functions.invoke('edgeguide-run', {
+  const { data, error } = await supabase.functions.invoke('run-edgeguide', {
     method: 'POST',
     headers: {
-      'X-Edge-Admin': edgeAdmin,
       ...(trace ? { 'X-Trace-Id': trace } : {}),
     },
     body: {},

@@ -252,7 +252,7 @@ export default function Feed() {
         {/* Sport Filter */}
         <div className="relative mb-3 px-3">
           <div className="overflow-x-auto scrollbar-hide scroll-smooth">
-            <div className="flex justify-start gap-3 min-w-max pb-1">
+            <div className="flex justify-center gap-3 min-w-max pb-1 mx-auto">
               <button
                 onClick={() => setSelectedSport("NFL")}
                 className={`flex flex-col items-center justify-center gap-2 px-4 py-3 rounded-xl text-xs font-semibold transition-all min-w-[72px] ${

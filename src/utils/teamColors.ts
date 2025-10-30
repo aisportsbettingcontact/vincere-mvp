@@ -201,12 +201,33 @@ export function getTeamSecondaryColor(teamName: string, sport: string = "NFL"): 
   return colors[teamName]?.secondary || "#000000";
 }
 
+// CBB Team Colors - Official hex codes
+export const CBB_TEAM_COLORS: Record<string, {
+  primary: string;
+  secondary: string;
+  tertiary: string;
+}> = {
+  "Florida Gators": { primary: "#0021A5", secondary: "#FA4616", tertiary: "#FFFFFF" },
+  "Arizona Wildcats": { primary: "#003366", secondary: "#CC0033", tertiary: "#FFFFFF" },
+  "Villanova Wildcats": { primary: "#00205B", secondary: "#FFFFFF", tertiary: "#009DDC" },
+  "BYU Cougars": { primary: "#002E5D", secondary: "#FFFFFF", tertiary: "#0062B8" },
+  "Texas Longhorns": { primary: "#BF5700", secondary: "#333F48", tertiary: "#FFFFFF" },
+  "Duke Blue Devils": { primary: "#003087", secondary: "#FFFFFF", tertiary: "#012169" }
+};
+
 /**
  * Get all colors for a team
  */
 export function getTeamColors(teamName: string, sport: string = "NFL") {
   if (sport === "CFB") {
     return getCFBTeamColors(teamName);
+  }
+  if (sport === "CBB") {
+    return CBB_TEAM_COLORS[teamName] || {
+      primary: "#003087",
+      secondary: "#FFFFFF",
+      tertiary: "#FFC72C"
+    };
   }
   const colors = sport === "NBA" ? NBA_TEAM_COLORS 
     : sport === "NHL" ? NHL_TEAM_COLORS 

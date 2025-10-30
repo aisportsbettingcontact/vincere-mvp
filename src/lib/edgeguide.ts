@@ -28,12 +28,14 @@ export interface EdgeGuideLatestResponse {
       CFB?: Record<string, RawSplitGame[]>;
       NBA?: Record<string, RawSplitGame[]>;
       NHL?: Record<string, RawSplitGame[]>;
+      CBB?: Record<string, RawSplitGame[]>;
     };
     CIRCA?: {
       NFL?: Record<string, RawSplitGame[]>;
       MLB?: Record<string, RawSplitGame[]>;
       CFB?: Record<string, RawSplitGame[]>;
       NHL?: Record<string, RawSplitGame[]>;
+      CBB?: Record<string, RawSplitGame[]>;
     };
   };
 }

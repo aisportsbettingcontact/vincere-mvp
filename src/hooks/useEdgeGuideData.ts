@@ -222,16 +222,34 @@ function parseEdgeGuideData(data: EdgeGuideLatestResponse): GameOdds[] {
     });
   }
   
-  // Sort by date/time chronologically, with NFL > MLB (World Series) > CFB > NBA > NHL on the same day
+  // Parse DK CBB games
+  if (data.books.DK?.CBB) {
+    Object.values(data.books.DK.CBB).forEach(dateGames => {
+      dateGames.forEach(game => {
+        allGames.push(parseGame(game, "DK"));
+      });
+    });
+  }
+  
+  // Parse CIRCA CBB games
+  if (data.books.CIRCA?.CBB) {
+    Object.values(data.books.CIRCA.CBB).forEach(dateGames => {
+      dateGames.forEach(game => {
+        allGames.push(parseGame(game, "CIRCA"));
+      });
+    });
+  }
+  
+  // Sort by date/time chronologically, with NFL > MLB (World Series) > CFB > NBA > NHL > CBB on the same day
   allGames.sort((a, b) => {
     const aDate = new Date(a.kickoff);
     const bDate = new Date(b.kickoff);
     const aDay = aDate.toISOString().split('T')[0];
     const bDay = bDate.toISOString().split('T')[0];
     
-    // If same day, prioritize NFL > MLB > CFB > NBA > NHL
+    // If same day, prioritize NFL > MLB > CFB > NBA > NHL > CBB
     if (aDay === bDay && a.sport !== b.sport) {
-      const sportOrder = { NFL: 1, MLB: 2, CFB: 3, NBA: 4, NHL: 5 };
+      const sportOrder = { NFL: 1, MLB: 2, CFB: 3, NBA: 4, NHL: 5, CBB: 6 };
       return sportOrder[a.sport] - sportOrder[b.sport];
     }
     

@@ -19,7 +19,7 @@ Deno.serve(async (req) => {
   const deny = gate(req);
   if (deny) return deny;
 
-  if (req.method !== "GET") {
+  if (req.method !== "GET" && req.method !== "POST") {
     return new Response(JSON.stringify({ detail: "Method Not Allowed" }), { status: 405, headers: corsHeaders });
   }
 

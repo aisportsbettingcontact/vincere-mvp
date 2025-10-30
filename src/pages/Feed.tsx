@@ -269,10 +269,10 @@ export default function Feed() {
         {/* Sport Filter */}
         <div className="relative mb-3 px-3">
           <div className="overflow-x-auto scrollbar-hide scroll-smooth">
-            <div className="flex justify-center gap-2.5 min-w-max pb-1 mx-auto">
+            <div className="flex justify-center gap-2 min-w-max pb-1 mx-auto">
               <button
                 onClick={() => setSelectedSport("NFL")}
-                className={`flex flex-col items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-xs font-semibold transition-all min-w-[64px] ${
+                className={`flex flex-col items-center justify-center gap-1 px-2 py-1.5 rounded-lg text-xs font-semibold transition-all min-w-[56px] ${
                   selectedSport === "NFL"
                     ? "border border-white shadow-lg"
                     : "border border-transparent opacity-70 hover:opacity-100"
@@ -281,13 +281,13 @@ export default function Feed() {
                 <img 
                   src="https://a.espncdn.com/combiner/i?img=/i/teamlogos/leagues/500/nfl.png?w=100&h=100&transparent=true"
                   alt="NFL"
-                  className="w-7 h-7 object-contain"
+                  className="w-6 h-6 object-contain"
                 />
                 <span className="leading-tight">NFL</span>
               </button>
               <button
                 onClick={() => setSelectedSport("MLB")}
-                className={`flex flex-col items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-xs font-semibold transition-all min-w-[64px] ${
+                className={`flex flex-col items-center justify-center gap-1 px-2 py-1.5 rounded-lg text-xs font-semibold transition-all min-w-[56px] ${
                   selectedSport === "MLB"
                     ? "border border-white shadow-lg"
                     : "border border-transparent opacity-70 hover:opacity-100"
@@ -296,7 +296,7 @@ export default function Feed() {
                 <img 
                   src={worldSeriesLogo}
                   alt="World Series"
-                  className="w-7 h-7 object-contain"
+                  className="w-6 h-6 object-contain"
                 />
                 <div className="flex flex-col items-center leading-tight">
                   <span>World</span>
@@ -305,7 +305,7 @@ export default function Feed() {
               </button>
               <button
                 onClick={() => setSelectedSport("CFB")}
-                className={`flex flex-col items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-xs font-semibold transition-all min-w-[64px] ${
+                className={`flex flex-col items-center justify-center gap-1 px-2 py-1.5 rounded-lg text-xs font-semibold transition-all min-w-[56px] ${
                   selectedSport === "CFB"
                     ? "border border-white shadow-lg"
                     : "border border-transparent opacity-70 hover:opacity-100"
@@ -314,13 +314,13 @@ export default function Feed() {
                 <img 
                   src="https://www.ncaa.com/modules/custom/casablanca_core/img/sportbanners/football.svg"
                   alt="CFB"
-                  className="w-7 h-7 object-contain"
+                  className="w-6 h-6 object-contain"
                 />
                 <span className="leading-tight">CFB</span>
               </button>
               <button
                 onClick={() => setSelectedSport("NBA")}
-                className={`flex flex-col items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-xs font-semibold transition-all min-w-[64px] ${
+                className={`flex flex-col items-center justify-center gap-1 px-2 py-1.5 rounded-lg text-xs font-semibold transition-all min-w-[56px] ${
                   selectedSport === "NBA"
                     ? "border border-white shadow-lg"
                     : "border border-transparent opacity-70 hover:opacity-100"
@@ -329,13 +329,13 @@ export default function Feed() {
                 <img 
                   src="https://a.espncdn.com/combiner/i?img=/i/teamlogos/leagues/500/nba.png?w=100&h=100&transparent=true"
                   alt="NBA"
-                  className="w-7 h-7 object-contain"
+                  className="w-6 h-6 object-contain"
                 />
                 <span className="leading-tight">NBA</span>
               </button>
               <button
                 onClick={() => setSelectedSport("NHL")}
-                className={`flex flex-col items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-xs font-semibold transition-all min-w-[64px] ${
+                className={`flex flex-col items-center justify-center gap-1 px-2 py-1.5 rounded-lg text-xs font-semibold transition-all min-w-[56px] ${
                   selectedSport === "NHL"
                     ? "border border-white shadow-lg"
                     : "border border-transparent opacity-70 hover:opacity-100"
@@ -344,13 +344,13 @@ export default function Feed() {
                 <img 
                   src="https://a.espncdn.com/combiner/i?img=/i/teamlogos/leagues/500/nhl.png?w=100&h=100&transparent=true"
                   alt="NHL"
-                  className="w-7 h-7 object-contain"
+                  className="w-6 h-6 object-contain"
                 />
                 <span className="leading-tight">NHL</span>
               </button>
               <button
                 onClick={() => setSelectedSport("CBB")}
-                className={`flex flex-col items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-xs font-semibold transition-all min-w-[64px] ${
+                className={`flex flex-col items-center justify-center gap-1 px-2 py-1.5 rounded-lg text-xs font-semibold transition-all min-w-[56px] ${
                   selectedSport === "CBB"
                     ? "border border-white shadow-lg"
                     : "border border-transparent opacity-70 hover:opacity-100"
@@ -359,7 +359,7 @@ export default function Feed() {
                 <img 
                   src="https://www.ncaa.com/modules/custom/casablanca_core/img/sportbanners/basketball-men.svg"
                   alt="CBB"
-                  className="w-7 h-7 object-contain"
+                  className="w-6 h-6 object-contain"
                 />
                 <span className="leading-tight">CBB</span>
               </button>

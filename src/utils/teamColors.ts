@@ -152,7 +152,7 @@ export const MLB_TEAM_COLORS: Record<string, {
   "Houston Astros": { primary: "#002D62", secondary: "#EB6E1F", tertiary: "#F4911E" },
   "Kansas City Royals": { primary: "#004687", secondary: "#BD9B60", tertiary: "#FFFFFF" },
   "Los Angeles Angels": { primary: "#BA0021", secondary: "#003263", tertiary: "#FFFFFF" },
-  "Los Angeles Dodgers": { primary: "#005A9C", secondary: "#EF3E42", tertiary: "#FFFFFF" },
+  "Los Angeles Dodgers": { primary: "#005A9C", secondary: "#FFFFFF", tertiary: "#EF3E42" },
   "Miami Marlins": { primary: "#00A3E0", secondary: "#EF3340", tertiary: "#000000" },
   "Milwaukee Brewers": { primary: "#12284B", secondary: "#FFC52F", tertiary: "#FFFFFF" },
   "Minnesota Twins": { primary: "#002B5C", secondary: "#D31145", tertiary: "#CFAB7A" },
@@ -167,7 +167,7 @@ export const MLB_TEAM_COLORS: Record<string, {
   "St. Louis Cardinals": { primary: "#C41E3A", secondary: "#0C2340", tertiary: "#FEDB00" },
   "Tampa Bay Rays": { primary: "#092C5C", secondary: "#8FBCE6", tertiary: "#F5D130" },
   "Texas Rangers": { primary: "#003278", secondary: "#C0111F", tertiary: "#FFFFFF" },
-  "Toronto Blue Jays": { primary: "#134A8E", secondary: "#1D2D5C", tertiary: "#E8291C" },
+  "Toronto Blue Jays": { primary: "#E8291C", secondary: "#134A8E", tertiary: "#FFFFFF" },
   "Washington Nationals": { primary: "#AB0003", secondary: "#14225A", tertiary: "#FFFFFF" }
 };
 

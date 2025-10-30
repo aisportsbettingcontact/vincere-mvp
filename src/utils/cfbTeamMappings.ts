@@ -124,5 +124,6 @@ export const CFB_TEAM_MAPPINGS: Record<string, {
   "florida-st": { name: "Florida State", abbr: "FSU", espnAbbr: "52", fullName: "Florida State Seminoles" },
   "florida-st-seminoles": { name: "Florida State", abbr: "FSU", espnAbbr: "52", fullName: "Florida State Seminoles" },
   "iowa": { name: "Iowa", abbr: "IOWA", espnAbbr: "2294", fullName: "Iowa Hawkeyes" },
+  "iowa-hawkies": { name: "Iowa", abbr: "IOWA", espnAbbr: "2294", fullName: "Iowa Hawkeyes" },
   "ole-miss": { name: "Ole Miss", abbr: "MISS", espnAbbr: "145", fullName: "Ole Miss Rebels" },
 };

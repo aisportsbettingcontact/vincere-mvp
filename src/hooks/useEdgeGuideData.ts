@@ -1,0 +1,182 @@
+import { useQuery } from "@tanstack/react-query";
+import { fetchLatest, EdgeGuideLatestResponse } from "@/lib/edgeguide";
+import type { GameOdds } from "@/data/oddsData";
+import { getTeamInfo } from "@/utils/teamMappings";
+import { getTeamColors } from "@/utils/teamColors";
+
+// Map specific game IDs to their actual kickoff times (ET in 24h format)
+const GAME_TIMES: Record<string, string> = {
+  "20251030NFL00032": "20:15",
+  "20251102NFL00036": "13:00",
+  "20251102NFL00048": "13:00",
+  "20251102NFL00033": "13:00",
+  "20251102NFL00038": "13:00",
+  "20251102NFL00053": "13:00",
+  "20251102NFL00052": "13:00",
+  "20251102NFL00039": "13:00",
+  "20251102NFL00042": "13:00",
+  "20251102NFL00045": "13:00",
+  "20251102NFL00062": "16:05",
+  "20251102NFL00031": "16:25",
+  "20251102NFL00050": "16:25",
+  "20251102NFL00047": "20:20",
+  "20251103NFL00040": "20:15",
+};
+
+function formatDate(dateStr: string, gameId: string, sport: string): string {
+  const year = dateStr.slice(0, 4);
+  const month = dateStr.slice(4, 6);
+  const day = dateStr.slice(6, 8);
+  const time = GAME_TIMES[gameId] || (sport === "NBA" ? "19:00" : "13:00");
+  return `${year}-${month}-${day}T${time}:00`;
+}
+
+function parseGame(game: any, book: string): GameOdds {
+  const sport = game.s || "NFL";
+  const awayTeam = getTeamInfo(game.a, sport);
+  const homeTeam = getTeamInfo(game.h, sport);
+  const awayColors = getTeamColors(awayTeam.fullName, sport);
+  const homeColors = getTeamColors(homeTeam.fullName, sport);
+  
+  const spreadTickets = {
+    away: Math.round(game.spr[2][0] * 100),
+    home: Math.round(game.spr[2][1] * 100)
+  };
+  const spreadMoney = {
+    away: Math.round(game.spr[3][0] * 100),
+    home: Math.round(game.spr[3][1] * 100)
+  };
+  
+  const totalTickets = {
+    over: Math.round(game.tot[1][0] * 100),
+    under: Math.round(game.tot[1][1] * 100)
+  };
+  const totalMoney = {
+    over: Math.round(game.tot[2][0] * 100),
+    under: Math.round(game.tot[2][1] * 100)
+  };
+  
+  const mlTickets = {
+    away: Math.round(game.ml[2][0] * 100),
+    home: Math.round(game.ml[2][1] * 100)
+  };
+  const mlMoney = {
+    away: Math.round(game.ml[3][0] * 100),
+    home: Math.round(game.ml[3][1] * 100)
+  };
+  
+  return {
+    gameId: game.id,
+    sport: sport as "NFL" | "NBA",
+    kickoff: formatDate(game.d, game.id, sport),
+    book: book,
+    away: {
+      name: awayTeam.name,
+      abbr: awayTeam.abbr,
+      espnAbbr: awayTeam.espnAbbr,
+      color: awayColors.primary,
+      secondaryColor: awayColors.secondary,
+      tertiaryColor: awayColors.tertiary
+    },
+    home: {
+      name: homeTeam.name,
+      abbr: homeTeam.abbr,
+      espnAbbr: homeTeam.espnAbbr,
+      color: homeColors.primary,
+      secondaryColor: homeColors.secondary,
+      tertiaryColor: homeColors.tertiary
+    },
+    odds: [
+      {
+        book: "consensus",
+        timestamp: new Date().toISOString(),
+        moneyline: {
+          away: { american: game.ml[0], decimal: 0, implied: 0 },
+          home: { american: game.ml[1], decimal: 0, implied: 0 }
+        },
+        spread: {
+          away: {
+            line: game.spr[0],
+            odds: { american: -110, decimal: 0, implied: 0 }
+          },
+          home: {
+            line: game.spr[1],
+            odds: { american: -110, decimal: 0, implied: 0 }
+          }
+        },
+        total: {
+          over: {
+            line: game.tot[0],
+            odds: { american: -110, decimal: 0, implied: 0 }
+          },
+          under: {
+            line: game.tot[0],
+            odds: { american: -110, decimal: 0, implied: 0 }
+          }
+        }
+      }
+    ],
+    splits: {
+      spread: {
+        away: { tickets: spreadTickets.away, handle: spreadMoney.away },
+        home: { tickets: spreadTickets.home, handle: spreadMoney.home }
+      },
+      total: {
+        over: { tickets: totalTickets.over, handle: totalMoney.over },
+        under: { tickets: totalTickets.under, handle: totalMoney.under }
+      },
+      moneyline: {
+        away: { tickets: mlTickets.away, handle: mlMoney.away },
+        home: { tickets: mlTickets.home, handle: mlMoney.home }
+      }
+    }
+  };
+}
+
+function parseEdgeGuideData(data: EdgeGuideLatestResponse): GameOdds[] {
+  const allGames: GameOdds[] = [];
+  
+  // Parse DK NFL games
+  if (data.books.DK?.NFL) {
+    Object.values(data.books.DK.NFL).forEach(dateGames => {
+      dateGames.forEach(game => {
+        allGames.push(parseGame(game, "DK"));
+      });
+    });
+  }
+  
+  // Parse DK NBA games
+  if (data.books.DK?.NBA) {
+    Object.values(data.books.DK.NBA).forEach(dateGames => {
+      dateGames.forEach(game => {
+        allGames.push(parseGame(game, "DK"));
+      });
+    });
+  }
+  
+  // Parse CIRCA NFL games
+  if (data.books.CIRCA?.NFL) {
+    Object.values(data.books.CIRCA.NFL).forEach(dateGames => {
+      dateGames.forEach(game => {
+        allGames.push(parseGame(game, "CIRCA"));
+      });
+    });
+  }
+  
+  // Sort by date/time chronologically
+  allGames.sort((a, b) => new Date(a.kickoff).getTime() - new Date(b.kickoff).getTime());
+  
+  return allGames;
+}
+
+export function useEdgeGuideData() {
+  return useQuery({
+    queryKey: ["edgeguide-latest"],
+    queryFn: async () => {
+      const data = await fetchLatest();
+      return parseEdgeGuideData(data);
+    },
+    refetchInterval: 60000, // Refetch every minute
+    staleTime: 30000, // Consider data stale after 30 seconds
+  });
+}

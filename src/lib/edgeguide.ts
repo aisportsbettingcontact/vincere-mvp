@@ -1,14 +1,35 @@
 export interface EdgeGuideRunResponse {
-  ok: boolean;
+  ok: true;
   json_file: string;
   elapsed_sec: number;
   trace: string;
+  elapsed_ms?: number;
+}
+
+interface RawSplitGame {
+  id: string;
+  d: string;
+  a: string;
+  h: string;
+  spr: [number, number, [number, number], [number, number]];
+  tot: [number, [number, number], [number, number]];
+  ml: [number, number, [number, number], [number, number]];
+  b: string;
+  s: string;
 }
 
 export interface EdgeGuideLatestResponse {
   generated_at: string;
   tz_anchor?: string;
-  books: unknown;
+  books: {
+    DK?: {
+      NFL?: Record<string, RawSplitGame[]>;
+      NBA?: Record<string, RawSplitGame[]>;
+    };
+    CIRCA?: {
+      NFL?: Record<string, RawSplitGame[]>;
+    };
+  };
 }
 
 const EDGE_BASE = import.meta.env.VITE_EDGE_BASE as string;

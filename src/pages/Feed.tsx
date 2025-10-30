@@ -1,7 +1,8 @@
 import { useState, useMemo, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "motion/react";
-import { mockGameOdds, type GameOdds } from "@/data/oddsData";
+import type { GameOdds } from "@/data/oddsData";
+import { useEdgeGuideData } from "@/hooks/useEdgeGuideData";
 import { MirrorBar } from "@/components/MirrorBar";
 import { LineHistoryTable } from "@/components/LineHistoryTable";
 import type { Matchup } from "@/data/sportsData";
@@ -107,16 +108,20 @@ export default function Feed() {
   const [globalMarket, setGlobalMarket] = useState<Market>("Spread");
   const [selectedBook, setSelectedBook] = useState<"DK" | "Circa">("DK");
   
+  // Fetch live data from EdgeGuide
+  const { data: liveGames, isLoading: isLoadingGames, error: gamesError } = useEdgeGuideData();
+  
   // Filter by book and sort games by date (earliest first)
   const sortedGames = useMemo(() => {
+    if (!liveGames) return [];
     const bookFilter = selectedBook === "Circa" ? "CIRCA" : selectedBook;
-    const filtered = mockGameOdds.filter(game => game.book === bookFilter);
+    const filtered = liveGames.filter(game => game.book === bookFilter);
     return filtered.sort((a, b) => {
       const dateA = new Date(a.kickoff).getTime();
       const dateB = new Date(b.kickoff).getTime();
       return dateA - dateB;
     });
-  }, [selectedBook]);
+  }, [liveGames, selectedBook]);
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -139,10 +144,21 @@ export default function Feed() {
     return () => subscription.unsubscribe();
   }, [navigate]);
 
-  if (loading) {
+  if (loading || isLoadingGames) {
     return (
       <div style={{ background: "var(--ma-bg)", minHeight: "100vh" }} className="flex items-center justify-center">
-        <p style={{ color: "var(--ma-text-primary)" }}>Loading...</p>
+        <p style={{ color: "var(--ma-text-primary)" }}>Loading odds data...</p>
+      </div>
+    );
+  }
+
+  if (gamesError) {
+    return (
+      <div style={{ background: "var(--ma-bg)", minHeight: "100vh" }} className="flex items-center justify-center flex-col gap-4 p-4">
+        <p style={{ color: "var(--ma-text-primary)" }}>Error loading odds data</p>
+        <p style={{ color: "var(--ma-text-secondary)", fontSize: "14px" }} className="text-center">
+          {gamesError instanceof Error ? gamesError.message : "Unknown error"}
+        </p>
       </div>
     );
   }
@@ -268,15 +284,17 @@ function formatGameDate(dateString: string): string {
 
 // Lines Card - displays all three markets at once
 function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
+  const { data: allGames } = useEdgeGuideData();
+  
   // Check if both DK and CIRCA data exist for this game
   const hasDK = useMemo(() => 
-    mockGameOdds.some(g => g.gameId === game.gameId && g.book === "DK"),
-    [game.gameId]
+    allGames?.some(g => g.gameId === game.gameId && g.book === "DK") ?? false,
+    [game.gameId, allGames]
   );
   
   const hasCirca = useMemo(() => 
-    mockGameOdds.some(g => g.gameId === game.gameId && g.book === "CIRCA"),
-    [game.gameId]
+    allGames?.some(g => g.gameId === game.gameId && g.book === "CIRCA") ?? false,
+    [game.gameId, allGames]
   );
   
   // If only DK is available, force DK selection
@@ -287,9 +305,9 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
   // Find the game data for the selected book
   const displayGame = useMemo(() => {
     const bookFilter = selectedBook === "Circa" ? "CIRCA" : selectedBook;
-    const matchingGame = mockGameOdds.find(g => g.gameId === game.gameId && g.book === bookFilter);
+    const matchingGame = allGames?.find(g => g.gameId === game.gameId && g.book === bookFilter);
     return matchingGame || game;
-  }, [game.gameId, selectedBook, game]);
+  }, [game.gameId, selectedBook, game, allGames]);
   
   const firstOdds = displayGame.odds[0];
   
@@ -740,15 +758,17 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
 
 // Splits Card - displays ticket/money percentages for all markets
 function SplitsCard({ game }: { game: GameOdds }) {
+  const { data: allGames } = useEdgeGuideData();
+  
   // Check if both DK and CIRCA data exist for this game
   const hasDK = useMemo(() => 
-    mockGameOdds.some(g => g.gameId === game.gameId && g.book === "DK"),
-    [game.gameId]
+    allGames?.some(g => g.gameId === game.gameId && g.book === "DK") ?? false,
+    [game.gameId, allGames]
   );
   
   const hasCirca = useMemo(() => 
-    mockGameOdds.some(g => g.gameId === game.gameId && g.book === "CIRCA"),
-    [game.gameId]
+    allGames?.some(g => g.gameId === game.gameId && g.book === "CIRCA") ?? false,
+    [game.gameId, allGames]
   );
   
   // If only DK is available, force DK selection
@@ -759,9 +779,9 @@ function SplitsCard({ game }: { game: GameOdds }) {
   // Find the game data for the selected book
   const displayGame = useMemo(() => {
     const bookFilter = selectedBook === "Circa" ? "CIRCA" : selectedBook;
-    const matchingGame = mockGameOdds.find(g => g.gameId === game.gameId && g.book === bookFilter);
+    const matchingGame = allGames?.find(g => g.gameId === game.gameId && g.book === bookFilter);
     return matchingGame || game;
-  }, [game.gameId, selectedBook, game]);
+  }, [game.gameId, selectedBook, game, allGames]);
   
   const firstOdds = displayGame.odds[0];
   

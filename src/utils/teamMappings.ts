@@ -1,3 +1,5 @@
+import { CFB_TEAM_MAPPINGS } from "./cfbTeamMappings";
+
 // Map team slugs to display names and ESPN abbreviations
 export const NFL_TEAM_MAPPINGS: Record<string, { name: string; abbr: string; espnAbbr: string; fullName: string }> = {
   "arizona-cardinals": { name: "Cardinals", abbr: "ARI", espnAbbr: "ari", fullName: "Arizona Cardinals" },
@@ -103,7 +105,7 @@ export const NHL_TEAM_MAPPINGS: Record<string, { name: string; abbr: string; esp
 };
 
 export function getTeamInfo(slug: string, sport: string = "NFL") {
-  const mappings = sport === "NBA" ? NBA_TEAM_MAPPINGS : sport === "NHL" ? NHL_TEAM_MAPPINGS : NFL_TEAM_MAPPINGS;
+  const mappings = sport === "NBA" ? NBA_TEAM_MAPPINGS : sport === "NHL" ? NHL_TEAM_MAPPINGS : sport === "CFB" ? CFB_TEAM_MAPPINGS : NFL_TEAM_MAPPINGS;
   return mappings[slug] || { 
     name: slug, 
     abbr: slug.toUpperCase().slice(0, 3), 

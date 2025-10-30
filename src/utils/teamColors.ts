@@ -1,3 +1,5 @@
+import { getCFBTeamColors } from "./cfbTeamColors";
+
 // NFL Team Colors - Official hex codes
 export const NFL_TEAM_COLORS: Record<string, {
   primary: string;
@@ -135,6 +137,10 @@ export const NHL_TEAM_COLORS: Record<string, {
  * Get the primary team color by team name
  */
 export function getTeamPrimaryColor(teamName: string, sport: string = "NFL"): string {
+  if (sport === "CFB") {
+    const colors = getCFBTeamColors(teamName);
+    return colors.primary;
+  }
   const colors = sport === "NBA" ? NBA_TEAM_COLORS : sport === "NHL" ? NHL_TEAM_COLORS : NFL_TEAM_COLORS;
   return colors[teamName]?.primary || "#6F74FF"; // Fallback to app primary color
 }
@@ -143,6 +149,10 @@ export function getTeamPrimaryColor(teamName: string, sport: string = "NFL"): st
  * Get the secondary team color by team name
  */
 export function getTeamSecondaryColor(teamName: string, sport: string = "NFL"): string {
+  if (sport === "CFB") {
+    const colors = getCFBTeamColors(teamName);
+    return colors.secondary;
+  }
   const colors = sport === "NBA" ? NBA_TEAM_COLORS : sport === "NHL" ? NHL_TEAM_COLORS : NFL_TEAM_COLORS;
   return colors[teamName]?.secondary || "#000000";
 }
@@ -151,6 +161,9 @@ export function getTeamSecondaryColor(teamName: string, sport: string = "NFL"): 
  * Get all colors for a team
  */
 export function getTeamColors(teamName: string, sport: string = "NFL") {
+  if (sport === "CFB") {
+    return getCFBTeamColors(teamName);
+  }
   const colors = sport === "NBA" ? NBA_TEAM_COLORS : sport === "NHL" ? NHL_TEAM_COLORS : NFL_TEAM_COLORS;
   return colors[teamName] || {
     primary: "#6F74FF",

@@ -28,7 +28,7 @@ function formatDate(dateStr: string, gameId: string, sport: string): string {
   const year = dateStr.slice(0, 4);
   const month = dateStr.slice(4, 6);
   const day = dateStr.slice(6, 8);
-  const time = GAME_TIMES[gameId] || (sport === "NBA" ? "19:00" : sport === "NHL" ? "19:00" : "13:00");
+  const time = GAME_TIMES[gameId] || (sport === "NBA" ? "19:00" : sport === "NHL" ? "19:00" : sport === "CFB" ? "12:00" : "13:00");
   return `${year}-${month}-${day}T${time}:00`;
 }
 
@@ -68,7 +68,7 @@ function parseGame(game: any, book: string): GameOdds {
   
   return {
     gameId: game.id,
-    sport: sport as "NFL" | "NBA" | "NHL",
+    sport: sport as "NFL" | "CFB" | "NBA" | "NHL",
     kickoff: formatDate(game.d, game.id, sport),
     book: book,
     away: {
@@ -146,6 +146,24 @@ function parseEdgeGuideData(data: EdgeGuideLatestResponse): GameOdds[] {
     });
   }
   
+  // Parse DK CFB games
+  if (data.books.DK?.CFB) {
+    Object.values(data.books.DK.CFB).forEach(dateGames => {
+      dateGames.forEach(game => {
+        allGames.push(parseGame(game, "DK"));
+      });
+    });
+  }
+  
+  // Parse CIRCA CFB games
+  if (data.books.CIRCA?.CFB) {
+    Object.values(data.books.CIRCA.CFB).forEach(dateGames => {
+      dateGames.forEach(game => {
+        allGames.push(parseGame(game, "CIRCA"));
+      });
+    });
+  }
+  
   // Parse DK NBA games (exclude 20251029)
   if (data.books.DK?.NBA) {
     Object.entries(data.books.DK.NBA).forEach(([date, dateGames]) => {
@@ -184,16 +202,16 @@ function parseEdgeGuideData(data: EdgeGuideLatestResponse): GameOdds[] {
     });
   }
   
-  // Sort by date/time chronologically, with NFL games first, then NHL, then NBA on the same day
+  // Sort by date/time chronologically, with NFL games first, then CFB, then NHL, then NBA on the same day
   allGames.sort((a, b) => {
     const aDate = new Date(a.kickoff);
     const bDate = new Date(b.kickoff);
     const aDay = aDate.toISOString().split('T')[0];
     const bDay = bDate.toISOString().split('T')[0];
     
-    // If same day, prioritize NFL > NHL > NBA
+    // If same day, prioritize NFL > CFB > NHL > NBA
     if (aDay === bDay && a.sport !== b.sport) {
-      const sportOrder = { NFL: 1, NHL: 2, NBA: 3 };
+      const sportOrder = { NFL: 1, CFB: 2, NHL: 3, NBA: 4 };
       return sportOrder[a.sport] - sportOrder[b.sport];
     }
     

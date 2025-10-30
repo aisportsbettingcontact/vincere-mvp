@@ -1,0 +1,43 @@
+// CFB Team Colors (Official hex codes)
+export const CFB_TEAM_COLORS: Record<string, { primary: string; secondary: string; tertiary: string; }> = {
+  "UCLA Bruins": { primary: "#2D68C4", secondary: "#FFD100", tertiary: "#2D68C4" },
+  "Arizona Wildcats": { primary: "#CC0033", secondary: "#003366", tertiary: "#CC0033" },
+  "Arizona State Sun Devils": { primary: "#8C1D40", secondary: "#FFC627", tertiary: "#8C1D40" },
+  "Utah Utes": { primary: "#CC0000", secondary: "#000000", tertiary: "#CC0000" },
+  "Colorado Buffaloes": { primary: "#CFB87C", secondary: "#000000", tertiary: "#CFB87C" },
+  "USC Trojans": { primary: "#990000", secondary: "#FFCC00", tertiary: "#990000" },
+  "Oregon Ducks": { primary: "#154733", secondary: "#FEE123", tertiary: "#154733" },
+  "Washington Huskies": { primary: "#4B2E83", secondary: "#B7A57A", tertiary: "#4B2E83" },
+  "Ohio State Buckeyes": { primary: "#BB0000", secondary: "#666666", tertiary: "#BB0000" },
+  "Michigan Wolverines": { primary: "#00274C", secondary: "#FFCB05", tertiary: "#00274C" },
+  "Penn State Nittany Lions": { primary: "#041E42", secondary: "#FFFFFF", tertiary: "#041E42" },
+  "Georgia Bulldogs": { primary: "#BA0C2F", secondary: "#000000", tertiary: "#BA0C2F" },
+  "Alabama Crimson Tide": { primary: "#9E1B32", secondary: "#828A8F", tertiary: "#9E1B32" },
+  "Texas Longhorns": { primary: "#BF5700", secondary: "#FFFFFF", tertiary: "#BF5700" },
+  "Oklahoma Sooners": { primary: "#841617", secondary: "#FDF9D8", tertiary: "#841617" },
+  "Florida Gators": { primary: "#0021A5", secondary: "#FA4616", tertiary: "#0021A5" },
+  "LSU Tigers": { primary: "#461D7C", secondary: "#FDD023", tertiary: "#461D7C" },
+  "Clemson Tigers": { primary: "#F56600", secondary: "#522D80", tertiary: "#F56600" },
+  "Notre Dame Fighting Irish": { primary: "#0C2340", secondary: "#C99700", tertiary: "#0C2340" },
+  "Florida State Seminoles": { primary: "#782F40", secondary: "#CEB888", tertiary: "#782F40" },
+  "Miami Hurricanes": { primary: "#F47321", secondary: "#005030", tertiary: "#F47321" },
+  "Virginia Tech Hokies": { primary: "#630031", secondary: "#CF4420", tertiary: "#630031" },
+  "North Carolina Tar Heels": { primary: "#13294B", secondary: "#7BAFD4", tertiary: "#13294B" },
+  "Wisconsin Badgers": { primary: "#C5050C", secondary: "#FFFFFF", tertiary: "#C5050C" },
+  "Iowa Hawkeyes": { primary: "#FFCD00", secondary: "#000000", tertiary: "#FFCD00" },
+  "Nebraska Cornhuskers": { primary: "#E41C38", secondary: "#FEFDFA", tertiary: "#E41C38" },
+  "Tennessee Volunteers": { primary: "#FF8200", secondary: "#FFFFFF", tertiary: "#FF8200" },
+  "Auburn Tigers": { primary: "#0C2340", secondary: "#E87722", tertiary: "#0C2340" },
+  "Texas A&M Aggies": { primary: "#500000", secondary: "#FFFFFF", tertiary: "#500000" },
+  "Ole Miss Rebels": { primary: "#CE1126", secondary: "#14213D", tertiary: "#CE1126" },
+  "Mississippi State Bulldogs": { primary: "#5D1725", secondary: "#FFFFFF", tertiary: "#5D1725" },
+  "Arkansas Razorbacks": { primary: "#9D2235", secondary: "#FFFFFF", tertiary: "#9D2235" },
+  "Kentucky Wildcats": { primary: "#0033A0", secondary: "#FFFFFF", tertiary: "#0033A0" },
+  "South Carolina Gamecocks": { primary: "#73000A", secondary: "#000000", tertiary: "#73000A" },
+  "Missouri Tigers": { primary: "#F1B82D", secondary: "#000000", tertiary: "#F1B82D" },
+  "Vanderbilt Commodores": { primary: "#866D4B", secondary: "#000000", tertiary: "#866D4B" },
+};
+
+export function getCFBTeamColors(teamName: string) {
+  return CFB_TEAM_COLORS[teamName] || { primary: "#000000", secondary: "#FFFFFF", tertiary: "#000000" };
+}

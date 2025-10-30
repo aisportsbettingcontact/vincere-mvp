@@ -107,7 +107,7 @@ export default function Feed() {
   const [activeTab, setActiveTab] = useState<"lines" | "splits">("lines");
   const [globalMarket, setGlobalMarket] = useState<Market>("Spread");
   const [selectedBook, setSelectedBook] = useState<"DK" | "Circa">("DK");
-  const [selectedSport, setSelectedSport] = useState<"NFL" | "NBA" | "NHL">("NFL");
+  const [selectedSport, setSelectedSport] = useState<"NFL" | "CFB" | "NBA" | "NHL">("NFL");
   
   // Fetch live data from EdgeGuide with automatic fallback to mock data
   const { data: liveGames, isLoading: isLoadingGames } = useEdgeGuideData();
@@ -269,6 +269,21 @@ export default function Feed() {
               className="w-5 h-5"
             />
             <span>NFL</span>
+          </button>
+          <button
+            onClick={() => setSelectedSport("CFB")}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-all ${
+              selectedSport === "CFB"
+                ? "border-2 border-white"
+                : "border-2 border-transparent"
+            }`}
+          >
+            <img 
+              src="https://www.ncaa.com/modules/custom/casablanca_core/img/sportbanners/football.svg"
+              alt="CFB"
+              className="w-5 h-5"
+            />
+            <span>CFB</span>
           </button>
           <button
             onClick={() => setSelectedSport("NBA")}

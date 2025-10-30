@@ -1,4 +1,4 @@
-export type League = "NFL" | "NBA" | "NHL";
+export type League = "NFL" | "CFB" | "NBA" | "NHL";
 export type Market = "ML" | "Spread" | "Total";
 export type Book = "DK" | "FD" | "MGM" | "Caesars";
 export type Angle = "Sharp" | "Public" | "Balanced";

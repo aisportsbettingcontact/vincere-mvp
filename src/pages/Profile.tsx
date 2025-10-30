@@ -5,12 +5,13 @@ import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { ArrowLeft, Moon, Sun, Bell, BookOpen, Settings, LogOut } from "lucide-react";
+import { ArrowLeft, Moon, Sun, Bell, BookOpen, Settings, LogOut, Database } from "lucide-react";
 import { toast } from "sonner";
 import { useTheme } from "@/contexts/ThemeContext";
 import draftKingsLogo from "@/assets/draftkings-logo.png";
 import circaLogo from "@/assets/circa-logo.jpg";
 import { User } from "@supabase/supabase-js";
+import { populateTeamsData } from "@/utils/populateTeams";
 
 export default function Profile() {
   const navigate = useNavigate();
@@ -19,6 +20,7 @@ export default function Profile() {
   const [user, setUser] = useState<User | null>(null);
   const [profile, setProfile] = useState<any>(null);
   const [pushNotifications, setPushNotifications] = useState(false);
+  const [populatingTeams, setPopulatingTeams] = useState(false);
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -55,6 +57,18 @@ export default function Profile() {
   const formatMemberSince = (date: string) => {
     const d = new Date(date);
     return d.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+  };
+
+  const handlePopulateTeams = async () => {
+    setPopulatingTeams(true);
+    const result = await populateTeamsData();
+    setPopulatingTeams(false);
+    
+    if (result.success) {
+      toast.success(result.message);
+    } else {
+      toast.error(result.message);
+    }
   };
 
   if (loading) {
@@ -186,6 +200,26 @@ export default function Profile() {
                   </div>
                 </div>
               </div>
+            </CardContent>
+          </Card>
+
+          {/* Database Admin */}
+          <Card style={{ background: "var(--ma-card)", borderColor: "var(--ma-stroke)" }}>
+            <CardHeader>
+              <div className="flex items-center gap-3">
+                <Database className="h-5 w-5" style={{ color: "var(--ma-text-primary)" }} />
+                <CardTitle style={{ color: "var(--ma-text-primary)" }}>Database</CardTitle>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <Button
+                variant="outline"
+                className="w-full"
+                onClick={handlePopulateTeams}
+                disabled={populatingTeams}
+              >
+                {populatingTeams ? "Populating..." : "Populate Teams Data"}
+              </Button>
             </CardContent>
           </Card>
 

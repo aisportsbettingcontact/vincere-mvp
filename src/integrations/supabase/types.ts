@@ -47,6 +47,69 @@ export type Database = {
         }
         Relationships: []
       }
+      teams: {
+        Row: {
+          arena_city: string | null
+          arena_name: string | null
+          arena_state: string | null
+          conference: string | null
+          created_at: string
+          division: string | null
+          id: string
+          league: string
+          primary_color: string | null
+          primary_hex_code: string | null
+          secondary_color: string | null
+          secondary_hex_code: string | null
+          sport: string
+          team_city: string
+          team_nickname: string
+          tertiary_color: string | null
+          tertiary_hex_code: string | null
+          updated_at: string
+        }
+        Insert: {
+          arena_city?: string | null
+          arena_name?: string | null
+          arena_state?: string | null
+          conference?: string | null
+          created_at?: string
+          division?: string | null
+          id?: string
+          league: string
+          primary_color?: string | null
+          primary_hex_code?: string | null
+          secondary_color?: string | null
+          secondary_hex_code?: string | null
+          sport: string
+          team_city: string
+          team_nickname: string
+          tertiary_color?: string | null
+          tertiary_hex_code?: string | null
+          updated_at?: string
+        }
+        Update: {
+          arena_city?: string | null
+          arena_name?: string | null
+          arena_state?: string | null
+          conference?: string | null
+          created_at?: string
+          division?: string | null
+          id?: string
+          league?: string
+          primary_color?: string | null
+          primary_hex_code?: string | null
+          secondary_color?: string | null
+          secondary_hex_code?: string | null
+          sport?: string
+          team_city?: string
+          team_nickname?: string
+          tertiary_color?: string | null
+          tertiary_hex_code?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

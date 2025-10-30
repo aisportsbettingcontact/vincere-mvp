@@ -1,6 +1,6 @@
 import type { GameOdds } from "@/data/oddsData";
 import { getTeamInfo } from "./teamMappings";
-import { getTeamPrimaryColor, getTeamSecondaryColor } from "./teamColors";
+import { getTeamPrimaryColor, getTeamSecondaryColor, getTeamColors } from "./teamColors";
 import rawSplitsDataImport from "@/data/nfl-splits-raw.json";
 
 interface RawSplitGame {
@@ -101,6 +101,8 @@ function parseGame(game: RawSplitGame, book: string): GameOdds {
     const sport = game.s || "NFL";
     const awayTeam = getTeamInfo(game.a, sport);
     const homeTeam = getTeamInfo(game.h, sport);
+    const awayColors = getTeamColors(awayTeam.fullName, sport);
+    const homeColors = getTeamColors(homeTeam.fullName, sport);
     
     // Convert decimal percentages to whole numbers (0.35 -> 35)
     const spreadTickets = {
@@ -139,15 +141,17 @@ function parseGame(game: RawSplitGame, book: string): GameOdds {
         name: awayTeam.name,
         abbr: awayTeam.abbr,
         espnAbbr: awayTeam.espnAbbr,
-        color: getTeamPrimaryColor(awayTeam.fullName, sport),
-        secondaryColor: getTeamSecondaryColor(awayTeam.fullName, sport)
+        color: awayColors.primary,
+        secondaryColor: awayColors.secondary,
+        tertiaryColor: awayColors.tertiary
       },
       home: {
         name: homeTeam.name,
         abbr: homeTeam.abbr,
         espnAbbr: homeTeam.espnAbbr,
-        color: getTeamPrimaryColor(homeTeam.fullName, sport),
-        secondaryColor: getTeamSecondaryColor(homeTeam.fullName, sport)
+        color: homeColors.primary,
+        secondaryColor: homeColors.secondary,
+        tertiaryColor: homeColors.tertiary
       },
       odds: [
         {

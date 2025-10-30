@@ -12,6 +12,7 @@ import { Brain, TrendingUp, Users, UserCircle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import draftKingsLogo from "@/assets/draftkings-logo.png";
 import circaLogo from "@/assets/circa-logo.jpg";
+import { areColorsSimilar, getBestContrastColor } from "@/utils/colorSimilarity";
 
 
 function getTeamLogo(espnAbbr: string, sport: string) {
@@ -779,13 +780,20 @@ function SplitsCard({ game }: { game: GameOdds }) {
     const tickets = { left: displayGame.splits.spread.away.tickets, right: displayGame.splits.spread.home.tickets };
     const money = { left: displayGame.splits.spread.away.handle, right: displayGame.splits.spread.home.handle };
     const currentLine = firstOdds?.spread?.away?.line || -3.5;
+    
+    // Check if colors are too similar
+    const colorsSimilar = areColorsSimilar(displayGame.away.color, displayGame.home.color);
+    const awayColor = colorsSimilar 
+      ? getBestContrastColor(displayGame.away.color, displayGame.away.secondaryColor, displayGame.away.tertiaryColor)
+      : displayGame.away.color;
+    
     return {
       tickets,
       money,
       leftLabel: displayGame.away.abbr,
       rightLabel: displayGame.home.abbr,
       lineDisplay: `${displayGame.away.abbr} ${formatSpreadLine(currentLine)}`,
-      leftColor: displayGame.away.secondaryColor,
+      leftColor: awayColor,
       rightColor: displayGame.home.color
     };
   }, [displayGame, firstOdds]);
@@ -794,13 +802,20 @@ function SplitsCard({ game }: { game: GameOdds }) {
     const tickets = { left: displayGame.splits.total.over.tickets, right: displayGame.splits.total.under.tickets };
     const money = { left: displayGame.splits.total.over.handle, right: displayGame.splits.total.under.handle };
     const currentLine = firstOdds?.total?.over?.line || 47.5;
+    
+    // Check if colors are too similar - Over uses away color, Under uses home color
+    const colorsSimilar = areColorsSimilar(displayGame.away.color, displayGame.home.color);
+    const overColor = colorsSimilar 
+      ? getBestContrastColor(displayGame.away.color, displayGame.away.secondaryColor, displayGame.away.tertiaryColor)
+      : displayGame.away.color;
+    
     return {
       tickets,
       money,
       leftLabel: "O",
       rightLabel: "U",
       lineDisplay: `${currentLine}`,
-      leftColor: displayGame.away.secondaryColor,
+      leftColor: overColor,
       rightColor: displayGame.home.color
     };
   }, [displayGame, firstOdds]);
@@ -809,13 +824,20 @@ function SplitsCard({ game }: { game: GameOdds }) {
     const tickets = { left: displayGame.splits.moneyline.away.tickets, right: displayGame.splits.moneyline.home.tickets };
     const money = { left: displayGame.splits.moneyline.away.handle, right: displayGame.splits.moneyline.home.handle };
     const awayML = firstOdds?.moneyline?.away?.american || -110;
+    
+    // Check if colors are too similar
+    const colorsSimilar = areColorsSimilar(displayGame.away.color, displayGame.home.color);
+    const awayColor = colorsSimilar 
+      ? getBestContrastColor(displayGame.away.color, displayGame.away.secondaryColor, displayGame.away.tertiaryColor)
+      : displayGame.away.color;
+    
     return {
       tickets,
       money,
       leftLabel: displayGame.away.abbr,
       rightLabel: displayGame.home.abbr,
       lineDisplay: `${displayGame.away.abbr} ${awayML > 0 ? '+' : ''}${awayML}`,
-      leftColor: displayGame.away.secondaryColor,
+      leftColor: awayColor,
       rightColor: displayGame.home.color
     };
   }, [displayGame, firstOdds]);

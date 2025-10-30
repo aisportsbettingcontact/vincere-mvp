@@ -2,11 +2,9 @@ const SERVICE_URL = "https://edgeguide-svc-620671498623.us-west2.run.app";
 const SECRET = Deno.env.get("APP_SHARED_SECRET") ?? "";
 const EDGE_ADMIN = Deno.env.get("LOVABLE_EDGE_ADMIN");
 
-const cors = {
+const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Methods": "GET,POST,OPTIONS",
-  "Access-Control-Allow-Headers": "authorization, x-client-secret, x-edge-admin, x-trace-id, content-type, x-client-info, apikey",
-  "Content-Type": "application/json",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-edge-admin, x-trace-id",
 };
 
 const gate = (req: Request) => {
@@ -14,13 +12,13 @@ const gate = (req: Request) => {
   if (!EDGE_ADMIN || h !== EDGE_ADMIN) {
     return new Response(JSON.stringify({ error: "Forbidden" }), { 
       status: 403, 
-      headers: cors 
+      headers: corsHeaders 
     });
   }
 };
 
 Deno.serve(async (req) => {
-  if (req.method === "OPTIONS") return new Response(null, { headers: cors });
+  if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
 
   const deny = gate(req);
   if (deny) return deny;
@@ -28,12 +26,12 @@ Deno.serve(async (req) => {
   if (!SECRET) {
     return new Response(JSON.stringify({ error: "APP_SHARED_SECRET not configured" }), {
       status: 500,
-      headers: cors,
+      headers: corsHeaders,
     });
   }
 
   if (req.method !== "POST") {
-    return new Response(JSON.stringify({ detail: "Method Not Allowed" }), { status: 405, headers: cors });
+    return new Response(JSON.stringify({ detail: "Method Not Allowed" }), { status: 405, headers: corsHeaders });
   }
 
   const trace = req.headers.get("X-Trace-Id") ?? crypto.randomUUID();
@@ -52,5 +50,5 @@ Deno.serve(async (req) => {
   console.log("edgeguide-run trace", { trace, status: upstream.status });
   
   const text = await upstream.text();
-  return new Response(text, { status: upstream.status, headers: cors });
+  return new Response(text, { status: upstream.status, headers: corsHeaders });
 });

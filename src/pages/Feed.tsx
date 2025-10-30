@@ -124,7 +124,7 @@ export default function Feed() {
       const dateB = new Date(b.kickoff).getTime();
       return dateA - dateB;
     });
-  }, [liveGames, selectedBook]);
+  }, [liveGames, selectedBook, selectedSport]);
 
   useEffect(() => {
     const checkAuth = async () => {

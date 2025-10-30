@@ -108,6 +108,23 @@ export default function Feed() {
   // Fetch live data from EdgeGuide with automatic fallback to mock data
   const { data: liveGames, isLoading: isLoadingGames } = useEdgeGuideData();
   
+  // Check which books have data for the selected sport
+  const availableBooksForSport = useMemo(() => {
+    if (!liveGames) return { hasDK: false, hasCirca: false };
+    const hasDK = liveGames.some(game => game.book === "DK" && game.sport === selectedSport);
+    const hasCirca = liveGames.some(game => game.book === "CIRCA" && game.sport === selectedSport);
+    return { hasDK, hasCirca };
+  }, [liveGames, selectedSport]);
+
+  // Auto-select the only available book
+  useEffect(() => {
+    if (availableBooksForSport.hasDK && !availableBooksForSport.hasCirca) {
+      setSelectedBook("DK");
+    } else if (!availableBooksForSport.hasDK && availableBooksForSport.hasCirca) {
+      setSelectedBook("Circa");
+    }
+  }, [availableBooksForSport]);
+
   // Filter by book, sport, and sort games by date (earliest first)
   const sortedGames = useMemo(() => {
     if (!liveGames) return [];
@@ -350,42 +367,44 @@ export default function Feed() {
           </div>
         </div>
 
-        {/* Bookmaker Toggle */}
-        <div className="flex justify-center mb-3">
-          <div 
-            className="flex gap-2 rounded-[14px]"
-            style={{
-              background: "var(--ma-surface)",
-              border: "1px solid var(--ma-stroke)",
-              padding: "8px"
-            }}
-          >
-            <button
-              onClick={() => setSelectedBook("DK")}
-              className="relative z-10 w-12 h-12 rounded-[10px] transition-all overflow-hidden"
+        {/* Bookmaker Toggle - Only show if both books have data for selected sport */}
+        {availableBooksForSport.hasDK && availableBooksForSport.hasCirca && (
+          <div className="flex justify-center mb-3">
+            <div 
+              className="flex gap-2 rounded-[14px]"
               style={{
-                opacity: selectedBook === "DK" ? 1 : 0.5,
-                background: "transparent",
-                border: selectedBook === "DK" ? "2px solid white" : "none",
-                padding: 0
+                background: "var(--ma-surface)",
+                border: "1px solid var(--ma-stroke)",
+                padding: "8px"
               }}
             >
-              <img src={draftKingsLogo} alt="DraftKings" className="w-full h-full object-cover rounded-[10px]" style={{ display: "block" }} />
-            </button>
-            <button
-              onClick={() => setSelectedBook("Circa")}
-              className="relative z-10 w-12 h-12 rounded-[10px] transition-all overflow-hidden"
-              style={{
-                opacity: selectedBook === "Circa" ? 1 : 0.5,
-                background: "transparent",
-                border: selectedBook === "Circa" ? "2px solid white" : "none",
-                padding: 0
-              }}
-            >
-              <img src={circaLogo} alt="Circa" className="w-full h-full object-cover rounded-[10px]" style={{ display: "block" }} />
-            </button>
+              <button
+                onClick={() => setSelectedBook("DK")}
+                className="relative z-10 w-12 h-12 rounded-[10px] transition-all overflow-hidden"
+                style={{
+                  opacity: selectedBook === "DK" ? 1 : 0.5,
+                  background: "transparent",
+                  border: selectedBook === "DK" ? "2px solid white" : "none",
+                  padding: 0
+                }}
+              >
+                <img src={draftKingsLogo} alt="DraftKings" className="w-full h-full object-cover rounded-[10px]" style={{ display: "block" }} />
+              </button>
+              <button
+                onClick={() => setSelectedBook("Circa")}
+                className="relative z-10 w-12 h-12 rounded-[10px] transition-all overflow-hidden"
+                style={{
+                  opacity: selectedBook === "Circa" ? 1 : 0.5,
+                  background: "transparent",
+                  border: selectedBook === "Circa" ? "2px solid white" : "none",
+                  padding: 0
+                }}
+              >
+                <img src={circaLogo} alt="Circa" className="w-full h-full object-cover rounded-[10px]" style={{ display: "block" }} />
+              </button>
+            </div>
           </div>
-        </div>
+        )}
 
         <div className="space-y-2">
           {sortedGames.map((game) => (

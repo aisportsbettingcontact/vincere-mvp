@@ -1,31 +1,35 @@
-const SERVICE_URL = 'https://edgeguide-svc-620671498623.us-west2.run.app';
-const SECRET = Deno.env.get('APP_SHARED_SECRET') ?? '';
+const SERVICE_URL = "https://edgeguide-svc-620671498623.us-west2.run.app";
+const SECRET = Deno.env.get("APP_SHARED_SECRET") ?? "";
 
 const cors = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'GET,POST,OPTIONS',
-  'Access-Control-Allow-Headers': 'authorization, x-client-secret, content-type, x-client-info, apikey',
-  'Content-Type': 'application/json',
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "GET,POST,OPTIONS",
+  "Access-Control-Allow-Headers": "authorization, x-client-secret, content-type, x-client-info, apikey",
+  "Content-Type": "application/json",
 };
 
 Deno.serve(async (req) => {
-  if (req.method === 'OPTIONS') return new Response(null, { headers: cors });
+  if (req.method === "OPTIONS") return new Response(null, { headers: cors });
+
   if (!SECRET) {
-    return new Response(JSON.stringify({ error: 'APP_SHARED_SECRET not configured' }), {
-      status: 500, headers: cors,
-    });
-  }
-  if (req.method !== 'POST') {
-    return new Response(JSON.stringify({ detail: 'Method Not Allowed' }), {
-      status: 405, headers: cors,
+    return new Response(JSON.stringify({ error: "APP_SHARED_SECRET not configured" }), {
+      status: 500,
+      headers: cors,
     });
   }
 
-  const body = await req.text(); // pass through any JSON body
+  if (req.method !== "POST") {
+    return new Response(JSON.stringify({ detail: "Method Not Allowed" }), { status: 405, headers: cors });
+  }
+
+  const body = await req.text(); // forward any JSON payload
   const upstream = await fetch(`${SERVICE_URL}/run`, {
-    method: 'POST',
-    headers: { 'X-Client-Secret': SECRET, 'Content-Type': 'application/json' },
-    body: body || '{}',
+    method: "POST",
+    headers: {
+      "X-Client-Secret": SECRET,
+      "Content-Type": "application/json",
+    },
+    body: body || "{}",
   });
 
   const text = await upstream.text();

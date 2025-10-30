@@ -12,7 +12,6 @@ export interface EdgeGuideLatestResponse {
 }
 
 const EDGE_BASE = import.meta.env.VITE_EDGE_BASE as string;
-const RUN_PROXY = "/run-edgeguide";
 
 export async function fetchLatest(): Promise<EdgeGuideLatestResponse> {
   const r = await fetch(`${EDGE_BASE}/edgeguide-latest`, {
@@ -28,7 +27,7 @@ export async function fetchLatest(): Promise<EdgeGuideLatestResponse> {
 
 export async function triggerEdgeguideRun(trace?: string): Promise<EdgeGuideRunResponse> {
   const traceId = trace ?? `ui-run-${Date.now()}`;
-  const r = await fetch(RUN_PROXY, {
+  const r = await fetch(`${EDGE_BASE}/run-edgeguide`, {
     method: "POST",
     headers: { "Content-Type": "application/json", "X-Trace-Id": traceId },
     body: "{}",

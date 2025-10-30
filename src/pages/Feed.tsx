@@ -367,17 +367,17 @@ export default function Feed() {
           </div>
         </div>
 
-        {/* Bookmaker Toggle - Only show if both books have data for selected sport */}
-        {availableBooksForSport.hasDK && availableBooksForSport.hasCirca && (
-          <div className="flex justify-center mb-3">
-            <div 
-              className="flex gap-2 rounded-[14px]"
-              style={{
-                background: "var(--ma-surface)",
-                border: "1px solid var(--ma-stroke)",
-                padding: "8px"
-              }}
-            >
+        {/* Bookmaker Toggle - Show buttons only for books with data */}
+        <div className="flex justify-center mb-3">
+          <div 
+            className="flex gap-2 rounded-[14px]"
+            style={{
+              background: "var(--ma-surface)",
+              border: "1px solid var(--ma-stroke)",
+              padding: "8px"
+            }}
+          >
+            {availableBooksForSport.hasDK && (
               <button
                 onClick={() => setSelectedBook("DK")}
                 className="relative z-10 w-12 h-12 rounded-[10px] transition-all overflow-hidden"
@@ -390,6 +390,8 @@ export default function Feed() {
               >
                 <img src={draftKingsLogo} alt="DraftKings" className="w-full h-full object-cover rounded-[10px]" style={{ display: "block" }} />
               </button>
+            )}
+            {availableBooksForSport.hasCirca && (
               <button
                 onClick={() => setSelectedBook("Circa")}
                 className="relative z-10 w-12 h-12 rounded-[10px] transition-all overflow-hidden"
@@ -402,9 +404,9 @@ export default function Feed() {
               >
                 <img src={circaLogo} alt="Circa" className="w-full h-full object-cover rounded-[10px]" style={{ display: "block" }} />
               </button>
-            </div>
+            )}
           </div>
-        )}
+        </div>
 
         <div className="space-y-2">
           {sortedGames.map((game) => (

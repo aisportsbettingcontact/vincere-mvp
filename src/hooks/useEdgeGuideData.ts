@@ -146,12 +146,14 @@ function parseEdgeGuideData(data: EdgeGuideLatestResponse): GameOdds[] {
     });
   }
   
-  // Parse DK NBA games
+  // Parse DK NBA games (exclude 20251029)
   if (data.books.DK?.NBA) {
-    Object.values(data.books.DK.NBA).forEach(dateGames => {
-      dateGames.forEach(game => {
-        allGames.push(parseGame(game, "DK"));
-      });
+    Object.entries(data.books.DK.NBA).forEach(([date, dateGames]) => {
+      if (date !== "20251029") {
+        dateGames.forEach(game => {
+          allGames.push(parseGame(game, "DK"));
+        });
+      }
     });
   }
   

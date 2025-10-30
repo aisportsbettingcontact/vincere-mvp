@@ -250,82 +250,89 @@ export default function Feed() {
 
       <div className="px-3 pt-3">
         {/* Sport Filter */}
-        <div className="flex justify-center gap-2 mb-3">
-          <button
-            onClick={() => setSelectedSport("NFL")}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-all ${
-              selectedSport === "NFL"
-                ? "border-2 border-white"
-                : "border-2 border-transparent"
-            }`}
-          >
-            <img 
-              src="https://a.espncdn.com/combiner/i?img=/i/teamlogos/leagues/500/nfl.png?w=100&h=100&transparent=true"
-              alt="NFL"
-              className="w-5 h-5"
-            />
-            <span>NFL</span>
-          </button>
-          <button
-            onClick={() => setSelectedSport("MLB")}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-all ${
-              selectedSport === "MLB"
-                ? "border-2 border-white"
-                : "border-2 border-transparent"
-            }`}
-          >
-            <img 
-              src={worldSeriesLogo}
-              alt="World Series"
-              className="w-5 h-5"
-            />
-            <span>World Series</span>
-          </button>
-          <button
-            onClick={() => setSelectedSport("CFB")}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-all ${
-              selectedSport === "CFB"
-                ? "border-2 border-white"
-                : "border-2 border-transparent"
-            }`}
-          >
-            <img 
-              src="https://www.ncaa.com/modules/custom/casablanca_core/img/sportbanners/football.svg"
-              alt="CFB"
-              className="w-5 h-5"
-            />
-            <span>CFB</span>
-          </button>
-          <button
-            onClick={() => setSelectedSport("NBA")}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-all ${
-              selectedSport === "NBA"
-                ? "border-2 border-white"
-                : "border-2 border-transparent"
-            }`}
-          >
-            <img 
-              src="https://a.espncdn.com/combiner/i?img=/i/teamlogos/leagues/500/nba.png?w=100&h=100&transparent=true"
-              alt="NBA"
-              className="w-5 h-5"
-            />
-            <span>NBA</span>
-          </button>
-          <button
-            onClick={() => setSelectedSport("NHL")}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-all ${
-              selectedSport === "NHL"
-                ? "border-2 border-white"
-                : "border-2 border-transparent"
-            }`}
-          >
-            <img 
-              src="https://a.espncdn.com/combiner/i?img=/i/teamlogos/leagues/500/nhl.png?w=100&h=100&transparent=true"
-              alt="NHL"
-              className="w-5 h-5"
-            />
-            <span>NHL</span>
-          </button>
+        <div className="relative mb-3 px-3">
+          <div className="overflow-x-auto scrollbar-hide scroll-smooth">
+            <div className="flex justify-start gap-3 min-w-max pb-1">
+              <button
+                onClick={() => setSelectedSport("NFL")}
+                className={`flex flex-col items-center justify-center gap-2 px-4 py-3 rounded-xl text-xs font-semibold transition-all min-w-[72px] ${
+                  selectedSport === "NFL"
+                    ? "border-2 border-white shadow-lg"
+                    : "border-2 border-transparent opacity-70 hover:opacity-100"
+                }`}
+              >
+                <img 
+                  src="https://a.espncdn.com/combiner/i?img=/i/teamlogos/leagues/500/nfl.png?w=100&h=100&transparent=true"
+                  alt="NFL"
+                  className="w-8 h-8 object-contain"
+                />
+                <span className="leading-tight">NFL</span>
+              </button>
+              <button
+                onClick={() => setSelectedSport("MLB")}
+                className={`flex flex-col items-center justify-center gap-2 px-4 py-3 rounded-xl text-xs font-semibold transition-all min-w-[72px] ${
+                  selectedSport === "MLB"
+                    ? "border-2 border-white shadow-lg"
+                    : "border-2 border-transparent opacity-70 hover:opacity-100"
+                }`}
+              >
+                <img 
+                  src={worldSeriesLogo}
+                  alt="World Series"
+                  className="w-8 h-8 object-contain"
+                />
+                <div className="flex flex-col items-center leading-tight">
+                  <span>World</span>
+                  <span>Series</span>
+                </div>
+              </button>
+              <button
+                onClick={() => setSelectedSport("CFB")}
+                className={`flex flex-col items-center justify-center gap-2 px-4 py-3 rounded-xl text-xs font-semibold transition-all min-w-[72px] ${
+                  selectedSport === "CFB"
+                    ? "border-2 border-white shadow-lg"
+                    : "border-2 border-transparent opacity-70 hover:opacity-100"
+                }`}
+              >
+                <img 
+                  src="https://www.ncaa.com/modules/custom/casablanca_core/img/sportbanners/football.svg"
+                  alt="CFB"
+                  className="w-8 h-8 object-contain"
+                />
+                <span className="leading-tight">CFB</span>
+              </button>
+              <button
+                onClick={() => setSelectedSport("NBA")}
+                className={`flex flex-col items-center justify-center gap-2 px-4 py-3 rounded-xl text-xs font-semibold transition-all min-w-[72px] ${
+                  selectedSport === "NBA"
+                    ? "border-2 border-white shadow-lg"
+                    : "border-2 border-transparent opacity-70 hover:opacity-100"
+                }`}
+              >
+                <img 
+                  src="https://a.espncdn.com/combiner/i?img=/i/teamlogos/leagues/500/nba.png?w=100&h=100&transparent=true"
+                  alt="NBA"
+                  className="w-8 h-8 object-contain"
+                />
+                <span className="leading-tight">NBA</span>
+              </button>
+              <button
+                onClick={() => setSelectedSport("NHL")}
+                className={`flex flex-col items-center justify-center gap-2 px-4 py-3 rounded-xl text-xs font-semibold transition-all min-w-[72px] ${
+                  selectedSport === "NHL"
+                    ? "border-2 border-white shadow-lg"
+                    : "border-2 border-transparent opacity-70 hover:opacity-100"
+                }`}
+              >
+                <img 
+                  src="https://a.espncdn.com/combiner/i?img=/i/teamlogos/leagues/500/nhl.png?w=100&h=100&transparent=true"
+                  alt="NHL"
+                  className="w-8 h-8 object-contain"
+                />
+                <span className="leading-tight">NHL</span>
+              </button>
+            </div>
+          </div>
         </div>
 
         <div className="space-y-2">

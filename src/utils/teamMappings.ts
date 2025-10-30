@@ -106,7 +106,14 @@ export const NHL_TEAM_MAPPINGS: Record<string, { name: string; abbr: string; esp
 
 export function getTeamInfo(slug: string, sport: string = "NFL") {
   const mappings = sport === "NBA" ? NBA_TEAM_MAPPINGS : sport === "NHL" ? NHL_TEAM_MAPPINGS : sport === "CFB" ? CFB_TEAM_MAPPINGS : NFL_TEAM_MAPPINGS;
-  return mappings[slug] || { 
+  const result = mappings[slug];
+  
+  // Debug logging for CFB teams to verify mappings
+  if (sport === "CFB" && !result) {
+    console.warn(`⚠️ CFB team not mapped: "${slug}" - using fallback abbr: ${slug.toUpperCase().slice(0, 3)}`);
+  }
+  
+  return result || { 
     name: slug, 
     abbr: slug.toUpperCase().slice(0, 3), 
     espnAbbr: slug.slice(0, 3).toLowerCase(),

@@ -28,7 +28,7 @@ function formatDate(dateStr: string, gameId: string, sport: string): string {
   const year = dateStr.slice(0, 4);
   const month = dateStr.slice(4, 6);
   const day = dateStr.slice(6, 8);
-  const time = GAME_TIMES[gameId] || (sport === "NBA" ? "19:00" : sport === "NHL" ? "19:00" : sport === "CFB" ? "12:00" : "13:00");
+  const time = GAME_TIMES[gameId] || (sport === "NBA" ? "19:00" : sport === "NHL" ? "19:00" : sport === "CFB" ? "12:00" : sport === "MLB" ? "19:00" : "13:00");
   return `${year}-${month}-${day}T${time}:00`;
 }
 
@@ -148,6 +148,24 @@ function parseEdgeGuideData(data: EdgeGuideLatestResponse): GameOdds[] {
     });
   }
   
+  // Parse DK MLB games
+  if (data.books.DK?.MLB) {
+    Object.values(data.books.DK.MLB).forEach(dateGames => {
+      dateGames.forEach(game => {
+        allGames.push(parseGame(game, "DK"));
+      });
+    });
+  }
+  
+  // Parse CIRCA MLB games
+  if (data.books.CIRCA?.MLB) {
+    Object.values(data.books.CIRCA.MLB).forEach(dateGames => {
+      dateGames.forEach(game => {
+        allGames.push(parseGame(game, "CIRCA"));
+      });
+    });
+  }
+  
   // Parse DK CFB games
   if (data.books.DK?.CFB) {
     Object.values(data.books.DK.CFB).forEach(dateGames => {
@@ -204,16 +222,16 @@ function parseEdgeGuideData(data: EdgeGuideLatestResponse): GameOdds[] {
     });
   }
   
-  // Sort by date/time chronologically, with NFL games first, then CFB, then NHL, then NBA on the same day
+  // Sort by date/time chronologically, with NFL > MLB (World Series) > CFB > NBA > NHL on the same day
   allGames.sort((a, b) => {
     const aDate = new Date(a.kickoff);
     const bDate = new Date(b.kickoff);
     const aDay = aDate.toISOString().split('T')[0];
     const bDay = bDate.toISOString().split('T')[0];
     
-    // If same day, prioritize NFL > CFB > NHL > NBA
+    // If same day, prioritize NFL > MLB > CFB > NBA > NHL
     if (aDay === bDay && a.sport !== b.sport) {
-      const sportOrder = { NFL: 1, CFB: 2, NHL: 3, NBA: 4 };
+      const sportOrder = { NFL: 1, MLB: 2, CFB: 3, NBA: 4, NHL: 5 };
       return sportOrder[a.sport] - sportOrder[b.sport];
     }
     

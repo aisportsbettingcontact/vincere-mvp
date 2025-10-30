@@ -14,6 +14,7 @@ import { Brain, TrendingUp, Users, UserCircle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import draftKingsLogo from "@/assets/draftkings-logo.png";
 import circaLogo from "@/assets/circa-logo.jpg";
+import worldSeriesLogo from "@/assets/worldseries.png";
 import { areColorsSimilar, getBestContrastColor } from "@/utils/colorSimilarity";
 
 // Format date as HH:MM am/pm ET
@@ -102,7 +103,7 @@ export default function Feed() {
   const [activeTab, setActiveTab] = useState<"lines" | "splits">("lines");
   const [globalMarket, setGlobalMarket] = useState<Market>("Spread");
   const [selectedBook, setSelectedBook] = useState<"DK" | "Circa">("DK");
-  const [selectedSport, setSelectedSport] = useState<"NFL" | "CFB" | "NBA" | "NHL">("NFL");
+  const [selectedSport, setSelectedSport] = useState<"NFL" | "CFB" | "NBA" | "NHL" | "MLB">("NFL");
   
   // Fetch live data from EdgeGuide with automatic fallback to mock data
   const { data: liveGames, isLoading: isLoadingGames } = useEdgeGuideData();
@@ -264,6 +265,21 @@ export default function Feed() {
               className="w-5 h-5"
             />
             <span>NFL</span>
+          </button>
+          <button
+            onClick={() => setSelectedSport("MLB")}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-all ${
+              selectedSport === "MLB"
+                ? "border-2 border-white"
+                : "border-2 border-transparent"
+            }`}
+          >
+            <img 
+              src={worldSeriesLogo}
+              alt="World Series"
+              className="w-5 h-5"
+            />
+            <span>World Series</span>
           </button>
           <button
             onClick={() => setSelectedSport("CFB")}

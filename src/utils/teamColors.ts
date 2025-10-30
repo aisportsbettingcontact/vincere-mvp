@@ -133,6 +133,44 @@ export const NHL_TEAM_COLORS: Record<string, {
   "Winnipeg Jets": { primary: "#041E42", secondary: "#C8102E", tertiary: "#A2AAAD" }
 };
 
+// MLB Team Colors - Official hex codes
+export const MLB_TEAM_COLORS: Record<string, {
+  primary: string;
+  secondary: string;
+  tertiary: string;
+}> = {
+  "Arizona Diamondbacks": { primary: "#A71930", secondary: "#000000", tertiary: "#E3D4AD" },
+  "Atlanta Braves": { primary: "#CE1141", secondary: "#13274F", tertiary: "#EAAA00" },
+  "Baltimore Orioles": { primary: "#DF4601", secondary: "#000000", tertiary: "#FFFFFF" },
+  "Boston Red Sox": { primary: "#BD3039", secondary: "#0C2340", tertiary: "#FFFFFF" },
+  "Chicago Cubs": { primary: "#0E3386", secondary: "#CC3433", tertiary: "#FFFFFF" },
+  "Chicago White Sox": { primary: "#27251F", secondary: "#C4CED4", tertiary: "#FFFFFF" },
+  "Cincinnati Reds": { primary: "#C6011F", secondary: "#000000", tertiary: "#FFFFFF" },
+  "Cleveland Guardians": { primary: "#0C2340", secondary: "#E31937", tertiary: "#FFFFFF" },
+  "Colorado Rockies": { primary: "#33006F", secondary: "#000000", tertiary: "#C4CED4" },
+  "Detroit Tigers": { primary: "#0C2340", secondary: "#FA4616", tertiary: "#FFFFFF" },
+  "Houston Astros": { primary: "#002D62", secondary: "#EB6E1F", tertiary: "#F4911E" },
+  "Kansas City Royals": { primary: "#004687", secondary: "#BD9B60", tertiary: "#FFFFFF" },
+  "Los Angeles Angels": { primary: "#BA0021", secondary: "#003263", tertiary: "#FFFFFF" },
+  "Los Angeles Dodgers": { primary: "#005A9C", secondary: "#EF3E42", tertiary: "#FFFFFF" },
+  "Miami Marlins": { primary: "#00A3E0", secondary: "#EF3340", tertiary: "#000000" },
+  "Milwaukee Brewers": { primary: "#12284B", secondary: "#FFC52F", tertiary: "#FFFFFF" },
+  "Minnesota Twins": { primary: "#002B5C", secondary: "#D31145", tertiary: "#CFAB7A" },
+  "New York Mets": { primary: "#002D72", secondary: "#FF5910", tertiary: "#FFFFFF" },
+  "New York Yankees": { primary: "#003087", secondary: "#E4002B", tertiary: "#FFFFFF" },
+  "Oakland Athletics": { primary: "#003831", secondary: "#EFB21E", tertiary: "#FFFFFF" },
+  "Philadelphia Phillies": { primary: "#E81828", secondary: "#002D72", tertiary: "#FFFFFF" },
+  "Pittsburgh Pirates": { primary: "#27251F", secondary: "#FDB827", tertiary: "#FFFFFF" },
+  "San Diego Padres": { primary: "#2F241D", secondary: "#FFC425", tertiary: "#A0AAB2" },
+  "San Francisco Giants": { primary: "#FD5A1E", secondary: "#27251F", tertiary: "#EFD19F" },
+  "Seattle Mariners": { primary: "#0C2C56", secondary: "#005C5C", tertiary: "#C4CED4" },
+  "St. Louis Cardinals": { primary: "#C41E3A", secondary: "#0C2340", tertiary: "#FEDB00" },
+  "Tampa Bay Rays": { primary: "#092C5C", secondary: "#8FBCE6", tertiary: "#F5D130" },
+  "Texas Rangers": { primary: "#003278", secondary: "#C0111F", tertiary: "#FFFFFF" },
+  "Toronto Blue Jays": { primary: "#134A8E", secondary: "#1D2D5C", tertiary: "#E8291C" },
+  "Washington Nationals": { primary: "#AB0003", secondary: "#14225A", tertiary: "#FFFFFF" }
+};
+
 /**
  * Get the primary team color by team name
  */
@@ -141,7 +179,10 @@ export function getTeamPrimaryColor(teamName: string, sport: string = "NFL"): st
     const colors = getCFBTeamColors(teamName);
     return colors.primary;
   }
-  const colors = sport === "NBA" ? NBA_TEAM_COLORS : sport === "NHL" ? NHL_TEAM_COLORS : NFL_TEAM_COLORS;
+  const colors = sport === "NBA" ? NBA_TEAM_COLORS 
+    : sport === "NHL" ? NHL_TEAM_COLORS 
+    : sport === "MLB" ? MLB_TEAM_COLORS 
+    : NFL_TEAM_COLORS;
   return colors[teamName]?.primary || "#6F74FF"; // Fallback to app primary color
 }
 
@@ -153,7 +194,10 @@ export function getTeamSecondaryColor(teamName: string, sport: string = "NFL"): 
     const colors = getCFBTeamColors(teamName);
     return colors.secondary;
   }
-  const colors = sport === "NBA" ? NBA_TEAM_COLORS : sport === "NHL" ? NHL_TEAM_COLORS : NFL_TEAM_COLORS;
+  const colors = sport === "NBA" ? NBA_TEAM_COLORS 
+    : sport === "NHL" ? NHL_TEAM_COLORS 
+    : sport === "MLB" ? MLB_TEAM_COLORS 
+    : NFL_TEAM_COLORS;
   return colors[teamName]?.secondary || "#000000";
 }
 
@@ -164,7 +208,10 @@ export function getTeamColors(teamName: string, sport: string = "NFL") {
   if (sport === "CFB") {
     return getCFBTeamColors(teamName);
   }
-  const colors = sport === "NBA" ? NBA_TEAM_COLORS : sport === "NHL" ? NHL_TEAM_COLORS : NFL_TEAM_COLORS;
+  const colors = sport === "NBA" ? NBA_TEAM_COLORS 
+    : sport === "NHL" ? NHL_TEAM_COLORS 
+    : sport === "MLB" ? MLB_TEAM_COLORS 
+    : NFL_TEAM_COLORS;
   return colors[teamName] || {
     primary: "#6F74FF",
     secondary: "#000000",

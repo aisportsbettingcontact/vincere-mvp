@@ -104,8 +104,45 @@ export const NHL_TEAM_MAPPINGS: Record<string, { name: string; abbr: string; esp
   "winnipeg-jets": { name: "Jets", abbr: "WPG", espnAbbr: "wpg", fullName: "Winnipeg Jets" }
 };
 
+export const MLB_TEAM_MAPPINGS: Record<string, { name: string; abbr: string; espnAbbr: string; fullName: string }> = {
+  "arizona-diamondbacks": { name: "Diamondbacks", abbr: "ARI", espnAbbr: "ari", fullName: "Arizona Diamondbacks" },
+  "atlanta-braves": { name: "Braves", abbr: "ATL", espnAbbr: "atl", fullName: "Atlanta Braves" },
+  "baltimore-orioles": { name: "Orioles", abbr: "BAL", espnAbbr: "bal", fullName: "Baltimore Orioles" },
+  "boston-red-sox": { name: "Red Sox", abbr: "BOS", espnAbbr: "bos", fullName: "Boston Red Sox" },
+  "chicago-cubs": { name: "Cubs", abbr: "CHC", espnAbbr: "chc", fullName: "Chicago Cubs" },
+  "chicago-white-sox": { name: "White Sox", abbr: "CWS", espnAbbr: "chw", fullName: "Chicago White Sox" },
+  "cincinnati-reds": { name: "Reds", abbr: "CIN", espnAbbr: "cin", fullName: "Cincinnati Reds" },
+  "cleveland-guardians": { name: "Guardians", abbr: "CLE", espnAbbr: "cle", fullName: "Cleveland Guardians" },
+  "colorado-rockies": { name: "Rockies", abbr: "COL", espnAbbr: "col", fullName: "Colorado Rockies" },
+  "detroit-tigers": { name: "Tigers", abbr: "DET", espnAbbr: "det", fullName: "Detroit Tigers" },
+  "houston-astros": { name: "Astros", abbr: "HOU", espnAbbr: "hou", fullName: "Houston Astros" },
+  "kansas-city-royals": { name: "Royals", abbr: "KC", espnAbbr: "kc", fullName: "Kansas City Royals" },
+  "los-angeles-angels": { name: "Angels", abbr: "LAA", espnAbbr: "laa", fullName: "Los Angeles Angels" },
+  "los-angeles-dodgers": { name: "Dodgers", abbr: "LAD", espnAbbr: "lad", fullName: "Los Angeles Dodgers" },
+  "miami-marlins": { name: "Marlins", abbr: "MIA", espnAbbr: "mia", fullName: "Miami Marlins" },
+  "milwaukee-brewers": { name: "Brewers", abbr: "MIL", espnAbbr: "mil", fullName: "Milwaukee Brewers" },
+  "minnesota-twins": { name: "Twins", abbr: "MIN", espnAbbr: "min", fullName: "Minnesota Twins" },
+  "new-york-mets": { name: "Mets", abbr: "NYM", espnAbbr: "nym", fullName: "New York Mets" },
+  "new-york-yankees": { name: "Yankees", abbr: "NYY", espnAbbr: "nyy", fullName: "New York Yankees" },
+  "oakland-athletics": { name: "Athletics", abbr: "OAK", espnAbbr: "oak", fullName: "Oakland Athletics" },
+  "philadelphia-phillies": { name: "Phillies", abbr: "PHI", espnAbbr: "phi", fullName: "Philadelphia Phillies" },
+  "pittsburgh-pirates": { name: "Pirates", abbr: "PIT", espnAbbr: "pit", fullName: "Pittsburgh Pirates" },
+  "san-diego-padres": { name: "Padres", abbr: "SD", espnAbbr: "sd", fullName: "San Diego Padres" },
+  "san-francisco-giants": { name: "Giants", abbr: "SF", espnAbbr: "sf", fullName: "San Francisco Giants" },
+  "seattle-mariners": { name: "Mariners", abbr: "SEA", espnAbbr: "sea", fullName: "Seattle Mariners" },
+  "st-louis-cardinals": { name: "Cardinals", abbr: "STL", espnAbbr: "stl", fullName: "St. Louis Cardinals" },
+  "tampa-bay-rays": { name: "Rays", abbr: "TB", espnAbbr: "tb", fullName: "Tampa Bay Rays" },
+  "texas-rangers": { name: "Rangers", abbr: "TEX", espnAbbr: "tex", fullName: "Texas Rangers" },
+  "toronto-blue-jays": { name: "Blue Jays", abbr: "TOR", espnAbbr: "tor", fullName: "Toronto Blue Jays" },
+  "washington-nationals": { name: "Nationals", abbr: "WSH", espnAbbr: "wsh", fullName: "Washington Nationals" }
+};
+
 export function getTeamInfo(slug: string, sport: string = "NFL") {
-  const mappings = sport === "NBA" ? NBA_TEAM_MAPPINGS : sport === "NHL" ? NHL_TEAM_MAPPINGS : sport === "CFB" ? CFB_TEAM_MAPPINGS : NFL_TEAM_MAPPINGS;
+  const mappings = sport === "NBA" ? NBA_TEAM_MAPPINGS 
+    : sport === "NHL" ? NHL_TEAM_MAPPINGS 
+    : sport === "CFB" ? CFB_TEAM_MAPPINGS 
+    : sport === "MLB" ? MLB_TEAM_MAPPINGS 
+    : NFL_TEAM_MAPPINGS;
   const result = mappings[slug];
   
   // Debug logging for CFB teams to verify mappings

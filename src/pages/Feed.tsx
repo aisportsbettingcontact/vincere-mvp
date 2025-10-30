@@ -271,21 +271,6 @@ export default function Feed() {
             <span>NFL</span>
           </button>
           <button
-            onClick={() => setSelectedSport("NHL")}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-all ${
-              selectedSport === "NHL"
-                ? "border-2 border-white"
-                : "border-2 border-transparent"
-            }`}
-          >
-            <img 
-              src="https://a.espncdn.com/combiner/i?img=/i/teamlogos/leagues/500/nhl.png?w=100&h=100&transparent=true"
-              alt="NHL"
-              className="w-5 h-5"
-            />
-            <span>NHL</span>
-          </button>
-          <button
             onClick={() => setSelectedSport("NBA")}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-all ${
               selectedSport === "NBA"
@@ -299,6 +284,21 @@ export default function Feed() {
               className="w-5 h-5"
             />
             <span>NBA</span>
+          </button>
+          <button
+            onClick={() => setSelectedSport("NHL")}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-all ${
+              selectedSport === "NHL"
+                ? "border-2 border-white"
+                : "border-2 border-transparent"
+            }`}
+          >
+            <img 
+              src="https://a.espncdn.com/combiner/i?img=/i/teamlogos/leagues/500/nhl.png?w=100&h=100&transparent=true"
+              alt="NHL"
+              className="w-5 h-5"
+            />
+            <span>NHL</span>
           </button>
         </div>
 

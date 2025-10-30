@@ -107,15 +107,18 @@ export default function Feed() {
   const [activeTab, setActiveTab] = useState<"lines" | "splits">("splits");
   const [globalMarket, setGlobalMarket] = useState<Market>("Spread");
   const [selectedBook, setSelectedBook] = useState<"DK" | "Circa">("DK");
+  const [selectedSport, setSelectedSport] = useState<"NFL" | "NBA">("NFL");
   
   // Fetch live data from EdgeGuide with automatic fallback to mock data
   const { data: liveGames, isLoading: isLoadingGames } = useEdgeGuideData();
   
-  // Filter by book and sort games by date (earliest first)
+  // Filter by book, sport, and sort games by date (earliest first)
   const sortedGames = useMemo(() => {
     if (!liveGames) return [];
     const bookFilter = selectedBook === "Circa" ? "CIRCA" : selectedBook;
-    const filtered = liveGames.filter(game => game.book === bookFilter);
+    const filtered = liveGames.filter(game => 
+      game.book === bookFilter && game.sport === selectedSport
+    );
     return filtered.sort((a, b) => {
       const dateA = new Date(a.kickoff).getTime();
       const dateB = new Date(b.kickoff).getTime();
@@ -232,6 +235,30 @@ export default function Feed() {
       </header>
 
       <div className="px-3 pt-3">
+        {/* Sport Filter */}
+        <div className="flex justify-center gap-2 mb-4">
+          <button
+            onClick={() => setSelectedSport("NFL")}
+            className={`px-6 py-2 rounded-lg font-semibold transition-all ${
+              selectedSport === "NFL"
+                ? "bg-primary text-primary-foreground"
+                : "bg-muted text-muted-foreground hover:bg-muted/80"
+            }`}
+          >
+            NFL
+          </button>
+          <button
+            onClick={() => setSelectedSport("NBA")}
+            className={`px-6 py-2 rounded-lg font-semibold transition-all ${
+              selectedSport === "NBA"
+                ? "bg-primary text-primary-foreground"
+                : "bg-muted text-muted-foreground hover:bg-muted/80"
+            }`}
+          >
+            NBA
+          </button>
+        </div>
+
         <div className="space-y-2">
           {sortedGames.map((game) => (
             activeTab === "lines" ? (

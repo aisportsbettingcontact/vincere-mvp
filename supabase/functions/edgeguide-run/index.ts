@@ -36,16 +36,21 @@ Deno.serve(async (req) => {
     return new Response(JSON.stringify({ detail: "Method Not Allowed" }), { status: 405, headers: cors });
   }
 
+  const trace = req.headers.get("X-Trace-Id") ?? crypto.randomUUID();
   const body = await req.text(); // forward any JSON payload
+  
   const upstream = await fetch(`${SERVICE_URL}/run`, {
     method: "POST",
     headers: {
-      "X-Client-Secret": SECRET,
       "Content-Type": "application/json",
+      "X-Client-Secret": SECRET,
+      "X-Trace-Id": trace,
     },
     body: body || "{}",
   });
 
+  console.log("edgeguide-run trace", { trace, status: upstream.status });
+  
   const text = await upstream.text();
   return new Response(text, { status: upstream.status, headers: cors });
 });

@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchLatest, EdgeGuideLatestResponse } from "@/lib/edgeguide";
+import type { EdgeGuideLatestResponse } from "@/lib/edgeguide";
 import type { GameOdds } from "@/data/oddsData";
 import { getTeamInfo } from "@/utils/teamMappings";
 import { getTeamColors } from "@/utils/teamColors";
@@ -172,30 +172,13 @@ function parseEdgeGuideData(data: EdgeGuideLatestResponse): GameOdds[] {
 
 export function useEdgeGuideData() {
   return useQuery({
-    queryKey: ["edgeguide-latest"],
+    queryKey: ["edgeguide-data"],
     queryFn: async () => {
-      try {
-        const data = await fetchLatest();
-        
-        // If API returns null (404 or error), use fallback mock data
-        if (!data) {
-          console.log("📊 Using fallback mock data");
-          const mockData = rawSplitsDataImport as unknown as EdgeGuideLatestResponse;
-          return parseEdgeGuideData(mockData);
-        }
-        
-        console.log("✅ Using live EdgeGuide data");
-        return parseEdgeGuideData(data);
-      } catch (error) {
-        // If anything goes wrong, always return fallback data
-        console.warn("⚠️ Error in useEdgeGuideData, using fallback:", error);
-        const mockData = rawSplitsDataImport as unknown as EdgeGuideLatestResponse;
-        return parseEdgeGuideData(mockData);
-      }
+      console.log("📊 Using static data from uploaded file");
+      const mockData = rawSplitsDataImport as unknown as EdgeGuideLatestResponse;
+      return parseEdgeGuideData(mockData);
     },
-    retry: false,
-    refetchInterval: 60000,
-    staleTime: 30000,
-    throwOnError: false, // Don't throw errors to prevent blank screens
+    staleTime: Infinity, // Static data never goes stale
+    throwOnError: false,
   });
 }

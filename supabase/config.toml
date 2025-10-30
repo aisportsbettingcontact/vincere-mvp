@@ -2,3 +2,9 @@ project_id = "udjdbdrngaslstlslplm"
 
 [functions.betting-insights]
 verify_jwt = false
+
+[functions.edgeguide-run]
+verify_jwt = false
+
+[functions.edgeguide-latest]
+verify_jwt = false

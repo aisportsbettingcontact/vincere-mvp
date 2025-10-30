@@ -174,20 +174,28 @@ export function useEdgeGuideData() {
   return useQuery({
     queryKey: ["edgeguide-latest"],
     queryFn: async () => {
-      const data = await fetchLatest();
-      
-      // If API returns null (404 or error), use fallback mock data
-      if (!data) {
-        console.log("📊 Using fallback mock data");
+      try {
+        const data = await fetchLatest();
+        
+        // If API returns null (404 or error), use fallback mock data
+        if (!data) {
+          console.log("📊 Using fallback mock data");
+          const mockData = rawSplitsDataImport as unknown as EdgeGuideLatestResponse;
+          return parseEdgeGuideData(mockData);
+        }
+        
+        console.log("✅ Using live EdgeGuide data");
+        return parseEdgeGuideData(data);
+      } catch (error) {
+        // If anything goes wrong, always return fallback data
+        console.warn("⚠️ Error in useEdgeGuideData, using fallback:", error);
         const mockData = rawSplitsDataImport as unknown as EdgeGuideLatestResponse;
         return parseEdgeGuideData(mockData);
       }
-      
-      console.log("✅ Using live EdgeGuide data");
-      return parseEdgeGuideData(data);
     },
-    retry: false, // Don't retry, use fallback immediately
-    refetchInterval: 60000, // Refetch every minute to check for new data
+    retry: false,
+    refetchInterval: 60000,
     staleTime: 30000,
+    throwOnError: false, // Don't throw errors to prevent blank screens
   });
 }

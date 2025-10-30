@@ -1,9 +1,8 @@
-import { supabase } from '@/integrations/supabase/client';
-
 export interface EdgeGuideRunResponse {
   ok: boolean;
   json_file: string;
   elapsed_sec: number;
+  trace: string;
 }
 
 export interface EdgeGuideLatestResponse {
@@ -12,41 +11,29 @@ export interface EdgeGuideLatestResponse {
   books: unknown;
 }
 
-export async function triggerEdgeguideRun(trace?: string): Promise<EdgeGuideRunResponse> {
-  const { data, error } = await supabase.functions.invoke('run-edgeguide', {
-    method: 'POST',
-    headers: {
-      ...(trace ? { 'X-Trace-Id': trace } : {}),
-    },
-    body: {},
-  });
-
-  if (error) {
-    throw new Error(`Run failed: ${error.message}`);
-  }
-
-  if (!data?.ok) {
-    throw new Error(`Run not ok: ${JSON.stringify(data)}`);
-  }
-
-  return data as EdgeGuideRunResponse;
-}
+const EDGE_BASE = import.meta.env.VITE_EDGE_BASE as string;
+const RUN_PROXY = "/run-edgeguide";
 
 export async function fetchLatest(): Promise<EdgeGuideLatestResponse> {
-  const { data, error } = await supabase.functions.invoke('edgeguide-latest', {
-    method: 'GET',
-    headers: {
-      'X-Trace-Id': `latest-${Date.now()}`,
-    },
+  const r = await fetch(`${EDGE_BASE}/edgeguide-latest`, {
+    headers: { "Accept": "application/json", "X-Trace-Id": `latest-${Date.now()}` },
+    cache: "no-store",
   });
-
-  if (error) {
-    throw new Error(`Latest failed: ${error.message}`);
-  }
-
-  if (!data?.generated_at || !data?.books) {
-    throw new Error("Latest schema mismatch");
-  }
-
+  const txt = await r.text();
+  if (!r.ok) throw new Error(`latest ${r.status}: ${txt}`);
+  const data = JSON.parse(txt);
+  if (!data?.generated_at || !data?.books) throw new Error("latest schema mismatch");
   return data as EdgeGuideLatestResponse;
+}
+
+export async function triggerEdgeguideRun(trace?: string): Promise<EdgeGuideRunResponse> {
+  const traceId = trace ?? `ui-run-${Date.now()}`;
+  const r = await fetch(RUN_PROXY, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "X-Trace-Id": traceId },
+    body: "{}",
+  });
+  const txt = await r.text();
+  if (!r.ok) throw new Error(`run ${r.status}: ${txt}`);
+  return JSON.parse(txt) as EdgeGuideRunResponse;
 }

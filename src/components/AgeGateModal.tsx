@@ -9,15 +9,38 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { AlertTriangle } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 export default function AgeGateModal() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const hasAccepted = localStorage.getItem("edgeguide-age-accepted");
-    if (!hasAccepted) {
-      setOpen(true);
-    }
+    // Check if user is authenticated and hasn't accepted age gate
+    const checkAuthAndAgeGate = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      
+      // Only show if user is authenticated AND hasn't accepted yet
+      if (session?.user) {
+        const hasAccepted = localStorage.getItem("edgeguide-age-accepted");
+        if (!hasAccepted) {
+          setOpen(true);
+        }
+      }
+    };
+    
+    checkAuthAndAgeGate();
+    
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === 'SIGNED_IN' && session?.user) {
+        const hasAccepted = localStorage.getItem("edgeguide-age-accepted");
+        if (!hasAccepted) {
+          setOpen(true);
+        }
+      }
+    });
+    
+    return () => subscription.unsubscribe();
   }, []);
 
   const handleAccept = () => {

@@ -77,9 +77,8 @@ export default function Auth() {
         setSession(session);
         setUser(session?.user ?? null);
         
-        // When user logs in, redirect to feed and clear age gate flag
+        // When user logs in, redirect to feed
         if (session?.user && event === 'SIGNED_IN') {
-          localStorage.removeItem("edgeguide-age-accepted");
           navigate("/");
         }
         

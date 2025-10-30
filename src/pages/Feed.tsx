@@ -236,26 +236,36 @@ export default function Feed() {
 
       <div className="px-3 pt-3">
         {/* Sport Filter */}
-        <div className="flex justify-center gap-2 mb-4">
+        <div className="flex justify-center gap-3 mb-4">
           <button
             onClick={() => setSelectedSport("NFL")}
-            className={`px-6 py-2 rounded-lg font-semibold transition-all ${
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all ${
               selectedSport === "NFL"
-                ? "bg-primary text-primary-foreground"
-                : "bg-muted text-muted-foreground hover:bg-muted/80"
+                ? "border-2 border-white"
+                : "border-2 border-transparent"
             }`}
           >
-            NFL
+            <img 
+              src="https://a.espncdn.com/combiner/i?img=/i/teamlogos/leagues/500/nfl.png?w=100&h=100&transparent=true"
+              alt="NFL"
+              className="w-6 h-6"
+            />
+            <span>NFL</span>
           </button>
           <button
             onClick={() => setSelectedSport("NBA")}
-            className={`px-6 py-2 rounded-lg font-semibold transition-all ${
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all ${
               selectedSport === "NBA"
-                ? "bg-primary text-primary-foreground"
-                : "bg-muted text-muted-foreground hover:bg-muted/80"
+                ? "border-2 border-white"
+                : "border-2 border-transparent"
             }`}
           >
-            NBA
+            <img 
+              src="https://a.espncdn.com/combiner/i?img=/i/teamlogos/leagues/500/nba.png?w=100&h=100&transparent=true"
+              alt="NBA"
+              className="w-6 h-6"
+            />
+            <span>NBA</span>
           </button>
         </div>
 

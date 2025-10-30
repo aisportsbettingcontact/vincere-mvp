@@ -104,7 +104,7 @@ function calculateDivergence(game: GameOdds, market: Market): { divergence: numb
 export default function Feed() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<"lines" | "splits">("splits");
+  const [activeTab, setActiveTab] = useState<"lines" | "splits">("lines");
   const [globalMarket, setGlobalMarket] = useState<Market>("Spread");
   const [selectedBook, setSelectedBook] = useState<"DK" | "Circa">("DK");
   const [selectedSport, setSelectedSport] = useState<"NFL" | "NBA">("NFL");
@@ -124,6 +124,19 @@ export default function Feed() {
       const dateB = new Date(b.kickoff).getTime();
       return dateA - dateB;
     });
+  }, [liveGames, selectedBook, selectedSport]);
+
+  // Auto-switch to NBA if no NFL games available
+  useEffect(() => {
+    if (!liveGames || liveGames.length === 0) return;
+    
+    const bookFilter = selectedBook === "Circa" ? "CIRCA" : selectedBook;
+    const hasNFL = liveGames.some(game => game.book === bookFilter && game.sport === "NFL");
+    const hasNBA = liveGames.some(game => game.book === bookFilter && game.sport === "NBA");
+    
+    if (selectedSport === "NFL" && !hasNFL && hasNBA) {
+      setSelectedSport("NBA");
+    }
   }, [liveGames, selectedBook, selectedSport]);
 
   useEffect(() => {

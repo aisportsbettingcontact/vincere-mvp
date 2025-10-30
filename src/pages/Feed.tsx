@@ -236,10 +236,10 @@ export default function Feed() {
 
       <div className="px-3 pt-3">
         {/* Sport Filter */}
-        <div className="flex justify-center gap-3 mb-4">
+        <div className="flex justify-center gap-2 mb-3">
           <button
             onClick={() => setSelectedSport("NFL")}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all ${
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-all ${
               selectedSport === "NFL"
                 ? "border-2 border-white"
                 : "border-2 border-transparent"
@@ -248,13 +248,13 @@ export default function Feed() {
             <img 
               src="https://a.espncdn.com/combiner/i?img=/i/teamlogos/leagues/500/nfl.png?w=100&h=100&transparent=true"
               alt="NFL"
-              className="w-6 h-6"
+              className="w-5 h-5"
             />
             <span>NFL</span>
           </button>
           <button
             onClick={() => setSelectedSport("NBA")}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all ${
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-all ${
               selectedSport === "NBA"
                 ? "border-2 border-white"
                 : "border-2 border-transparent"
@@ -263,7 +263,7 @@ export default function Feed() {
             <img 
               src="https://a.espncdn.com/combiner/i?img=/i/teamlogos/leagues/500/nba.png?w=100&h=100&transparent=true"
               alt="NBA"
-              className="w-6 h-6"
+              className="w-5 h-5"
             />
             <span>NBA</span>
           </button>

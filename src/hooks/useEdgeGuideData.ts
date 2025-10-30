@@ -166,8 +166,21 @@ function parseEdgeGuideData(data: EdgeGuideLatestResponse): GameOdds[] {
     });
   }
   
-  // Sort by date/time chronologically
-  allGames.sort((a, b) => new Date(a.kickoff).getTime() - new Date(b.kickoff).getTime());
+  // Sort by date/time chronologically, with NFL games before NBA on the same day
+  allGames.sort((a, b) => {
+    const aDate = new Date(a.kickoff);
+    const bDate = new Date(b.kickoff);
+    const aDay = aDate.toISOString().split('T')[0];
+    const bDay = bDate.toISOString().split('T')[0];
+    
+    // If same day, prioritize NFL over NBA
+    if (aDay === bDay && a.sport !== b.sport) {
+      return a.sport === "NFL" ? -1 : 1;
+    }
+    
+    // Otherwise sort by time
+    return aDate.getTime() - bDate.getTime();
+  });
   
   return allGames;
 }

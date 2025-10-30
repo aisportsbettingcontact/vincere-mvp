@@ -91,11 +91,51 @@ export const NBA_TEAM_COLORS: Record<string, {
   "Washington Wizards": { primary: "#E31837", secondary: "#002B5C", tertiary: "#C4CED4" },
 };
 
+// NHL Team Colors - Official hex codes
+export const NHL_TEAM_COLORS: Record<string, {
+  primary: string;
+  secondary: string;
+  tertiary: string;
+}> = {
+  "Anaheim Ducks": { primary: "#F47A38", secondary: "#B9975B", tertiary: "#000000" },
+  "Boston Bruins": { primary: "#FFB81C", secondary: "#000000", tertiary: "#FFFFFF" },
+  "Buffalo Sabres": { primary: "#002654", secondary: "#FCB514", tertiary: "#FFFFFF" },
+  "Calgary Flames": { primary: "#C8102E", secondary: "#F1BE48", tertiary: "#111111" },
+  "Carolina Hurricanes": { primary: "#CC0000", secondary: "#000000", tertiary: "#A2AAAD" },
+  "Chicago Blackhawks": { primary: "#CF0A2C", secondary: "#000000", tertiary: "#FFFFFF" },
+  "Colorado Avalanche": { primary: "#6F263D", secondary: "#236192", tertiary: "#A2AAAD" },
+  "Columbus Blue Jackets": { primary: "#002654", secondary: "#CE1126", tertiary: "#A4A9AD" },
+  "Dallas Stars": { primary: "#006847", secondary: "#8F8F8C", tertiary: "#111111" },
+  "Detroit Red Wings": { primary: "#CE1126", secondary: "#FFFFFF", tertiary: "#000000" },
+  "Edmonton Oilers": { primary: "#041E42", secondary: "#FF4C00", tertiary: "#FFFFFF" },
+  "Florida Panthers": { primary: "#041E42", secondary: "#C8102E", tertiary: "#B9975B" },
+  "Los Angeles Kings": { primary: "#111111", secondary: "#A2AAAD", tertiary: "#FFFFFF" },
+  "Minnesota Wild": { primary: "#154734", secondary: "#DDCBA4", tertiary: "#A6192E" },
+  "Montreal Canadiens": { primary: "#AF1E2D", secondary: "#192168", tertiary: "#FFFFFF" },
+  "Nashville Predators": { primary: "#FFB81C", secondary: "#041E42", tertiary: "#FFFFFF" },
+  "New Jersey Devils": { primary: "#CE1126", secondary: "#000000", tertiary: "#FFFFFF" },
+  "New York Islanders": { primary: "#00539B", secondary: "#F47D30", tertiary: "#FFFFFF" },
+  "New York Rangers": { primary: "#0038A8", secondary: "#CE1126", tertiary: "#FFFFFF" },
+  "Ottawa Senators": { primary: "#C52032", secondary: "#C2912C", tertiary: "#000000" },
+  "Philadelphia Flyers": { primary: "#F74902", secondary: "#000000", tertiary: "#FFFFFF" },
+  "Pittsburgh Penguins": { primary: "#000000", secondary: "#CFC493", tertiary: "#FCB514" },
+  "San Jose Sharks": { primary: "#006D75", secondary: "#EA7200", tertiary: "#000000" },
+  "Seattle Kraken": { primary: "#001628", secondary: "#99D9D9", tertiary: "#E9072B" },
+  "St. Louis Blues": { primary: "#002F87", secondary: "#FCB514", tertiary: "#041E42" },
+  "Tampa Bay Lightning": { primary: "#002868", secondary: "#FFFFFF", tertiary: "#000000" },
+  "Toronto Maple Leafs": { primary: "#00205B", secondary: "#FFFFFF", tertiary: "#000000" },
+  "Utah Hockey Club": { primary: "#69B3E7", secondary: "#000000", tertiary: "#FFFFFF" },
+  "Vancouver Canucks": { primary: "#00205B", secondary: "#00843D", tertiary: "#041C2C" },
+  "Vegas Golden Knights": { primary: "#B4975A", secondary: "#333F42", tertiary: "#C8102E" },
+  "Washington Capitals": { primary: "#041E42", secondary: "#C8102E", tertiary: "#FFFFFF" },
+  "Winnipeg Jets": { primary: "#041E42", secondary: "#004C97", tertiary: "#A2AAAD" }
+};
+
 /**
  * Get the primary team color by team name
  */
 export function getTeamPrimaryColor(teamName: string, sport: string = "NFL"): string {
-  const colors = sport === "NBA" ? NBA_TEAM_COLORS : NFL_TEAM_COLORS;
+  const colors = sport === "NBA" ? NBA_TEAM_COLORS : sport === "NHL" ? NHL_TEAM_COLORS : NFL_TEAM_COLORS;
   return colors[teamName]?.primary || "#6F74FF"; // Fallback to app primary color
 }
 
@@ -103,7 +143,7 @@ export function getTeamPrimaryColor(teamName: string, sport: string = "NFL"): st
  * Get the secondary team color by team name
  */
 export function getTeamSecondaryColor(teamName: string, sport: string = "NFL"): string {
-  const colors = sport === "NBA" ? NBA_TEAM_COLORS : NFL_TEAM_COLORS;
+  const colors = sport === "NBA" ? NBA_TEAM_COLORS : sport === "NHL" ? NHL_TEAM_COLORS : NFL_TEAM_COLORS;
   return colors[teamName]?.secondary || "#000000";
 }
 
@@ -111,7 +151,7 @@ export function getTeamSecondaryColor(teamName: string, sport: string = "NFL"): 
  * Get all colors for a team
  */
 export function getTeamColors(teamName: string, sport: string = "NFL") {
-  const colors = sport === "NBA" ? NBA_TEAM_COLORS : NFL_TEAM_COLORS;
+  const colors = sport === "NBA" ? NBA_TEAM_COLORS : sport === "NHL" ? NHL_TEAM_COLORS : NFL_TEAM_COLORS;
   return colors[teamName] || {
     primary: "#6F74FF",
     secondary: "#000000",

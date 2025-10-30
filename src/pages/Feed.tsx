@@ -107,7 +107,7 @@ export default function Feed() {
   const [activeTab, setActiveTab] = useState<"lines" | "splits">("lines");
   const [globalMarket, setGlobalMarket] = useState<Market>("Spread");
   const [selectedBook, setSelectedBook] = useState<"DK" | "Circa">("DK");
-  const [selectedSport, setSelectedSport] = useState<"NFL" | "NBA">("NFL");
+  const [selectedSport, setSelectedSport] = useState<"NFL" | "NBA" | "NHL">("NFL");
   
   // Fetch live data from EdgeGuide with automatic fallback to mock data
   const { data: liveGames, isLoading: isLoadingGames } = useEdgeGuideData();
@@ -126,16 +126,21 @@ export default function Feed() {
     });
   }, [liveGames, selectedBook, selectedSport]);
 
-  // Auto-switch to NBA if no NFL games available
+  // Auto-switch to NHL/NBA if no NFL games available
   useEffect(() => {
     if (!liveGames || liveGames.length === 0) return;
     
     const bookFilter = selectedBook === "Circa" ? "CIRCA" : selectedBook;
     const hasNFL = liveGames.some(game => game.book === bookFilter && game.sport === "NFL");
+    const hasNHL = liveGames.some(game => game.book === bookFilter && game.sport === "NHL");
     const hasNBA = liveGames.some(game => game.book === bookFilter && game.sport === "NBA");
     
-    if (selectedSport === "NFL" && !hasNFL && hasNBA) {
-      setSelectedSport("NBA");
+    if (selectedSport === "NFL" && !hasNFL) {
+      if (hasNHL) {
+        setSelectedSport("NHL");
+      } else if (hasNBA) {
+        setSelectedSport("NBA");
+      }
     }
   }, [liveGames, selectedBook, selectedSport]);
 
@@ -264,6 +269,21 @@ export default function Feed() {
               className="w-5 h-5"
             />
             <span>NFL</span>
+          </button>
+          <button
+            onClick={() => setSelectedSport("NHL")}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-all ${
+              selectedSport === "NHL"
+                ? "border-2 border-white"
+                : "border-2 border-transparent"
+            }`}
+          >
+            <img 
+              src="https://a.espncdn.com/combiner/i?img=/i/teamlogos/leagues/500/nhl.png?w=100&h=100&transparent=true"
+              alt="NHL"
+              className="w-5 h-5"
+            />
+            <span>NHL</span>
           </button>
           <button
             onClick={() => setSelectedSport("NBA")}

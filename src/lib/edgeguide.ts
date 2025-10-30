@@ -25,9 +25,11 @@ export interface EdgeGuideLatestResponse {
     DK?: {
       NFL?: Record<string, RawSplitGame[]>;
       NBA?: Record<string, RawSplitGame[]>;
+      NHL?: Record<string, RawSplitGame[]>;
     };
     CIRCA?: {
       NFL?: Record<string, RawSplitGame[]>;
+      NHL?: Record<string, RawSplitGame[]>;
     };
   };
 }

@@ -67,8 +67,43 @@ export const NBA_TEAM_MAPPINGS: Record<string, { name: string; abbr: string; esp
   "washington-wizards": { name: "Wizards", abbr: "WAS", espnAbbr: "wsh", fullName: "Washington Wizards" }
 };
 
+export const NHL_TEAM_MAPPINGS: Record<string, { name: string; abbr: string; espnAbbr: string; fullName: string }> = {
+  "anaheim-ducks": { name: "Ducks", abbr: "ANA", espnAbbr: "ana", fullName: "Anaheim Ducks" },
+  "boston-bruins": { name: "Bruins", abbr: "BOS", espnAbbr: "bos", fullName: "Boston Bruins" },
+  "buffalo-sabres": { name: "Sabres", abbr: "BUF", espnAbbr: "buf", fullName: "Buffalo Sabres" },
+  "calgary-flames": { name: "Flames", abbr: "CGY", espnAbbr: "cgy", fullName: "Calgary Flames" },
+  "carolina-hurricanes": { name: "Hurricanes", abbr: "CAR", espnAbbr: "car", fullName: "Carolina Hurricanes" },
+  "chicago-blackhawks": { name: "Blackhawks", abbr: "CHI", espnAbbr: "chi", fullName: "Chicago Blackhawks" },
+  "colorado-avalanche": { name: "Avalanche", abbr: "COL", espnAbbr: "col", fullName: "Colorado Avalanche" },
+  "columbus-blue-jackets": { name: "Blue Jackets", abbr: "CBJ", espnAbbr: "cbj", fullName: "Columbus Blue Jackets" },
+  "dallas-stars": { name: "Stars", abbr: "DAL", espnAbbr: "dal", fullName: "Dallas Stars" },
+  "detroit-red-wings": { name: "Red Wings", abbr: "DET", espnAbbr: "det", fullName: "Detroit Red Wings" },
+  "edmonton-oilers": { name: "Oilers", abbr: "EDM", espnAbbr: "edm", fullName: "Edmonton Oilers" },
+  "florida-panthers": { name: "Panthers", abbr: "FLA", espnAbbr: "fla", fullName: "Florida Panthers" },
+  "los-angeles-kings": { name: "Kings", abbr: "LAK", espnAbbr: "la", fullName: "Los Angeles Kings" },
+  "minnesota-wild": { name: "Wild", abbr: "MIN", espnAbbr: "min", fullName: "Minnesota Wild" },
+  "montreal-canadiens": { name: "Canadiens", abbr: "MTL", espnAbbr: "mtl", fullName: "Montreal Canadiens" },
+  "nashville-predators": { name: "Predators", abbr: "NSH", espnAbbr: "nsh", fullName: "Nashville Predators" },
+  "new-jersey-devils": { name: "Devils", abbr: "NJ", espnAbbr: "nj", fullName: "New Jersey Devils" },
+  "ny-islanders": { name: "Islanders", abbr: "NYI", espnAbbr: "nyi", fullName: "New York Islanders" },
+  "ny-rangers": { name: "Rangers", abbr: "NYR", espnAbbr: "nyr", fullName: "New York Rangers" },
+  "ottawa-senators": { name: "Senators", abbr: "OTT", espnAbbr: "ott", fullName: "Ottawa Senators" },
+  "philadelphia-flyers": { name: "Flyers", abbr: "PHI", espnAbbr: "phi", fullName: "Philadelphia Flyers" },
+  "pittsburgh-penguins": { name: "Penguins", abbr: "PIT", espnAbbr: "pit", fullName: "Pittsburgh Penguins" },
+  "san-jose-sharks": { name: "Sharks", abbr: "SJ", espnAbbr: "sj", fullName: "San Jose Sharks" },
+  "seattle-kraken": { name: "Kraken", abbr: "SEA", espnAbbr: "sea", fullName: "Seattle Kraken" },
+  "st-louis-blues": { name: "Blues", abbr: "STL", espnAbbr: "stl", fullName: "St. Louis Blues" },
+  "tampa-bay-lightning": { name: "Lightning", abbr: "TB", espnAbbr: "tb", fullName: "Tampa Bay Lightning" },
+  "toronto-maple-leafs": { name: "Maple Leafs", abbr: "TOR", espnAbbr: "tor", fullName: "Toronto Maple Leafs" },
+  "utah-hockey-club": { name: "Hockey Club", abbr: "UTA", espnAbbr: "uta", fullName: "Utah Hockey Club" },
+  "vancouver-canucks": { name: "Canucks", abbr: "VAN", espnAbbr: "van", fullName: "Vancouver Canucks" },
+  "vegas-golden-knights": { name: "Golden Knights", abbr: "VGK", espnAbbr: "vgk", fullName: "Vegas Golden Knights" },
+  "washington-capitals": { name: "Capitals", abbr: "WSH", espnAbbr: "wsh", fullName: "Washington Capitals" },
+  "winnipeg-jets": { name: "Jets", abbr: "WPG", espnAbbr: "wpg", fullName: "Winnipeg Jets" }
+};
+
 export function getTeamInfo(slug: string, sport: string = "NFL") {
-  const mappings = sport === "NBA" ? NBA_TEAM_MAPPINGS : NFL_TEAM_MAPPINGS;
+  const mappings = sport === "NBA" ? NBA_TEAM_MAPPINGS : sport === "NHL" ? NHL_TEAM_MAPPINGS : NFL_TEAM_MAPPINGS;
   return mappings[slug] || { 
     name: slug, 
     abbr: slug.toUpperCase().slice(0, 3), 

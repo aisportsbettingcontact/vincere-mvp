@@ -208,11 +208,11 @@ export const CBB_TEAM_COLORS: Record<string, {
   tertiary: string;
 }> = {
   "Florida Gators": { primary: "#0021A5", secondary: "#FA4616", tertiary: "#FFFFFF" },
-  "Arizona Wildcats": { primary: "#003366", secondary: "#CC0033", tertiary: "#FFFFFF" },
-  "Villanova Wildcats": { primary: "#00205B", secondary: "#FFFFFF", tertiary: "#009DDC" },
-  "BYU Cougars": { primary: "#002E5D", secondary: "#FFFFFF", tertiary: "#0062B8" },
+  "Arizona Wildcats": { primary: "#0C234B", secondary: "#AB0520", tertiary: "#FFFFFF" },
+  "Villanova Wildcats": { primary: "#002664", secondary: "#41B6E6", tertiary: "#FFFFFF" },
+  "BYU Cougars": { primary: "#002E5D", secondary: "#0062B8", tertiary: "#FFFFFF" },
   "Texas Longhorns": { primary: "#BF5700", secondary: "#333F48", tertiary: "#FFFFFF" },
-  "Duke Blue Devils": { primary: "#003087", secondary: "#FFFFFF", tertiary: "#012169" }
+  "Duke Blue Devils": { primary: "#012169", secondary: "#00539B", tertiary: "#FFFFFF" }
 };
 
 /**

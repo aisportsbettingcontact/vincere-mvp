@@ -350,6 +350,43 @@ export default function Feed() {
           </div>
         </div>
 
+        {/* Bookmaker Toggle */}
+        <div className="flex justify-center mb-3">
+          <div 
+            className="flex gap-2 rounded-[14px]"
+            style={{
+              background: "var(--ma-surface)",
+              border: "1px solid var(--ma-stroke)",
+              padding: "8px"
+            }}
+          >
+            <button
+              onClick={() => setSelectedBook("DK")}
+              className="relative z-10 w-12 h-12 rounded-[10px] transition-all overflow-hidden"
+              style={{
+                opacity: selectedBook === "DK" ? 1 : 0.5,
+                background: "transparent",
+                border: selectedBook === "DK" ? "2px solid white" : "none",
+                padding: 0
+              }}
+            >
+              <img src={draftKingsLogo} alt="DraftKings" className="w-full h-full object-cover rounded-[10px]" style={{ display: "block" }} />
+            </button>
+            <button
+              onClick={() => setSelectedBook("Circa")}
+              className="relative z-10 w-12 h-12 rounded-[10px] transition-all overflow-hidden"
+              style={{
+                opacity: selectedBook === "Circa" ? 1 : 0.5,
+                background: "transparent",
+                border: selectedBook === "Circa" ? "2px solid white" : "none",
+                padding: 0
+              }}
+            >
+              <img src={circaLogo} alt="Circa" className="w-full h-full object-cover rounded-[10px]" style={{ display: "block" }} />
+            </button>
+          </div>
+        </div>
+
         <div className="space-y-2">
           {sortedGames.map((game) => (
             activeTab === "lines" ? (
@@ -362,6 +399,7 @@ export default function Feed() {
               <SplitsCard 
                 key={`${game.gameId}-${game.book}`}
                 game={game}
+                book={selectedBook}
               />
             )
           ))}
@@ -393,40 +431,14 @@ function formatGameDate(dateString: string): string {
 function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
   const { data: allGames } = useEdgeGuideData();
   
-  // Check if both DK and CIRCA data exist for this game
-  const hasDK = useMemo(() => 
-    allGames?.some(g => g.gameId === game.gameId && g.book === "DK") ?? false,
-    [game.gameId, allGames]
-  );
-  
-  const hasCirca = useMemo(() => 
-    allGames?.some(g => g.gameId === game.gameId && g.book === "CIRCA") ?? false,
-    [game.gameId, allGames]
-  );
-  
-  // If only DK is available, force DK selection
-  const [selectedBook, setSelectedBook] = useState<"DK" | "Circa">(
-    hasCirca ? book : "DK"
-  );
-  
   // Find the game data for the selected book
   const displayGame = useMemo(() => {
-    const bookFilter = selectedBook === "Circa" ? "CIRCA" : selectedBook;
+    const bookFilter = book === "Circa" ? "CIRCA" : book;
     const matchingGame = allGames?.find(g => g.gameId === game.gameId && g.book === bookFilter);
     return matchingGame || game;
-  }, [game.gameId, selectedBook, game, allGames]);
+  }, [game.gameId, book, game, allGames]);
   
   const firstOdds = displayGame.odds[0];
-  
-  // Ensure book selection is valid
-  useEffect(() => {
-    if (!hasDK && selectedBook === "DK") {
-      setSelectedBook("Circa");
-    }
-    if (!hasCirca && selectedBook === "Circa") {
-      setSelectedBook("DK");
-    }
-  }, [hasDK, hasCirca, selectedBook]);
   
   return (
     <motion.div 
@@ -447,52 +459,6 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
         <div className="text-xs font-semibold" style={{ color: "var(--ma-text-secondary)" }}>
           {formatGameDate(game.kickoff)} {formatGameTime(game.kickoff)}
         </div>
-        
-        {(hasDK || hasCirca) && (
-          <div 
-            className="flex gap-2 rounded-[14px] flex-shrink-0 justify-center items-center"
-            style={{
-              background: "var(--ma-surface)",
-              border: "1px solid var(--ma-stroke)",
-              padding: "8px"
-            }}
-          >
-            {hasDK && (
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setSelectedBook("DK");
-                }}
-                className="relative z-10 w-10 h-10 rounded-[10px] transition-all overflow-hidden"
-                style={{
-                  opacity: selectedBook === "DK" ? 1 : 0.5,
-                  background: "transparent",
-                  border: "none",
-                  padding: 0
-                }}
-              >
-                <img src={draftKingsLogo} alt="DraftKings" className="w-full h-full object-cover rounded-[10px]" style={{ display: "block" }} />
-              </button>
-            )}
-            {hasCirca && (
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setSelectedBook("Circa");
-                }}
-                className="relative z-10 w-10 h-10 rounded-[10px] transition-all overflow-hidden"
-                style={{
-                  opacity: selectedBook === "Circa" ? 1 : 0.5,
-                  background: "transparent",
-                  border: "none",
-                  padding: 0
-                }}
-              >
-                <img src={circaLogo} alt="Circa" className="w-full h-full object-cover rounded-[10px]" style={{ display: "block" }} />
-              </button>
-            )}
-          </div>
-        )}
       </div>
 
       {/* Mobile Layout */}
@@ -653,46 +619,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
           }}
         >
           <div></div>
-
-            {(hasDK || hasCirca) && (
-              <div 
-                className="flex gap-2 rounded-[14px] flex-shrink-0 justify-center items-center"
-                style={{
-                  background: "var(--ma-surface)",
-                  border: "1px solid var(--ma-stroke)",
-                  padding: "8px"
-                }}
-              >
-                {hasDK && (
-                <button
-                  onClick={() => setSelectedBook("DK")}
-                  className="relative z-10 w-10 h-10 rounded-[10px] transition-all overflow-hidden"
-                  style={{
-                    opacity: selectedBook === "DK" ? 1 : 0.5,
-                    background: "transparent",
-                    border: "none",
-                    padding: 0
-                  }}
-                >
-                  <img src={draftKingsLogo} alt="DraftKings" className="w-full h-full object-cover rounded-[10px]" style={{ display: "block" }} />
-                </button>
-              )}
-              {hasCirca && (
-                <button
-                  onClick={() => setSelectedBook("Circa")}
-                  className="relative z-10 w-10 h-10 rounded-[10px] transition-all overflow-hidden"
-                  style={{
-                    opacity: selectedBook === "Circa" ? 1 : 0.5,
-                    background: "transparent",
-                    border: "none",
-                    padding: 0
-                  }}
-                >
-                  <img src={circaLogo} alt="Circa" className="w-full h-full object-cover rounded-[10px]" style={{ display: "block" }} />
-                </button>
-              )}
-            </div>
-          )}
+          <div></div>
         </div>
       </div>
 
@@ -864,43 +791,17 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
 }
 
 // Splits Card - displays ticket/money percentages for all markets
-function SplitsCard({ game }: { game: GameOdds }) {
+function SplitsCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
   const { data: allGames } = useEdgeGuideData();
-  
-  // Check if both DK and CIRCA data exist for this game
-  const hasDK = useMemo(() => 
-    allGames?.some(g => g.gameId === game.gameId && g.book === "DK") ?? false,
-    [game.gameId, allGames]
-  );
-  
-  const hasCirca = useMemo(() => 
-    allGames?.some(g => g.gameId === game.gameId && g.book === "CIRCA") ?? false,
-    [game.gameId, allGames]
-  );
-  
-  // If only DK is available, force DK selection
-  const [selectedBook, setSelectedBook] = useState<"DK" | "Circa">(
-    hasCirca ? (game.book === "CIRCA" ? "Circa" : "DK") : "DK"
-  );
   
   // Find the game data for the selected book
   const displayGame = useMemo(() => {
-    const bookFilter = selectedBook === "Circa" ? "CIRCA" : selectedBook;
+    const bookFilter = book === "Circa" ? "CIRCA" : book;
     const matchingGame = allGames?.find(g => g.gameId === game.gameId && g.book === bookFilter);
     return matchingGame || game;
-  }, [game.gameId, selectedBook, game, allGames]);
+  }, [game.gameId, book, game, allGames]);
   
   const firstOdds = displayGame.odds[0];
-  
-  // Ensure book selection is valid
-  useEffect(() => {
-    if (!hasDK && selectedBook === "DK") {
-      setSelectedBook("Circa");
-    }
-    if (!hasCirca && selectedBook === "Circa") {
-      setSelectedBook("DK");
-    }
-  }, [hasDK, hasCirca, selectedBook]);
   
   // Calculate data for all three markets
   const spreadsData = useMemo(() => {
@@ -993,52 +894,6 @@ function SplitsCard({ game }: { game: GameOdds }) {
           <div className="text-xs font-medium whitespace-nowrap text-center flex-1 md:flex-none" style={{ color: "var(--ma-text-secondary)" }}>
             {formatGameDate(game.kickoff)} {formatGameTime(game.kickoff)}
           </div>
-          
-          {(hasDK || hasCirca) && (
-            <div 
-              className="flex gap-2 rounded-[10px] flex-shrink-0 justify-center items-center"
-              style={{
-                background: "var(--ma-surface)",
-                border: "1px solid var(--ma-stroke)",
-                padding: "8px"
-              }}
-            >
-              {hasDK && (
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setSelectedBook("DK");
-                  }}
-                  className="relative z-10 w-9 h-9 rounded-[7px] transition-all overflow-hidden"
-                  style={{
-                    opacity: selectedBook === "DK" ? 1 : 0.5,
-                    background: "transparent",
-                    border: "none",
-                    padding: 0
-                  }}
-                >
-                  <img src={draftKingsLogo} alt="DraftKings" className="w-full h-full object-cover rounded-[7px]" style={{ display: "block" }} />
-                </button>
-              )}
-              {hasCirca && (
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setSelectedBook("Circa");
-                  }}
-                  className="relative z-10 w-9 h-9 rounded-[7px] transition-all overflow-hidden"
-                  style={{
-                    opacity: selectedBook === "Circa" ? 1 : 0.5,
-                    background: "transparent",
-                    border: "none",
-                    padding: 0
-                  }}
-                >
-                  <img src={circaLogo} alt="Circa" className="w-full h-full object-cover rounded-[7px]" style={{ display: "block" }} />
-                </button>
-              )}
-            </div>
-          )}
         </div>
         
         {/* Moneyline */}

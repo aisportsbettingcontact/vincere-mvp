@@ -73,6 +73,7 @@ function parseGame(game: any, book: string): GameOdds {
     book: book,
     away: {
       name: awayTeam.name,
+      fullName: awayTeam.fullName,
       abbr: awayTeam.abbr,
       espnAbbr: awayTeam.espnAbbr,
       color: awayColors.primary,
@@ -81,6 +82,7 @@ function parseGame(game: any, book: string): GameOdds {
     },
     home: {
       name: homeTeam.name,
+      fullName: homeTeam.fullName,
       abbr: homeTeam.abbr,
       espnAbbr: homeTeam.espnAbbr,
       color: homeColors.primary,

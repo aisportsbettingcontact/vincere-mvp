@@ -2,6 +2,7 @@ export interface Matchup {
   dateTime: string;
   away: {
     name: string;
+    fullName?: string;
     espnAbbr: string;
     color: string;
     odds: {
@@ -14,6 +15,7 @@ export interface Matchup {
   };
   home: {
     name: string;
+    fullName?: string;
     espnAbbr: string;
     color: string;
     odds: {

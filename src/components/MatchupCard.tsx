@@ -50,10 +50,10 @@ export function MatchupCard({ matchup, sport }: MatchupCardProps) {
                     {sport === "CFB" ? (
                       <div className="flex flex-col">
                         <p className="font-['Inter:Semi_Bold',_sans-serif] font-semibold leading-[14px] not-italic text-[14px] text-nowrap text-white tracking-[-0.1912px] whitespace-pre">
-                          {matchup.away.name.split(' ')[0]}
+                          {matchup.away.fullName?.split(' ')[0] || matchup.away.name}
                         </p>
                         <p className="font-['Inter:Regular',_sans-serif] font-normal leading-[10px] not-italic text-[10px] text-nowrap text-white/70 whitespace-pre">
-                          {matchup.away.name.split(' ').slice(1).join(' ')}
+                          {matchup.away.fullName?.split(' ').slice(1).join(' ') || ''}
                         </p>
                       </div>
                     ) : (
@@ -86,10 +86,10 @@ export function MatchupCard({ matchup, sport }: MatchupCardProps) {
                     {sport === "CFB" ? (
                       <div className="flex flex-col">
                         <p className="font-['Inter:Semi_Bold',_sans-serif] font-semibold leading-[14px] not-italic text-[14px] text-nowrap text-white tracking-[-0.1912px] whitespace-pre">
-                          {matchup.home.name.split(' ')[0]}
+                          {matchup.home.fullName?.split(' ')[0] || matchup.home.name}
                         </p>
                         <p className="font-['Inter:Regular',_sans-serif] font-normal leading-[10px] not-italic text-[10px] text-nowrap text-white/70 whitespace-pre">
-                          {matchup.home.name.split(' ').slice(1).join(' ')}
+                          {matchup.home.fullName?.split(' ').slice(1).join(' ') || ''}
                         </p>
                       </div>
                     ) : (

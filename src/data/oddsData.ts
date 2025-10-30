@@ -78,6 +78,7 @@ export interface GameOdds {
   book: string; // DK or CIRCA
   away: {
     name: string;
+    fullName?: string;
     abbr: string;
     espnAbbr: string;
     color: string;
@@ -86,6 +87,7 @@ export interface GameOdds {
   };
   home: {
     name: string;
+    fullName?: string;
     abbr: string;
     espnAbbr: string;
     color: string;

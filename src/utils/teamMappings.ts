@@ -34,11 +34,45 @@ export const NFL_TEAM_MAPPINGS: Record<string, { name: string; abbr: string; esp
   "washington-commanders": { name: "Commanders", abbr: "WAS", espnAbbr: "wsh", fullName: "Washington Commanders" }
 };
 
-export function getTeamInfo(slug: string) {
-  return NFL_TEAM_MAPPINGS[slug] || { 
+export const NBA_TEAM_MAPPINGS: Record<string, { name: string; abbr: string; espnAbbr: string; fullName: string }> = {
+  "atlanta-hawks": { name: "Hawks", abbr: "ATL", espnAbbr: "atl", fullName: "Atlanta Hawks" },
+  "boston-celtics": { name: "Celtics", abbr: "BOS", espnAbbr: "bos", fullName: "Boston Celtics" },
+  "brooklyn-nets": { name: "Nets", abbr: "BKN", espnAbbr: "bkn", fullName: "Brooklyn Nets" },
+  "charlotte-hornets": { name: "Hornets", abbr: "CHA", espnAbbr: "cha", fullName: "Charlotte Hornets" },
+  "chicago-bulls": { name: "Bulls", abbr: "CHI", espnAbbr: "chi", fullName: "Chicago Bulls" },
+  "cleveland-cavaliers": { name: "Cavaliers", abbr: "CLE", espnAbbr: "cle", fullName: "Cleveland Cavaliers" },
+  "dallas-mavericks": { name: "Mavericks", abbr: "DAL", espnAbbr: "dal", fullName: "Dallas Mavericks" },
+  "denver-nuggets": { name: "Nuggets", abbr: "DEN", espnAbbr: "den", fullName: "Denver Nuggets" },
+  "detroit-pistons": { name: "Pistons", abbr: "DET", espnAbbr: "det", fullName: "Detroit Pistons" },
+  "golden-state-warriors": { name: "Warriors", abbr: "GS", espnAbbr: "gs", fullName: "Golden State Warriors" },
+  "houston-rockets": { name: "Rockets", abbr: "HOU", espnAbbr: "hou", fullName: "Houston Rockets" },
+  "indiana-pacers": { name: "Pacers", abbr: "IND", espnAbbr: "ind", fullName: "Indiana Pacers" },
+  "la-lakers": { name: "Lakers", abbr: "LAL", espnAbbr: "lal", fullName: "Los Angeles Lakers" },
+  "la-clippers": { name: "Clippers", abbr: "LAC", espnAbbr: "lac", fullName: "Los Angeles Clippers" },
+  "memphis-grizzlies": { name: "Grizzlies", abbr: "MEM", espnAbbr: "mem", fullName: "Memphis Grizzlies" },
+  "miami-heat": { name: "Heat", abbr: "MIA", espnAbbr: "mia", fullName: "Miami Heat" },
+  "milwaukee-bucks": { name: "Bucks", abbr: "MIL", espnAbbr: "mil", fullName: "Milwaukee Bucks" },
+  "minnesota-timberwolves": { name: "Timberwolves", abbr: "MIN", espnAbbr: "min", fullName: "Minnesota Timberwolves" },
+  "new-orleans-pelicans": { name: "Pelicans", abbr: "NO", espnAbbr: "no", fullName: "New Orleans Pelicans" },
+  "new-york-knicks": { name: "Knicks", abbr: "NY", espnAbbr: "ny", fullName: "New York Knicks" },
+  "oklahoma-city-thunder": { name: "Thunder", abbr: "OKC", espnAbbr: "okc", fullName: "Oklahoma City Thunder" },
+  "orlando-magic": { name: "Magic", abbr: "ORL", espnAbbr: "orl", fullName: "Orlando Magic" },
+  "philadelphia-76ers": { name: "76ers", abbr: "PHI", espnAbbr: "phi", fullName: "Philadelphia 76ers" },
+  "phoenix-suns": { name: "Suns", abbr: "PHX", espnAbbr: "phx", fullName: "Phoenix Suns" },
+  "portland-trail-blazers": { name: "Trail Blazers", abbr: "POR", espnAbbr: "por", fullName: "Portland Trail Blazers" },
+  "sacramento-kings": { name: "Kings", abbr: "SAC", espnAbbr: "sac", fullName: "Sacramento Kings" },
+  "san-antonio-spurs": { name: "Spurs", abbr: "SA", espnAbbr: "sa", fullName: "San Antonio Spurs" },
+  "toronto-raptors": { name: "Raptors", abbr: "TOR", espnAbbr: "tor", fullName: "Toronto Raptors" },
+  "utah-jazz": { name: "Jazz", abbr: "UTA", espnAbbr: "utah", fullName: "Utah Jazz" },
+  "washington-wizards": { name: "Wizards", abbr: "WAS", espnAbbr: "wsh", fullName: "Washington Wizards" }
+};
+
+export function getTeamInfo(slug: string, sport: string = "NFL") {
+  const mappings = sport === "NBA" ? NBA_TEAM_MAPPINGS : NFL_TEAM_MAPPINGS;
+  return mappings[slug] || { 
     name: slug, 
     abbr: slug.toUpperCase().slice(0, 3), 
-    espnAbbr: slug.slice(0, 3),
+    espnAbbr: slug.slice(0, 3).toLowerCase(),
     fullName: slug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
   };
 }

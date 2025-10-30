@@ -99,8 +99,8 @@ export function parseRawSplits(): GameOdds[] {
 
 function parseGame(game: RawSplitGame, book: string): GameOdds {
     const sport = game.s || "NFL";
-    const awayTeam = getTeamInfo(game.a);
-    const homeTeam = getTeamInfo(game.h);
+    const awayTeam = getTeamInfo(game.a, sport);
+    const homeTeam = getTeamInfo(game.h, sport);
     
     // Convert decimal percentages to whole numbers (0.35 -> 35)
     const spreadTickets = {

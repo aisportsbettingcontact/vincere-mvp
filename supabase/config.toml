@@ -11,3 +11,6 @@ verify_jwt = false
 
 [functions.admin-trigger-run]
 verify_jwt = false
+
+[functions.run-edgeguide]
+verify_jwt = false

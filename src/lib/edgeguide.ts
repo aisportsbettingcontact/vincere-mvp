@@ -32,10 +32,11 @@ export interface EdgeGuideLatestResponse {
   };
 }
 
-const EDGE_BASE = import.meta.env.VITE_EDGE_BASE as string;
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL as string;
+const FUNCTIONS_BASE = `${SUPABASE_URL}/functions/v1`;
 
 export async function fetchLatest(): Promise<EdgeGuideLatestResponse> {
-  const r = await fetch(`${EDGE_BASE}/edgeguide-latest`, {
+  const r = await fetch(`${FUNCTIONS_BASE}/edgeguide-latest`, {
     headers: { "Accept": "application/json", "X-Trace-Id": `latest-${Date.now()}` },
     cache: "no-store",
   });
@@ -48,7 +49,7 @@ export async function fetchLatest(): Promise<EdgeGuideLatestResponse> {
 
 export async function triggerEdgeguideRun(trace?: string): Promise<EdgeGuideRunResponse> {
   const traceId = trace ?? `ui-run-${Date.now()}`;
-  const r = await fetch(`${EDGE_BASE}/run-edgeguide`, {
+  const r = await fetch(`${FUNCTIONS_BASE}/run-edgeguide`, {
     method: "POST",
     headers: { "Content-Type": "application/json", "X-Trace-Id": traceId },
     body: "{}",

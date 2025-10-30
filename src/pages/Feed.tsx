@@ -368,41 +368,41 @@ export default function Feed() {
         </div>
 
         {/* Bookmaker Toggle - Show buttons only for books with data */}
-        <div className="flex justify-center mb-3">
+        <div className="flex justify-center mb-3 px-3">
           <div 
-            className="flex gap-2 rounded-[14px]"
+            className="flex gap-1.5 rounded-[10px]"
             style={{
               background: "var(--ma-surface)",
               border: "1px solid var(--ma-stroke)",
-              padding: "8px"
+              padding: "6px"
             }}
           >
             {availableBooksForSport.hasDK && (
               <button
                 onClick={() => setSelectedBook("DK")}
-                className="relative z-10 w-12 h-12 rounded-[10px] transition-all overflow-hidden"
+                className="relative z-10 w-9 h-9 rounded-[7px] transition-all overflow-hidden"
                 style={{
                   opacity: selectedBook === "DK" ? 1 : 0.5,
                   background: "transparent",
-                  border: selectedBook === "DK" ? "2px solid white" : "none",
+                  border: selectedBook === "DK" ? "1.5px solid white" : "none",
                   padding: 0
                 }}
               >
-                <img src={draftKingsLogo} alt="DraftKings" className="w-full h-full object-cover rounded-[10px]" style={{ display: "block" }} />
+                <img src={draftKingsLogo} alt="DraftKings" className="w-full h-full object-cover rounded-[7px]" style={{ display: "block" }} />
               </button>
             )}
             {availableBooksForSport.hasCirca && (
               <button
                 onClick={() => setSelectedBook("Circa")}
-                className="relative z-10 w-12 h-12 rounded-[10px] transition-all overflow-hidden"
+                className="relative z-10 w-9 h-9 rounded-[7px] transition-all overflow-hidden"
                 style={{
                   opacity: selectedBook === "Circa" ? 1 : 0.5,
                   background: "transparent",
-                  border: selectedBook === "Circa" ? "2px solid white" : "none",
+                  border: selectedBook === "Circa" ? "1.5px solid white" : "none",
                   padding: 0
                 }}
               >
-                <img src={circaLogo} alt="Circa" className="w-full h-full object-cover rounded-[10px]" style={{ display: "block" }} />
+                <img src={circaLogo} alt="Circa" className="w-full h-full object-cover rounded-[7px]" style={{ display: "block" }} />
               </button>
             )}
           </div>

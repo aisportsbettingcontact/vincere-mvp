@@ -6,6 +6,7 @@ import { useEdgeGuideData } from "@/hooks/useEdgeGuideData";
 import { MirrorBar } from "@/components/MirrorBar";
 import { LineHistoryTable } from "@/components/LineHistoryTable";
 import type { Matchup } from "@/data/sportsData";
+import { getTeamLogo } from "@/data/sportsData";
 import type { Market } from "@/utils/bettingLogic";
 import { generateAIInsights } from "@/utils/aiAnalysis";
 import { formatSpreadLine } from "@/utils/bettingLogic";
@@ -14,12 +15,6 @@ import { supabase } from "@/integrations/supabase/client";
 import draftKingsLogo from "@/assets/draftkings-logo.png";
 import circaLogo from "@/assets/circa-logo.jpg";
 import { areColorsSimilar, getBestContrastColor } from "@/utils/colorSimilarity";
-
-
-function getTeamLogo(espnAbbr: string, sport: string) {
-  const sportPath = sport.toLowerCase();
-  return `https://a.espncdn.com/combiner/i?img=/i/teamlogos/${sportPath}/500/${espnAbbr}.png&h=200&w=200`;
-}
 
 // Format date as HH:MM am/pm ET
 function formatGameTime(dateString: string): string {
@@ -501,7 +496,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
           {/* Left: Teams */}
           <div className="flex flex-col justify-center relative">
             <div className="flex items-center gap-3 mb-1">
-              <img src={getTeamLogo(displayGame.away.espnAbbr, displayGame.sport)} alt="" className="w-12 h-12 rounded flex-shrink-0" />
+              <img src={getTeamLogo(displayGame.sport, displayGame.away.espnAbbr)} alt="" className="w-12 h-12 rounded flex-shrink-0" />
               <div className="text-base font-bold leading-tight" style={{ color: "var(--ma-text-primary)" }}>
                 {displayGame.away.abbr}
               </div>
@@ -514,7 +509,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
             </div>
             
             <div className="flex items-center gap-3 mt-1">
-              <img src={getTeamLogo(displayGame.home.espnAbbr, displayGame.sport)} alt="" className="w-12 h-12 rounded flex-shrink-0" />
+              <img src={getTeamLogo(displayGame.sport, displayGame.home.espnAbbr)} alt="" className="w-12 h-12 rounded flex-shrink-0" />
               <div className="text-base font-bold leading-tight" style={{ color: "var(--ma-text-primary)" }}>
                 {displayGame.home.abbr}
               </div>
@@ -694,7 +689,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
             <div className="flex flex-col items-center justify-center h-full">
               {/* Away Team */}
               <div className="flex items-center justify-center gap-2 md:gap-3 py-1.5 md:py-2">
-                <img src={getTeamLogo(displayGame.away.espnAbbr, displayGame.sport)} alt="" className="w-6 h-6 md:w-8 md:h-8 rounded flex-shrink-0" />
+                <img src={getTeamLogo(displayGame.sport, displayGame.away.espnAbbr)} alt="" className="w-6 h-6 md:w-8 md:h-8 rounded flex-shrink-0" />
                 <div className="text-xs md:text-base font-bold" style={{ color: "var(--ma-text-primary)" }}>
                   {displayGame.away.abbr}
                 </div>
@@ -709,7 +704,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
               
               {/* Home Team */}
               <div className="flex items-center justify-center gap-2 md:gap-3 py-1.5 md:py-2">
-                <img src={getTeamLogo(displayGame.home.espnAbbr, displayGame.sport)} alt="" className="w-6 h-6 md:w-8 md:h-8 rounded flex-shrink-0" />
+                <img src={getTeamLogo(displayGame.sport, displayGame.home.espnAbbr)} alt="" className="w-6 h-6 md:w-8 md:h-8 rounded flex-shrink-0" />
                 <div className="text-xs md:text-base font-bold" style={{ color: "var(--ma-text-primary)" }}>
                   {displayGame.home.abbr}
                 </div>
@@ -949,10 +944,10 @@ function SplitsCard({ game }: { game: GameOdds }) {
         <div className="flex flex-col md:flex-row items-center justify-between gap-3 md:gap-4 mb-4">
           {/* Teams Row */}
           <div className="flex items-center gap-2 justify-center md:justify-start flex-shrink-0">
-            <img src={getTeamLogo(displayGame.away.espnAbbr, displayGame.sport)} alt="" className="w-7 h-7 rounded" />
+            <img src={getTeamLogo(displayGame.sport, displayGame.away.espnAbbr)} alt="" className="w-7 h-7 rounded" />
             <span className="font-bold text-base" style={{ color: "var(--ma-text-primary)" }}>{displayGame.away.abbr}</span>
             <span className="text-sm" style={{ color: "var(--ma-text-secondary)" }}>@</span>
-            <img src={getTeamLogo(displayGame.home.espnAbbr, displayGame.sport)} alt="" className="w-7 h-7 rounded" />
+            <img src={getTeamLogo(displayGame.sport, displayGame.home.espnAbbr)} alt="" className="w-7 h-7 rounded" />
             <span className="font-bold text-base" style={{ color: "var(--ma-text-primary)" }}>{displayGame.home.abbr}</span>
           </div>
           
@@ -1126,11 +1121,11 @@ function LineMovementCard({ game, selectedMarket, setSelectedMarket }: {
       {/* Game Header - same as BettingSplitsCard */}
       <div className="flex items-center justify-between gap-3 mb-4">
         <div className="flex items-center gap-3 min-w-0">
-          <img src={getTeamLogo(game.away.espnAbbr, game.sport)} alt={game.away.name} className="w-7 h-7 rounded" />
+          <img src={getTeamLogo(game.sport, game.away.espnAbbr)} alt={game.away.name} className="w-7 h-7 rounded" />
           <div className="text-sm font-semibold text-white truncate">{game.away.abbr}</div>
           <span className="text-white/40 text-xs">@</span>
           <div className="flex items-center gap-2 min-w-0">
-            <img src={getTeamLogo(game.home.espnAbbr, game.sport)} alt={game.home.name} className="w-7 h-7 rounded" />
+            <img src={getTeamLogo(game.sport, game.home.espnAbbr)} alt={game.home.name} className="w-7 h-7 rounded" />
             <div className="text-sm font-semibold text-white truncate">{game.home.abbr}</div>
           </div>
         </div>
@@ -1312,7 +1307,7 @@ function AIAnalysisCard({ game, selectedMarket, setSelectedMarket }: {
               </div>
             ) : teamInfo && (
               <img 
-                src={getTeamLogo(teamInfo.espnAbbr, game.sport)} 
+                src={getTeamLogo(game.sport, teamInfo.espnAbbr)} 
                 alt={teamInfo.team.name}
                 className="w-8 h-8 rounded"
               />
@@ -1351,11 +1346,11 @@ function AIAnalysisCard({ game, selectedMarket, setSelectedMarket }: {
       {/* Game Header - same as other cards */}
       <div className="flex items-center justify-between gap-3 mb-4">
         <div className="flex items-center gap-3 min-w-0">
-          <img src={getTeamLogo(game.away.espnAbbr, game.sport)} alt={game.away.name} className="w-7 h-7 rounded" />
+          <img src={getTeamLogo(game.sport, game.away.espnAbbr)} alt={game.away.name} className="w-7 h-7 rounded" />
           <div className="text-sm font-semibold text-white truncate">{game.away.abbr}</div>
           <span className="text-white/40 text-xs">@</span>
           <div className="flex items-center gap-2 min-w-0">
-            <img src={getTeamLogo(game.home.espnAbbr, game.sport)} alt={game.home.name} className="w-7 h-7 rounded" />
+            <img src={getTeamLogo(game.sport, game.home.espnAbbr)} alt={game.home.name} className="w-7 h-7 rounded" />
             <div className="text-sm font-semibold text-white truncate">{game.home.abbr}</div>
           </div>
         </div>

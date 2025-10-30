@@ -14,23 +14,26 @@ export function useEdgeGuideRun(): UseEdgeGuideRunReturn {
   const [data, setData] = useState<EdgeGuideRunResponse | EdgeGuideLatestResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  const pollLatest = async (): Promise<EdgeGuideLatestResponse> => {
+  const pollLatest = async (): Promise<EdgeGuideLatestResponse | null> => {
     const maxAttempts = 10;
     const pollInterval = 3000; // 3 seconds
 
     for (let attempt = 0; attempt < maxAttempts; attempt++) {
-      try {
-        const latestData = await fetchLatest();
+      const latestData = await fetchLatest();
+      
+      // If we got data, return it
+      if (latestData) {
         return latestData;
-      } catch (pollError) {
-        console.error('Poll error:', pollError);
-        if (attempt === maxAttempts - 1) throw pollError;
       }
-
-      await new Promise(resolve => setTimeout(resolve, pollInterval));
+      
+      // If still null and not the last attempt, wait and retry
+      if (attempt < maxAttempts - 1) {
+        await new Promise(resolve => setTimeout(resolve, pollInterval));
+      }
     }
 
-    throw new Error('Polling timeout - no data received');
+    // After all attempts, return null if still no data
+    return null;
   };
 
   const runAnalysis = async () => {
@@ -57,14 +60,14 @@ export function useEdgeGuideRun(): UseEdgeGuideRunReturn {
       if (err.message === 'timeout') {
         toast.info('Analysis taking longer than expected, checking for latest results...');
         
-        try {
-          const latestData = await pollLatest();
+        const latestData = await pollLatest();
+        
+        if (latestData) {
           setData(latestData);
           toast.success('Latest analysis retrieved');
-        } catch (pollErr: any) {
-          const errorMsg = pollErr.message || 'Failed to retrieve analysis';
-          setError(errorMsg);
-          toast.error(errorMsg);
+        } else {
+          setError('Analysis is still running. Results not yet available.');
+          toast.warning('Analysis is still processing. Please check back in a few minutes.');
         }
       } else {
         const errorMsg = err.message || 'Failed to run analysis';

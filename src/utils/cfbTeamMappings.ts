@@ -117,4 +117,7 @@ export const CFB_TEAM_MAPPINGS: Record<string, {
   "delaware-st": { name: "Delaware State", abbr: "DSU", espnAbbr: "47", fullName: "Delaware State Hornets" },
   "old-dominion-monarchs": { name: "Old Dominion", abbr: "ODU", espnAbbr: "295", fullName: "Old Dominion Monarchs" },
   "la-monroe-warhawks": { name: "Louisiana Monroe", abbr: "ULM", espnAbbr: "2433", fullName: "Louisiana Monroe Warhawks" },
+  // Additional slug variations
+  "mississippi": { name: "Ole Miss", abbr: "MISS", espnAbbr: "145", fullName: "Ole Miss Rebels" },
+  "ole-miss": { name: "Ole Miss", abbr: "MISS", espnAbbr: "145", fullName: "Ole Miss Rebels" },
 };

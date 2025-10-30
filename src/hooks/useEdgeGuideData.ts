@@ -28,7 +28,7 @@ function formatDate(dateStr: string, gameId: string, sport: string): string {
   const year = dateStr.slice(0, 4);
   const month = dateStr.slice(4, 6);
   const day = dateStr.slice(6, 8);
-  const time = GAME_TIMES[gameId] || (sport === "NBA" ? "19:00" : sport === "NHL" ? "19:00" : sport === "CFB" ? "12:00" : sport === "MLB" ? "19:00" : "13:00");
+  const time = GAME_TIMES[gameId] || (sport === "NBA" ? "19:00" : sport === "NHL" ? "19:00" : sport === "CFB" ? "12:00" : sport === "CBB" ? "19:00" : sport === "MLB" ? "19:00" : "13:00");
   return `${year}-${month}-${day}T${time}:00`;
 }
 

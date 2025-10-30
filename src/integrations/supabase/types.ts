@@ -62,6 +62,7 @@ export type Database = {
           secondary_color: string | null
           secondary_hex_code: string | null
           sport: string
+          team_abbreviation: string | null
           team_city: string
           team_nickname: string
           tertiary_color: string | null
@@ -82,6 +83,7 @@ export type Database = {
           secondary_color?: string | null
           secondary_hex_code?: string | null
           sport: string
+          team_abbreviation?: string | null
           team_city: string
           team_nickname: string
           tertiary_color?: string | null
@@ -102,6 +104,7 @@ export type Database = {
           secondary_color?: string | null
           secondary_hex_code?: string | null
           sport?: string
+          team_abbreviation?: string | null
           team_city?: string
           team_nickname?: string
           tertiary_color?: string | null

@@ -1,11 +1,12 @@
 import { supabase } from "@/integrations/supabase/client";
-import teamDataCsv from "@/data/teamdata.csv?raw";
+import teamDetailsJson from "@/data/teamdetails.json";
 
 interface TeamData {
   sport: string;
   league: string;
   conference: string;
   division: string;
+  team_abbreviation: string;
   team_city: string;
   team_nickname: string;
   arena_name: string;
@@ -19,45 +20,9 @@ interface TeamData {
   tertiary_hex_code: string;
 }
 
-function parseCsvLine(line: string): string[] {
-  const result: string[] = [];
-  let current = '';
-  let inQuotes = false;
-
-  for (let i = 0; i < line.length; i++) {
-    const char = line[i];
-    
-    if (char === '"') {
-      inQuotes = !inQuotes;
-    } else if (char === ',' && !inQuotes) {
-      result.push(current.trim());
-      current = '';
-    } else {
-      current += char;
-    }
-  }
-  result.push(current.trim());
-  
-  return result;
-}
-
 export async function populateTeamsData(): Promise<{ success: boolean; message: string }> {
   try {
-    const lines = teamDataCsv.split('\n').filter(line => line.trim());
-    const headers = parseCsvLine(lines[0]);
-    
-    const teams: TeamData[] = [];
-    
-    for (let i = 1; i < lines.length; i++) {
-      const values = parseCsvLine(lines[i]);
-      if (values.length !== headers.length) continue;
-      
-      const team: any = {};
-      headers.forEach((header, index) => {
-        team[header] = values[index] || null;
-      });
-      teams.push(team as TeamData);
-    }
+    const teams: TeamData[] = teamDetailsJson as TeamData[];
     
     // Insert teams in batches
     const batchSize = 50;
@@ -66,7 +31,7 @@ export async function populateTeamsData(): Promise<{ success: boolean; message: 
       const { error } = await supabase
         .from('teams')
         .upsert(batch, { 
-          onConflict: 'sport,team_city,team_nickname',
+          onConflict: 'sport,league,team_abbreviation',
           ignoreDuplicates: false 
         });
       

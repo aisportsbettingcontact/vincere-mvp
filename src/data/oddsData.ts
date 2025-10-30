@@ -81,12 +81,14 @@ export interface GameOdds {
     abbr: string;
     espnAbbr: string;
     color: string;
+    secondaryColor: string;
   };
   home: {
     name: string;
     abbr: string;
     espnAbbr: string;
     color: string;
+    secondaryColor: string;
   };
   tvInfo?: string;
   odds: Array<{

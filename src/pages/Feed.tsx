@@ -785,7 +785,7 @@ function SplitsCard({ game }: { game: GameOdds }) {
       leftLabel: displayGame.away.abbr,
       rightLabel: displayGame.home.abbr,
       lineDisplay: `${displayGame.away.abbr} ${formatSpreadLine(currentLine)}`,
-      leftColor: displayGame.away.color,
+      leftColor: displayGame.away.secondaryColor,
       rightColor: displayGame.home.color
     };
   }, [displayGame, firstOdds]);
@@ -800,7 +800,7 @@ function SplitsCard({ game }: { game: GameOdds }) {
       leftLabel: "O",
       rightLabel: "U",
       lineDisplay: `${currentLine}`,
-      leftColor: displayGame.away.color,
+      leftColor: displayGame.away.secondaryColor,
       rightColor: displayGame.home.color
     };
   }, [displayGame, firstOdds]);
@@ -815,7 +815,7 @@ function SplitsCard({ game }: { game: GameOdds }) {
       leftLabel: displayGame.away.abbr,
       rightLabel: displayGame.home.abbr,
       lineDisplay: `${displayGame.away.abbr} ${awayML > 0 ? '+' : ''}${awayML}`,
-      leftColor: displayGame.away.color,
+      leftColor: displayGame.away.secondaryColor,
       rightColor: displayGame.home.color
     };
   }, [displayGame, firstOdds]);

@@ -1,6 +1,6 @@
 import type { GameOdds } from "@/data/oddsData";
 import { getTeamInfo } from "./teamMappings";
-import { getTeamPrimaryColor } from "./teamColors";
+import { getTeamPrimaryColor, getTeamSecondaryColor } from "./teamColors";
 import rawSplitsDataImport from "@/data/nfl-splits-raw.json";
 
 interface RawSplitGame {
@@ -139,13 +139,15 @@ function parseGame(game: RawSplitGame, book: string): GameOdds {
         name: awayTeam.name,
         abbr: awayTeam.abbr,
         espnAbbr: awayTeam.espnAbbr,
-        color: getTeamPrimaryColor(awayTeam.fullName, sport)
+        color: getTeamPrimaryColor(awayTeam.fullName, sport),
+        secondaryColor: getTeamSecondaryColor(awayTeam.fullName, sport)
       },
       home: {
         name: homeTeam.name,
         abbr: homeTeam.abbr,
         espnAbbr: homeTeam.espnAbbr,
-        color: getTeamPrimaryColor(homeTeam.fullName, sport)
+        color: getTeamPrimaryColor(homeTeam.fullName, sport),
+        secondaryColor: getTeamSecondaryColor(homeTeam.fullName, sport)
       },
       odds: [
         {

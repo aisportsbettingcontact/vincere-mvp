@@ -378,34 +378,48 @@ export default function Feed() {
             }}
           >
             {availableBooksForSport.hasDK && (
-              <button
-                onClick={() => setSelectedBook("DK")}
-                className="relative z-10 flex flex-col items-center gap-0.5 rounded-[7px] transition-all"
-                style={{
-                  opacity: selectedBook === "DK" ? 1 : 0.5,
-                  background: "transparent",
-                  border: selectedBook === "DK" ? "1.5px solid white" : "none",
-                  padding: "4px"
-                }}
-              >
-                <img src={draftKingsLogo} alt="DraftKings" className="w-9 h-9 object-cover rounded-[7px]" style={{ display: "block" }} />
-                <span className="text-[9px] font-semibold" style={{ color: "var(--ma-text-primary)" }}>DK</span>
-              </button>
+              <div className="flex flex-col items-center gap-1">
+                <button
+                  onClick={() => setSelectedBook("DK")}
+                  className="relative z-10 w-9 h-9 rounded-[7px] transition-all overflow-hidden"
+                  style={{
+                    opacity: selectedBook === "DK" ? 1 : 0.5,
+                    background: "transparent",
+                    border: selectedBook === "DK" ? "1.5px solid white" : "none",
+                    padding: 0
+                  }}
+                >
+                  <img src={draftKingsLogo} alt="DraftKings" className="w-full h-full object-cover rounded-[7px]" style={{ display: "block" }} />
+                </button>
+                <span 
+                  className="text-[9px] font-semibold" 
+                  style={{ color: selectedBook === "DK" ? "var(--ma-text-primary)" : "var(--ma-text-secondary)" }}
+                >
+                  DK
+                </span>
+              </div>
             )}
             {availableBooksForSport.hasCirca && (
-              <button
-                onClick={() => setSelectedBook("Circa")}
-                className="relative z-10 flex flex-col items-center gap-0.5 rounded-[7px] transition-all"
-                style={{
-                  opacity: selectedBook === "Circa" ? 1 : 0.5,
-                  background: "transparent",
-                  border: selectedBook === "Circa" ? "1.5px solid white" : "none",
-                  padding: "4px"
-                }}
-              >
-                <img src={circaLogo} alt="Circa" className="w-9 h-9 object-cover rounded-[7px]" style={{ display: "block" }} />
-                <span className="text-[9px] font-semibold" style={{ color: "var(--ma-text-primary)" }}>Circa</span>
-              </button>
+              <div className="flex flex-col items-center gap-1">
+                <button
+                  onClick={() => setSelectedBook("Circa")}
+                  className="relative z-10 w-9 h-9 rounded-[7px] transition-all overflow-hidden"
+                  style={{
+                    opacity: selectedBook === "Circa" ? 1 : 0.5,
+                    background: "transparent",
+                    border: selectedBook === "Circa" ? "1.5px solid white" : "none",
+                    padding: 0
+                  }}
+                >
+                  <img src={circaLogo} alt="Circa" className="w-full h-full object-cover rounded-[7px]" style={{ display: "block" }} />
+                </button>
+                <span 
+                  className="text-[9px] font-semibold" 
+                  style={{ color: selectedBook === "Circa" ? "var(--ma-text-primary)" : "var(--ma-text-secondary)" }}
+                >
+                  Circa
+                </span>
+              </div>
             )}
           </div>
         </div>

@@ -78,9 +78,16 @@ export function validateGameData(game: any): game is RawSplitGame {
 export function validateResponse(data: any): data is EdgeGuideLatestResponse {
   try {
     EdgeGuideLatestResponseSchema.parse(data);
+    console.log("✅ Zod validation passed");
     return true;
-  } catch (error) {
-    console.error('Invalid response structure:', error);
+  } catch (error: any) {
+    console.error('❌ Zod validation failed with detailed errors:');
+    if (error.errors) {
+      error.errors.forEach((err: any) => {
+        console.error(`  Path: ${err.path.join('.')} | Message: ${err.message}`);
+      });
+    }
+    console.error('Full error:', error);
     return false;
   }
 }

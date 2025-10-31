@@ -543,8 +543,12 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
                       const parts = displayGame.away.fullName?.split(" ") || [displayGame.away.name];
                       return parts.slice(0, -1).join(" ");
                     } else {
-                      // For pro sports: show city name(s)
-                      const parts = displayGame.away.name.split(" ");
+                      // For pro sports: handle multi-word nicknames
+                      const name = displayGame.away.name;
+                      if (name.includes("Blue Jays") || name.includes("Red Sox") || name.includes("White Sox")) {
+                        return name.split(" ").slice(0, -2).join(" ");
+                      }
+                      const parts = name.split(" ");
                       return parts.slice(0, -1).join(" ");
                     }
                   })()}
@@ -556,8 +560,12 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
                       const parts = displayGame.away.fullName?.split(" ") || [displayGame.away.abbr];
                       return parts[parts.length - 1];
                     } else {
-                      // For pro sports: show nickname
-                      const parts = displayGame.away.name.split(" ");
+                      // For pro sports: handle multi-word nicknames
+                      const name = displayGame.away.name;
+                      if (name.includes("Blue Jays") || name.includes("Red Sox") || name.includes("White Sox")) {
+                        return name.split(" ").slice(-2).join(" ");
+                      }
+                      const parts = name.split(" ");
                       return parts[parts.length - 1];
                     }
                   })()}
@@ -581,8 +589,12 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
                       const parts = displayGame.home.fullName?.split(" ") || [displayGame.home.name];
                       return parts.slice(0, -1).join(" ");
                     } else {
-                      // For pro sports: show city name(s)
-                      const parts = displayGame.home.name.split(" ");
+                      // For pro sports: handle multi-word nicknames
+                      const name = displayGame.home.name;
+                      if (name.includes("Blue Jays") || name.includes("Red Sox") || name.includes("White Sox")) {
+                        return name.split(" ").slice(0, -2).join(" ");
+                      }
+                      const parts = name.split(" ");
                       return parts.slice(0, -1).join(" ");
                     }
                   })()}
@@ -594,8 +606,12 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
                       const parts = displayGame.home.fullName?.split(" ") || [displayGame.home.abbr];
                       return parts[parts.length - 1];
                     } else {
-                      // For pro sports: show nickname
-                      const parts = displayGame.home.name.split(" ");
+                      // For pro sports: handle multi-word nicknames
+                      const name = displayGame.home.name;
+                      if (name.includes("Blue Jays") || name.includes("Red Sox") || name.includes("White Sox")) {
+                        return name.split(" ").slice(-2).join(" ");
+                      }
+                      const parts = name.split(" ");
                       return parts[parts.length - 1];
                     }
                   })()}

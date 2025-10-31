@@ -8,9 +8,9 @@ import latestOddsData from "@/data/latest-odds.json";
 // Map specific game IDs to their metadata
 const GAME_METADATA: Record<string, { time: string; tv: string; primetime?: string; stadium: string; specialLogo?: string }> = {
   // Oct 31, 2025 - CFB
-  "20251031CFB00205": { time: "19:00", tv: "ESPN", stadium: "Rice Stadium, Houston, TX" },
+  "20251031CFB00205": { time: "19:00", tv: "ESPN2", stadium: "Rice Stadium, Houston, TX" },
   "20251031CFB00214": { time: "19:30", tv: "ESPN", stadium: "JMA Wireless Dome, Syracuse, NY" },
-  "20251031CFB00170": { time: "20:00", tv: "ESPN", stadium: "Joe Aillet Stadium, Ruston, LA" },
+  "20251031CFB00170": { time: "20:00", tv: "CBSSN", stadium: "Joe Aillet Stadium, Ruston, LA" },
   
   // Oct 31, 2025 - NBA
   "20251031NBA00073": { time: "19:10", tv: "NBA League Pass", stadium: "Gainbridge Fieldhouse, Indianapolis, IN" },

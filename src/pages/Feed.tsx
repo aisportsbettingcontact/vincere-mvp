@@ -21,6 +21,8 @@ import nbcLogo from "@/assets/NBC.png";
 import amazonPrimeLogo from "@/assets/Amazon-Prime.png";
 import cbsLogo from "@/assets/CBS.png";
 import espnLogo from "@/assets/ESPN.png";
+import espn2Logo from "@/assets/ESPN2.png";
+import cbssnLogo from "@/assets/CBSSN.png";
 import nflBerlinLogo from "@/assets/nfl-berlin.png";
 import tntLogo from "@/assets/TNT.png";
 import { areColorsSimilar, getBestContrastColor } from "@/utils/colorSimilarity";
@@ -33,6 +35,8 @@ const TV_LOGOS: Record<string, string> = {
   "Amazon": amazonPrimeLogo,
   "CBS": cbsLogo,
   "ESPN": espnLogo,
+  "ESPN2": espn2Logo,
+  "CBSSN": cbssnLogo,
   "Prime Video": amazonPrimeLogo,
   "NFL Network": espnLogo,
   "TNT": tntLogo,

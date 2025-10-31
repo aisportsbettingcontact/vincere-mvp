@@ -184,14 +184,18 @@ function parseEdgeGuideData(data: EdgeGuideLatestResponse): GameOdds[] {
   if (data.books.DK?.CFB) {
     Object.values(data.books.DK.CFB).forEach(dateGames => {
       dateGames.forEach(game => {
-        allGames.push(parseGame(game, "DK"));
+        // Filter out October 30th games
+        if (game.d !== "20251030") {
+          allGames.push(parseGame(game, "DK"));
+        }
       });
     });
   }
   
   if (data.books.DK?.NBA) {
     Object.entries(data.books.DK.NBA).forEach(([date, dateGames]) => {
-      if (date !== "20251029") {
+      // Filter out October 29th and 30th games
+      if (date !== "20251029" && date !== "20251030") {
         dateGames.forEach(game => {
           allGames.push(parseGame(game, "DK"));
         });
@@ -202,7 +206,10 @@ function parseEdgeGuideData(data: EdgeGuideLatestResponse): GameOdds[] {
   if (data.books.DK?.NHL) {
     Object.values(data.books.DK.NHL).forEach(dateGames => {
       dateGames.forEach(game => {
-        allGames.push(parseGame(game, "DK"));
+        // Filter out October 30th games
+        if (game.d !== "20251030") {
+          allGames.push(parseGame(game, "DK"));
+        }
       });
     });
   }
@@ -238,7 +245,10 @@ function parseEdgeGuideData(data: EdgeGuideLatestResponse): GameOdds[] {
   if (data.books.CIRCA?.CFB) {
     Object.values(data.books.CIRCA.CFB).forEach(dateGames => {
       dateGames.forEach(game => {
-        allGames.push(parseGame(game, "CIRCA"));
+        // Filter out October 30th games
+        if (game.d !== "20251030") {
+          allGames.push(parseGame(game, "CIRCA"));
+        }
       });
     });
   }
@@ -246,7 +256,10 @@ function parseEdgeGuideData(data: EdgeGuideLatestResponse): GameOdds[] {
   if (data.books.CIRCA?.NHL) {
     Object.values(data.books.CIRCA.NHL).forEach(dateGames => {
       dateGames.forEach(game => {
-        allGames.push(parseGame(game, "CIRCA"));
+        // Filter out October 30th games
+        if (game.d !== "20251030") {
+          allGames.push(parseGame(game, "CIRCA"));
+        }
       });
     });
   }

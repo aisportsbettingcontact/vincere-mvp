@@ -8,19 +8,19 @@ import latestOddsData from "@/data/latest-odds.json";
 // Map specific game IDs to their metadata
 const GAME_METADATA: Record<string, { time: string; tv: string; primetime?: string; stadium: string; specialLogo?: string }> = {
   // Week 9 - Nov 2-3, 2025
-  "20251102NFL00001": { time: "13:00", tv: "CBS", stadium: "Paycor Stadium, Cincinnati, OH" },
-  "20251102NFL00002": { time: "13:00", tv: "FOX", stadium: "Ford Field, Detroit, MI" },
-  "20251102NFL00003": { time: "13:00", tv: "FOX", stadium: "Lambeau Field, Green Bay, WI" },
-  "20251102NFL00004": { time: "13:00", tv: "CBS", stadium: "Nissan Stadium, Nashville, TN" },
-  "20251102NFL00005": { time: "13:00", tv: "CBS", stadium: "Gillette Stadium, Foxborough, MA" },
-  "20251102NFL00006": { time: "13:00", tv: "CBS", stadium: "MetLife Stadium, East Rutherford, NJ" },
-  "20251102NFL00007": { time: "13:00", tv: "CBS", stadium: "Acrisure Stadium, Pittsburgh, PA" },
-  "20251102NFL00008": { time: "13:00", tv: "FOX", stadium: "NRG Stadium, Houston, TX" },
-  "20251102NFL00009": { time: "16:05", tv: "FOX", stadium: "Allegiant Stadium, Las Vegas, NV" },
-  "20251102NFL00010": { time: "16:05", tv: "FOX", stadium: "SoFi Stadium, Inglewood, CA" },
-  "20251102NFL00011": { time: "16:25", tv: "CBS", stadium: "Highmark Stadium, Orchard Park, NY" },
-  "20251102NFL00012": { time: "20:20", tv: "NBC", primetime: "SNF", stadium: "Northwest Stadium, Landover, MD" },
-  "20251103NFL00001": { time: "20:15", tv: "ABC", primetime: "MNF", stadium: "AT&T Stadium, Arlington, TX" },
+  "20251102NFL00036": { time: "13:00", tv: "CBS", stadium: "Paycor Stadium, Cincinnati, OH" },
+  "20251102NFL00052": { time: "13:00", tv: "FOX", stadium: "Ford Field, Detroit, MI" },
+  "20251102NFL00053": { time: "13:00", tv: "FOX", stadium: "Lambeau Field, Green Bay, WI" },
+  "20251102NFL00042": { time: "13:00", tv: "CBS", stadium: "Nissan Stadium, Nashville, TN" },
+  "20251102NFL00033": { time: "13:00", tv: "CBS", stadium: "Gillette Stadium, Foxborough, MA" },
+  "20251102NFL00048": { time: "13:00", tv: "CBS", stadium: "MetLife Stadium, East Rutherford, NJ" },
+  "20251102NFL00038": { time: "13:00", tv: "CBS", stadium: "Acrisure Stadium, Pittsburgh, PA" },
+  "20251102NFL00039": { time: "13:00", tv: "FOX", stadium: "NRG Stadium, Houston, TX" },
+  "20251102NFL00045": { time: "16:05", tv: "FOX", stadium: "Allegiant Stadium, Las Vegas, NV" },
+  "20251102NFL00062": { time: "16:05", tv: "FOX", stadium: "SoFi Stadium, Inglewood, CA" },
+  "20251102NFL00031": { time: "16:25", tv: "CBS", stadium: "Highmark Stadium, Orchard Park, NY" },
+  "20251102NFL00050": { time: "20:20", tv: "NBC", primetime: "SNF", stadium: "Northwest Stadium, Landover, MD" },
+  "20251103NFL00047": { time: "20:15", tv: "ABC", primetime: "MNF", stadium: "AT&T Stadium, Arlington, TX" },
   
   // Week 10 - Nov 6-10, 2025
   "20251106NFL00043": { time: "20:15", tv: "Prime Video", primetime: "TNF", stadium: "Empower Field at Mile High, Denver, CO" },
@@ -165,7 +165,10 @@ function parseEdgeGuideData(data: EdgeGuideLatestResponse): GameOdds[] {
   if (data.books.DK?.NFL) {
     Object.values(data.books.DK.NFL).forEach(dateGames => {
       dateGames.forEach(game => {
-        allGames.push(parseGame(game, "DK"));
+        // Filter out completed Ravens @ Dolphins game
+        if (game.id !== "20251030NFL00032") {
+          allGames.push(parseGame(game, "DK"));
+        }
       });
     });
   }
@@ -216,7 +219,10 @@ function parseEdgeGuideData(data: EdgeGuideLatestResponse): GameOdds[] {
   if (data.books.CIRCA?.NFL) {
     Object.values(data.books.CIRCA.NFL).forEach(dateGames => {
       dateGames.forEach(game => {
-        allGames.push(parseGame(game, "CIRCA"));
+        // Filter out completed Ravens @ Dolphins game
+        if (game.id !== "20251030NFL00032") {
+          allGames.push(parseGame(game, "CIRCA"));
+        }
       });
     });
   }

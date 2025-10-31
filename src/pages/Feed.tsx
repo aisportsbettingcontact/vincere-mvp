@@ -493,16 +493,7 @@ function formatGameDate(dateString: string): string {
 
 // Lines Card - displays all three markets at once
 function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
-  const { data: allGames } = useEdgeGuideData();
-  
-  // Find the game data for the selected book
-  const displayGame = useMemo(() => {
-    const bookFilter = book === "Circa" ? "CIRCA" : book;
-    const matchingGame = allGames?.find(g => g.gameId === game.gameId && g.book === bookFilter);
-    return matchingGame || game;
-  }, [game.gameId, book, game, allGames]);
-  
-  const firstOdds = displayGame.odds[0];
+  const firstOdds = game.odds[0];
   
   return (
     <motion.div 
@@ -521,38 +512,38 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
         }}
       >
         <div className="text-xs font-semibold" style={{ color: "var(--ma-text-secondary)" }}>
-          {formatGameDate(displayGame.kickoff)} • {formatGameTime(displayGame.kickoff)}
+          {formatGameDate(game.kickoff)} • {formatGameTime(game.kickoff)}
         </div>
-        {displayGame.specialLogo && SPECIAL_LOGOS[displayGame.specialLogo] && (
+        {game.specialLogo && SPECIAL_LOGOS[game.specialLogo] && (
           <>
             <span style={{ color: "var(--ma-text-secondary)" }}>•</span>
-            <img src={SPECIAL_LOGOS[displayGame.specialLogo]} alt="Special Game" className="h-5 w-auto object-contain" />
+            <img src={SPECIAL_LOGOS[game.specialLogo]} alt="Special Game" className="h-5 w-auto object-contain" />
           </>
         )}
-        {displayGame.tvInfo && TV_LOGOS[displayGame.tvInfo] && (
+        {game.tvInfo && TV_LOGOS[game.tvInfo] && (
           <>
             <span style={{ color: "var(--ma-text-secondary)" }}>•</span>
             <div className="flex items-center gap-1.5">
-              <img src={TV_LOGOS[displayGame.tvInfo]} alt={displayGame.tvInfo} className="h-4 w-auto object-contain" />
+              <img src={TV_LOGOS[game.tvInfo]} alt={game.tvInfo} className="h-4 w-auto object-contain" />
               <span className="text-xs font-semibold" style={{ color: "var(--ma-text-primary)" }}>
-                {displayGame.tvInfo}
+                {game.tvInfo}
               </span>
             </div>
           </>
         )}
-        {displayGame.primetime && (
+        {game.primetime && (
           <>
             <span style={{ color: "var(--ma-text-secondary)" }}>•</span>
             <span className="text-xs font-bold" style={{ color: "var(--ma-text-primary)" }}>
-              {displayGame.primetime}
+              {game.primetime}
             </span>
           </>
         )}
-        {displayGame.stadium && (
+        {game.stadium && (
           <>
             <span style={{ color: "var(--ma-text-secondary)" }}>•</span>
             <span className="text-xs font-medium" style={{ color: "var(--ma-text-secondary)" }}>
-              {displayGame.stadium}
+              {game.stadium}
             </span>
           </>
         )}
@@ -570,35 +561,35 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
         >
           <div className="flex flex-col items-center justify-center gap-1">
             <div className="text-base font-semibold" style={{ color: "var(--ma-text-secondary)" }}>
-              {formatGameDate(displayGame.kickoff)}
+              {formatGameDate(game.kickoff)}
             </div>
             <div className="text-xs font-medium" style={{ color: "var(--ma-text-secondary)" }}>
-              {formatGameTime(displayGame.kickoff)}
+              {formatGameTime(game.kickoff)}
             </div>
-            {displayGame.specialLogo && SPECIAL_LOGOS[displayGame.specialLogo] && (
+            {game.specialLogo && SPECIAL_LOGOS[game.specialLogo] && (
               <div className="flex justify-center">
-                <img src={SPECIAL_LOGOS[displayGame.specialLogo]} alt="Special Game" className="h-4 w-auto object-contain" />
+                <img src={SPECIAL_LOGOS[game.specialLogo]} alt="Special Game" className="h-4 w-auto object-contain" />
               </div>
             )}
-            {displayGame.tvInfo && TV_LOGOS[displayGame.tvInfo] && (
+            {game.tvInfo && TV_LOGOS[game.tvInfo] && (
               <div className="flex items-center gap-1.5">
-                <img src={TV_LOGOS[displayGame.tvInfo]} alt={displayGame.tvInfo} className="h-3 w-auto object-contain" />
+                <img src={TV_LOGOS[game.tvInfo]} alt={game.tvInfo} className="h-3 w-auto object-contain" />
                 <span className="text-[10px] font-semibold" style={{ color: "var(--ma-text-primary)" }}>
-                  {displayGame.tvInfo}
+                  {game.tvInfo}
                 </span>
-                {displayGame.primetime && (
+                {game.primetime && (
                   <>
                     <span className="text-[10px]" style={{ color: "var(--ma-text-secondary)" }}>•</span>
                     <span className="text-[10px] font-bold" style={{ color: "var(--ma-text-primary)" }}>
-                      {displayGame.primetime}
+                      {game.primetime}
                     </span>
                   </>
                 )}
               </div>
             )}
-            {displayGame.stadium && (
+            {game.stadium && (
               <div className="text-[9px] font-medium text-center leading-tight" style={{ color: "var(--ma-text-secondary)" }}>
-                {displayGame.stadium}
+                {game.stadium}
               </div>
             )}
           </div>
@@ -623,32 +614,32 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
           {/* Left: Teams */}
           <div className="flex flex-col justify-center items-center relative">
             <div className="flex flex-col items-center mb-1">
-              <img src={getTeamLogo(displayGame.sport, displayGame.away.espnAbbr)} alt="" className="w-12 h-12 rounded flex-shrink-0 mb-1.5" />
+              <img src={getTeamLogo(game.sport, game.away.espnAbbr)} alt="" className="w-12 h-12 rounded flex-shrink-0 mb-1.5" />
               <div className="flex flex-col items-center text-center leading-tight">
                 <div className="text-[10px] font-semibold whitespace-nowrap" style={{ color: "var(--ma-text-primary)" }}>
                   {(() => {
-                    if (displayGame.sport === "CFB" || displayGame.sport === "CBB") {
+                    if (game.sport === "CFB" || game.sport === "CBB") {
                       // For college: show school name on first line
-                      return displayGame.away.name;
+                      return game.away.name;
                     } else {
                       // For pro sports: extract city from fullName
-                      const fullName = displayGame.away.fullName || displayGame.away.name;
-                      const nickname = displayGame.away.name;
+                      const fullName = game.away.fullName || game.away.name;
+                      const nickname = game.away.name;
                       // Remove nickname from fullName to get city
                       const city = fullName.replace(nickname, "").trim();
-                      return city || displayGame.away.abbr;
+                      return city || game.away.abbr;
                     }
                   })()}
                 </div>
                 <div className="text-[8px] font-bold whitespace-nowrap" style={{ color: "var(--ma-text-primary)" }}>
                   {(() => {
-                    if (displayGame.sport === "CFB" || displayGame.sport === "CBB") {
+                    if (game.sport === "CFB" || game.sport === "CBB") {
                       // For college: show nickname on second line
-                      const nickname = displayGame.away.fullName?.replace(displayGame.away.name, "").trim();
-                      return nickname || displayGame.away.abbr;
+                      const nickname = game.away.fullName?.replace(game.away.name, "").trim();
+                      return nickname || game.away.abbr;
                     } else {
                       // For pro sports: nickname is the name field
-                      return displayGame.away.name;
+                      return game.away.name;
                     }
                   })()}
                 </div>
@@ -662,32 +653,32 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
             </div>
             
             <div className="flex flex-col items-center mt-1">
-              <img src={getTeamLogo(displayGame.sport, displayGame.home.espnAbbr)} alt="" className="w-12 h-12 rounded flex-shrink-0 mb-1.5" />
+              <img src={getTeamLogo(game.sport, game.home.espnAbbr)} alt="" className="w-12 h-12 rounded flex-shrink-0 mb-1.5" />
               <div className="flex flex-col items-center text-center leading-tight">
                 <div className="text-[10px] font-semibold whitespace-nowrap" style={{ color: "var(--ma-text-primary)" }}>
                   {(() => {
-                    if (displayGame.sport === "CFB" || displayGame.sport === "CBB") {
+                    if (game.sport === "CFB" || game.sport === "CBB") {
                       // For college: show school name on first line
-                      return displayGame.home.name;
+                      return game.home.name;
                     } else {
                       // For pro sports: extract city from fullName
-                      const fullName = displayGame.home.fullName || displayGame.home.name;
-                      const nickname = displayGame.home.name;
+                      const fullName = game.home.fullName || game.home.name;
+                      const nickname = game.home.name;
                       // Remove nickname from fullName to get city
                       const city = fullName.replace(nickname, "").trim();
-                      return city || displayGame.home.abbr;
+                      return city || game.home.abbr;
                     }
                   })()}
                 </div>
                 <div className="text-[8px] font-bold whitespace-nowrap" style={{ color: "var(--ma-text-primary)" }}>
                   {(() => {
-                    if (displayGame.sport === "CFB" || displayGame.sport === "CBB") {
+                    if (game.sport === "CFB" || game.sport === "CBB") {
                       // For college: show nickname on second line
-                      const nickname = displayGame.home.fullName?.replace(displayGame.home.name, "").trim();
-                      return nickname || displayGame.home.abbr;
+                      const nickname = game.home.fullName?.replace(game.home.name, "").trim();
+                      return nickname || game.home.abbr;
                     } else {
                       // For pro sports: nickname is the name field
-                      return displayGame.home.name;
+                      return game.home.name;
                     }
                   })()}
                 </div>
@@ -863,26 +854,26 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
             <div className="flex flex-col items-center justify-center h-full">
               {/* Away Team */}
               <div className="flex items-center justify-center gap-2 md:gap-3 py-1.5 md:py-2">
-                <img src={getTeamLogo(displayGame.sport, displayGame.away.espnAbbr)} alt="" className="w-6 h-6 md:w-8 md:h-8 rounded flex-shrink-0" />
+                <img src={getTeamLogo(game.sport, game.away.espnAbbr)} alt="" className="w-6 h-6 md:w-8 md:h-8 rounded flex-shrink-0" />
                 <div className="flex flex-col text-center">
                   <div className="text-xs md:text-sm font-semibold" style={{ color: "var(--ma-text-primary)" }}>
                     {(() => {
-                      if (displayGame.sport === "CFB" || displayGame.sport === "CBB") {
-                        return displayGame.away.name;
+                      if (game.sport === "CFB" || game.sport === "CBB") {
+                        return game.away.name;
                       } else {
-                        const fullName = displayGame.away.fullName || displayGame.away.name;
-                        const nickname = displayGame.away.name;
-                        return fullName.replace(nickname, "").trim() || displayGame.away.abbr;
+                        const fullName = game.away.fullName || game.away.name;
+                        const nickname = game.away.name;
+                        return fullName.replace(nickname, "").trim() || game.away.abbr;
                       }
                     })()}
                   </div>
                   <div className="text-[10px] md:text-xs font-bold" style={{ color: "var(--ma-text-primary)" }}>
                     {(() => {
-                      if (displayGame.sport === "CFB" || displayGame.sport === "CBB") {
-                        const nickname = displayGame.away.fullName?.replace(displayGame.away.name, "").trim();
-                        return nickname || displayGame.away.abbr;
+                      if (game.sport === "CFB" || game.sport === "CBB") {
+                        const nickname = game.away.fullName?.replace(game.away.name, "").trim();
+                        return nickname || game.away.abbr;
                       } else {
-                        return displayGame.away.name;
+                        return game.away.name;
                       }
                     })()}
                   </div>
@@ -898,26 +889,26 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
               
               {/* Home Team */}
               <div className="flex items-center justify-center gap-2 md:gap-3 py-1.5 md:py-2">
-                <img src={getTeamLogo(displayGame.sport, displayGame.home.espnAbbr)} alt="" className="w-6 h-6 md:w-8 md:h-8 rounded flex-shrink-0" />
+                <img src={getTeamLogo(game.sport, game.home.espnAbbr)} alt="" className="w-6 h-6 md:w-8 md:h-8 rounded flex-shrink-0" />
                 <div className="flex flex-col text-center">
                   <div className="text-xs md:text-sm font-semibold" style={{ color: "var(--ma-text-primary)" }}>
                     {(() => {
-                      if (displayGame.sport === "CFB" || displayGame.sport === "CBB") {
-                        return displayGame.home.name;
+                      if (game.sport === "CFB" || game.sport === "CBB") {
+                        return game.home.name;
                       } else {
-                        const fullName = displayGame.home.fullName || displayGame.home.name;
-                        const nickname = displayGame.home.name;
-                        return fullName.replace(nickname, "").trim() || displayGame.home.abbr;
+                        const fullName = game.home.fullName || game.home.name;
+                        const nickname = game.home.name;
+                        return fullName.replace(nickname, "").trim() || game.home.abbr;
                       }
                     })()}
                   </div>
                   <div className="text-[10px] md:text-xs font-bold" style={{ color: "var(--ma-text-primary)" }}>
                     {(() => {
-                      if (displayGame.sport === "CFB" || displayGame.sport === "CBB") {
-                        const nickname = displayGame.home.fullName?.replace(displayGame.home.name, "").trim();
-                        return nickname || displayGame.home.abbr;
+                      if (game.sport === "CFB" || game.sport === "CBB") {
+                        const nickname = game.home.fullName?.replace(game.home.name, "").trim();
+                        return nickname || game.home.abbr;
                       } else {
-                        return displayGame.home.name;
+                        return game.home.name;
                       }
                     })()}
                   </div>
@@ -1087,52 +1078,43 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
 
 // Splits Card - displays ticket/money percentages for all markets
 function SplitsCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
-  const { data: allGames } = useEdgeGuideData();
-  
-  // Find the game data for the selected book
-  const displayGame = useMemo(() => {
-    const bookFilter = book === "Circa" ? "CIRCA" : book;
-    const matchingGame = allGames?.find(g => g.gameId === game.gameId && g.book === bookFilter);
-    return matchingGame || game;
-  }, [game.gameId, book, game, allGames]);
-  
-  const firstOdds = displayGame.odds[0];
+  const firstOdds = game.odds[0];
   
   // Calculate data for all three markets
   const spreadsData = useMemo(() => {
-    const tickets = { left: displayGame.splits.spread.away.tickets, right: displayGame.splits.spread.home.tickets };
-    const money = { left: displayGame.splits.spread.away.handle, right: displayGame.splits.spread.home.handle };
+    const tickets = { left: game.splits.spread.away.tickets, right: game.splits.spread.home.tickets };
+    const money = { left: game.splits.spread.away.handle, right: game.splits.spread.home.handle };
     const currentLine = firstOdds?.spread?.away?.line || 0;
     const hasSpread = currentLine !== 0;
     
     // Check if colors are too similar
-    const colorsSimilar = areColorsSimilar(displayGame.away.color, displayGame.home.color);
+    const colorsSimilar = areColorsSimilar(game.away.color, game.home.color);
     const awayColor = colorsSimilar 
-      ? getBestContrastColor(displayGame.away.color, displayGame.away.secondaryColor, displayGame.away.tertiaryColor)
-      : displayGame.away.color;
+      ? getBestContrastColor(game.away.color, game.away.secondaryColor, game.away.tertiaryColor)
+      : game.away.color;
     
     return {
       tickets,
       money,
-      leftLabel: displayGame.away.abbr,
-      rightLabel: displayGame.home.abbr,
-      lineDisplay: hasSpread ? `${displayGame.away.abbr} ${formatSpreadLine(currentLine)}` : "-",
+      leftLabel: game.away.abbr,
+      rightLabel: game.home.abbr,
+      lineDisplay: hasSpread ? `${game.away.abbr} ${formatSpreadLine(currentLine)}` : "-",
       leftColor: awayColor,
-      rightColor: displayGame.home.color
+      rightColor: game.home.color
     };
-  }, [displayGame, firstOdds]);
+  }, [game, firstOdds]);
   
   const totalsData = useMemo(() => {
-    const tickets = { left: displayGame.splits.total.over.tickets, right: displayGame.splits.total.under.tickets };
-    const money = { left: displayGame.splits.total.over.handle, right: displayGame.splits.total.under.handle };
+    const tickets = { left: game.splits.total.over.tickets, right: game.splits.total.under.tickets };
+    const money = { left: game.splits.total.over.handle, right: game.splits.total.under.handle };
     const currentLine = firstOdds?.total?.over?.line || 0;
     const hasTotal = currentLine !== 0;
     
     // Check if colors are too similar - Over uses away color, Under uses home color
-    const colorsSimilar = areColorsSimilar(displayGame.away.color, displayGame.home.color);
+    const colorsSimilar = areColorsSimilar(game.away.color, game.home.color);
     const overColor = colorsSimilar 
-      ? getBestContrastColor(displayGame.away.color, displayGame.away.secondaryColor, displayGame.away.tertiaryColor)
-      : displayGame.away.color;
+      ? getBestContrastColor(game.away.color, game.away.secondaryColor, game.away.tertiaryColor)
+      : game.away.color;
     
     return {
       tickets,
@@ -1141,32 +1123,32 @@ function SplitsCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
       rightLabel: "Under",
       lineDisplay: hasTotal ? `${currentLine}` : "-",
       leftColor: overColor,
-      rightColor: displayGame.home.color
+      rightColor: game.home.color
     };
-  }, [displayGame, firstOdds]);
+  }, [game, firstOdds]);
   
   const mlData = useMemo(() => {
-    const tickets = { left: displayGame.splits.moneyline.away.tickets, right: displayGame.splits.moneyline.home.tickets };
-    const money = { left: displayGame.splits.moneyline.away.handle, right: displayGame.splits.moneyline.home.handle };
+    const tickets = { left: game.splits.moneyline.away.tickets, right: game.splits.moneyline.home.tickets };
+    const money = { left: game.splits.moneyline.away.handle, right: game.splits.moneyline.home.handle };
     const awayML = firstOdds?.moneyline?.away?.american;
     const hasML = awayML && awayML !== 0;
     
     // Check if colors are too similar
-    const colorsSimilar = areColorsSimilar(displayGame.away.color, displayGame.home.color);
+    const colorsSimilar = areColorsSimilar(game.away.color, game.home.color);
     const awayColor = colorsSimilar 
-      ? getBestContrastColor(displayGame.away.color, displayGame.away.secondaryColor, displayGame.away.tertiaryColor)
-      : displayGame.away.color;
+      ? getBestContrastColor(game.away.color, game.away.secondaryColor, game.away.tertiaryColor)
+      : game.away.color;
     
     return {
       tickets,
       money,
-      leftLabel: displayGame.away.abbr,
-      rightLabel: displayGame.home.abbr,
-      lineDisplay: hasML ? `${displayGame.away.abbr} ${awayML! > 0 ? '+' : ''}${awayML}` : "-",
+      leftLabel: game.away.abbr,
+      rightLabel: game.home.abbr,
+      lineDisplay: hasML ? `${game.away.abbr} ${awayML! > 0 ? '+' : ''}${awayML}` : "-",
       leftColor: awayColor,
-      rightColor: displayGame.home.color
+      rightColor: game.home.color
     };
-  }, [displayGame, firstOdds]);
+  }, [game, firstOdds]);
 
   return (
     <motion.div 
@@ -1179,48 +1161,48 @@ function SplitsCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
       <div className="p-4">
         {/* Teams Row */}
         <div className="flex items-center gap-2 justify-center md:justify-start flex-shrink-0 mb-3">
-          <img src={getTeamLogo(displayGame.sport, displayGame.away.espnAbbr)} alt="" className="w-7 h-7 rounded" />
-          <span className="font-bold text-base" style={{ color: "var(--ma-text-primary)" }}>{displayGame.away.abbr}</span>
+          <img src={getTeamLogo(game.sport, game.away.espnAbbr)} alt="" className="w-7 h-7 rounded" />
+          <span className="font-bold text-base" style={{ color: "var(--ma-text-primary)" }}>{game.away.abbr}</span>
           <span className="text-sm" style={{ color: "var(--ma-text-secondary)" }}>@</span>
-          <img src={getTeamLogo(displayGame.sport, displayGame.home.espnAbbr)} alt="" className="w-7 h-7 rounded" />
-          <span className="font-bold text-base" style={{ color: "var(--ma-text-primary)" }}>{displayGame.home.abbr}</span>
+          <img src={getTeamLogo(game.sport, game.home.espnAbbr)} alt="" className="w-7 h-7 rounded" />
+          <span className="font-bold text-base" style={{ color: "var(--ma-text-primary)" }}>{game.home.abbr}</span>
         </div>
         
         {/* Game Metadata Row */}
         <div className="flex items-center justify-center gap-2 flex-wrap mb-4 text-xs">
           <span className="font-medium" style={{ color: "var(--ma-text-secondary)" }}>
-            {formatGameDate(displayGame.kickoff)} • {formatGameTime(displayGame.kickoff)}
+            {formatGameDate(game.kickoff)} • {formatGameTime(game.kickoff)}
           </span>
-          {displayGame.specialLogo && SPECIAL_LOGOS[displayGame.specialLogo] && (
+          {game.specialLogo && SPECIAL_LOGOS[game.specialLogo] && (
             <>
               <span style={{ color: "var(--ma-text-secondary)" }}>•</span>
-              <img src={SPECIAL_LOGOS[displayGame.specialLogo]} alt="Special Game" className="h-4 w-auto object-contain" />
+              <img src={SPECIAL_LOGOS[game.specialLogo]} alt="Special Game" className="h-4 w-auto object-contain" />
             </>
           )}
-          {displayGame.tvInfo && TV_LOGOS[displayGame.tvInfo] && (
+          {game.tvInfo && TV_LOGOS[game.tvInfo] && (
             <>
               <span style={{ color: "var(--ma-text-secondary)" }}>•</span>
               <div className="flex items-center gap-1.5">
-                <img src={TV_LOGOS[displayGame.tvInfo]} alt={displayGame.tvInfo} className="h-3 w-auto object-contain" />
+                <img src={TV_LOGOS[game.tvInfo]} alt={game.tvInfo} className="h-3 w-auto object-contain" />
                 <span className="font-semibold" style={{ color: "var(--ma-text-primary)" }}>
-                  {displayGame.tvInfo}
+                  {game.tvInfo}
                 </span>
               </div>
             </>
           )}
-          {displayGame.primetime && (
+          {game.primetime && (
             <>
               <span style={{ color: "var(--ma-text-secondary)" }}>•</span>
               <span className="font-bold" style={{ color: "var(--ma-text-primary)" }}>
-                {displayGame.primetime}
+                {game.primetime}
               </span>
             </>
           )}
-          {displayGame.stadium && (
+          {game.stadium && (
             <>
               <span style={{ color: "var(--ma-text-secondary)" }}>•</span>
               <span className="font-medium" style={{ color: "var(--ma-text-secondary)" }}>
-                {displayGame.stadium}
+                {game.stadium}
               </span>
             </>
           )}

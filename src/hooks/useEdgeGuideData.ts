@@ -5,30 +5,29 @@ import { getTeamInfo } from "@/utils/teamMappings";
 import { getTeamColors } from "@/utils/teamColors";
 import rawSplitsDataImport from "@/data/nfl-splits-raw.json";
 
-// Map specific game IDs to their actual kickoff times (ET in 24h format)
-const GAME_TIMES: Record<string, string> = {
-  "20251030NFL00032": "20:15",
-  "20251102NFL00036": "13:00",
-  "20251102NFL00048": "13:00",
-  "20251102NFL00033": "13:00",
-  "20251102NFL00038": "13:00",
-  "20251102NFL00053": "13:00",
-  "20251102NFL00052": "13:00",
-  "20251102NFL00039": "13:00",
-  "20251102NFL00042": "13:00",
-  "20251102NFL00045": "13:00",
-  "20251102NFL00062": "16:05",
-  "20251102NFL00031": "16:25",
-  "20251102NFL00050": "16:25",
-  "20251102NFL00047": "20:20",
-  "20251103NFL00040": "20:15",
+// Map specific game IDs to their metadata
+const GAME_METADATA: Record<string, { time: string; tv: string; primetime?: string; stadium: string }> = {
+  "20251102NFL00001": { time: "13:00", tv: "CBS", stadium: "Paycor Stadium, Cincinnati, OH" },
+  "20251102NFL00002": { time: "13:00", tv: "FOX", stadium: "Ford Field, Detroit, MI" },
+  "20251102NFL00003": { time: "13:00", tv: "FOX", stadium: "Lambeau Field, Green Bay, WI" },
+  "20251102NFL00004": { time: "13:00", tv: "CBS", stadium: "Nissan Stadium, Nashville, TN" },
+  "20251102NFL00005": { time: "13:00", tv: "CBS", stadium: "Gillette Stadium, Foxborough, MA" },
+  "20251102NFL00006": { time: "13:00", tv: "CBS", stadium: "MetLife Stadium, East Rutherford, NJ" },
+  "20251102NFL00007": { time: "13:00", tv: "CBS", stadium: "Acrisure Stadium, Pittsburgh, PA" },
+  "20251102NFL00008": { time: "13:00", tv: "FOX", stadium: "NRG Stadium, Houston, TX" },
+  "20251102NFL00009": { time: "16:05", tv: "FOX", stadium: "Allegiant Stadium, Las Vegas, NV" },
+  "20251102NFL00010": { time: "16:05", tv: "FOX", stadium: "SoFi Stadium, Inglewood, CA" },
+  "20251102NFL00011": { time: "16:25", tv: "CBS", stadium: "Highmark Stadium, Orchard Park, NY" },
+  "20251102NFL00012": { time: "20:20", tv: "NBC", primetime: "SNF", stadium: "Northwest Stadium, Landover, MD" },
+  "20251103NFL00001": { time: "20:15", tv: "ABC", primetime: "MNF", stadium: "AT&T Stadium, Arlington, TX" },
 };
 
 function formatDate(dateStr: string, gameId: string, sport: string): string {
   const year = dateStr.slice(0, 4);
   const month = dateStr.slice(4, 6);
   const day = dateStr.slice(6, 8);
-  const time = GAME_TIMES[gameId] || (sport === "NBA" ? "19:00" : sport === "NHL" ? "19:00" : sport === "CFB" ? "12:00" : sport === "CBB" ? "19:00" : sport === "MLB" ? "19:00" : "13:00");
+  const metadata = GAME_METADATA[gameId];
+  const time = metadata?.time || (sport === "NBA" ? "19:00" : sport === "NHL" ? "19:00" : sport === "CFB" ? "12:00" : sport === "CBB" ? "19:00" : sport === "MLB" ? "19:00" : "13:00");
   return `${year}-${month}-${day}T${time}:00`;
 }
 
@@ -66,11 +65,16 @@ function parseGame(game: any, book: string): GameOdds {
     home: Math.round(game.ml[3][1] * 100)
   };
   
+  const metadata = GAME_METADATA[game.id];
+  
   return {
     gameId: game.id,
     sport: sport as "NFL" | "CFB" | "NBA" | "NHL",
     kickoff: formatDate(game.d, game.id, sport),
     book: book,
+    tvInfo: metadata?.tv,
+    primetime: metadata?.primetime,
+    stadium: metadata?.stadium,
     away: {
       name: awayTeam.name,
       fullName: awayTeam.fullName,

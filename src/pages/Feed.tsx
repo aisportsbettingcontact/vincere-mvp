@@ -1250,12 +1250,22 @@ function LineMovementCard({ game, selectedMarket, setSelectedMarket }: {
           </div>
         </div>
         <div className="flex items-center gap-2">
+          {game.primetime && (
+            <div className="text-[10px] font-bold text-white/90 px-2 py-1 rounded-md border border-white/20 bg-white/10">
+              {game.primetime}
+            </div>
+          )}
           <div className="text-xs text-white/80 bg-white/5 px-2 py-1 rounded-md border border-white/10 whitespace-nowrap">
             {formatGameTime(game.kickoff)}
           </div>
           {game.tvInfo && (
             <div className="text-[10px] text-white/60 px-2 py-1 rounded-md border border-white/10">
               {game.tvInfo}
+            </div>
+          )}
+          {game.stadium && (
+            <div className="text-[10px] text-white/50 px-2 py-1">
+              {game.stadium}
             </div>
           )}
         </div>
@@ -1477,13 +1487,25 @@ function AIAnalysisCard({ game, selectedMarket, setSelectedMarket }: {
             <div className="text-sm font-semibold text-white truncate">{game.home.abbr}</div>
           </div>
         </div>
-        <div className="flex items-center gap-2">
-          <div className="text-xs text-white/80 bg-white/5 px-2 py-1 rounded-md border border-white/10 whitespace-nowrap">
-            {formatGameTime(game.kickoff)}
+        <div className="flex flex-col gap-1">
+          <div className="flex items-center gap-2">
+            {game.primetime && (
+              <div className="text-[10px] font-bold text-white/90 px-2 py-1 rounded-md border border-white/20 bg-white/10">
+                {game.primetime}
+              </div>
+            )}
+            <div className="text-xs text-white/80 bg-white/5 px-2 py-1 rounded-md border border-white/10 whitespace-nowrap">
+              {formatGameTime(game.kickoff)}
+            </div>
+            {game.tvInfo && (
+              <div className="text-[10px] text-white/60 px-2 py-1 rounded-md border border-white/10">
+                {game.tvInfo}
+              </div>
+            )}
           </div>
-          {game.tvInfo && (
-            <div className="text-[10px] text-white/60 px-2 py-1 rounded-md border border-white/10">
-              {game.tvInfo}
+          {game.stadium && (
+            <div className="text-[10px] text-white/50">
+              {game.stadium}
             </div>
           )}
         </div>

@@ -95,6 +95,8 @@ export interface GameOdds {
     tertiaryColor: string;
   };
   tvInfo?: string;
+  primetime?: string;
+  stadium?: string;
   odds: Array<{
     book?: string;
     timestamp?: string;

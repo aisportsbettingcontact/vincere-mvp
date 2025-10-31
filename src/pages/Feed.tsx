@@ -15,7 +15,21 @@ import { supabase } from "@/integrations/supabase/client";
 import draftKingsLogo from "@/assets/draftkings-logo.png";
 import circaLogo from "@/assets/circa-logo.jpg";
 import worldSeriesLogo from "@/assets/worldseries.png";
+import foxLogo from "@/assets/FOX.png";
+import abcLogo from "@/assets/ABC.png";
+import nbcLogo from "@/assets/NBC.png";
+import amazonPrimeLogo from "@/assets/Amazon-Prime.png";
+import cbsLogo from "@/assets/CBS.png";
 import { areColorsSimilar, getBestContrastColor } from "@/utils/colorSimilarity";
+
+// Map TV network names to their logos
+const TV_LOGOS: Record<string, string> = {
+  "FOX": foxLogo,
+  "ABC": abcLogo,
+  "NBC": nbcLogo,
+  "Amazon": amazonPrimeLogo,
+  "CBS": cbsLogo,
+};
 
 // Format date as HH:MM am/pm ET
 function formatGameTime(dateString: string): string {
@@ -490,15 +504,29 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
     >
       {/* Date Header - Desktop Only */}
       <div 
-        className="hidden md:flex items-center justify-between px-4 py-2"
+        className="hidden md:flex items-center justify-center gap-2 px-4 py-2"
         style={{
           background: "var(--ma-bg)",
           borderBottom: "1px solid var(--ma-stroke)"
         }}
       >
         <div className="text-xs font-semibold" style={{ color: "var(--ma-text-secondary)" }}>
-          {formatGameDate(game.kickoff)} {formatGameTime(game.kickoff)}
+          {formatGameDate(game.kickoff)} • {formatGameTime(game.kickoff)}
         </div>
+        {game.tvInfo && TV_LOGOS[game.tvInfo] && (
+          <>
+            <span style={{ color: "var(--ma-text-secondary)" }}>•</span>
+            <img src={TV_LOGOS[game.tvInfo]} alt={game.tvInfo} className="h-4 w-auto object-contain" />
+          </>
+        )}
+        {game.primetime && (
+          <>
+            <span style={{ color: "var(--ma-text-secondary)" }}>•</span>
+            <span className="text-xs font-bold" style={{ color: "var(--ma-text-primary)" }}>
+              {game.primetime}
+            </span>
+          </>
+        )}
       </div>
 
       {/* Mobile Layout */}
@@ -511,13 +539,31 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
             borderBottom: "1px solid var(--ma-stroke)"
           }}
         >
-          <div className="flex flex-col items-center justify-center gap-0.5">
+          <div className="flex flex-col items-center justify-center gap-1">
             <div className="text-base font-semibold" style={{ color: "var(--ma-text-secondary)" }}>
               {formatGameDate(game.kickoff)}
             </div>
             <div className="text-xs font-medium" style={{ color: "var(--ma-text-secondary)" }}>
               {formatGameTime(game.kickoff)}
             </div>
+            {game.tvInfo && TV_LOGOS[game.tvInfo] && (
+              <div className="flex items-center gap-1.5">
+                <img src={TV_LOGOS[game.tvInfo]} alt={game.tvInfo} className="h-3 w-auto object-contain" />
+                {game.primetime && (
+                  <>
+                    <span className="text-[10px]" style={{ color: "var(--ma-text-secondary)" }}>•</span>
+                    <span className="text-[10px] font-bold" style={{ color: "var(--ma-text-primary)" }}>
+                      {game.primetime}
+                    </span>
+                  </>
+                )}
+              </div>
+            )}
+            {game.stadium && (
+              <div className="text-[9px] font-medium text-center leading-tight" style={{ color: "var(--ma-text-secondary)" }}>
+                {game.stadium}
+              </div>
+            )}
           </div>
           <div className="grid grid-cols-3 gap-2">
             <div className="text-xs font-semibold text-center" style={{ color: "var(--ma-text-secondary)" }}>

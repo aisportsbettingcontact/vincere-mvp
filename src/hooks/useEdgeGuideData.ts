@@ -179,9 +179,15 @@ function parseEdgeGuideData(data: EdgeGuideLatestResponse): GameOdds[] {
     });
   }
   
-  // Parse CIRCA MLB games
+  // Parse CIRCA MLB games (or duplicate from DK if CIRCA data doesn't exist)
   if (data.books.CIRCA?.MLB) {
     Object.values(data.books.CIRCA.MLB).forEach(dateGames => {
+      dateGames.forEach(game => {
+        allGames.push(parseGame(game, "CIRCA"));
+      });
+    });
+  } else if (data.books.DK?.MLB) {
+    Object.values(data.books.DK.MLB).forEach(dateGames => {
       dateGames.forEach(game => {
         allGames.push(parseGame(game, "CIRCA"));
       });
@@ -197,9 +203,15 @@ function parseEdgeGuideData(data: EdgeGuideLatestResponse): GameOdds[] {
     });
   }
   
-  // Parse CIRCA CFB games
+  // Parse CIRCA CFB games (or duplicate from DK if CIRCA data doesn't exist)
   if (data.books.CIRCA?.CFB) {
     Object.values(data.books.CIRCA.CFB).forEach(dateGames => {
+      dateGames.forEach(game => {
+        allGames.push(parseGame(game, "CIRCA"));
+      });
+    });
+  } else if (data.books.DK?.CFB) {
+    Object.values(data.books.DK.CFB).forEach(dateGames => {
       dateGames.forEach(game => {
         allGames.push(parseGame(game, "CIRCA"));
       });
@@ -217,9 +229,16 @@ function parseEdgeGuideData(data: EdgeGuideLatestResponse): GameOdds[] {
     });
   }
   
-  // Parse CIRCA NFL games
+  // Parse CIRCA NFL games (or duplicate from DK if CIRCA data doesn't exist)
   if (data.books.CIRCA?.NFL) {
     Object.values(data.books.CIRCA.NFL).forEach(dateGames => {
+      dateGames.forEach(game => {
+        allGames.push(parseGame(game, "CIRCA"));
+      });
+    });
+  } else if (data.books.DK?.NFL) {
+    // Fallback: Duplicate DK games as CIRCA if CIRCA data doesn't exist
+    Object.values(data.books.DK.NFL).forEach(dateGames => {
       dateGames.forEach(game => {
         allGames.push(parseGame(game, "CIRCA"));
       });
@@ -235,9 +254,15 @@ function parseEdgeGuideData(data: EdgeGuideLatestResponse): GameOdds[] {
     });
   }
   
-  // Parse CIRCA NHL games
+  // Parse CIRCA NHL games (or duplicate from DK if CIRCA data doesn't exist)
   if (data.books.CIRCA?.NHL) {
     Object.values(data.books.CIRCA.NHL).forEach(dateGames => {
+      dateGames.forEach(game => {
+        allGames.push(parseGame(game, "CIRCA"));
+      });
+    });
+  } else if (data.books.DK?.NHL) {
+    Object.values(data.books.DK.NHL).forEach(dateGames => {
       dateGames.forEach(game => {
         allGames.push(parseGame(game, "CIRCA"));
       });
@@ -253,9 +278,15 @@ function parseEdgeGuideData(data: EdgeGuideLatestResponse): GameOdds[] {
     });
   }
   
-  // Parse CIRCA CBB games
+  // Parse CIRCA CBB games (or duplicate from DK if CIRCA data doesn't exist)
   if (data.books.CIRCA?.CBB) {
     Object.values(data.books.CIRCA.CBB).forEach(dateGames => {
+      dateGames.forEach(game => {
+        allGames.push(parseGame(game, "CIRCA"));
+      });
+    });
+  } else if (data.books.DK?.CBB) {
+    Object.values(data.books.DK.CBB).forEach(dateGames => {
       dateGames.forEach(game => {
         allGames.push(parseGame(game, "CIRCA"));
       });

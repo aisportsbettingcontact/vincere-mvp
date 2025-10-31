@@ -36,7 +36,7 @@ const GAME_METADATA: Record<string, { time: string; tv: string; primetime?: stri
   "20251109NFL00060": { time: "16:25", tv: "FOX", stadium: "Levi's Stadium, Santa Clara, CA" },
   "20251109NFL00050": { time: "16:25", tv: "FOX", stadium: "Northwest Stadium, Landover, MD" },
   "20251109NFL00046": { time: "20:20", tv: "NBC", primetime: "SNF", stadium: "SoFi Stadium, Inglewood, CA" },
-  "20251110NFL00053": { time: "20:15", tv: "ESPN", primetime: "MNF", stadium: "Lambeau Field, Green Bay, WI" },
+  "20251110NFL00053": { time: "20:15", tv: "ABC", primetime: "MNF", stadium: "Lambeau Field, Green Bay, WI" },
 };
 
 function formatDate(dateStr: string, gameId: string, sport: string): string {

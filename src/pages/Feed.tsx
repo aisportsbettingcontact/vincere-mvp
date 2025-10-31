@@ -542,13 +542,12 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
                       // For college: show school name on first line
                       return displayGame.away.name;
                     } else {
-                      // For pro sports: handle multi-word nicknames
-                      const name = displayGame.away.name;
-                      if (name.includes("Blue Jays") || name.includes("Red Sox") || name.includes("White Sox")) {
-                        return name.split(" ").slice(0, -2).join(" ");
-                      }
-                      const parts = name.split(" ");
-                      return parts.slice(0, -1).join(" ");
+                      // For pro sports: extract city from fullName
+                      const fullName = displayGame.away.fullName || displayGame.away.name;
+                      const nickname = displayGame.away.name;
+                      // Remove nickname from fullName to get city
+                      const city = fullName.replace(nickname, "").trim();
+                      return city || displayGame.away.abbr;
                     }
                   })()}
                 </div>
@@ -559,13 +558,8 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
                       const nickname = displayGame.away.fullName?.replace(displayGame.away.name, "").trim();
                       return nickname || displayGame.away.abbr;
                     } else {
-                      // For pro sports: handle multi-word nicknames
-                      const name = displayGame.away.name;
-                      if (name.includes("Blue Jays") || name.includes("Red Sox") || name.includes("White Sox")) {
-                        return name.split(" ").slice(-2).join(" ");
-                      }
-                      const parts = name.split(" ");
-                      return parts[parts.length - 1];
+                      // For pro sports: nickname is the name field
+                      return displayGame.away.name;
                     }
                   })()}
                 </div>
@@ -587,13 +581,12 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
                       // For college: show school name on first line
                       return displayGame.home.name;
                     } else {
-                      // For pro sports: handle multi-word nicknames
-                      const name = displayGame.home.name;
-                      if (name.includes("Blue Jays") || name.includes("Red Sox") || name.includes("White Sox")) {
-                        return name.split(" ").slice(0, -2).join(" ");
-                      }
-                      const parts = name.split(" ");
-                      return parts.slice(0, -1).join(" ");
+                      // For pro sports: extract city from fullName
+                      const fullName = displayGame.home.fullName || displayGame.home.name;
+                      const nickname = displayGame.home.name;
+                      // Remove nickname from fullName to get city
+                      const city = fullName.replace(nickname, "").trim();
+                      return city || displayGame.home.abbr;
                     }
                   })()}
                 </div>
@@ -604,13 +597,8 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
                       const nickname = displayGame.home.fullName?.replace(displayGame.home.name, "").trim();
                       return nickname || displayGame.home.abbr;
                     } else {
-                      // For pro sports: handle multi-word nicknames
-                      const name = displayGame.home.name;
-                      if (name.includes("Blue Jays") || name.includes("Red Sox") || name.includes("White Sox")) {
-                        return name.split(" ").slice(-2).join(" ");
-                      }
-                      const parts = name.split(" ");
-                      return parts[parts.length - 1];
+                      // For pro sports: nickname is the name field
+                      return displayGame.home.name;
                     }
                   })()}
                 </div>
@@ -741,11 +729,28 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
               {/* Away Team */}
               <div className="flex items-center justify-center gap-2 md:gap-3 py-1.5 md:py-2">
                 <img src={getTeamLogo(displayGame.sport, displayGame.away.espnAbbr)} alt="" className="w-6 h-6 md:w-8 md:h-8 rounded flex-shrink-0" />
-                <div className="text-xs md:text-base font-bold" style={{ color: "var(--ma-text-primary)" }}>
-                  {displayGame.sport === "CFB" || displayGame.sport === "CBB" 
-                    ? displayGame.away.fullName || displayGame.away.name
-                    : displayGame.away.name
-                  }
+                <div className="flex flex-col text-center">
+                  <div className="text-xs md:text-sm font-semibold" style={{ color: "var(--ma-text-primary)" }}>
+                    {(() => {
+                      if (displayGame.sport === "CFB" || displayGame.sport === "CBB") {
+                        return displayGame.away.name;
+                      } else {
+                        const fullName = displayGame.away.fullName || displayGame.away.name;
+                        const nickname = displayGame.away.name;
+                        return fullName.replace(nickname, "").trim() || displayGame.away.abbr;
+                      }
+                    })()}
+                  </div>
+                  <div className="text-[10px] md:text-xs font-bold" style={{ color: "var(--ma-text-primary)" }}>
+                    {(() => {
+                      if (displayGame.sport === "CFB" || displayGame.sport === "CBB") {
+                        const nickname = displayGame.away.fullName?.replace(displayGame.away.name, "").trim();
+                        return nickname || displayGame.away.abbr;
+                      } else {
+                        return displayGame.away.name;
+                      }
+                    })()}
+                  </div>
                 </div>
               </div>
               
@@ -759,11 +764,28 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
               {/* Home Team */}
               <div className="flex items-center justify-center gap-2 md:gap-3 py-1.5 md:py-2">
                 <img src={getTeamLogo(displayGame.sport, displayGame.home.espnAbbr)} alt="" className="w-6 h-6 md:w-8 md:h-8 rounded flex-shrink-0" />
-                <div className="text-xs md:text-base font-bold" style={{ color: "var(--ma-text-primary)" }}>
-                  {displayGame.sport === "CFB" || displayGame.sport === "CBB"
-                    ? displayGame.home.fullName || displayGame.home.name
-                    : displayGame.home.name
-                  }
+                <div className="flex flex-col text-center">
+                  <div className="text-xs md:text-sm font-semibold" style={{ color: "var(--ma-text-primary)" }}>
+                    {(() => {
+                      if (displayGame.sport === "CFB" || displayGame.sport === "CBB") {
+                        return displayGame.home.name;
+                      } else {
+                        const fullName = displayGame.home.fullName || displayGame.home.name;
+                        const nickname = displayGame.home.name;
+                        return fullName.replace(nickname, "").trim() || displayGame.home.abbr;
+                      }
+                    })()}
+                  </div>
+                  <div className="text-[10px] md:text-xs font-bold" style={{ color: "var(--ma-text-primary)" }}>
+                    {(() => {
+                      if (displayGame.sport === "CFB" || displayGame.sport === "CBB") {
+                        const nickname = displayGame.home.fullName?.replace(displayGame.home.name, "").trim();
+                        return nickname || displayGame.home.abbr;
+                      } else {
+                        return displayGame.home.name;
+                      }
+                    })()}
+                  </div>
                 </div>
               </div>
             </div>

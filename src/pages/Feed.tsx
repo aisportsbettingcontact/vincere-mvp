@@ -564,14 +564,13 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
       <div className="md:hidden">
         {/* Date Header with Column Labels */}
         <div 
-          className="px-4 py-3"
           style={{
             background: "var(--ma-bg)",
             borderBottom: "1px solid var(--ma-stroke)"
           }}
         >
           {/* Single Line: Date, Time, Stadium */}
-          <div className="flex items-center justify-center gap-1.5 mb-2 flex-wrap text-center">
+          <div className="flex items-center justify-center gap-1.5 px-4 pt-3 pb-2 flex-wrap text-center">
             <span className="text-sm font-semibold text-white">
               {formatGameDate(game.kickoff)}
             </span>
@@ -589,10 +588,10 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
             )}
           </div>
 
-          {/* Bottom Row: TV Network + Column Headers */}
-          <div className="flex items-center gap-4">
-            {/* Left: TV Network Logo + Name */}
-            <div className="flex items-center gap-2 min-w-0 flex-shrink-0">
+          {/* Bottom Row: TV Network + Column Headers - Matching cell structure exactly */}
+          <div className="flex gap-4 px-4 pb-3">
+            {/* Left: TV Network Logo + Name - Same width as team column */}
+            <div className="flex items-center gap-2 flex-shrink-0 w-20">
               {game.tvInfo && TV_LOGOS[game.tvInfo] ? (
                 <>
                   <img 
@@ -604,12 +603,10 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
                     {game.tvInfo}
                   </span>
                 </>
-              ) : (
-                <div className="w-20" />
-              )}
+              ) : null}
             </div>
 
-            {/* Right: Column Headers - Centered over cells */}
+            {/* Right: Column Headers - Exact same grid structure as odds cells */}
             <div className="grid grid-cols-3 gap-2 flex-1">
               <div className="text-xs font-semibold text-center" style={{ color: "var(--ma-text-secondary)" }}>
                 Spread

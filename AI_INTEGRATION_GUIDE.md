@@ -21,62 +21,64 @@ Your EdgeGuide app now has **real AI-powered betting analysis** using Lovable AI
 - Shows user-friendly toasts for rate limits and errors
 - Automatically retries on market changes
 
-### 3. Example Component (`src/components/AIAnalysisCardExample.tsx`)
-- Drop-in replacement for your current `AIAnalysisCard`
-- Shows how to use the `useBettingInsights` hook
+### 3. Integration in Feed Page (`src/pages/Feed.tsx`)
+- AI insights integrated directly into the Feed component
+- Uses the `useBettingInsights` hook with real-time data
 - Displays loading states with spinners
 - Gracefully handles errors with fallback messages
 
-## 📝 How to Integrate Into Your Existing Code
+## 📝 Current Implementation
 
-### Step 1: Update Your `AIAnalysisCard` Component
+### How AI Analysis Works in Feed.tsx
 
-Replace your current `AIAnalysisCard` component with the pattern from `AIAnalysisCardExample.tsx`:
+The AI insights are now fully integrated into the Feed component:
 
 ```tsx
-// In your existing file where AIAnalysisCard is defined
+// In src/pages/Feed.tsx
 import { useBettingInsights } from "@/hooks/useBettingInsights";
 import { Loader2 } from "lucide-react";
 
-export function AIAnalysisCard({ game, sport }: { game: any; sport: string }) {
-  const [selectedMarket, setSelectedMarket] = useState<Market>("Spread");
+// Inside the AIAnalysisCard component
+const analysisParams = useMemo(() => ({
+  gameId: game.id,
+  sport: sport.toUpperCase(),
+  homeTeam: game.home,
+  awayTeam: game.away,
+  market: selectedMarket,
+  homeBetsPct: game.splits?.home.betsPct,
+  homeMoneyPct: game.splits?.home.moneyPct,
+  awayBetsPct: game.splits?.away.betsPct,
+  awayMoneyPct: game.splits?.away.moneyPct,
+  move: game.movement?.[0],
+}), [game, selectedMarket, sport]);
 
-  // Build parameters for AI analysis
-  const analysisParams = useMemo(() => {
-    // ... construct params from your game data ...
-    // See AIAnalysisCardExample.tsx for full implementation
-  }, [game, selectedMarket]);
+const { insights, loading, error } = useBettingInsights(analysisParams);
 
-  // Replace generateAIInsights with this:
-  const { insights, loading, error } = useBettingInsights(analysisParams);
-
-  return (
-    <div>
-      {/* ... your existing header and market toggle ... */}
-
-      {/* Replace your insights rendering with: */}
-      {loading ? (
-        <div className="flex items-center justify-center py-12">
-          <Loader2 className="w-8 h-8 animate-spin text-primary" />
-        </div>
-      ) : (
-        <div className="space-y-3">
-          {/* Use insights.bookNeed, insights.sharpSide, insights.publicSide */}
-        </div>
-      )}
-    </div>
-  );
-}
+// Display insights with loading states
+{loading ? (
+  <div className="flex items-center justify-center py-12">
+    <Loader2 className="w-8 h-8 animate-spin text-primary" />
+  </div>
+) : error ? (
+  <p className="text-sm text-muted-foreground text-center py-8">
+    Analysis unavailable. Please try again.
+  </p>
+) : insights ? (
+  <div className="space-y-3">
+    {/* Render insights.bookNeed, insights.sharpSide, insights.publicSide */}
+  </div>
+) : null}
 ```
 
-### Step 2: Remove Old Mock Logic
+### Key Features in Production
 
-Delete or comment out:
-- `generateAIInsights` function from `utils/aiAnalysis.ts`
-- Any hash-based mock data generation
-- Hardcoded insight text
+✅ **Real-time AI Generation** - Insights generated on-demand for each game  
+✅ **Market-Aware** - Updates automatically when user changes ML/Spread/Total  
+✅ **Error Resilience** - Graceful fallbacks for API issues  
+✅ **Loading States** - Clear feedback during analysis  
+✅ **No Mock Data** - All insights powered by Google Gemini 2.5 Flash
 
-### Step 3: Test the Integration
+### Test the Integration
 
 1. Open your app and navigate to a game with AI analysis
 2. Select different markets (ML, Spread, Total)
@@ -137,12 +139,15 @@ graph LR
 
 The app automatically shows user-friendly toasts when these limits are hit.
 
-## 🚀 Next Steps
+## 🚀 Current Status
 
-1. Replace your `AIAnalysisCard` component with the new pattern
-2. Test with different markets and games
-3. Customize the insight display to match your design
-4. Monitor usage in Lovable Cloud dashboard
+✅ AI insights are fully integrated in the Feed page  
+✅ Real-time analysis using Google Gemini 2.5 Flash  
+✅ All mock data and deprecated patterns removed  
+✅ Clean architecture with single source of truth
+
+### Monitor Your Usage
+Check AI credit usage in your Lovable Cloud dashboard to track API consumption.
 
 ## 🆘 Troubleshooting
 
@@ -169,4 +174,4 @@ The app automatically shows user-friendly toasts when these limits are hit.
 
 ---
 
-**Need help?** Check the `AIAnalysisCardExample.tsx` file for a complete working example!
+**Need help?** Check the `src/pages/Feed.tsx` file for the complete implementation!

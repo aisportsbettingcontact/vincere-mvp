@@ -48,8 +48,8 @@ const GAME_TIMES: Record<string, string> = {
   "20251102NFL00031": "16:25", // KC @ BUF - Sunday late afternoon
   "20251102NFL00050": "16:25", // SEA @ WAS - Sunday late afternoon
   "20251103NFL00040": "20:15", // TB @ KC - Monday Night Football
-  // MLB games
-  "20251102MLB00001": "20:00", // LAD @ TOR - FOX at Rogers Centre, Toronto, ON
+  // MLB games - Dodgers @ Blue Jays on 10/31 at 8:00pm EST
+  "20251031MLB00001": "20:00", // LAD @ TOR - FOX at Rogers Centre, Toronto, ON
 };
 
 function formatDate(dateStr: string, gameId: string, sport: string): string {
@@ -58,8 +58,8 @@ function formatDate(dateStr: string, gameId: string, sport: string): string {
   const month = dateStr.slice(4, 6);
   const day = dateStr.slice(6, 8);
   
-  // NBA games default to 7:00pm ET, NFL uses specific times or 1:00pm default
-  const time = GAME_TIMES[gameId] || (sport === "NBA" ? "19:00" : "13:00");
+  // NBA and MLB games default to 7:00pm ET, NFL uses specific times or 1:00pm default
+  const time = GAME_TIMES[gameId] || (sport === "NBA" || sport === "MLB" ? "19:00" : "13:00");
   
   // Return ISO format date string that will be parsed by formatGameTime in Feed.tsx
   return `${year}-${month}-${day}T${time}:00`;

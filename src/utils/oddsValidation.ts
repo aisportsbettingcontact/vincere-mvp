@@ -32,6 +32,7 @@ export type RawSplitGame = z.infer<typeof RawSplitGameSchema>;
 // Schema for the entire response
 export const EdgeGuideLatestResponseSchema = z.object({
   generated_at: z.string(),
+  tz_anchor: z.string().optional(), // Timezone anchor (e.g., "UTC-10:00")
   books: z.object({
     DK: z.object({
       NFL: z.record(z.string(), z.array(RawSplitGameSchema)).optional(),

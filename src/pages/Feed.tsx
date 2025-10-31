@@ -531,7 +531,11 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
           <>
             <span style={{ color: "var(--ma-text-secondary)" }}>•</span>
             <div className="flex items-center gap-1.5">
-              <img src={TV_LOGOS[game.tvInfo]} alt={game.tvInfo} className="h-3 w-auto object-contain" />
+              <img 
+                src={TV_LOGOS[game.tvInfo]} 
+                alt={game.tvInfo} 
+                className={`w-auto object-contain ${game.tvInfo === 'ESPN2' ? 'h-2.5' : 'h-3'}`} 
+              />
               <span className="text-xs font-semibold" style={{ color: "var(--ma-text-primary)" }}>
                 {game.tvInfo}
               </span>
@@ -580,7 +584,11 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
             )}
             {game.tvInfo && TV_LOGOS[game.tvInfo] && (
               <div className="flex items-center gap-1.5">
-                <img src={TV_LOGOS[game.tvInfo]} alt={game.tvInfo} className="h-3 w-auto object-contain" />
+                <img 
+                  src={TV_LOGOS[game.tvInfo]} 
+                  alt={game.tvInfo} 
+                  className={`w-auto object-contain ${game.tvInfo === 'ESPN2' ? 'h-2' : 'h-3'}`}
+                />
                 <span className="text-[10px] font-semibold" style={{ color: "var(--ma-text-primary)" }}>
                   {game.tvInfo}
                 </span>
@@ -1196,7 +1204,11 @@ function SplitsCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
               <>
                 <span style={{ color: "var(--ma-text-secondary)" }}>•</span>
                 <div className="flex items-center gap-1.5">
-                  <img src={TV_LOGOS[game.tvInfo]} alt={game.tvInfo} className="h-3 w-auto object-contain" />
+                  <img 
+                    src={TV_LOGOS[game.tvInfo]} 
+                    alt={game.tvInfo} 
+                    className={`w-auto object-contain ${game.tvInfo === 'ESPN2' ? 'h-2' : 'h-3'}`}
+                  />
                   <span className="font-semibold" style={{ color: "var(--ma-text-primary)" }}>
                     {game.tvInfo}
                   </span>

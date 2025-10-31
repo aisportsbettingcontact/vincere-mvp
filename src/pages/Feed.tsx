@@ -1159,53 +1159,85 @@ function SplitsCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
       }}
     >
       <div className="p-4">
-        {/* Teams Row */}
-        <div className="flex items-center gap-2 justify-center md:justify-start flex-shrink-0 mb-3">
-          <img src={getTeamLogo(game.sport, game.away.espnAbbr)} alt="" className="w-7 h-7 rounded" />
-          <span className="font-bold text-base" style={{ color: "var(--ma-text-primary)" }}>{game.away.abbr}</span>
-          <span className="text-sm" style={{ color: "var(--ma-text-secondary)" }}>@</span>
-          <img src={getTeamLogo(game.sport, game.home.espnAbbr)} alt="" className="w-7 h-7 rounded" />
-          <span className="font-bold text-base" style={{ color: "var(--ma-text-primary)" }}>{game.home.abbr}</span>
+        {/* Desktop: Team Nicknames + Metadata Header */}
+        <div className="hidden md:block mb-4">
+          {/* Team Nicknames Row - Centered */}
+          <div className="flex items-center justify-center gap-2 mb-2">
+            <img src={getTeamLogo(game.sport, game.away.espnAbbr)} alt="" className="w-7 h-7 rounded" />
+            <span className="font-bold text-lg" style={{ color: "var(--ma-text-primary)" }}>
+              {game.away.name.toUpperCase()}
+            </span>
+            <span className="text-sm font-semibold" style={{ color: "var(--ma-text-secondary)" }}>@</span>
+            <img src={getTeamLogo(game.sport, game.home.espnAbbr)} alt="" className="w-7 h-7 rounded" />
+            <span className="font-bold text-lg" style={{ color: "var(--ma-text-primary)" }}>
+              {game.home.name.toUpperCase()}
+            </span>
+          </div>
+          
+          {/* Game Metadata Row - Centered */}
+          <div className="flex items-center justify-center gap-2 flex-wrap text-xs">
+            <span className="font-medium" style={{ color: "var(--ma-text-secondary)" }}>
+              {formatGameDate(game.kickoff)} • {formatGameTime(game.kickoff)}
+            </span>
+            {game.specialLogo && SPECIAL_LOGOS[game.specialLogo] && (
+              <>
+                <span style={{ color: "var(--ma-text-secondary)" }}>•</span>
+                <img src={SPECIAL_LOGOS[game.specialLogo]} alt="Special Game" className="h-4 w-auto object-contain" />
+              </>
+            )}
+            {game.tvInfo && TV_LOGOS[game.tvInfo] && (
+              <>
+                <span style={{ color: "var(--ma-text-secondary)" }}>•</span>
+                <div className="flex items-center gap-1.5">
+                  <img src={TV_LOGOS[game.tvInfo]} alt={game.tvInfo} className="h-3 w-auto object-contain" />
+                  <span className="font-semibold" style={{ color: "var(--ma-text-primary)" }}>
+                    {game.tvInfo}
+                  </span>
+                </div>
+              </>
+            )}
+            {game.primetime && (
+              <>
+                <span style={{ color: "var(--ma-text-secondary)" }}>•</span>
+                <span className="font-bold" style={{ color: "var(--ma-text-primary)" }}>
+                  {game.primetime}
+                </span>
+              </>
+            )}
+            {game.stadium && (
+              <>
+                <span style={{ color: "var(--ma-text-secondary)" }}>•</span>
+                <span className="font-medium" style={{ color: "var(--ma-text-secondary)" }}>
+                  {game.stadium}
+                </span>
+              </>
+            )}
+          </div>
         </div>
-        
-        {/* Game Metadata Row */}
-        <div className="flex items-center justify-center gap-2 flex-wrap mb-4 text-xs">
-          <span className="font-medium" style={{ color: "var(--ma-text-secondary)" }}>
-            {formatGameDate(game.kickoff)} • {formatGameTime(game.kickoff)}
-          </span>
-          {game.specialLogo && SPECIAL_LOGOS[game.specialLogo] && (
-            <>
-              <span style={{ color: "var(--ma-text-secondary)" }}>•</span>
-              <img src={SPECIAL_LOGOS[game.specialLogo]} alt="Special Game" className="h-4 w-auto object-contain" />
-            </>
-          )}
-          {game.tvInfo && TV_LOGOS[game.tvInfo] && (
-            <>
-              <span style={{ color: "var(--ma-text-secondary)" }}>•</span>
-              <div className="flex items-center gap-1.5">
-                <img src={TV_LOGOS[game.tvInfo]} alt={game.tvInfo} className="h-3 w-auto object-contain" />
+
+        {/* Mobile: Compact Teams + Metadata */}
+        <div className="md:hidden mb-4">
+          <div className="flex items-center gap-2 justify-center mb-2">
+            <img src={getTeamLogo(game.sport, game.away.espnAbbr)} alt="" className="w-7 h-7 rounded" />
+            <span className="font-bold text-base" style={{ color: "var(--ma-text-primary)" }}>{game.away.abbr}</span>
+            <span className="text-sm" style={{ color: "var(--ma-text-secondary)" }}>@</span>
+            <img src={getTeamLogo(game.sport, game.home.espnAbbr)} alt="" className="w-7 h-7 rounded" />
+            <span className="font-bold text-base" style={{ color: "var(--ma-text-primary)" }}>{game.home.abbr}</span>
+          </div>
+          
+          <div className="flex items-center justify-center gap-2 flex-wrap text-xs">
+            <span className="font-medium" style={{ color: "var(--ma-text-secondary)" }}>
+              {formatGameDate(game.kickoff)} • {formatGameTime(game.kickoff)}
+            </span>
+            {game.tvInfo && (
+              <>
+                <span style={{ color: "var(--ma-text-secondary)" }}>•</span>
                 <span className="font-semibold" style={{ color: "var(--ma-text-primary)" }}>
                   {game.tvInfo}
                 </span>
-              </div>
-            </>
-          )}
-          {game.primetime && (
-            <>
-              <span style={{ color: "var(--ma-text-secondary)" }}>•</span>
-              <span className="font-bold" style={{ color: "var(--ma-text-primary)" }}>
-                {game.primetime}
-              </span>
-            </>
-          )}
-          {game.stadium && (
-            <>
-              <span style={{ color: "var(--ma-text-secondary)" }}>•</span>
-              <span className="font-medium" style={{ color: "var(--ma-text-secondary)" }}>
-                {game.stadium}
-              </span>
-            </>
-          )}
+              </>
+            )}
+          </div>
         </div>
         
         {/* Moneyline */}

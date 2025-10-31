@@ -646,18 +646,6 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
             </div>
           </div>
         </div>
-
-        {/* Footer */}
-        <div 
-          className="flex items-center justify-between px-4 py-3"
-          style={{
-            background: "var(--ma-surface)",
-            borderTop: "1px solid var(--ma-stroke)"
-          }}
-        >
-          <div></div>
-          <div></div>
-        </div>
       </div>
 
       {/* Desktop Layout */}

@@ -53,7 +53,6 @@ function parseEdgeGuideData(data: EdgeGuideLatestResponse): GameOdds[] {
  * - Automatic filtering of past games (no manual date updates needed)
  * - Data validation with Zod schemas
  * - Smart error handling and logging
- * - Auto-refresh every 5 minutes
  * - Intelligent metadata fallbacks
  */
 export function useEdgeGuideData() {
@@ -86,11 +85,8 @@ export function useEdgeGuideData() {
         throw error;
       }
     },
-    staleTime: 1000 * 60 * 5,      // Data is stale after 5 minutes
-    gcTime: 1000 * 60 * 10,         // Keep in cache for 10 minutes (formerly cacheTime)
-    refetchOnMount: true,           // Refetch when component mounts
-    refetchInterval: 1000 * 60 * 5, // Auto-refresh every 5 minutes
-    retry: 2,                       // Retry failed requests twice
-    throwOnError: false,            // Don't throw on error, let UI handle it
+    staleTime: Infinity,   // Static uploaded data never goes stale
+    retry: 2,              // Retry failed requests twice
+    throwOnError: false,   // Don't throw on error, let UI handle it
   });
 }

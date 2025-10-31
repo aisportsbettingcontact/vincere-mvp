@@ -19,11 +19,15 @@ interface RawSplitsDataFormat {
   generated_at: string;
   books: {
     DK: {
-      NFL: Record<string, RawSplitGame[]>;
-      NBA: Record<string, RawSplitGame[]>;
+      NFL?: Record<string, RawSplitGame[]>;
+      NBA?: Record<string, RawSplitGame[]>;
+      CFB?: Record<string, RawSplitGame[]>;
+      CBB?: Record<string, RawSplitGame[]>;
+      NHL?: Record<string, RawSplitGame[]>;
+      MLB?: Record<string, RawSplitGame[]>;
     };
-    CIRCA: {
-      NFL: Record<string, RawSplitGame[]>;
+    CIRCA?: {
+      NFL?: Record<string, RawSplitGame[]>;
     };
   };
 }
@@ -64,23 +68,18 @@ export function parseRawSplits(): GameOdds[] {
   const rawData = rawSplitsDataImport as unknown as RawSplitsDataFormat;
   const allGames: GameOdds[] = [];
   
-  // Parse DK NFL games
-  if (rawData.books.DK.NFL) {
-    Object.values(rawData.books.DK.NFL).forEach(dateGames => {
-      dateGames.forEach(game => {
-        allGames.push(parseGame(game, "DK"));
+  // Parse DK games for all sports
+  const dkSports = ['NFL', 'NBA', 'CFB', 'CBB', 'NHL', 'MLB'] as const;
+  dkSports.forEach(sportKey => {
+    const sportData = rawData.books.DK[sportKey];
+    if (sportData) {
+      Object.values(sportData).forEach(dateGames => {
+        dateGames.forEach(game => {
+          allGames.push(parseGame(game, "DK"));
+        });
       });
-    });
-  }
-  
-  // Parse DK NBA games
-  if (rawData.books.DK.NBA) {
-    Object.values(rawData.books.DK.NBA).forEach(dateGames => {
-      dateGames.forEach(game => {
-        allGames.push(parseGame(game, "DK"));
-      });
-    });
-  }
+    }
+  });
   
   // Parse CIRCA NFL games
   if (rawData.books.CIRCA?.NFL) {
@@ -104,37 +103,45 @@ function parseGame(game: RawSplitGame, book: string): GameOdds {
     const awayColors = getTeamColors(awayTeam.fullName, sport);
     const homeColors = getTeamColors(homeTeam.fullName, sport);
     
+    // Check if spread/total data exists (handle missing data for some CFB games)
+    const hasSpread = game.spr && game.spr.length >= 4 && game.spr[2] && game.spr[3];
+    const hasTotal = game.tot && game.tot.length >= 3 && game.tot[1] && game.tot[2];
+    const hasML = game.ml && game.ml.length >= 4 && game.ml[2] && game.ml[3];
+    
     // Convert decimal percentages to whole numbers (0.35 -> 35)
-    const spreadTickets = {
+    const spreadTickets = hasSpread ? {
       away: Math.round(game.spr[2][0] * 100),
       home: Math.round(game.spr[2][1] * 100)
-    };
-    const spreadMoney = {
+    } : { away: 0, home: 0 };
+    
+    const spreadMoney = hasSpread ? {
       away: Math.round(game.spr[3][0] * 100),
       home: Math.round(game.spr[3][1] * 100)
-    };
+    } : { away: 0, home: 0 };
     
-    const totalTickets = {
+    const totalTickets = hasTotal ? {
       over: Math.round(game.tot[1][0] * 100),
       under: Math.round(game.tot[1][1] * 100)
-    };
-    const totalMoney = {
+    } : { over: 0, under: 0 };
+    
+    const totalMoney = hasTotal ? {
       over: Math.round(game.tot[2][0] * 100),
       under: Math.round(game.tot[2][1] * 100)
-    };
+    } : { over: 0, under: 0 };
     
-    const mlTickets = {
+    const mlTickets = hasML ? {
       away: Math.round(game.ml[2][0] * 100),
       home: Math.round(game.ml[2][1] * 100)
-    };
-    const mlMoney = {
+    } : { away: 0, home: 0 };
+    
+    const mlMoney = hasML ? {
       away: Math.round(game.ml[3][0] * 100),
       home: Math.round(game.ml[3][1] * 100)
-    };
+    } : { away: 0, home: 0 };
     
     return {
       gameId: game.id,
-      sport: sport as "NFL" | "NBA",
+      sport: sport as "NFL" | "NBA" | "CFB" | "CBB" | "NHL" | "MLB",
       kickoff: formatDate(game.d, game.id, sport),
       book: book,
       away: {
@@ -157,11 +164,14 @@ function parseGame(game: RawSplitGame, book: string): GameOdds {
         {
           book: "consensus",
           timestamp: new Date().toISOString(),
-          moneyline: {
+          moneyline: hasML ? {
             away: { american: game.ml[0], decimal: 0, implied: 0 },
             home: { american: game.ml[1], decimal: 0, implied: 0 }
+          } : {
+            away: { american: 0, decimal: 0, implied: 0 },
+            home: { american: 0, decimal: 0, implied: 0 }
           },
-          spread: {
+          spread: hasSpread ? {
             away: {
               line: game.spr[0],
               odds: { american: -110, decimal: 0, implied: 0 }
@@ -170,8 +180,17 @@ function parseGame(game: RawSplitGame, book: string): GameOdds {
               line: game.spr[1],
               odds: { american: -110, decimal: 0, implied: 0 }
             }
+          } : {
+            away: {
+              line: 0,
+              odds: { american: 0, decimal: 0, implied: 0 }
+            },
+            home: {
+              line: 0,
+              odds: { american: 0, decimal: 0, implied: 0 }
+            }
           },
-          total: {
+          total: hasTotal ? {
             over: {
               line: game.tot[0],
               odds: { american: -110, decimal: 0, implied: 0 }
@@ -179,6 +198,15 @@ function parseGame(game: RawSplitGame, book: string): GameOdds {
             under: {
               line: game.tot[0],
               odds: { american: -110, decimal: 0, implied: 0 }
+            }
+          } : {
+            over: {
+              line: 0,
+              odds: { american: 0, decimal: 0, implied: 0 }
+            },
+            under: {
+              line: 0,
+              odds: { american: 0, decimal: 0, implied: 0 }
             }
           }
         }

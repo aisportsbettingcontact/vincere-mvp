@@ -37,6 +37,12 @@ function formatGameTime(dateString: string): string {
 // Convert GameOdds to Matchup format for LineHistoryTable
 function convertGameOddsToMatchup(game: GameOdds): Matchup {
   const firstOdds = game.odds[0];
+  
+  // Check if spread/total data is missing (line = 0 means no data)
+  const hasSpread = firstOdds?.spread?.away && firstOdds.spread.away.line !== 0;
+  const hasTotal = firstOdds?.total?.over && firstOdds.total.over.line !== 0;
+  const hasML = firstOdds?.moneyline?.away && firstOdds.moneyline.away.american !== 0;
+  
   return {
     dateTime: game.kickoff,
     away: {
@@ -44,11 +50,11 @@ function convertGameOddsToMatchup(game: GameOdds): Matchup {
       espnAbbr: game.away.espnAbbr,
       color: game.away.color,
       odds: {
-        ml: firstOdds?.moneyline?.away ? (firstOdds.moneyline.away.american > 0 ? `+${firstOdds.moneyline.away.american}` : `${firstOdds.moneyline.away.american}`) : "-110",
-        spread: firstOdds?.spread?.away ? formatSpreadLine(firstOdds.spread.away.line) : "+7.5",
-        spreadOdds: firstOdds?.spread?.away ? (firstOdds.spread.away.odds.american > 0 ? `+${firstOdds.spread.away.odds.american}` : `${firstOdds.spread.away.odds.american}`) : "-110",
-        total: firstOdds?.total?.over ? `O ${firstOdds.total.over.line}` : "O 40.5",
-        totalOdds: firstOdds?.total?.over ? (firstOdds.total.over.odds.american > 0 ? `+${firstOdds.total.over.odds.american}` : `${firstOdds.total.over.odds.american}`) : "-110",
+        ml: hasML ? (firstOdds.moneyline!.away.american > 0 ? `+${firstOdds.moneyline!.away.american}` : `${firstOdds.moneyline!.away.american}`) : "-",
+        spread: hasSpread ? formatSpreadLine(firstOdds.spread!.away.line) : "-",
+        spreadOdds: hasSpread ? (firstOdds.spread!.away.odds.american > 0 ? `+${firstOdds.spread!.away.odds.american}` : `${firstOdds.spread!.away.odds.american}`) : "-",
+        total: hasTotal ? `O ${firstOdds.total!.over.line}` : "-",
+        totalOdds: hasTotal ? (firstOdds.total!.over.odds.american > 0 ? `+${firstOdds.total!.over.odds.american}` : `${firstOdds.total!.over.odds.american}`) : "-",
       },
     },
     home: {
@@ -56,11 +62,11 @@ function convertGameOddsToMatchup(game: GameOdds): Matchup {
       espnAbbr: game.home.espnAbbr,
       color: game.home.color,
       odds: {
-        ml: firstOdds?.moneyline?.home ? (firstOdds.moneyline.home.american > 0 ? `+${firstOdds.moneyline.home.american}` : `${firstOdds.moneyline.home.american}`) : "-110",
-        spread: firstOdds?.spread?.home ? formatSpreadLine(firstOdds.spread.home.line) : "-7.5",
-        spreadOdds: firstOdds?.spread?.home ? (firstOdds.spread.home.odds.american > 0 ? `+${firstOdds.spread.home.odds.american}` : `${firstOdds.spread.home.odds.american}`) : "-110",
-        total: firstOdds?.total?.under ? `U ${firstOdds.total.under.line}` : "U 40.5",
-        totalOdds: firstOdds?.total?.under ? (firstOdds.total.under.odds.american > 0 ? `+${firstOdds.total.under.odds.american}` : `${firstOdds.total.under.odds.american}`) : "-110",
+        ml: hasML ? (firstOdds.moneyline!.home.american > 0 ? `+${firstOdds.moneyline!.home.american}` : `${firstOdds.moneyline!.home.american}`) : "-",
+        spread: hasSpread ? formatSpreadLine(firstOdds.spread!.home.line) : "-",
+        spreadOdds: hasSpread ? (firstOdds.spread!.home.odds.american > 0 ? `+${firstOdds.spread!.home.odds.american}` : `${firstOdds.spread!.home.odds.american}`) : "-",
+        total: hasTotal ? `U ${firstOdds.total!.under.line}` : "-",
+        totalOdds: hasTotal ? (firstOdds.total!.under.odds.american > 0 ? `+${firstOdds.total!.under.odds.american}` : `${firstOdds.total!.under.odds.american}`) : "-",
       },
     },
   };
@@ -921,7 +927,8 @@ function SplitsCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
   const spreadsData = useMemo(() => {
     const tickets = { left: displayGame.splits.spread.away.tickets, right: displayGame.splits.spread.home.tickets };
     const money = { left: displayGame.splits.spread.away.handle, right: displayGame.splits.spread.home.handle };
-    const currentLine = firstOdds?.spread?.away?.line || -3.5;
+    const currentLine = firstOdds?.spread?.away?.line || 0;
+    const hasSpread = currentLine !== 0;
     
     // Check if colors are too similar
     const colorsSimilar = areColorsSimilar(displayGame.away.color, displayGame.home.color);
@@ -934,7 +941,7 @@ function SplitsCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
       money,
       leftLabel: displayGame.away.abbr,
       rightLabel: displayGame.home.abbr,
-      lineDisplay: `${displayGame.away.abbr} ${formatSpreadLine(currentLine)}`,
+      lineDisplay: hasSpread ? `${displayGame.away.abbr} ${formatSpreadLine(currentLine)}` : "-",
       leftColor: awayColor,
       rightColor: displayGame.home.color
     };
@@ -943,7 +950,8 @@ function SplitsCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
   const totalsData = useMemo(() => {
     const tickets = { left: displayGame.splits.total.over.tickets, right: displayGame.splits.total.under.tickets };
     const money = { left: displayGame.splits.total.over.handle, right: displayGame.splits.total.under.handle };
-    const currentLine = firstOdds?.total?.over?.line || 47.5;
+    const currentLine = firstOdds?.total?.over?.line || 0;
+    const hasTotal = currentLine !== 0;
     
     // Check if colors are too similar - Over uses away color, Under uses home color
     const colorsSimilar = areColorsSimilar(displayGame.away.color, displayGame.home.color);
@@ -954,9 +962,9 @@ function SplitsCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
     return {
       tickets,
       money,
-      leftLabel: "O",
-      rightLabel: "U",
-      lineDisplay: `${currentLine}`,
+      leftLabel: "Over",
+      rightLabel: "Under",
+      lineDisplay: hasTotal ? `${currentLine}` : "-",
       leftColor: overColor,
       rightColor: displayGame.home.color
     };
@@ -1223,20 +1231,23 @@ function AIAnalysisCard({ game, selectedMarket, setSelectedMarket }: {
     
     if (selectedMarket === "Spread") {
       const awaySpread = firstOdds?.spread?.away?.line;
-      currentLine = awaySpread !== undefined ? formatSpreadLine(awaySpread) : "+3.5";
-      openLine = awaySpread !== undefined ? formatSpreadLine(awaySpread + 0.5) : "+3";
+      const hasSpread = awaySpread !== undefined && awaySpread !== 0;
+      currentLine = hasSpread ? formatSpreadLine(awaySpread) : "-";
+      openLine = hasSpread ? formatSpreadLine(awaySpread + 0.5) : "-";
       tickets = { away: game.splits.spread.away.tickets, home: game.splits.spread.home.tickets };
       money = { away: game.splits.spread.away.handle, home: game.splits.spread.home.handle };
     } else if (selectedMarket === "Total") {
       const total = firstOdds?.total?.over?.line;
-      currentLine = total !== undefined ? `${total}` : "47.5";
-      openLine = total !== undefined ? `${total - 0.5}` : "47";
+      const hasTotal = total !== undefined && total !== 0;
+      currentLine = hasTotal ? `${total}` : "-";
+      openLine = hasTotal ? `${total - 0.5}` : "-";
       tickets = { o: game.splits.total.over.tickets, u: game.splits.total.under.tickets };
       money = { o: game.splits.total.over.handle, u: game.splits.total.under.handle };
     } else {
       const awayML = firstOdds?.moneyline?.away?.american;
-      currentLine = awayML !== undefined ? `${awayML > 0 ? "+" : ""}${awayML}` : "-110";
-      openLine = awayML !== undefined ? `${awayML > 0 ? "+" : ""}${Math.abs(awayML) > 100 ? awayML - 10 : awayML + 10}` : "-120";
+      const hasML = awayML !== undefined && awayML !== 0;
+      currentLine = hasML ? `${awayML > 0 ? "+" : ""}${awayML}` : "-";
+      openLine = hasML ? `${awayML > 0 ? "+" : ""}${Math.abs(awayML) > 100 ? awayML - 10 : awayML + 10}` : "-";
       tickets = { away: game.splits.moneyline.away.tickets, home: game.splits.moneyline.home.tickets };
       money = { away: game.splits.moneyline.away.handle, home: game.splits.moneyline.home.handle };
     }

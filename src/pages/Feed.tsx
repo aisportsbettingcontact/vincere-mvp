@@ -1254,14 +1254,14 @@ function SplitsCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
         <div className="hidden md:block mb-4">
           {/* Team Nicknames Row - Centered */}
           <div className="flex items-center justify-center gap-2 mb-2">
-            <img src={getTeamLogo(game.sport, game.away.espnAbbr)} alt="" className="w-7 h-7 rounded" />
-            <span className="font-bold text-lg" style={{ color: "var(--ma-text-primary)" }}>
-              {game.away.name.toUpperCase()}
+            <img src={getTeamLogo(game.sport, game.away.espnAbbr)} alt={game.away.name} className="w-8 h-8 rounded" />
+            <span className="font-bold text-lg" style={{ color: game.away.color }}>
+              {game.away.name}
             </span>
             <span className="text-sm font-semibold" style={{ color: "var(--ma-text-secondary)" }}>@</span>
-            <img src={getTeamLogo(game.sport, game.home.espnAbbr)} alt="" className="w-7 h-7 rounded" />
-            <span className="font-bold text-lg" style={{ color: "var(--ma-text-primary)" }}>
-              {game.home.name.toUpperCase()}
+            <img src={getTeamLogo(game.sport, game.home.espnAbbr)} alt={game.home.name} className="w-8 h-8 rounded" />
+            <span className="font-bold text-lg" style={{ color: game.home.color }}>
+              {game.home.name}
             </span>
           </div>
           
@@ -1313,11 +1313,11 @@ function SplitsCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
         {/* Mobile: Compact Teams + Metadata */}
         <div className="md:hidden mb-4">
           <div className="flex items-center gap-2 justify-center mb-2">
-            <img src={getTeamLogo(game.sport, game.away.espnAbbr)} alt="" className="w-7 h-7 rounded" />
-            <span className="font-bold text-base" style={{ color: "var(--ma-text-primary)" }}>{game.away.abbr}</span>
+            <img src={getTeamLogo(game.sport, game.away.espnAbbr)} alt={game.away.name} className="w-8 h-8 rounded" />
+            <span className="font-bold text-base" style={{ color: game.away.color }}>{game.away.name}</span>
             <span className="text-sm" style={{ color: "var(--ma-text-secondary)" }}>@</span>
-            <img src={getTeamLogo(game.sport, game.home.espnAbbr)} alt="" className="w-7 h-7 rounded" />
-            <span className="font-bold text-base" style={{ color: "var(--ma-text-primary)" }}>{game.home.abbr}</span>
+            <img src={getTeamLogo(game.sport, game.home.espnAbbr)} alt={game.home.name} className="w-8 h-8 rounded" />
+            <span className="font-bold text-base" style={{ color: game.home.color }}>{game.home.name}</span>
           </div>
           
           <div className="flex items-center justify-center gap-2 flex-wrap text-xs">

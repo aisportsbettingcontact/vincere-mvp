@@ -138,12 +138,12 @@ export const MLB_TEAM_MAPPINGS: Record<string, { name: string; abbr: string; esp
 };
 
 export const CBB_TEAM_MAPPINGS: Record<string, { name: string; abbr: string; espnAbbr: string; fullName: string }> = {
-  "florida-gators": { name: "Gators", abbr: "FLA", espnAbbr: "57", fullName: "Florida Gators" },
-  "arizona-wildcats": { name: "Wildcats", abbr: "ARIZ", espnAbbr: "12", fullName: "Arizona Wildcats" },
-  "villanova-wildcats": { name: "Wildcats", abbr: "NOVA", espnAbbr: "222", fullName: "Villanova Wildcats" },
-  "byu-cougars": { name: "Cougars", abbr: "BYU", espnAbbr: "252", fullName: "BYU Cougars" },
-  "texas-longhorns": { name: "Longhorns", abbr: "TEX", espnAbbr: "251", fullName: "Texas Longhorns" },
-  "duke-blue-devils": { name: "Blue Devils", abbr: "DUKE", espnAbbr: "150", fullName: "Duke Blue Devils" }
+  "florida-gators": { name: "Florida", abbr: "FLA", espnAbbr: "57", fullName: "Florida Gators" },
+  "arizona-wildcats": { name: "Arizona", abbr: "ARIZ", espnAbbr: "12", fullName: "Arizona Wildcats" },
+  "villanova-wildcats": { name: "Villanova", abbr: "NOVA", espnAbbr: "222", fullName: "Villanova Wildcats" },
+  "byu-cougars": { name: "BYU", abbr: "BYU", espnAbbr: "252", fullName: "BYU Cougars" },
+  "texas-longhorns": { name: "Texas", abbr: "TEX", espnAbbr: "251", fullName: "Texas Longhorns" },
+  "duke-blue-devils": { name: "Duke", abbr: "DUKE", espnAbbr: "150", fullName: "Duke Blue Devils" }
 };
 
 export function getTeamInfo(slug: string, sport: string = "NFL") {

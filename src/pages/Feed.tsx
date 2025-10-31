@@ -535,11 +535,22 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
           style={{ background: "var(--ma-card)" }}
         >
           {/* Left: Teams */}
-          <div className="flex flex-col justify-center relative">
-            <div className="flex items-center gap-3 mb-1">
-              <img src={getTeamLogo(displayGame.sport, displayGame.away.espnAbbr)} alt="" className="w-12 h-12 rounded flex-shrink-0" />
-              <div className="text-base font-bold leading-tight" style={{ color: "var(--ma-text-primary)" }}>
-                {displayGame.away.abbr}
+          <div className="flex flex-col justify-center items-center relative">
+            <div className="flex flex-col items-center mb-1">
+              <img src={getTeamLogo(displayGame.sport, displayGame.away.espnAbbr)} alt="" className="w-12 h-12 rounded flex-shrink-0 mb-1.5" />
+              <div className="flex flex-col items-center text-center leading-tight">
+                <div className="text-[10px] font-semibold" style={{ color: "var(--ma-text-primary)" }}>
+                  {displayGame.sport === "CFB" || displayGame.sport === "CBB" 
+                    ? displayGame.away.fullName?.split(" ").slice(0, -1).join(" ") || displayGame.away.name
+                    : displayGame.away.name.split(" ")[0] || displayGame.away.name
+                  }
+                </div>
+                <div className="text-[10px] font-bold" style={{ color: "var(--ma-text-primary)" }}>
+                  {displayGame.sport === "CFB" || displayGame.sport === "CBB"
+                    ? displayGame.away.fullName?.split(" ").slice(-1)[0] || displayGame.away.abbr
+                    : displayGame.away.name.split(" ").slice(1).join(" ") || displayGame.away.abbr
+                  }
+                </div>
               </div>
             </div>
             
@@ -549,10 +560,21 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
               </div>
             </div>
             
-            <div className="flex items-center gap-3 mt-1">
-              <img src={getTeamLogo(displayGame.sport, displayGame.home.espnAbbr)} alt="" className="w-12 h-12 rounded flex-shrink-0" />
-              <div className="text-base font-bold leading-tight" style={{ color: "var(--ma-text-primary)" }}>
-                {displayGame.home.abbr}
+            <div className="flex flex-col items-center mt-1">
+              <img src={getTeamLogo(displayGame.sport, displayGame.home.espnAbbr)} alt="" className="w-12 h-12 rounded flex-shrink-0 mb-1.5" />
+              <div className="flex flex-col items-center text-center leading-tight">
+                <div className="text-[10px] font-semibold" style={{ color: "var(--ma-text-primary)" }}>
+                  {displayGame.sport === "CFB" || displayGame.sport === "CBB"
+                    ? displayGame.home.fullName?.split(" ").slice(0, -1).join(" ") || displayGame.home.name
+                    : displayGame.home.name.split(" ")[0] || displayGame.home.name
+                  }
+                </div>
+                <div className="text-[10px] font-bold" style={{ color: "var(--ma-text-primary)" }}>
+                  {displayGame.sport === "CFB" || displayGame.sport === "CBB"
+                    ? displayGame.home.fullName?.split(" ").slice(-1)[0] || displayGame.home.abbr
+                    : displayGame.home.name.split(" ").slice(1).join(" ") || displayGame.home.abbr
+                  }
+                </div>
               </div>
             </div>
           </div>

@@ -7,19 +7,19 @@ export const RawSplitGameSchema = z.object({
   a: z.string(), // Away team
   h: z.string(), // Home team
   spr: z.tuple([
-    z.number(), // Spread line
-    z.number(), // Away spread odds
+    z.number().nullable(), // Spread line (can be null)
+    z.number().nullable(), // Away spread odds (can be null)
     z.tuple([z.number(), z.number()]), // [away tickets%, away handle%]
     z.tuple([z.number(), z.number()])  // [home tickets%, home handle%]
   ]),
   tot: z.tuple([
-    z.number(), // Total line
+    z.number().nullable(), // Total line (can be null)
     z.tuple([z.number(), z.number()]), // [over tickets%, over handle%]
     z.tuple([z.number(), z.number()])  // [under tickets%, under handle%]
   ]),
   ml: z.tuple([
-    z.number(), // Away ML
-    z.number(), // Home ML
+    z.number().nullable(), // Away ML (can be null)
+    z.number().nullable(), // Home ML (can be null)
     z.tuple([z.number(), z.number()]), // [away tickets%, away handle%]
     z.tuple([z.number(), z.number()])  // [home tickets%, home handle%]
   ]),

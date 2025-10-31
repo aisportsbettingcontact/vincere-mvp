@@ -176,15 +176,15 @@ export function parseGame(game: RawSplitGame, book: string): GameOdds {
       {
         book,
         timestamp: new Date().toISOString(),
-        moneyline: game.ml[0] !== 0 && game.ml[1] !== 0 ? {
+        moneyline: (game.ml[0] !== null && game.ml[0] !== 0 && game.ml[1] !== null && game.ml[1] !== 0) ? {
           away: { american: game.ml[0], implied: Math.abs(game.ml[0]) / (Math.abs(game.ml[0]) + 100) * 100 },
           home: { american: game.ml[1], implied: Math.abs(game.ml[1]) / (Math.abs(game.ml[1]) + 100) * 100 },
         } : undefined,
-        spread: game.spr[0] !== 0 ? {
-          away: { line: game.spr[0], odds: { american: game.spr[1] } },
-          home: { line: -game.spr[0], odds: { american: game.spr[1] === -110 ? -110 : (game.spr[1] === 110 ? -110 : game.spr[1]) } },
+        spread: (game.spr[0] !== null && game.spr[0] !== 0) ? {
+          away: { line: game.spr[0], odds: { american: game.spr[1] || -110 } },
+          home: { line: -game.spr[0], odds: { american: game.spr[1] === -110 ? -110 : (game.spr[1] === 110 ? -110 : game.spr[1] || -110) } },
         } : undefined,
-        total: game.tot[0] !== 0 ? {
+        total: (game.tot[0] !== null && game.tot[0] !== 0) ? {
           over: { line: game.tot[0], odds: { american: -110 } },
           under: { line: game.tot[0], odds: { american: -110 } },
         } : undefined,

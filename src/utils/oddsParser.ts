@@ -141,8 +141,8 @@ export function parseGame(game: RawSplitGame, book: string): GameOdds {
     // Use standard team mappings with correct sport parameter
     awayInfo = getTeamInfo(game.a, sport);
     homeInfo = getTeamInfo(game.h, sport);
-    awayColors = getTeamColors(awayInfo.fullName);
-    homeColors = getTeamColors(homeInfo.fullName);
+    awayColors = getTeamColors(awayInfo.fullName, sport);
+    homeColors = getTeamColors(homeInfo.fullName, sport);
   }
 
   return {

@@ -161,12 +161,21 @@ export default function Feed() {
   }, [availableBooksForSport]);
 
   // Filter by book, sport, and sort games by date (earliest first)
+  // Exclude specific prohibited matchups
   const sortedGames = useMemo(() => {
     if (!liveGames) return [];
     const bookFilter = selectedBook === "Circa" ? "CIRCA" : selectedBook;
-    const filtered = liveGames.filter(game => 
-      game.book === bookFilter && game.sport === selectedSport
-    );
+    const filtered = liveGames.filter(game => {
+      // Filter by book and sport
+      if (game.book !== bookFilter || game.sport !== selectedSport) return false;
+      
+      // Exclude prohibited matchups
+      const isProhibited = 
+        (game.away.name === "Brown" && game.home.name === "Pennsylvania") ||
+        (game.away.name === "Idaho" && game.home.name === "N Arizona");
+      
+      return !isProhibited;
+    });
     return filtered.sort((a, b) => {
       const dateA = new Date(a.kickoff).getTime();
       const dateB = new Date(b.kickoff).getTime();
@@ -538,14 +547,6 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
                 {game.tvInfo}
               </span>
             </div>
-          </>
-        )}
-        {game.primetime && (
-          <>
-            <span style={{ color: "var(--ma-text-secondary)" }}>•</span>
-            <span className="text-xs font-bold" style={{ color: "var(--ma-text-primary)" }}>
-              {game.primetime}
-            </span>
           </>
         )}
         {game.stadium && (
@@ -1291,14 +1292,6 @@ function SplitsCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
                 </div>
               </>
             )}
-            {game.primetime && (
-              <>
-                <span style={{ color: "var(--ma-text-secondary)" }}>•</span>
-                <span className="font-bold" style={{ color: "var(--ma-text-primary)" }}>
-                  {game.primetime}
-                </span>
-              </>
-            )}
             {game.stadium && (
               <>
                 <span style={{ color: "var(--ma-text-secondary)" }}>•</span>
@@ -1526,11 +1519,6 @@ function LineMovementCard({ game, selectedMarket, setSelectedMarket }: {
           </div>
         </div>
         <div className="flex items-center gap-2">
-          {game.primetime && (
-            <div className="text-[10px] font-bold text-white/90 px-2 py-1 rounded-md border border-white/20 bg-white/10">
-              {game.primetime}
-            </div>
-          )}
           <div className="text-xs text-white/80 bg-white/5 px-2 py-1 rounded-md border border-white/10 whitespace-nowrap">
             {formatGameTime(game.kickoff, game.sport)}
           </div>

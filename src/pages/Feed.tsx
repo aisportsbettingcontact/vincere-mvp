@@ -1091,6 +1091,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
 // Splits Card - displays ticket/money percentages for all markets
 function SplitsCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
   const firstOdds = game.odds[0];
+  const [viewMode, setViewMode] = useState<"tickets" | "handle">("handle");
   
   // Calculate data for all three markets
   const spreadsData = useMemo(() => {
@@ -1192,6 +1193,32 @@ function SplitsCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
       }}
     >
       <div className="p-4">
+        {/* Toggle: Tickets vs Handle */}
+        <div className="flex items-center justify-center gap-2 mb-4">
+          <button
+            onClick={() => setViewMode("tickets")}
+            className="px-4 py-2 rounded-lg text-sm font-semibold transition-all"
+            style={{
+              background: viewMode === "tickets" ? "var(--ma-accent)" : "transparent",
+              color: viewMode === "tickets" ? "var(--ma-text-primary)" : "var(--ma-text-secondary)",
+              border: `1px solid ${viewMode === "tickets" ? "var(--ma-accent)" : "var(--ma-stroke)"}`
+            }}
+          >
+            Tickets %
+          </button>
+          <button
+            onClick={() => setViewMode("handle")}
+            className="px-4 py-2 rounded-lg text-sm font-semibold transition-all"
+            style={{
+              background: viewMode === "handle" ? "var(--ma-accent)" : "transparent",
+              color: viewMode === "handle" ? "var(--ma-text-primary)" : "var(--ma-text-secondary)",
+              border: `1px solid ${viewMode === "handle" ? "var(--ma-accent)" : "var(--ma-stroke)"}`
+            }}
+          >
+            Handle %
+          </button>
+        </div>
+
         {/* Desktop: Team Nicknames + Metadata Header */}
         <div className="hidden md:block mb-4">
           {/* Team Nicknames Row - Centered */}
@@ -1281,27 +1308,31 @@ function SplitsCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
         <div className="mb-3">
           <div className="flex items-center justify-between mb-1">
             <div className="flex items-center gap-2">
-              <span className="text-lg font-bold" style={{ color: "var(--ma-text-primary)" }}>{mlData.money.left}%</span>
+              <span className="text-lg font-bold" style={{ color: "var(--ma-text-primary)" }}>
+                {viewMode === "tickets" ? mlData.tickets.left : mlData.money.left}%
+              </span>
               <span className="text-xs" style={{ color: "var(--ma-text-secondary)" }}>{mlData.leftLabel}</span>
             </div>
             <span className="text-xs font-semibold" style={{ color: "var(--ma-text-secondary)" }}>Moneyline</span>
             <div className="flex items-center gap-2">
               <span className="text-xs" style={{ color: "var(--ma-text-secondary)" }}>{mlData.rightLabel}</span>
-              <span className="text-lg font-bold" style={{ color: "var(--ma-text-primary)" }}>{mlData.money.right}%</span>
+              <span className="text-lg font-bold" style={{ color: "var(--ma-text-primary)" }}>
+                {viewMode === "tickets" ? mlData.tickets.right : mlData.money.right}%
+              </span>
             </div>
           </div>
           <div className="relative h-3 rounded-full overflow-hidden" style={{ border: "0.5px solid white" }}>
             <div 
               className="absolute inset-y-0 left-0"
               style={{
-                width: `${mlData.money.left}%`,
+                width: `${viewMode === "tickets" ? mlData.tickets.left : mlData.money.left}%`,
                 background: mlData.leftColor
               }}
             />
             <div 
               className="absolute inset-y-0 right-0"
               style={{
-                width: `${mlData.money.right}%`,
+                width: `${viewMode === "tickets" ? mlData.tickets.right : mlData.money.right}%`,
                 background: mlData.rightColor
               }}
             />
@@ -1312,7 +1343,9 @@ function SplitsCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
         <div className="mb-3">
           <div className="flex items-center justify-between mb-1">
             <div className="flex items-center gap-2">
-              <span className="text-lg font-bold" style={{ color: "var(--ma-text-primary)" }}>{spreadsData.money.left}%</span>
+              <span className="text-lg font-bold" style={{ color: "var(--ma-text-primary)" }}>
+                {viewMode === "tickets" ? spreadsData.tickets.left : spreadsData.money.left}%
+              </span>
               <span className="text-xs" style={{ color: "var(--ma-text-secondary)" }}>
                 {spreadsData.leftLabel} {formatSpreadLine(firstOdds?.spread?.away?.line || -3.5)}
               </span>
@@ -1326,21 +1359,23 @@ function SplitsCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
                   return `${spreadsData.rightLabel} ${formatSpreadLine(line)}`;
                 })()}
               </span>
-              <span className="text-lg font-bold" style={{ color: "var(--ma-text-primary)" }}>{spreadsData.money.right}%</span>
+              <span className="text-lg font-bold" style={{ color: "var(--ma-text-primary)" }}>
+                {viewMode === "tickets" ? spreadsData.tickets.right : spreadsData.money.right}%
+              </span>
             </div>
           </div>
           <div className="relative h-3 rounded-full overflow-hidden" style={{ border: "0.5px solid white" }}>
             <div 
               className="absolute inset-y-0 left-0"
               style={{
-                width: `${spreadsData.money.left}%`,
+                width: `${viewMode === "tickets" ? spreadsData.tickets.left : spreadsData.money.left}%`,
                 background: spreadsData.leftColor
               }}
             />
             <div 
               className="absolute inset-y-0 right-0"
               style={{
-                width: `${spreadsData.money.right}%`,
+                width: `${viewMode === "tickets" ? spreadsData.tickets.right : spreadsData.money.right}%`,
                 background: spreadsData.rightColor
               }}
             />
@@ -1351,7 +1386,9 @@ function SplitsCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
         <div>
           <div className="flex items-center justify-between mb-1">
             <div className="flex items-center gap-2">
-              <span className="text-lg font-bold" style={{ color: "var(--ma-text-primary)" }}>{totalsData.money.left}%</span>
+              <span className="text-lg font-bold" style={{ color: "var(--ma-text-primary)" }}>
+                {viewMode === "tickets" ? totalsData.tickets.left : totalsData.money.left}%
+              </span>
               <span className="text-xs" style={{ color: "var(--ma-text-secondary)" }}>
                 {(() => {
                   const line = firstOdds?.total?.over?.line;
@@ -1369,21 +1406,23 @@ function SplitsCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
                   return `Under ${line}`;
                 })()}
               </span>
-              <span className="text-lg font-bold" style={{ color: "var(--ma-text-primary)" }}>{totalsData.money.right}%</span>
+              <span className="text-lg font-bold" style={{ color: "var(--ma-text-primary)" }}>
+                {viewMode === "tickets" ? totalsData.tickets.right : totalsData.money.right}%
+              </span>
             </div>
           </div>
           <div className="relative h-3 rounded-full overflow-hidden" style={{ border: "0.5px solid white" }}>
             <div 
               className="absolute inset-y-0 left-0"
               style={{
-                width: `${totalsData.money.left}%`,
+                width: `${viewMode === "tickets" ? totalsData.tickets.left : totalsData.money.left}%`,
                 background: totalsData.leftColor
               }}
             />
             <div 
               className="absolute inset-y-0 right-0"
               style={{
-                width: `${totalsData.money.right}%`,
+                width: `${viewMode === "tickets" ? totalsData.tickets.right : totalsData.money.right}%`,
                 background: totalsData.rightColor
               }}
             />

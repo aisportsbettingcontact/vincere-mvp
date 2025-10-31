@@ -545,7 +545,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
                     : displayGame.away.name.split(" ")[0] || displayGame.away.name
                   }
                 </div>
-                <div className="text-[10px] font-bold" style={{ color: "var(--ma-text-primary)" }}>
+                <div className="text-[8px] font-bold" style={{ color: "var(--ma-text-primary)" }}>
                   {displayGame.sport === "CFB" || displayGame.sport === "CBB"
                     ? displayGame.away.fullName?.split(" ").slice(-1)[0] || displayGame.away.abbr
                     : displayGame.away.name.split(" ").slice(1).join(" ") || displayGame.away.abbr
@@ -569,7 +569,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
                     : displayGame.home.name.split(" ")[0] || displayGame.home.name
                   }
                 </div>
-                <div className="text-[10px] font-bold" style={{ color: "var(--ma-text-primary)" }}>
+                <div className="text-[8px] font-bold" style={{ color: "var(--ma-text-primary)" }}>
                   {displayGame.sport === "CFB" || displayGame.sport === "CBB"
                     ? displayGame.home.fullName?.split(" ").slice(-1)[0] || displayGame.home.abbr
                     : displayGame.home.name.split(" ").slice(1).join(" ") || displayGame.home.abbr

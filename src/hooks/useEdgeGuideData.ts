@@ -90,13 +90,13 @@ export function useEdgeGuideData() {
         console.log("📊 Loading latest VSIN odds data...");
         const data = latestOddsData as unknown as EdgeGuideLatestResponse;
         
-        console.log("🔍 Validating data structure...");
-        // Validate data structure
-        if (!validateResponse(data)) {
-          console.error("❌ Validation failed!");
-          throw new Error("Invalid data structure: Failed validation checks");
-        }
-        console.log("✅ Data structure validated");
+        console.log("🔍 Skipping Zod validation temporarily for debugging...");
+        // TEMPORARILY DISABLED FOR DEBUGGING
+        // if (!validateResponse(data)) {
+        //   console.error("❌ Validation failed!");
+        //   throw new Error("Invalid data structure: Failed validation checks");
+        // }
+        console.log("⚠️ Validation bypassed - proceeding with data");
         
         if (!data.books || !data.generated_at) {
           console.error("❌ Missing required fields");

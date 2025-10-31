@@ -3,6 +3,10 @@ import type { RawSplitGame } from "@/utils/oddsValidation";
 import { safeParseGames } from "@/utils/oddsValidation";
 import { isGameInFuture } from "@/utils/gameFilters";
 import { GAME_METADATA, getDefaultGameTime, getDefaultNetwork, isPrimeTimeSlot, getPrimeTimeLabel } from "@/config/gameMetadata";
+import { getTeamInfo } from "@/utils/teamMappings";
+import { getTeamColors } from "@/utils/teamColors";
+import { CFB_TEAM_MAPPINGS } from "@/utils/cfbTeamMappings";
+import { getCFBTeamColors } from "@/utils/cfbTeamColors";
 
 // Sport priority for sorting
 const SPORT_PRIORITY = { 
@@ -114,20 +118,32 @@ export function parseGame(game: RawSplitGame, book: string): GameOdds {
   const kickoff = formatDate(game.d, game.id, sport);
   const metadata = getGameMetadata(game.id, sport, game.d);
   
-  // Import team mappings
-  const { getTeamInfo } = require("@/utils/teamMappings");
-  const { getTeamColors } = require("@/utils/teamColors");
-  const { getCFBTeamInfo } = require("@/utils/cfbTeamMappings");
-  const { getCFBTeamColors } = require("@/utils/cfbTeamColors");
-  
   // Get team info based on sport
-  const getInfo = (sport === "CFB" || sport === "CBB") ? getCFBTeamInfo : getTeamInfo;
-  const getColors = (sport === "CFB" || sport === "CBB") ? getCFBTeamColors : getTeamColors;
+  let awayInfo, homeInfo, awayColors, homeColors;
   
-  const awayInfo = getInfo(game.a);
-  const homeInfo = getInfo(game.h);
-  const awayColors = getColors(game.a);
-  const homeColors = getColors(game.h);
+  if (sport === "CFB" || sport === "CBB") {
+    // Use CFB mappings
+    awayInfo = CFB_TEAM_MAPPINGS[game.a] || { 
+      name: game.a, 
+      abbr: game.a.toUpperCase().slice(0, 4), 
+      espnAbbr: game.a, 
+      fullName: game.a 
+    };
+    homeInfo = CFB_TEAM_MAPPINGS[game.h] || { 
+      name: game.h, 
+      abbr: game.h.toUpperCase().slice(0, 4), 
+      espnAbbr: game.h, 
+      fullName: game.h 
+    };
+    awayColors = getCFBTeamColors(awayInfo.fullName);
+    homeColors = getCFBTeamColors(homeInfo.fullName);
+  } else {
+    // Use standard team mappings
+    awayInfo = getTeamInfo(game.a);
+    homeInfo = getTeamInfo(game.h);
+    awayColors = getTeamColors(awayInfo.fullName);
+    homeColors = getTeamColors(homeInfo.fullName);
+  }
 
   return {
     gameId: game.id,
@@ -135,7 +151,7 @@ export function parseGame(game: RawSplitGame, book: string): GameOdds {
     kickoff,
     book,
     away: {
-      name: awayInfo.shortName,
+      name: awayInfo.name || awayInfo.shortName,
       fullName: awayInfo.fullName,
       abbr: awayInfo.abbr,
       espnAbbr: awayInfo.espnAbbr,
@@ -144,7 +160,7 @@ export function parseGame(game: RawSplitGame, book: string): GameOdds {
       tertiaryColor: awayColors.tertiary,
     },
     home: {
-      name: homeInfo.shortName,
+      name: homeInfo.name || homeInfo.shortName,
       fullName: homeInfo.fullName,
       abbr: homeInfo.abbr,
       espnAbbr: homeInfo.espnAbbr,

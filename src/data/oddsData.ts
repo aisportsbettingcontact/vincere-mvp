@@ -97,6 +97,7 @@ export interface GameOdds {
   tvInfo?: string;
   primetime?: string;
   stadium?: string;
+  specialLogo?: string;
   odds: Array<{
     book?: string;
     timestamp?: string;

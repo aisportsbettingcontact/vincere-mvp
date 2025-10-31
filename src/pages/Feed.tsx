@@ -21,6 +21,7 @@ import nbcLogo from "@/assets/NBC.png";
 import amazonPrimeLogo from "@/assets/Amazon-Prime.png";
 import cbsLogo from "@/assets/CBS.png";
 import espnLogo from "@/assets/ESPN.png";
+import nflBerlinLogo from "@/assets/nfl-berlin.png";
 import { areColorsSimilar, getBestContrastColor } from "@/utils/colorSimilarity";
 
 // Map TV network names to their logos
@@ -31,6 +32,13 @@ const TV_LOGOS: Record<string, string> = {
   "Amazon": amazonPrimeLogo,
   "CBS": cbsLogo,
   "ESPN": espnLogo,
+  "Prime Video": amazonPrimeLogo,
+  "NFL Network": espnLogo,
+};
+
+// Map special logos (e.g., international games)
+const SPECIAL_LOGOS: Record<string, string> = {
+  "nfl-berlin": nflBerlinLogo,
 };
 
 // Format date as HH:MM am/pm ET
@@ -515,6 +523,12 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
         <div className="text-xs font-semibold" style={{ color: "var(--ma-text-secondary)" }}>
           {formatGameDate(game.kickoff)} • {formatGameTime(game.kickoff)}
         </div>
+        {game.specialLogo && SPECIAL_LOGOS[game.specialLogo] && (
+          <>
+            <span style={{ color: "var(--ma-text-secondary)" }}>•</span>
+            <img src={SPECIAL_LOGOS[game.specialLogo]} alt="Special Game" className="h-5 w-auto object-contain" />
+          </>
+        )}
         {game.tvInfo && TV_LOGOS[game.tvInfo] && (
           <>
             <span style={{ color: "var(--ma-text-secondary)" }}>•</span>
@@ -561,6 +575,11 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
             <div className="text-xs font-medium" style={{ color: "var(--ma-text-secondary)" }}>
               {formatGameTime(game.kickoff)}
             </div>
+            {game.specialLogo && SPECIAL_LOGOS[game.specialLogo] && (
+              <div className="flex justify-center">
+                <img src={SPECIAL_LOGOS[game.specialLogo]} alt="Special Game" className="h-4 w-auto object-contain" />
+              </div>
+            )}
             {game.tvInfo && TV_LOGOS[game.tvInfo] && (
               <div className="flex items-center gap-1.5">
                 <img src={TV_LOGOS[game.tvInfo]} alt={game.tvInfo} className="h-3 w-auto object-contain" />

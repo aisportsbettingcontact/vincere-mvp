@@ -6,7 +6,8 @@ import { getTeamColors } from "@/utils/teamColors";
 import rawSplitsDataImport from "@/data/nfl-splits-raw.json";
 
 // Map specific game IDs to their metadata
-const GAME_METADATA: Record<string, { time: string; tv: string; primetime?: string; stadium: string }> = {
+const GAME_METADATA: Record<string, { time: string; tv: string; primetime?: string; stadium: string; specialLogo?: string }> = {
+  // Week 9 - Nov 2-3, 2025
   "20251102NFL00001": { time: "13:00", tv: "CBS", stadium: "Paycor Stadium, Cincinnati, OH" },
   "20251102NFL00002": { time: "13:00", tv: "FOX", stadium: "Ford Field, Detroit, MI" },
   "20251102NFL00003": { time: "13:00", tv: "FOX", stadium: "Lambeau Field, Green Bay, WI" },
@@ -20,6 +21,22 @@ const GAME_METADATA: Record<string, { time: string; tv: string; primetime?: stri
   "20251102NFL00011": { time: "16:25", tv: "CBS", stadium: "Highmark Stadium, Orchard Park, NY" },
   "20251102NFL00012": { time: "20:20", tv: "NBC", primetime: "SNF", stadium: "Northwest Stadium, Landover, MD" },
   "20251103NFL00001": { time: "20:15", tv: "ABC", primetime: "MNF", stadium: "AT&T Stadium, Arlington, TX" },
+  
+  // Week 10 - Nov 6-10, 2025
+  "20251106NFL00001": { time: "20:15", tv: "Prime Video", primetime: "TNF", stadium: "Empower Field at Mile High, Denver, CO" },
+  "20251109NFL00001": { time: "09:30", tv: "NFL Network", stadium: "Olympic Stadium, Berlin, Germany", specialLogo: "nfl-berlin" },
+  "20251109NFL00002": { time: "13:00", tv: "FOX", stadium: "Soldier Field, Chicago, IL" },
+  "20251109NFL00003": { time: "13:00", tv: "CBS", stadium: "Hard Rock Stadium, Miami Gardens, FL" },
+  "20251109NFL00004": { time: "13:00", tv: "FOX", stadium: "U.S. Bank Stadium, Minneapolis, MN" },
+  "20251109NFL00005": { time: "13:00", tv: "CBS", stadium: "MetLife Stadium, East Rutherford, NJ" },
+  "20251109NFL00006": { time: "13:00", tv: "CBS", stadium: "Raymond James Stadium, Tampa, FL" },
+  "20251109NFL00007": { time: "13:00", tv: "FOX", stadium: "Bank of America Stadium, Charlotte, NC" },
+  "20251109NFL00008": { time: "13:00", tv: "CBS", stadium: "NRG Stadium, Houston, TX" },
+  "20251109NFL00009": { time: "16:05", tv: "CBS", stadium: "Lumen Field, Seattle, WA" },
+  "20251109NFL00010": { time: "16:25", tv: "FOX", stadium: "Levi's Stadium, Santa Clara, CA" },
+  "20251109NFL00011": { time: "16:25", tv: "FOX", stadium: "Northwest Stadium, Landover, MD" },
+  "20251109NFL00012": { time: "20:20", tv: "NBC", primetime: "SNF", stadium: "SoFi Stadium, Inglewood, CA" },
+  "20251110NFL00001": { time: "20:15", tv: "ESPN", primetime: "MNF", stadium: "Lambeau Field, Green Bay, WI" },
 };
 
 function formatDate(dateStr: string, gameId: string, sport: string): string {
@@ -75,6 +92,7 @@ function parseGame(game: any, book: string): GameOdds {
     tvInfo: metadata?.tv,
     primetime: metadata?.primetime,
     stadium: metadata?.stadium,
+    specialLogo: metadata?.specialLogo,
     away: {
       name: awayTeam.name,
       fullName: awayTeam.fullName,

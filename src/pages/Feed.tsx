@@ -570,8 +570,8 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
             borderBottom: "1px solid var(--ma-stroke)"
           }}
         >
-          {/* Top Line: Date and Time */}
-          <div className="flex items-center justify-center gap-1.5 mb-1.5">
+          {/* Single Line: Date, Time, Stadium */}
+          <div className="flex items-center justify-center gap-1.5 mb-2 flex-wrap text-center">
             <span className="text-sm font-semibold text-white">
               {formatGameDate(game.kickoff)}
             </span>
@@ -579,36 +579,37 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
             <span className="text-xs font-medium" style={{ color: "var(--ma-text-secondary)" }}>
               {formatGameTime(game.kickoff, game.sport)}
             </span>
+            {game.stadium && (
+              <>
+                <span className="text-xs" style={{ color: "var(--ma-text-secondary)" }}>•</span>
+                <span className="text-[10px] font-medium" style={{ color: "var(--ma-text-secondary)" }}>
+                  {game.stadium}
+                </span>
+              </>
+            )}
           </div>
 
-          {/* Second Line: Stadium */}
-          {game.stadium && (
-            <div className="text-[10px] font-medium text-center mb-2" style={{ color: "var(--ma-text-secondary)" }}>
-              {game.stadium}
-            </div>
-          )}
-
-          {/* Bottom Line: TV Network + Column Headers */}
-          <div className="flex items-center justify-between gap-4">
+          {/* Bottom Row: TV Network + Column Headers */}
+          <div className="flex items-center gap-4">
             {/* Left: TV Network Logo + Name */}
-            <div className="flex items-center gap-1.5 min-w-0">
+            <div className="flex items-center gap-2 min-w-0 flex-shrink-0">
               {game.tvInfo && TV_LOGOS[game.tvInfo] ? (
                 <>
                   <img 
                     src={TV_LOGOS[game.tvInfo]} 
                     alt={game.tvInfo} 
-                    className={`w-auto object-contain ${game.tvInfo === 'ESPN2' ? 'h-0.5' : 'h-3'}`}
+                    className={`w-auto object-contain ${game.tvInfo === 'ESPN2' ? 'h-1' : 'h-6'}`}
                   />
-                  <span className="text-[10px] font-semibold whitespace-nowrap" style={{ color: "var(--ma-text-primary)" }}>
+                  <span className="text-[15px] font-semibold whitespace-nowrap" style={{ color: "var(--ma-text-primary)" }}>
                     {game.tvInfo}
                   </span>
                 </>
               ) : (
-                <div className="w-12" />
+                <div className="w-20" />
               )}
             </div>
 
-            {/* Right: Column Headers */}
+            {/* Right: Column Headers - Centered over cells */}
             <div className="grid grid-cols-3 gap-2 flex-1">
               <div className="text-xs font-semibold text-center" style={{ color: "var(--ma-text-secondary)" }}>
                 Spread

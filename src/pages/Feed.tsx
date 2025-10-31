@@ -518,7 +518,12 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
         {game.tvInfo && TV_LOGOS[game.tvInfo] && (
           <>
             <span style={{ color: "var(--ma-text-secondary)" }}>•</span>
-            <img src={TV_LOGOS[game.tvInfo]} alt={game.tvInfo} className="h-4 w-auto object-contain" />
+            <div className="flex items-center gap-1.5">
+              <img src={TV_LOGOS[game.tvInfo]} alt={game.tvInfo} className="h-4 w-auto object-contain" />
+              <span className="text-xs font-semibold" style={{ color: "var(--ma-text-primary)" }}>
+                {game.tvInfo}
+              </span>
+            </div>
           </>
         )}
         {game.primetime && (
@@ -526,6 +531,14 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
             <span style={{ color: "var(--ma-text-secondary)" }}>•</span>
             <span className="text-xs font-bold" style={{ color: "var(--ma-text-primary)" }}>
               {game.primetime}
+            </span>
+          </>
+        )}
+        {game.stadium && (
+          <>
+            <span style={{ color: "var(--ma-text-secondary)" }}>•</span>
+            <span className="text-xs font-medium" style={{ color: "var(--ma-text-secondary)" }}>
+              {game.stadium}
             </span>
           </>
         )}
@@ -551,6 +564,9 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
             {game.tvInfo && TV_LOGOS[game.tvInfo] && (
               <div className="flex items-center gap-1.5">
                 <img src={TV_LOGOS[game.tvInfo]} alt={game.tvInfo} className="h-3 w-auto object-contain" />
+                <span className="text-[10px] font-semibold" style={{ color: "var(--ma-text-primary)" }}>
+                  {game.tvInfo}
+                </span>
                 {game.primetime && (
                   <>
                     <span className="text-[10px]" style={{ color: "var(--ma-text-secondary)" }}>•</span>

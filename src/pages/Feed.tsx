@@ -540,16 +540,30 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
               <img src={getTeamLogo(displayGame.sport, displayGame.away.espnAbbr)} alt="" className="w-12 h-12 rounded flex-shrink-0 mb-1.5" />
               <div className="flex flex-col items-center text-center leading-tight">
                 <div className="text-[10px] font-semibold" style={{ color: "var(--ma-text-primary)" }}>
-                  {displayGame.sport === "CFB" || displayGame.sport === "CBB" 
-                    ? displayGame.away.fullName?.split(" ").slice(0, -1).join(" ") || displayGame.away.name
-                    : displayGame.away.name.split(" ")[0] || displayGame.away.name
-                  }
+                  {(() => {
+                    if (displayGame.sport === "CFB" || displayGame.sport === "CBB") {
+                      // For college: show school name/abbreviation
+                      const parts = displayGame.away.fullName?.split(" ") || [displayGame.away.name];
+                      return parts.slice(0, -1).join(" ");
+                    } else {
+                      // For pro sports: show city name(s)
+                      const parts = displayGame.away.name.split(" ");
+                      return parts.slice(0, -1).join(" ");
+                    }
+                  })()}
                 </div>
                 <div className="text-[8px] font-bold" style={{ color: "var(--ma-text-primary)" }}>
-                  {displayGame.sport === "CFB" || displayGame.sport === "CBB"
-                    ? displayGame.away.fullName?.split(" ").slice(-1)[0] || displayGame.away.abbr
-                    : displayGame.away.name.split(" ").slice(1).join(" ") || displayGame.away.abbr
-                  }
+                  {(() => {
+                    if (displayGame.sport === "CFB" || displayGame.sport === "CBB") {
+                      // For college: show nickname
+                      const parts = displayGame.away.fullName?.split(" ") || [displayGame.away.abbr];
+                      return parts[parts.length - 1];
+                    } else {
+                      // For pro sports: show nickname
+                      const parts = displayGame.away.name.split(" ");
+                      return parts[parts.length - 1];
+                    }
+                  })()}
                 </div>
               </div>
             </div>
@@ -564,16 +578,30 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
               <img src={getTeamLogo(displayGame.sport, displayGame.home.espnAbbr)} alt="" className="w-12 h-12 rounded flex-shrink-0 mb-1.5" />
               <div className="flex flex-col items-center text-center leading-tight">
                 <div className="text-[10px] font-semibold" style={{ color: "var(--ma-text-primary)" }}>
-                  {displayGame.sport === "CFB" || displayGame.sport === "CBB"
-                    ? displayGame.home.fullName?.split(" ").slice(0, -1).join(" ") || displayGame.home.name
-                    : displayGame.home.name.split(" ")[0] || displayGame.home.name
-                  }
+                  {(() => {
+                    if (displayGame.sport === "CFB" || displayGame.sport === "CBB") {
+                      // For college: show school name/abbreviation
+                      const parts = displayGame.home.fullName?.split(" ") || [displayGame.home.name];
+                      return parts.slice(0, -1).join(" ");
+                    } else {
+                      // For pro sports: show city name(s)
+                      const parts = displayGame.home.name.split(" ");
+                      return parts.slice(0, -1).join(" ");
+                    }
+                  })()}
                 </div>
                 <div className="text-[8px] font-bold" style={{ color: "var(--ma-text-primary)" }}>
-                  {displayGame.sport === "CFB" || displayGame.sport === "CBB"
-                    ? displayGame.home.fullName?.split(" ").slice(-1)[0] || displayGame.home.abbr
-                    : displayGame.home.name.split(" ").slice(1).join(" ") || displayGame.home.abbr
-                  }
+                  {(() => {
+                    if (displayGame.sport === "CFB" || displayGame.sport === "CBB") {
+                      // For college: show nickname
+                      const parts = displayGame.home.fullName?.split(" ") || [displayGame.home.abbr];
+                      return parts[parts.length - 1];
+                    } else {
+                      // For pro sports: show nickname
+                      const parts = displayGame.home.name.split(" ");
+                      return parts[parts.length - 1];
+                    }
+                  })()}
                 </div>
               </div>
             </div>

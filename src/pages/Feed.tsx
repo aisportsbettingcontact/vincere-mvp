@@ -570,18 +570,18 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
           }}
         >
           {/* Single Line: Date, Time, Stadium */}
-          <div className="flex items-center justify-center gap-1.5 px-4 pt-3 pb-2 flex-wrap text-center">
-            <span className="text-sm font-semibold text-white">
+          <div className="flex items-center justify-center gap-1 px-4 pt-3 pb-2 overflow-x-auto whitespace-nowrap">
+            <span className="text-xs font-semibold text-white">
               {formatGameDate(game.kickoff)}
             </span>
-            <span className="text-sm text-white">•</span>
+            <span className="text-xs text-white">•</span>
             <span className="text-xs font-medium" style={{ color: "var(--ma-text-secondary)" }}>
               {formatGameTime(game.kickoff, game.sport)}
             </span>
             {game.stadium && (
               <>
                 <span className="text-xs" style={{ color: "var(--ma-text-secondary)" }}>•</span>
-                <span className="text-[10px] font-medium" style={{ color: "var(--ma-text-secondary)" }}>
+                <span className="text-xs font-medium" style={{ color: "var(--ma-text-secondary)" }}>
                   {game.stadium}
                 </span>
               </>

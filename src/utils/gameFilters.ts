@@ -8,7 +8,7 @@
  */
 export function isGameInFuture(dateStr: string, gameTime: string = "13:00"): boolean {
   if (!dateStr || dateStr.length !== 8) {
-    console.warn(`Invalid date format: ${dateStr}`);
+    console.warn(`[FILTER] ❌ Invalid date format: ${dateStr}`);
     return false;
   }
   
@@ -16,14 +16,19 @@ export function isGameInFuture(dateStr: string, gameTime: string = "13:00"): boo
   const month = dateStr.slice(4, 6);
   const day = dateStr.slice(6, 8);
   
-  // Create date in UTC to avoid timezone issues
-  const gameDateTime = new Date(`${year}-${month}-${day}T${gameTime}:00Z`);
+  // Create date in local time (not UTC) to match user's timezone
+  const gameDateTime = new Date(`${year}-${month}-${day}T${gameTime}:00`);
   
   // Add buffer of 4 hours after game start to keep recently finished games
   const bufferMs = 4 * 60 * 60 * 1000;
   const gameWithBuffer = gameDateTime.getTime() + bufferMs;
+  const now = Date.now();
   
-  return gameWithBuffer > Date.now();
+  const isFuture = gameWithBuffer > now;
+  
+  console.log(`[FILTER] Date: ${dateStr} ${gameTime} | Game: ${gameDateTime.toLocaleString()} | Now: ${new Date(now).toLocaleString()} | Future: ${isFuture}`);
+  
+  return isFuture;
 }
 
 /**

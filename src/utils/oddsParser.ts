@@ -63,34 +63,46 @@ export function parseBookData(
   sport: string
 ): GameOdds[] {
   if (!bookData) {
-    console.log(`No ${sport} data for ${book}`);
+    console.log(`[PARSER] ⚠️ No ${sport} data for ${book}`);
     return [];
   }
+  
+  console.log(`[PARSER] 🔍 Processing ${sport} data for ${book}...`);
   
   const allGames: GameOdds[] = [];
   
   Object.entries(bookData).forEach(([date, games]) => {
+    console.log(`[PARSER] 📅 Date: ${date} has ${games.length} games`);
+    
     // Validate and filter games
     const validGames = safeParseGames(games);
+    console.log(`[PARSER] ✅ Validated ${validGames.length}/${games.length} games`);
     
     // Filter to future games only
     const futureGames = validGames.filter(game => {
       const metadata = getGameMetadata(game.id, sport, game.d);
-      return isGameInFuture(game.d, metadata.time);
+      const isFuture = isGameInFuture(game.d, metadata.time);
+      if (!isFuture) {
+        console.log(`[PARSER] ⏭️ Filtered out past game: ${game.id} ${game.a} @ ${game.h}`);
+      }
+      return isFuture;
     });
+    
+    console.log(`[PARSER] 🎯 ${futureGames.length} future games for ${date}`);
     
     // Parse each game
     futureGames.forEach(game => {
       try {
+        console.log(`[PARSER] 🏈 Parsing game: ${game.id} - ${game.a} @ ${game.h}`);
         const parsed = parseGame(game, book);
         allGames.push(parsed);
       } catch (error) {
-        console.warn(`Failed to parse game ${game.id}:`, error);
+        console.error(`[PARSER] ❌ Failed to parse game ${game.id}:`, error);
       }
     });
   });
   
-  console.log(`✅ Parsed ${allGames.length} ${sport} games from ${book}`);
+  console.log(`[PARSER] ✅ Parsed ${allGames.length} ${sport} games from ${book}`);
   return allGames;
 }
 

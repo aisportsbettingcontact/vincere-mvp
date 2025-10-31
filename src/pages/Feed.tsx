@@ -569,22 +569,26 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
             borderBottom: "1px solid var(--ma-stroke)"
           }}
         >
-          {/* Single Line: Date, Time, Stadium */}
-          <div className="flex items-center justify-center gap-1 px-4 pt-3 pb-2 overflow-x-auto whitespace-nowrap">
-            <span className="text-xs font-semibold text-white">
-              {formatGameDate(game.kickoff)}
-            </span>
-            <span className="text-xs text-white">•</span>
-            <span className="text-xs font-medium" style={{ color: "var(--ma-text-secondary)" }}>
-              {formatGameTime(game.kickoff, game.sport)}
-            </span>
+          {/* Top Lines: Date/Time and Stadium */}
+          <div className="px-4 pt-3 pb-2">
+            {/* First Line: Date, Time */}
+            <div className="flex items-center justify-center gap-1 mb-1">
+              <span className="text-xs font-semibold text-white">
+                {formatGameDate(game.kickoff)}
+              </span>
+              <span className="text-xs text-white">•</span>
+              <span className="text-xs font-medium" style={{ color: "var(--ma-text-secondary)" }}>
+                {formatGameTime(game.kickoff, game.sport)}
+              </span>
+            </div>
+            
+            {/* Second Line: Stadium */}
             {game.stadium && (
-              <>
-                <span className="text-xs" style={{ color: "var(--ma-text-secondary)" }}>•</span>
+              <div className="flex items-center justify-center">
                 <span className="text-xs font-medium" style={{ color: "var(--ma-text-secondary)" }}>
                   {game.stadium}
                 </span>
-              </>
+              </div>
             )}
           </div>
 

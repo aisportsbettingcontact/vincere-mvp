@@ -43,8 +43,8 @@ const SPECIAL_LOGOS: Record<string, string> = {
   "nfl-berlin": nflBerlinLogo,
 };
 
-// Format date as HH:MM am/pm ET
-function formatGameTime(dateString: string): string {
+// Format date as HH:MM am/pm ET/EST
+function formatGameTime(dateString: string, sport?: string): string {
   try {
     const d = new Date(dateString);
     if (isNaN(d.getTime())) return dateString;
@@ -54,7 +54,8 @@ function formatGameTime(dateString: string): string {
     const ampm = hours >= 12 ? 'pm' : 'am';
     hours = hours % 12 || 12;
     
-    return `${hours}:${minutes}${ampm} ET`;
+    const timezone = sport === 'CBB' ? 'EST' : 'ET';
+    return `${hours}:${minutes}${ampm} ${timezone}`;
   } catch {
     return dateString;
   }
@@ -514,7 +515,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
         }}
       >
         <div className="text-xs font-semibold" style={{ color: "var(--ma-text-secondary)" }}>
-          {formatGameDate(game.kickoff)} • {formatGameTime(game.kickoff)}
+          {formatGameDate(game.kickoff)} • {formatGameTime(game.kickoff, game.sport)}
         </div>
         {game.specialLogo && SPECIAL_LOGOS[game.specialLogo] && (
           <>
@@ -566,7 +567,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
               {formatGameDate(game.kickoff)}
             </div>
             <div className="text-xs font-medium" style={{ color: "var(--ma-text-secondary)" }}>
-              {formatGameTime(game.kickoff)}
+              {formatGameTime(game.kickoff, game.sport)}
             </div>
             {game.specialLogo && SPECIAL_LOGOS[game.specialLogo] && (
               <div className="flex justify-center">
@@ -1179,7 +1180,7 @@ function SplitsCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
           {/* Game Metadata Row - Centered */}
           <div className="flex items-center justify-center gap-2 flex-wrap text-xs">
             <span className="font-medium" style={{ color: "var(--ma-text-secondary)" }}>
-              {formatGameDate(game.kickoff)} • {formatGameTime(game.kickoff)}
+              {formatGameDate(game.kickoff)} • {formatGameTime(game.kickoff, game.sport)}
             </span>
             {game.specialLogo && SPECIAL_LOGOS[game.specialLogo] && (
               <>
@@ -1229,7 +1230,7 @@ function SplitsCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
           
           <div className="flex items-center justify-center gap-2 flex-wrap text-xs">
             <span className="font-medium" style={{ color: "var(--ma-text-secondary)" }}>
-              {formatGameDate(game.kickoff)} • {formatGameTime(game.kickoff)}
+              {formatGameDate(game.kickoff)} • {formatGameTime(game.kickoff, game.sport)}
             </span>
             {game.tvInfo && (
               <>
@@ -1387,7 +1388,7 @@ function LineMovementCard({ game, selectedMarket, setSelectedMarket }: {
             </div>
           )}
           <div className="text-xs text-white/80 bg-white/5 px-2 py-1 rounded-md border border-white/10 whitespace-nowrap">
-            {formatGameTime(game.kickoff)}
+            {formatGameTime(game.kickoff, game.sport)}
           </div>
           {game.tvInfo && (
             <div className="text-[10px] text-white/60 px-2 py-1 rounded-md border border-white/10">
@@ -1626,7 +1627,7 @@ function AIAnalysisCard({ game, selectedMarket, setSelectedMarket }: {
               </div>
             )}
             <div className="text-xs text-white/80 bg-white/5 px-2 py-1 rounded-md border border-white/10 whitespace-nowrap">
-              {formatGameTime(game.kickoff)}
+              {formatGameTime(game.kickoff, game.sport)}
             </div>
             {game.tvInfo && (
               <div className="text-[10px] text-white/60 px-2 py-1 rounded-md border border-white/10">

@@ -28,9 +28,9 @@ const GAME_METADATA: Record<string, { time: string; tv: string; primetime?: stri
   "20251031NHL00118": { time: "22:07", tv: "ESPN+", stadium: "Honda Center, Anaheim, CA" },
   
   // Nov 3-4, 2025 - CBB
-  "20251103NCAAB00001": { time: "16:00", tv: "TNT", stadium: "T-Mobile Arena, Las Vegas, NV" },
-  "20251103NCAAB00002": { time: "18:30", tv: "TNT", stadium: "T-Mobile Arena, Las Vegas, NV" },
-  "20251104NCAAB00003": { time: "17:45", tv: "ESPN", stadium: "Spectrum Center, Charlotte, NC" },
+  "20251103NCAAB00001": { time: "19:00", tv: "TNT", stadium: "T-Mobile Arena, Las Vegas, NV" },
+  "20251103NCAAB00002": { time: "21:30", tv: "TNT", stadium: "T-Mobile Arena, Las Vegas, NV" },
+  "20251104NCAAB00003": { time: "20:45", tv: "ESPN", stadium: "Spectrum Center, Charlotte, NC" },
   
   // Week 9 - Nov 2-3, 2025
   "20251102NFL00036": { time: "13:00", tv: "CBS", stadium: "Paycor Stadium, Cincinnati, OH" },

@@ -20,6 +20,7 @@ import abcLogo from "@/assets/ABC.png";
 import nbcLogo from "@/assets/NBC.png";
 import amazonPrimeLogo from "@/assets/Amazon-Prime.png";
 import cbsLogo from "@/assets/CBS.png";
+import espnLogo from "@/assets/ESPN.png";
 import { areColorsSimilar, getBestContrastColor } from "@/utils/colorSimilarity";
 
 // Map TV network names to their logos
@@ -29,6 +30,7 @@ const TV_LOGOS: Record<string, string> = {
   "NBC": nbcLogo,
   "Amazon": amazonPrimeLogo,
   "CBS": cbsLogo,
+  "ESPN": espnLogo,
 };
 
 // Format date as HH:MM am/pm ET

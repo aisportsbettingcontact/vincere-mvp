@@ -1255,12 +1255,12 @@ function SplitsCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
           {/* Team Nicknames Row - Centered */}
           <div className="flex items-center justify-center gap-2 mb-2">
             <img src={getTeamLogo(game.sport, game.away.espnAbbr)} alt={game.away.name} className="w-8 h-8 rounded" />
-            <span className="font-bold text-lg" style={{ color: game.away.color }}>
+            <span className="font-bold text-lg text-white">
               {game.away.name}
             </span>
             <span className="text-sm font-semibold" style={{ color: "var(--ma-text-secondary)" }}>@</span>
             <img src={getTeamLogo(game.sport, game.home.espnAbbr)} alt={game.home.name} className="w-8 h-8 rounded" />
-            <span className="font-bold text-lg" style={{ color: game.home.color }}>
+            <span className="font-bold text-lg text-white">
               {game.home.name}
             </span>
           </div>
@@ -1314,10 +1314,10 @@ function SplitsCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
         <div className="md:hidden mb-4">
           <div className="flex items-center gap-2 justify-center mb-2">
             <img src={getTeamLogo(game.sport, game.away.espnAbbr)} alt={game.away.name} className="w-8 h-8 rounded" />
-            <span className="font-bold text-base" style={{ color: game.away.color }}>{game.away.name}</span>
+            <span className="font-bold text-base text-white">{game.away.name}</span>
             <span className="text-sm" style={{ color: "var(--ma-text-secondary)" }}>@</span>
             <img src={getTeamLogo(game.sport, game.home.espnAbbr)} alt={game.home.name} className="w-8 h-8 rounded" />
-            <span className="font-bold text-base" style={{ color: game.home.color }}>{game.home.name}</span>
+            <span className="font-bold text-base text-white">{game.home.name}</span>
           </div>
           
           <div className="flex items-center justify-center gap-2 flex-wrap text-xs">

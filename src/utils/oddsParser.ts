@@ -192,16 +192,16 @@ export function parseGame(game: RawSplitGame, book: string): GameOdds {
     ],
     splits: {
       moneyline: {
-        away: { tickets: game.ml[2][0], handle: game.ml[2][1] },
-        home: { tickets: game.ml[3][0], handle: game.ml[3][1] },
+        away: { handle: game.ml[2][0], tickets: game.ml[3][0] },
+        home: { handle: game.ml[2][1], tickets: game.ml[3][1] },
       },
       spread: {
-        away: { tickets: game.spr[2][0], handle: game.spr[2][1] },
-        home: { tickets: game.spr[3][0], handle: game.spr[3][1] },
+        away: { handle: game.spr[2][0], tickets: game.spr[3][0] },
+        home: { handle: game.spr[2][1], tickets: game.spr[3][1] },
       },
       total: {
-        over: { tickets: game.tot[1][0], handle: game.tot[1][1] },
-        under: { tickets: game.tot[2][0], handle: game.tot[2][1] },
+        over: { handle: game.tot[1][0], tickets: game.tot[2][0] },
+        under: { handle: game.tot[1][1], tickets: game.tot[2][1] },
       },
     },
   };

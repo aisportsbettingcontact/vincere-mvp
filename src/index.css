@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Tabular numerals for aligned numbers */
+.tabular {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
 /* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
 All colors MUST be HSL.
 */

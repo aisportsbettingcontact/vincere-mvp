@@ -27,6 +27,11 @@ const GAME_METADATA: Record<string, { time: string; tv: string; primetime?: stri
   "20251031NHL00107": { time: "16:07", tv: "ESPN+", stadium: "Capital One Arena, Washington, DC" },
   "20251031NHL00118": { time: "19:07", tv: "ESPN+", stadium: "Honda Center, Anaheim, CA" },
   
+  // Nov 3-4, 2025 - CBB
+  "20251103NCAAB00001": { time: "19:00", tv: "ESPN", stadium: "McKale Center, Tucson, AZ" },
+  "20251103NCAAB00002": { time: "21:00", tv: "ESPN2", stadium: "Marriott Center, Provo, UT" },
+  "20251104NCAAB00003": { time: "21:30", tv: "ESPN", stadium: "Cameron Indoor Stadium, Durham, NC" },
+  
   // Week 9 - Nov 2-3, 2025
   "20251102NFL00036": { time: "13:00", tv: "CBS", stadium: "Paycor Stadium, Cincinnati, OH" },
   "20251102NFL00052": { time: "13:00", tv: "FOX", stadium: "Ford Field, Detroit, MI" },

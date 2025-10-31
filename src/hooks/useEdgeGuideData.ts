@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import type { GameOdds } from "@/data/oddsData";
+import type { GameOdds } from "@/types/odds";
 import { getTeamInfo } from "@/utils/teamMappings";
 import { getTeamColors } from "@/utils/teamColors";
 import latestOddsData from "@/data/latest-odds.json";

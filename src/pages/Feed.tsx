@@ -1,12 +1,11 @@
 import { useState, useMemo, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "motion/react";
-import type { GameOdds } from "@/data/oddsData";
+import type { GameOdds } from "@/types/odds";
 import { useEdgeGuideData } from "@/hooks/useEdgeGuideData";
 import { MirrorBar } from "@/components/MirrorBar";
 import { LineHistoryTable } from "@/components/LineHistoryTable";
-import type { Matchup } from "@/data/sportsData";
-import { getTeamLogo } from "@/data/sportsData";
+import { getTeamLogo } from "@/utils/teamLogos";
 import type { Market } from "@/utils/bettingLogic";
 import { formatSpreadLine } from "@/utils/bettingLogic";
 import { UserCircle } from "lucide-react";
@@ -64,8 +63,8 @@ function formatGameTime(dateString: string, sport?: string): string {
   }
 }
 
-// Convert GameOdds to Matchup format for LineHistoryTable
-function convertGameOddsToMatchup(game: GameOdds): Matchup {
+// Convert GameOdds for LineHistoryTable
+function convertGameOddsToMatchup(game: GameOdds) {
   const firstOdds = game.odds[0];
   
   // Check if spread/total data is missing (line = 0 means no data)

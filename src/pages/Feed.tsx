@@ -731,7 +731,10 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
               <div className="flex items-center justify-center gap-2 md:gap-3 py-1.5 md:py-2">
                 <img src={getTeamLogo(displayGame.sport, displayGame.away.espnAbbr)} alt="" className="w-6 h-6 md:w-8 md:h-8 rounded flex-shrink-0" />
                 <div className="text-xs md:text-base font-bold" style={{ color: "var(--ma-text-primary)" }}>
-                  {displayGame.away.abbr}
+                  {displayGame.sport === "CFB" || displayGame.sport === "CBB" 
+                    ? displayGame.away.fullName || displayGame.away.name
+                    : displayGame.away.name
+                  }
                 </div>
               </div>
               
@@ -746,7 +749,10 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
               <div className="flex items-center justify-center gap-2 md:gap-3 py-1.5 md:py-2">
                 <img src={getTeamLogo(displayGame.sport, displayGame.home.espnAbbr)} alt="" className="w-6 h-6 md:w-8 md:h-8 rounded flex-shrink-0" />
                 <div className="text-xs md:text-base font-bold" style={{ color: "var(--ma-text-primary)" }}>
-                  {displayGame.home.abbr}
+                  {displayGame.sport === "CFB" || displayGame.sport === "CBB"
+                    ? displayGame.home.fullName || displayGame.home.name
+                    : displayGame.home.name
+                  }
                 </div>
               </div>
             </div>

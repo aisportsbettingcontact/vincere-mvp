@@ -161,7 +161,7 @@ function parseGame(game: any, book: string): GameOdds {
 function parseEdgeGuideData(data: EdgeGuideLatestResponse): GameOdds[] {
   const allGames: GameOdds[] = [];
   
-  // Parse DK NFL games
+  // Parse DK games for all sports
   if (data.books.DK?.NFL) {
     Object.values(data.books.DK.NFL).forEach(dateGames => {
       dateGames.forEach(game => {
@@ -170,7 +170,6 @@ function parseEdgeGuideData(data: EdgeGuideLatestResponse): GameOdds[] {
     });
   }
   
-  // Parse DK MLB games
   if (data.books.DK?.MLB) {
     Object.values(data.books.DK.MLB).forEach(dateGames => {
       dateGames.forEach(game => {
@@ -179,16 +178,6 @@ function parseEdgeGuideData(data: EdgeGuideLatestResponse): GameOdds[] {
     });
   }
   
-  // Always duplicate DK MLB games as CIRCA to ensure consistent game IDs and metadata
-  if (data.books.DK?.MLB) {
-    Object.values(data.books.DK.MLB).forEach(dateGames => {
-      dateGames.forEach(game => {
-        allGames.push(parseGame(game, "CIRCA"));
-      });
-    });
-  }
-  
-  // Parse DK CFB games
   if (data.books.DK?.CFB) {
     Object.values(data.books.DK.CFB).forEach(dateGames => {
       dateGames.forEach(game => {
@@ -197,16 +186,6 @@ function parseEdgeGuideData(data: EdgeGuideLatestResponse): GameOdds[] {
     });
   }
   
-  // Always duplicate DK CFB games as CIRCA to ensure consistent game IDs and metadata
-  if (data.books.DK?.CFB) {
-    Object.values(data.books.DK.CFB).forEach(dateGames => {
-      dateGames.forEach(game => {
-        allGames.push(parseGame(game, "CIRCA"));
-      });
-    });
-  }
-  
-  // Parse DK NBA games (exclude 20251029)
   if (data.books.DK?.NBA) {
     Object.entries(data.books.DK.NBA).forEach(([date, dateGames]) => {
       if (date !== "20251029") {
@@ -217,16 +196,6 @@ function parseEdgeGuideData(data: EdgeGuideLatestResponse): GameOdds[] {
     });
   }
   
-  // Always duplicate DK NFL games as CIRCA to ensure consistent game IDs and metadata
-  if (data.books.DK?.NFL) {
-    Object.values(data.books.DK.NFL).forEach(dateGames => {
-      dateGames.forEach(game => {
-        allGames.push(parseGame(game, "CIRCA"));
-      });
-    });
-  }
-  
-  // Parse DK NHL games
   if (data.books.DK?.NHL) {
     Object.values(data.books.DK.NHL).forEach(dateGames => {
       dateGames.forEach(game => {
@@ -235,16 +204,6 @@ function parseEdgeGuideData(data: EdgeGuideLatestResponse): GameOdds[] {
     });
   }
   
-  // Always duplicate DK NHL games as CIRCA to ensure consistent game IDs and metadata
-  if (data.books.DK?.NHL) {
-    Object.values(data.books.DK.NHL).forEach(dateGames => {
-      dateGames.forEach(game => {
-        allGames.push(parseGame(game, "CIRCA"));
-      });
-    });
-  }
-  
-  // Parse DK CBB games
   if (data.books.DK?.CBB) {
     Object.values(data.books.DK.CBB).forEach(dateGames => {
       dateGames.forEach(game => {
@@ -253,9 +212,41 @@ function parseEdgeGuideData(data: EdgeGuideLatestResponse): GameOdds[] {
     });
   }
   
-  // Always duplicate DK CBB games as CIRCA to ensure consistent game IDs and metadata
-  if (data.books.DK?.CBB) {
-    Object.values(data.books.DK.CBB).forEach(dateGames => {
+  // Parse CIRCA games for all sports (using their own data, not duplicating DK)
+  if (data.books.CIRCA?.NFL) {
+    Object.values(data.books.CIRCA.NFL).forEach(dateGames => {
+      dateGames.forEach(game => {
+        allGames.push(parseGame(game, "CIRCA"));
+      });
+    });
+  }
+  
+  if (data.books.CIRCA?.MLB) {
+    Object.values(data.books.CIRCA.MLB).forEach(dateGames => {
+      dateGames.forEach(game => {
+        allGames.push(parseGame(game, "CIRCA"));
+      });
+    });
+  }
+  
+  if (data.books.CIRCA?.CFB) {
+    Object.values(data.books.CIRCA.CFB).forEach(dateGames => {
+      dateGames.forEach(game => {
+        allGames.push(parseGame(game, "CIRCA"));
+      });
+    });
+  }
+  
+  if (data.books.CIRCA?.NHL) {
+    Object.values(data.books.CIRCA.NHL).forEach(dateGames => {
+      dateGames.forEach(game => {
+        allGames.push(parseGame(game, "CIRCA"));
+      });
+    });
+  }
+  
+  if (data.books.CIRCA?.CBB) {
+    Object.values(data.books.CIRCA.CBB).forEach(dateGames => {
       dateGames.forEach(game => {
         allGames.push(parseGame(game, "CIRCA"));
       });

@@ -9,90 +9,48 @@ All colors MUST be HSL.
 @layer base {
   :root,
   [data-theme="dark"] {
-    /* EdgeGuide Design System - Dark Mode */
-    --font-size: 16px;
+    /* EdgeGuide Design System - Dark Mode (All HSL) */
     
-    /* Core Background Colors */
-    --ma-bg: #0b0f14;
-    --ma-surface: #0f141a;
-    --ma-canvas: #0b0d10;
-    --ma-card: #111418;
-    
-    /* Borders & Dividers */
-    --ma-stroke: #1b2530;
-    --ma-divider: #1b2530;
-    
-    /* Text Colors */
-    --ma-text-primary: #e6eaf0;
-    --ma-text-secondary: #a6b0bf;
-    
-    /* Accent Colors */
-    --ma-accent-cyan: #06b6d4;
-    --ma-accent-indigo: #6f74ff;
-    --ma-accent-green: #22c55e;
-    --ma-accent-red: #ef4444;
-    --ma-accent-amber: #f59e0b;
-    
-    /* Spacing */
-    --ma-space-2: 8px;
-    --ma-space-3: 12px;
-    --ma-space-4: 16px;
-
-    /* Legacy Shadcn Variables (for compatibility) */
-    --background: 220 20% 6%;
-    --foreground: 210 40% 98%;
-    --card: 218 19% 10%;
-    --card-foreground: 210 40% 98%;
-    --popover: 224 71% 4%;
-    --popover-foreground: 210 40% 98%;
+    /* Core Shadcn Colors */
+    --background: 218 26% 6%;
+    --foreground: 220 29% 92%;
+    --card: 218 19% 8%;
+    --card-foreground: 220 29% 92%;
+    --popover: 218 26% 8%;
+    --popover-foreground: 220 29% 92%;
     --primary: 240 74% 67%;
     --primary-foreground: 210 40% 98%;
     --secondary: 217 33% 17%;
     --secondary-foreground: 210 40% 98%;
     --muted: 215 28% 17%;
-    --muted-foreground: 217 11% 65%;
+    --muted-foreground: 218 14% 70%;
     --accent: 240 74% 67%;
     --accent-foreground: 210 40% 98%;
-    --destructive: 0 63% 58%;
+    --destructive: 0 72% 59%;
     --destructive-foreground: 210 40% 98%;
-    --border: 218 30% 16%;
+    --border: 211 27% 15%;
     --input: 215 28% 23%;
     --ring: 240 74% 67%;
     --radius: 0.75rem;
+    
+    /* Extended Accent Colors (HSL) */
+    --accent-cyan: 191 91% 43%;
+    --accent-indigo: 238 100% 72%;
+    --accent-green: 142 71% 45%;
+    --accent-red: 0 72% 59%;
+    --accent-amber: 38 92% 50%;
+    
+    /* Spacing Utilities */
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
   }
 
   [data-theme="light"] {
-    /* EdgeGuide Design System - Light Mode */
-    --font-size: 16px;
+    /* EdgeGuide Design System - Light Mode (All HSL) */
     
-    /* Core Background Colors */
-    --ma-bg: #f8fafc;
-    --ma-surface: #ffffff;
-    --ma-canvas: #f1f5f9;
-    --ma-card: #ffffff;
-    
-    /* Borders & Dividers */
-    --ma-stroke: #e2e8f0;
-    --ma-divider: #e2e8f0;
-    
-    /* Text Colors */
-    --ma-text-primary: #0f172a;
-    --ma-text-secondary: #475569;
-    
-    /* Accent Colors */
-    --ma-accent-cyan: #06b6d4;
-    --ma-accent-indigo: #6366f1;
-    --ma-accent-green: #22c55e;
-    --ma-accent-red: #ef4444;
-    --ma-accent-amber: #f59e0b;
-    
-    /* Spacing */
-    --ma-space-2: 8px;
-    --ma-space-3: 12px;
-    --ma-space-4: 16px;
-
-    /* Legacy Shadcn Variables (for compatibility) */
-    --background: 210 20% 98%;
+    /* Core Shadcn Colors */
+    --background: 210 40% 98%;
     --foreground: 222 47% 11%;
     --card: 0 0% 100%;
     --card-foreground: 222 47% 11%;
@@ -106,19 +64,25 @@ All colors MUST be HSL.
     --muted-foreground: 215 16% 47%;
     --accent: 240 74% 67%;
     --accent-foreground: 222 47% 11%;
-    --destructive: 0 63% 58%;
+    --destructive: 0 72% 59%;
     --destructive-foreground: 210 40% 98%;
     --border: 214 32% 91%;
     --input: 214 32% 91%;
     --ring: 240 74% 67%;
     --radius: 0.75rem;
+    
+    /* Extended Accent Colors (HSL) */
+    --accent-cyan: 191 91% 43%;
+    --accent-indigo: 243 75% 59%;
+    --accent-green: 142 71% 45%;
+    --accent-red: 0 72% 59%;
+    --accent-amber: 38 92% 50%;
+    
+    /* Spacing Utilities */
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
   }
-}
-
-body {
-  background-color: var(--ma-bg);
-  color: var(--ma-text-primary);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
 }
 
 @layer base {
@@ -128,6 +92,7 @@ body {
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   }
 }
 

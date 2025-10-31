@@ -10,8 +10,8 @@ interface MirrorBarProps {
 }
 
 export function MirrorBar({ label, leftPercent, rightPercent, market, awayColor, homeColor }: MirrorBarProps) {
-  const leftColor = market === "Total" ? "#6F74FF" : awayColor;
-  const rightColor = market === "Total" ? "#06B6D4" : homeColor;
+  const leftColor = market === "Total" ? "hsl(var(--accent-indigo))" : awayColor;
+  const rightColor = market === "Total" ? "hsl(var(--accent-cyan))" : homeColor;
   
   return (
     <div>

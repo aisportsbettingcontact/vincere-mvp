@@ -7,11 +7,19 @@ import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import AgeGateModal from "./components/AgeGateModal";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import { ErrorBoundary } from "./components/ErrorBoundary";
 import { supabase } from "@/integrations/supabase/client";
 import { useEffect, useState } from "react";
 import { User } from "@supabase/supabase-js";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 5, // 5 minutes
+      retry: 1,
+    },
+  },
+});
 
 function AppContent() {
   const [user, setUser] = useState<User | null>(null);
@@ -47,16 +55,18 @@ function AppContent() {
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider>
-        <BrowserRouter>
-          <Toaster />
-          <Sonner />
-          <AgeGateModal />
-          <AppContent />
-        </BrowserRouter>
-      </ThemeProvider>
-    </QueryClientProvider>
+    <ErrorBoundary>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider>
+          <BrowserRouter>
+            <Toaster />
+            <Sonner />
+            <AgeGateModal />
+            <AppContent />
+          </BrowserRouter>
+        </ThemeProvider>
+      </QueryClientProvider>
+    </ErrorBoundary>
   );
 }
 

@@ -11,13 +11,14 @@ export function BottomNavigation({ children }: BottomNavigationProps) {
     <div 
       className="fixed bottom-0 left-0 right-0 z-50 rounded-b-[44px]"
       style={{
-        background: "#090909",
+        background: "hsl(var(--background))",
         boxShadow: "0px -2px 4px 1px rgba(0,0,0,0.08)",
         height: "79px",
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
-        padding: "20px 20px 2px 20px"
+        padding: "20px 20px 2px 20px",
+        borderTop: "1px solid hsl(var(--border))"
       }}
     >
       {childArray.map((child, index) => {

@@ -11,8 +11,8 @@ export function LineHistoryTable({ matchup, view }: LineHistoryTableProps) {
     <div 
       className="rounded-[14px] p-4"
       style={{
-        background: "#16171D",
-        border: "1px solid var(--ma-stroke)"
+        background: "hsl(var(--card))",
+        border: "1px solid hsl(var(--border))"
       }}
     >
       <div className="space-y-2">

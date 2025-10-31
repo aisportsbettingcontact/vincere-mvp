@@ -1,4 +1,4 @@
-import { motion } from "motion/react";
+import { memo } from "react";
 import type { Matchup } from "../data/sportsData";
 import { getTeamLogo } from "../data/sportsData";
 
@@ -7,7 +7,7 @@ interface MatchupCardProps {
   sport: string;
 }
 
-export function MatchupCard({ matchup, sport }: MatchupCardProps) {
+export const MatchupCard = memo(function MatchupCard({ matchup, sport }: MatchupCardProps) {
   const awayLogo = getTeamLogo(sport, matchup.away.espnAbbr);
   const homeLogo = getTeamLogo(sport, matchup.home.espnAbbr);
 
@@ -116,7 +116,9 @@ export function MatchupCard({ matchup, sport }: MatchupCardProps) {
       </div>
     </div>
   );
-}
+});
+
+MatchupCard.displayName = "MatchupCard";
 
 function BetChip({ 
   top, 
@@ -133,14 +135,29 @@ function BetChip({
 }) {
   return (
     <div 
-      className="absolute bg-[#1a1a1a] h-[43.992px] rounded-[12px] hover:bg-[#242424] transition-colors cursor-pointer flex flex-col items-center justify-center"
+      className="absolute h-[43.992px] rounded-[12px] transition-all cursor-pointer flex flex-col items-center justify-center hover:opacity-90"
       data-name="BetChip"
-      style={{ top: `${top}px`, left: `${left}px`, width: `${width}px` }}
+      style={{ 
+        top: `${top}px`, 
+        left: `${left}px`, 
+        width: `${width}px`,
+        background: "hsl(var(--card))",
+        border: "1px solid hsl(var(--border))"
+      }}
     >
-      <div aria-hidden="true" className="absolute border-[#242424] border-[0.75px] border-solid inset-0 pointer-events-none rounded-[12px]" />
-      <p className="font-['Inter:Semi_Bold',_sans-serif] font-semibold leading-[16px] text-[14.5px] text-nowrap text-white tracking-[-0.1912px] whitespace-pre">{primary}</p>
+      <p 
+        className="font-['Inter:Semi_Bold',_sans-serif] font-semibold leading-[16px] text-[14.5px] text-nowrap tracking-[-0.1912px] whitespace-pre"
+        style={{ color: "hsl(var(--foreground))" }}
+      >
+        {primary}
+      </p>
       {secondary && (
-        <p className="font-['Inter:Medium',_sans-serif] font-medium leading-[14px] text-[#9aa0a6] text-[12.5px] text-nowrap tracking-[-0.0366px] whitespace-pre">{secondary}</p>
+        <p 
+          className="font-['Inter:Medium',_sans-serif] font-medium leading-[14px] text-[12.5px] text-nowrap tracking-[-0.0366px] whitespace-pre"
+          style={{ color: "hsl(var(--muted-foreground))" }}
+        >
+          {secondary}
+        </p>
       )}
     </div>
   );

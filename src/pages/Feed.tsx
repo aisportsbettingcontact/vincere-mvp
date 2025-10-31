@@ -564,70 +564,72 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
       <div className="md:hidden">
         {/* Date Header with Column Labels */}
         <div 
-          className="grid grid-cols-[1fr_2fr] gap-4 px-4 py-3 items-center"
+          className="px-4 py-3"
           style={{
             background: "var(--ma-bg)",
             borderBottom: "1px solid var(--ma-stroke)"
           }}
         >
-          <div className="flex flex-col items-center justify-center gap-1">
-            <div className="text-base font-semibold" style={{ color: "var(--ma-text-secondary)" }}>
+          {/* Top Line: Date and Time */}
+          <div className="flex items-center justify-center gap-1.5 mb-1.5">
+            <span className="text-sm font-semibold text-white">
               {formatGameDate(game.kickoff)}
-            </div>
-            <div className="text-xs font-medium" style={{ color: "var(--ma-text-secondary)" }}>
+            </span>
+            <span className="text-sm text-white">•</span>
+            <span className="text-xs font-medium" style={{ color: "var(--ma-text-secondary)" }}>
               {formatGameTime(game.kickoff, game.sport)}
-            </div>
-            {game.specialLogo && SPECIAL_LOGOS[game.specialLogo] && (
-              <div className="flex justify-center">
-                <img src={SPECIAL_LOGOS[game.specialLogo]} alt="Special Game" className="h-4 w-auto object-contain" />
-              </div>
-            )}
-            {game.tvInfo && TV_LOGOS[game.tvInfo] && (
-              <div className="flex items-center gap-1.5">
-                <img 
-                  src={TV_LOGOS[game.tvInfo]} 
-                  alt={game.tvInfo} 
-                  className={`w-auto object-contain ${game.tvInfo === 'ESPN2' ? 'h-0.5' : 'h-3'}`}
-                />
-                <span className="text-[10px] font-semibold" style={{ color: "var(--ma-text-primary)" }}>
-                  {game.tvInfo}
-                </span>
-                {game.primetime && (
-                  <>
-                    <span className="text-[10px]" style={{ color: "var(--ma-text-secondary)" }}>•</span>
-                    <span className="text-[10px] font-bold" style={{ color: "var(--ma-text-primary)" }}>
-                      {game.primetime}
-                    </span>
-                  </>
-                )}
-              </div>
-            )}
-            {game.stadium && (
-              <div className="text-[9px] font-medium text-center leading-tight" style={{ color: "var(--ma-text-secondary)" }}>
-                {game.stadium}
-              </div>
-            )}
+            </span>
           </div>
-          <div className="grid grid-cols-3 gap-2">
-            <div className="text-xs font-semibold text-center" style={{ color: "var(--ma-text-secondary)" }}>
-              Spread
+
+          {/* Second Line: Stadium */}
+          {game.stadium && (
+            <div className="text-[10px] font-medium text-center mb-2" style={{ color: "var(--ma-text-secondary)" }}>
+              {game.stadium}
             </div>
-            <div className="text-xs font-semibold text-center" style={{ color: "var(--ma-text-secondary)" }}>
-              Total
+          )}
+
+          {/* Bottom Line: TV Network + Column Headers */}
+          <div className="flex items-center justify-between gap-4">
+            {/* Left: TV Network Logo + Name */}
+            <div className="flex items-center gap-1.5 min-w-0">
+              {game.tvInfo && TV_LOGOS[game.tvInfo] ? (
+                <>
+                  <img 
+                    src={TV_LOGOS[game.tvInfo]} 
+                    alt={game.tvInfo} 
+                    className={`w-auto object-contain ${game.tvInfo === 'ESPN2' ? 'h-0.5' : 'h-3'}`}
+                  />
+                  <span className="text-[10px] font-semibold whitespace-nowrap" style={{ color: "var(--ma-text-primary)" }}>
+                    {game.tvInfo}
+                  </span>
+                </>
+              ) : (
+                <div className="w-12" />
+              )}
             </div>
-            <div className="text-xs font-semibold text-center" style={{ color: "var(--ma-text-secondary)" }}>
-              Moneyline
+
+            {/* Right: Column Headers */}
+            <div className="grid grid-cols-3 gap-2 flex-1">
+              <div className="text-xs font-semibold text-center" style={{ color: "var(--ma-text-secondary)" }}>
+                Spread
+              </div>
+              <div className="text-xs font-semibold text-center" style={{ color: "var(--ma-text-secondary)" }}>
+                Total
+              </div>
+              <div className="text-xs font-semibold text-center" style={{ color: "var(--ma-text-secondary)" }}>
+                Moneyline
+              </div>
             </div>
           </div>
         </div>
 
         {/* Content: Teams + Odds */}
         <div 
-          className="grid grid-cols-[1fr_2fr] gap-4 px-4 py-4"
+          className="flex gap-4 px-4 py-4"
           style={{ background: "var(--ma-card)" }}
         >
           {/* Left: Teams */}
-          <div className="flex flex-col justify-center items-center relative">
+          <div className="flex flex-col justify-center items-center flex-shrink-0 w-20">
             <div className="flex flex-col items-center mb-1">
               <img src={getTeamLogo(game.sport, game.away.espnAbbr)} alt="" className="w-12 h-12 rounded flex-shrink-0 mb-1.5" />
               <div className="flex flex-col items-center text-center leading-tight">
@@ -702,10 +704,10 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
           </div>
 
           {/* Right: Odds Grid */}
-          <div className="grid grid-cols-3 gap-1 items-center h-full">
+          <div className="grid grid-cols-3 gap-2 flex-1">
             {/* Row 1: Away Team Odds */}
             <div 
-              className="rounded-lg p-1.5 flex flex-col items-center justify-center h-full"
+              className="rounded-lg p-1.5 flex flex-col items-center justify-center"
               style={{ background: "rgba(255, 255, 255, 0.05)" }}
             >
               {(() => {
@@ -731,7 +733,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
             </div>
 
             <div 
-              className="rounded-lg p-1.5 flex flex-col items-center justify-center h-full"
+              className="rounded-lg p-1.5 flex flex-col items-center justify-center"
               style={{ background: "rgba(255, 255, 255, 0.05)" }}
             >
               {(() => {
@@ -757,7 +759,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
             </div>
 
             <div 
-              className="rounded-lg p-1.5 flex items-center justify-center h-full"
+              className="rounded-lg p-1.5 flex items-center justify-center"
               style={{ background: "rgba(255, 255, 255, 0.05)" }}
             >
               {(() => {
@@ -771,7 +773,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
 
             {/* Row 2: Home Team Odds */}
             <div 
-              className="rounded-lg p-1.5 flex flex-col items-center justify-center h-full"
+              className="rounded-lg p-1.5 flex flex-col items-center justify-center"
               style={{ background: "rgba(255, 255, 255, 0.05)" }}
             >
               {(() => {
@@ -797,7 +799,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
             </div>
 
             <div 
-              className="rounded-lg p-1.5 flex flex-col items-center justify-center h-full"
+              className="rounded-lg p-1.5 flex flex-col items-center justify-center"
               style={{ background: "rgba(255, 255, 255, 0.05)" }}
             >
               {(() => {
@@ -823,7 +825,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
             </div>
 
             <div 
-              className="rounded-lg p-1.5 flex items-center justify-center h-full"
+              className="rounded-lg p-1.5 flex items-center justify-center"
               style={{ background: "rgba(255, 255, 255, 0.05)" }}
             >
               {(() => {

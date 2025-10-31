@@ -534,7 +534,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
               <img 
                 src={TV_LOGOS[game.tvInfo]} 
                 alt={game.tvInfo} 
-                className={`w-auto object-contain ${game.tvInfo === 'ESPN2' ? 'h-2.5' : 'h-3'}`} 
+                className={`w-auto object-contain ${game.tvInfo === 'ESPN2' ? 'h-0.5' : 'h-3'}`} 
               />
               <span className="text-xs font-semibold" style={{ color: "var(--ma-text-primary)" }}>
                 {game.tvInfo}
@@ -587,7 +587,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
                 <img 
                   src={TV_LOGOS[game.tvInfo]} 
                   alt={game.tvInfo} 
-                  className={`w-auto object-contain ${game.tvInfo === 'ESPN2' ? 'h-2' : 'h-3'}`}
+                  className={`w-auto object-contain ${game.tvInfo === 'ESPN2' ? 'h-0.5' : 'h-3'}`}
                 />
                 <span className="text-[10px] font-semibold" style={{ color: "var(--ma-text-primary)" }}>
                   {game.tvInfo}
@@ -1207,7 +1207,7 @@ function SplitsCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
                   <img 
                     src={TV_LOGOS[game.tvInfo]} 
                     alt={game.tvInfo} 
-                    className={`w-auto object-contain ${game.tvInfo === 'ESPN2' ? 'h-2' : 'h-3'}`}
+                    className={`w-auto object-contain ${game.tvInfo === 'ESPN2' ? 'h-0.5' : 'h-3'}`}
                   />
                   <span className="font-semibold" style={{ color: "var(--ma-text-primary)" }}>
                     {game.tvInfo}

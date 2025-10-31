@@ -298,10 +298,7 @@ export default function Feed() {
                   alt="World Series"
                   className="w-6 h-6 object-contain"
                 />
-                <div className="flex flex-col items-center leading-tight">
-                  <span>World</span>
-                  <span>Series</span>
-                </div>
+                <span className="leading-tight">MLB</span>
               </button>
               <button
                 onClick={() => setSelectedSport("CFB")}

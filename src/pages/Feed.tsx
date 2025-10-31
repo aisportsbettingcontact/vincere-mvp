@@ -589,9 +589,9 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
           </div>
 
           {/* Bottom Row: TV Network + Column Headers - Matching cell structure exactly */}
-          <div className="flex gap-4 px-4 pb-3">
+          <div className="flex items-center gap-4 px-4 pb-1">
             {/* Left: TV Network Logo + Name - Same width as team column */}
-            <div className="flex items-center gap-2 flex-shrink-0 w-20">
+            <div className="flex items-center justify-center gap-2 flex-shrink-0 w-20">
               {game.tvInfo && TV_LOGOS[game.tvInfo] ? (
                 <>
                   <img 

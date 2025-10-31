@@ -536,12 +536,11 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
             <div className="flex flex-col items-center mb-1">
               <img src={getTeamLogo(displayGame.sport, displayGame.away.espnAbbr)} alt="" className="w-12 h-12 rounded flex-shrink-0 mb-1.5" />
               <div className="flex flex-col items-center text-center leading-tight">
-                <div className="text-[10px] font-semibold" style={{ color: "var(--ma-text-primary)" }}>
+                <div className="text-[10px] font-semibold whitespace-nowrap" style={{ color: "var(--ma-text-primary)" }}>
                   {(() => {
                     if (displayGame.sport === "CFB" || displayGame.sport === "CBB") {
-                      // For college: show school name/abbreviation
-                      const parts = displayGame.away.fullName?.split(" ") || [displayGame.away.name];
-                      return parts.slice(0, -1).join(" ");
+                      // For college: show school name on first line
+                      return displayGame.away.name;
                     } else {
                       // For pro sports: handle multi-word nicknames
                       const name = displayGame.away.name;
@@ -553,12 +552,12 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
                     }
                   })()}
                 </div>
-                <div className="text-[8px] font-bold" style={{ color: "var(--ma-text-primary)" }}>
+                <div className="text-[8px] font-bold whitespace-nowrap" style={{ color: "var(--ma-text-primary)" }}>
                   {(() => {
                     if (displayGame.sport === "CFB" || displayGame.sport === "CBB") {
-                      // For college: show nickname
-                      const parts = displayGame.away.fullName?.split(" ") || [displayGame.away.abbr];
-                      return parts[parts.length - 1];
+                      // For college: show nickname on second line
+                      const nickname = displayGame.away.fullName?.replace(displayGame.away.name, "").trim();
+                      return nickname || displayGame.away.abbr;
                     } else {
                       // For pro sports: handle multi-word nicknames
                       const name = displayGame.away.name;
@@ -582,12 +581,11 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
             <div className="flex flex-col items-center mt-1">
               <img src={getTeamLogo(displayGame.sport, displayGame.home.espnAbbr)} alt="" className="w-12 h-12 rounded flex-shrink-0 mb-1.5" />
               <div className="flex flex-col items-center text-center leading-tight">
-                <div className="text-[10px] font-semibold" style={{ color: "var(--ma-text-primary)" }}>
+                <div className="text-[10px] font-semibold whitespace-nowrap" style={{ color: "var(--ma-text-primary)" }}>
                   {(() => {
                     if (displayGame.sport === "CFB" || displayGame.sport === "CBB") {
-                      // For college: show school name/abbreviation
-                      const parts = displayGame.home.fullName?.split(" ") || [displayGame.home.name];
-                      return parts.slice(0, -1).join(" ");
+                      // For college: show school name on first line
+                      return displayGame.home.name;
                     } else {
                       // For pro sports: handle multi-word nicknames
                       const name = displayGame.home.name;
@@ -599,12 +597,12 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
                     }
                   })()}
                 </div>
-                <div className="text-[8px] font-bold" style={{ color: "var(--ma-text-primary)" }}>
+                <div className="text-[8px] font-bold whitespace-nowrap" style={{ color: "var(--ma-text-primary)" }}>
                   {(() => {
                     if (displayGame.sport === "CFB" || displayGame.sport === "CBB") {
-                      // For college: show nickname
-                      const parts = displayGame.home.fullName?.split(" ") || [displayGame.home.abbr];
-                      return parts[parts.length - 1];
+                      // For college: show nickname on second line
+                      const nickname = displayGame.home.fullName?.replace(displayGame.home.name, "").trim();
+                      return nickname || displayGame.home.abbr;
                     } else {
                       // For pro sports: handle multi-word nicknames
                       const name = displayGame.home.name;

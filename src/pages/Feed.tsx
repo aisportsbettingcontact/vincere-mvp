@@ -1250,46 +1250,6 @@ function SplitsCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
       }}
     >
       <div className="p-4">
-        {/* Toggle: Tickets vs Handle - Enhanced Styling */}
-        <div className="flex items-center justify-center gap-3 mb-4">
-          <button
-            onClick={() => {
-              console.log(`[SPLITS DEBUG] Toggle clicked: ${viewMode} -> tickets`);
-              setViewMode("tickets");
-            }}
-            className="px-5 py-2.5 rounded-lg text-sm font-bold transition-all duration-200 shadow-sm"
-            style={{
-              background: viewMode === "tickets" 
-                ? "linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-variant)))" 
-                : "hsl(var(--ma-card-secondary))",
-              color: viewMode === "tickets" ? "white" : "var(--ma-text-secondary)",
-              border: `2px solid ${viewMode === "tickets" ? "hsl(var(--primary))" : "var(--ma-stroke)"}`,
-              transform: viewMode === "tickets" ? "scale(1.05)" : "scale(1)",
-              boxShadow: viewMode === "tickets" ? "0 4px 12px hsl(var(--primary) / 0.3)" : "none"
-            }}
-          >
-            Tickets %
-          </button>
-          <button
-            onClick={() => {
-              console.log(`[SPLITS DEBUG] Toggle clicked: ${viewMode} -> handle`);
-              setViewMode("handle");
-            }}
-            className="px-5 py-2.5 rounded-lg text-sm font-bold transition-all duration-200 shadow-sm"
-            style={{
-              background: viewMode === "handle" 
-                ? "linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-variant)))" 
-                : "hsl(var(--ma-card-secondary))",
-              color: viewMode === "handle" ? "white" : "var(--ma-text-secondary)",
-              border: `2px solid ${viewMode === "handle" ? "hsl(var(--primary))" : "var(--ma-stroke)"}`,
-              transform: viewMode === "handle" ? "scale(1.05)" : "scale(1)",
-              boxShadow: viewMode === "handle" ? "0 4px 12px hsl(var(--primary) / 0.3)" : "none"
-            }}
-          >
-            Handle %
-          </button>
-        </div>
-
         {/* Desktop: Team Nicknames + Metadata Header */}
         <div className="hidden md:block mb-4">
           {/* Team Nicknames Row - Centered */}
@@ -1373,6 +1333,46 @@ function SplitsCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
               </>
             )}
           </div>
+        </div>
+        
+        {/* Toggle: Tickets vs Money - Centered between Date/Time and Markets */}
+        <div className="flex items-center justify-center gap-3 my-4">
+          <button
+            onClick={() => {
+              console.log(`[SPLITS DEBUG] Toggle clicked: ${viewMode} -> tickets`);
+              setViewMode("tickets");
+            }}
+            className="px-5 py-2.5 rounded-lg text-sm font-bold transition-all duration-200 shadow-sm"
+            style={{
+              background: viewMode === "tickets" 
+                ? "linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-variant)))" 
+                : "hsl(var(--ma-card-secondary))",
+              color: viewMode === "tickets" ? "white" : "var(--ma-text-secondary)",
+              border: `2px solid ${viewMode === "tickets" ? "hsl(var(--primary))" : "var(--ma-stroke)"}`,
+              transform: viewMode === "tickets" ? "scale(1.05)" : "scale(1)",
+              boxShadow: viewMode === "tickets" ? "0 4px 12px hsl(var(--primary) / 0.3)" : "none"
+            }}
+          >
+            Tickets
+          </button>
+          <button
+            onClick={() => {
+              console.log(`[SPLITS DEBUG] Toggle clicked: ${viewMode} -> handle`);
+              setViewMode("handle");
+            }}
+            className="px-5 py-2.5 rounded-lg text-sm font-bold transition-all duration-200 shadow-sm"
+            style={{
+              background: viewMode === "handle" 
+                ? "linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-variant)))" 
+                : "hsl(var(--ma-card-secondary))",
+              color: viewMode === "handle" ? "white" : "var(--ma-text-secondary)",
+              border: `2px solid ${viewMode === "handle" ? "hsl(var(--primary))" : "var(--ma-stroke)"}`,
+              transform: viewMode === "handle" ? "scale(1.05)" : "scale(1)",
+              boxShadow: viewMode === "handle" ? "0 4px 12px hsl(var(--primary) / 0.3)" : "none"
+            }}
+          >
+            Money
+          </button>
         </div>
         
         {/* Moneyline */}

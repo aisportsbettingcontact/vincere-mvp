@@ -1093,17 +1093,36 @@ function SplitsCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
   const firstOdds = game.odds[0];
   const [viewMode, setViewMode] = useState<"tickets" | "handle">("handle");
   
-  // Calculate data for all three markets
+  // Calculate data for all three markets with GUARANTEED 100% sum
   const spreadsData = useMemo(() => {
-    // Convert decimals to percentages (0.79 -> 79)
+    // Convert decimals to percentages and normalize to ensure 100% sum
+    const rawTicketsLeft = game.splits.spread.away.tickets * 100;
+    const rawTicketsRight = game.splits.spread.home.tickets * 100;
+    const ticketsSum = rawTicketsLeft + rawTicketsRight;
+    
+    const rawMoneyLeft = game.splits.spread.away.handle * 100;
+    const rawMoneyRight = game.splits.spread.home.handle * 100;
+    const moneySum = rawMoneyLeft + rawMoneyRight;
+    
+    // Normalize to ensure exact 100% sum (handle rounding errors)
     const tickets = { 
-      left: Math.round(game.splits.spread.away.tickets * 100), 
-      right: Math.round(game.splits.spread.home.tickets * 100) 
+      left: Math.round(rawTicketsLeft), 
+      right: Math.round(100 - Math.round(rawTicketsLeft))
     };
     const money = { 
-      left: Math.round(game.splits.spread.away.handle * 100), 
-      right: Math.round(game.splits.spread.home.handle * 100) 
+      left: Math.round(rawMoneyLeft), 
+      right: Math.round(100 - Math.round(rawMoneyLeft))
     };
+    
+    console.log(`[SPLITS DEBUG] Spread - ${game.away.abbr} @ ${game.home.abbr}:`, {
+      rawTickets: { left: rawTicketsLeft, right: rawTicketsRight, sum: ticketsSum },
+      normalizedTickets: tickets,
+      ticketsCheck: tickets.left + tickets.right,
+      rawMoney: { left: rawMoneyLeft, right: rawMoneyRight, sum: moneySum },
+      normalizedMoney: money,
+      moneyCheck: money.left + money.right
+    });
+    
     const currentLine = firstOdds?.spread?.away?.line || 0;
     const hasSpread = currentLine !== 0;
     
@@ -1125,15 +1144,34 @@ function SplitsCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
   }, [game, firstOdds]);
   
   const totalsData = useMemo(() => {
-    // Convert decimals to percentages (0.79 -> 79)
+    // Convert decimals to percentages and normalize to ensure 100% sum
+    const rawTicketsLeft = game.splits.total.over.tickets * 100;
+    const rawTicketsRight = game.splits.total.under.tickets * 100;
+    const ticketsSum = rawTicketsLeft + rawTicketsRight;
+    
+    const rawMoneyLeft = game.splits.total.over.handle * 100;
+    const rawMoneyRight = game.splits.total.under.handle * 100;
+    const moneySum = rawMoneyLeft + rawMoneyRight;
+    
+    // Normalize to ensure exact 100% sum
     const tickets = { 
-      left: Math.round(game.splits.total.over.tickets * 100), 
-      right: Math.round(game.splits.total.under.tickets * 100) 
+      left: Math.round(rawTicketsLeft), 
+      right: Math.round(100 - Math.round(rawTicketsLeft))
     };
     const money = { 
-      left: Math.round(game.splits.total.over.handle * 100), 
-      right: Math.round(game.splits.total.under.handle * 100) 
+      left: Math.round(rawMoneyLeft), 
+      right: Math.round(100 - Math.round(rawMoneyLeft))
     };
+    
+    console.log(`[SPLITS DEBUG] Total - ${game.away.abbr} @ ${game.home.abbr}:`, {
+      rawTickets: { over: rawTicketsLeft, under: rawTicketsRight, sum: ticketsSum },
+      normalizedTickets: tickets,
+      ticketsCheck: tickets.left + tickets.right,
+      rawMoney: { over: rawMoneyLeft, under: rawMoneyRight, sum: moneySum },
+      normalizedMoney: money,
+      moneyCheck: money.left + money.right
+    });
+    
     const currentLine = firstOdds?.total?.over?.line || 0;
     const hasTotal = currentLine !== 0;
     
@@ -1155,15 +1193,34 @@ function SplitsCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
   }, [game, firstOdds]);
   
   const mlData = useMemo(() => {
-    // Convert decimals to percentages (0.79 -> 79)
+    // Convert decimals to percentages and normalize to ensure 100% sum
+    const rawTicketsLeft = game.splits.moneyline.away.tickets * 100;
+    const rawTicketsRight = game.splits.moneyline.home.tickets * 100;
+    const ticketsSum = rawTicketsLeft + rawTicketsRight;
+    
+    const rawMoneyLeft = game.splits.moneyline.away.handle * 100;
+    const rawMoneyRight = game.splits.moneyline.home.handle * 100;
+    const moneySum = rawMoneyLeft + rawMoneyRight;
+    
+    // Normalize to ensure exact 100% sum
     const tickets = { 
-      left: Math.round(game.splits.moneyline.away.tickets * 100), 
-      right: Math.round(game.splits.moneyline.home.tickets * 100) 
+      left: Math.round(rawTicketsLeft), 
+      right: Math.round(100 - Math.round(rawTicketsLeft))
     };
     const money = { 
-      left: Math.round(game.splits.moneyline.away.handle * 100), 
-      right: Math.round(game.splits.moneyline.home.handle * 100) 
+      left: Math.round(rawMoneyLeft), 
+      right: Math.round(100 - Math.round(rawMoneyLeft))
     };
+    
+    console.log(`[SPLITS DEBUG] Moneyline - ${game.away.abbr} @ ${game.home.abbr}:`, {
+      rawTickets: { away: rawTicketsLeft, home: rawTicketsRight, sum: ticketsSum },
+      normalizedTickets: tickets,
+      ticketsCheck: tickets.left + tickets.right,
+      rawMoney: { away: rawMoneyLeft, home: rawMoneyRight, sum: moneySum },
+      normalizedMoney: money,
+      moneyCheck: money.left + money.right
+    });
+    
     const awayML = firstOdds?.moneyline?.away?.american;
     const hasML = awayML && awayML !== 0;
     
@@ -1193,26 +1250,40 @@ function SplitsCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
       }}
     >
       <div className="p-4">
-        {/* Toggle: Tickets vs Handle */}
-        <div className="flex items-center justify-center gap-2 mb-4">
+        {/* Toggle: Tickets vs Handle - Enhanced Styling */}
+        <div className="flex items-center justify-center gap-3 mb-4">
           <button
-            onClick={() => setViewMode("tickets")}
-            className="px-4 py-2 rounded-lg text-sm font-semibold transition-all"
+            onClick={() => {
+              console.log(`[SPLITS DEBUG] Toggle clicked: ${viewMode} -> tickets`);
+              setViewMode("tickets");
+            }}
+            className="px-5 py-2.5 rounded-lg text-sm font-bold transition-all duration-200 shadow-sm"
             style={{
-              background: viewMode === "tickets" ? "var(--ma-accent)" : "transparent",
-              color: viewMode === "tickets" ? "var(--ma-text-primary)" : "var(--ma-text-secondary)",
-              border: `1px solid ${viewMode === "tickets" ? "var(--ma-accent)" : "var(--ma-stroke)"}`
+              background: viewMode === "tickets" 
+                ? "linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-variant)))" 
+                : "hsl(var(--ma-card-secondary))",
+              color: viewMode === "tickets" ? "white" : "var(--ma-text-secondary)",
+              border: `2px solid ${viewMode === "tickets" ? "hsl(var(--primary))" : "var(--ma-stroke)"}`,
+              transform: viewMode === "tickets" ? "scale(1.05)" : "scale(1)",
+              boxShadow: viewMode === "tickets" ? "0 4px 12px hsl(var(--primary) / 0.3)" : "none"
             }}
           >
             Tickets %
           </button>
           <button
-            onClick={() => setViewMode("handle")}
-            className="px-4 py-2 rounded-lg text-sm font-semibold transition-all"
+            onClick={() => {
+              console.log(`[SPLITS DEBUG] Toggle clicked: ${viewMode} -> handle`);
+              setViewMode("handle");
+            }}
+            className="px-5 py-2.5 rounded-lg text-sm font-bold transition-all duration-200 shadow-sm"
             style={{
-              background: viewMode === "handle" ? "var(--ma-accent)" : "transparent",
-              color: viewMode === "handle" ? "var(--ma-text-primary)" : "var(--ma-text-secondary)",
-              border: `1px solid ${viewMode === "handle" ? "var(--ma-accent)" : "var(--ma-stroke)"}`
+              background: viewMode === "handle" 
+                ? "linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-variant)))" 
+                : "hsl(var(--ma-card-secondary))",
+              color: viewMode === "handle" ? "white" : "var(--ma-text-secondary)",
+              border: `2px solid ${viewMode === "handle" ? "hsl(var(--primary))" : "var(--ma-stroke)"}`,
+              transform: viewMode === "handle" ? "scale(1.05)" : "scale(1)",
+              boxShadow: viewMode === "handle" ? "0 4px 12px hsl(var(--primary) / 0.3)" : "none"
             }}
           >
             Handle %

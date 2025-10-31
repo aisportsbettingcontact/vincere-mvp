@@ -155,15 +155,28 @@ export function getTeamInfo(slug: string, sport: string = "NFL") {
     : NFL_TEAM_MAPPINGS;
   const result = mappings[slug];
   
-  // Debug logging for CFB teams to verify mappings
-  if (sport === "CFB" && !result) {
-    console.warn(`⚠️ CFB team not mapped: "${slug}" - using fallback abbr: ${slug.toUpperCase().slice(0, 3)}`);
+  // If team not mapped, create proper display name from slug
+  if (!result) {
+    const formattedName = slug
+      .split('-')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+    
+    const abbreviation = slug
+      .split('-')
+      .map(word => word.charAt(0).toUpperCase())
+      .join('')
+      .slice(0, 3);
+    
+    console.warn(`⚠️ ${sport} team not mapped: "${slug}" - using fallback: ${formattedName} (${abbreviation})`);
+    
+    return { 
+      name: formattedName, 
+      abbr: abbreviation, 
+      espnAbbr: slug,
+      fullName: formattedName
+    };
   }
   
-  return result || { 
-    name: slug, 
-    abbr: slug.toUpperCase().slice(0, 3), 
-    espnAbbr: slug.slice(0, 3).toLowerCase(),
-    fullName: slug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
-  };
+  return result;
 }

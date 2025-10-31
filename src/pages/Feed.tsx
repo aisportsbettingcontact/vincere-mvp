@@ -531,7 +531,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
           <>
             <span style={{ color: "var(--ma-text-secondary)" }}>•</span>
             <div className="flex items-center gap-1.5">
-              <img src={TV_LOGOS[game.tvInfo]} alt={game.tvInfo} className="h-4 w-auto object-contain" />
+              <img src={TV_LOGOS[game.tvInfo]} alt={game.tvInfo} className="h-3 w-auto object-contain" />
               <span className="text-xs font-semibold" style={{ color: "var(--ma-text-primary)" }}>
                 {game.tvInfo}
               </span>

@@ -24,8 +24,8 @@ const GAME_METADATA: Record<string, { time: string; tv: string; primetime?: stri
   
   // Oct 31, 2025 - NHL
   "20251031NHL01725": { time: "16:07", tv: "ESPN+", stadium: "T-Mobile Arena, Las Vegas, NV" },
-  "20251031NHL00107": { time: "16:07", tv: "ESPN+", stadium: "Capital One Arena, Washington, DC" },
-  "20251031NHL00118": { time: "19:07", tv: "ESPN+", stadium: "Honda Center, Anaheim, CA" },
+  "20251031NHL00107": { time: "19:07", tv: "ESPN+", stadium: "Capital One Arena, Washington, DC" },
+  "20251031NHL00118": { time: "22:07", tv: "ESPN+", stadium: "Honda Center, Anaheim, CA" },
   
   // Nov 3-4, 2025 - CBB
   "20251103NCAAB00001": { time: "16:00", tv: "TNT", stadium: "T-Mobile Arena, Las Vegas, NV" },

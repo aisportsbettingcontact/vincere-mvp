@@ -599,7 +599,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
                     alt={game.tvInfo} 
                     className={`w-auto object-contain ${game.tvInfo === 'ESPN2' ? 'h-1' : 'h-6'}`}
                   />
-                  <span className="text-[15px] font-semibold whitespace-nowrap" style={{ color: "var(--ma-text-primary)" }}>
+                  <span className="text-[7.5px] font-semibold whitespace-nowrap" style={{ color: "var(--ma-text-primary)" }}>
                     {game.tvInfo}
                   </span>
                 </>

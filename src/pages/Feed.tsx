@@ -608,10 +608,10 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
           </div>
 
           {/* Right: Odds Grid */}
-          <div className="grid grid-cols-3 gap-1.5 items-center h-full">
+          <div className="grid grid-cols-3 gap-1 items-center h-full">
             {/* Row 1: Away Team Odds */}
             <div 
-              className="rounded-lg p-2 flex flex-col items-center justify-center h-full"
+              className="rounded-lg p-1.5 flex flex-col items-center justify-center h-full"
               style={{ background: "rgba(255, 255, 255, 0.05)" }}
             >
               <div className="text-sm font-bold leading-none mb-0.5" style={{ color: "var(--ma-text-primary)" }}>
@@ -626,7 +626,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
             </div>
 
             <div 
-              className="rounded-lg p-2 flex flex-col items-center justify-center h-full"
+              className="rounded-lg p-1.5 flex flex-col items-center justify-center h-full"
               style={{ background: "rgba(255, 255, 255, 0.05)" }}
             >
               <div className="text-sm font-bold leading-none mb-0.5 whitespace-nowrap" style={{ color: "var(--ma-text-primary)" }}>
@@ -641,7 +641,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
             </div>
 
             <div 
-              className="rounded-lg p-2 flex items-center justify-center h-full"
+              className="rounded-lg p-1.5 flex items-center justify-center h-full"
               style={{ background: "rgba(255, 255, 255, 0.05)" }}
             >
               <div className="text-sm font-bold" style={{ color: "#4ade80" }}>
@@ -654,7 +654,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
 
             {/* Row 2: Home Team Odds */}
             <div 
-              className="rounded-lg p-2 flex flex-col items-center justify-center h-full"
+              className="rounded-lg p-1.5 flex flex-col items-center justify-center h-full"
               style={{ background: "rgba(255, 255, 255, 0.05)" }}
             >
               <div className="text-sm font-bold leading-none mb-0.5" style={{ color: "var(--ma-text-primary)" }}>
@@ -669,7 +669,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
             </div>
 
             <div 
-              className="rounded-lg p-2 flex flex-col items-center justify-center h-full"
+              className="rounded-lg p-1.5 flex flex-col items-center justify-center h-full"
               style={{ background: "rgba(255, 255, 255, 0.05)" }}
             >
               <div className="text-sm font-bold leading-none mb-0.5 whitespace-nowrap" style={{ color: "var(--ma-text-primary)" }}>
@@ -684,7 +684,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
             </div>
 
             <div 
-              className="rounded-lg p-2 flex items-center justify-center h-full"
+              className="rounded-lg p-1.5 flex items-center justify-center h-full"
               style={{ background: "rgba(255, 255, 255, 0.05)" }}
             >
               <div className="text-sm font-bold" style={{ color: "#4ade80" }}>

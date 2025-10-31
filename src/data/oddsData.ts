@@ -73,7 +73,7 @@ export const NFL_TEAM_SECONDARY_COLORS: Record<string, string> = {
 
 export interface GameOdds {
   gameId: string;
-  sport: string;
+  sport: "NFL" | "CFB" | "NBA" | "NHL" | "MLB" | "CBB";
   kickoff: string;
   book: string; // DK or CIRCA
   away: {

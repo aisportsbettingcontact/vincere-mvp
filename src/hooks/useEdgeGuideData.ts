@@ -118,12 +118,12 @@ function parseGame(game: any, book: string): GameOdds {
   const homeColors = getTeamColors(homeTeam.fullName, sport);
   
   const spreadTickets = {
-    away: Math.round(game.spr[2][0] * 100),
-    home: Math.round(game.spr[2][1] * 100)
-  };
-  const spreadMoney = {
     away: Math.round(game.spr[3][0] * 100),
     home: Math.round(game.spr[3][1] * 100)
+  };
+  const spreadMoney = {
+    away: Math.round(game.spr[2][0] * 100),
+    home: Math.round(game.spr[2][1] * 100)
   };
   
   const totalTickets = {
@@ -136,19 +136,19 @@ function parseGame(game: any, book: string): GameOdds {
   };
   
   const mlTickets = {
-    away: Math.round(game.ml[2][0] * 100),
-    home: Math.round(game.ml[2][1] * 100)
-  };
-  const mlMoney = {
     away: Math.round(game.ml[3][0] * 100),
     home: Math.round(game.ml[3][1] * 100)
+  };
+  const mlMoney = {
+    away: Math.round(game.ml[2][0] * 100),
+    home: Math.round(game.ml[2][1] * 100)
   };
   
   const metadata = GAME_METADATA[game.id];
   
   return {
     gameId: game.id,
-    sport: sport as "NFL" | "CFB" | "NBA" | "NHL",
+    sport: sport as "NFL" | "CFB" | "NBA" | "NHL" | "MLB" | "CBB",
     kickoff: formatDate(game.d, game.id, sport),
     book: book,
     tvInfo: metadata?.tv,

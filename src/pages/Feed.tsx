@@ -521,38 +521,38 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
         }}
       >
         <div className="text-xs font-semibold" style={{ color: "var(--ma-text-secondary)" }}>
-          {formatGameDate(game.kickoff)} • {formatGameTime(game.kickoff)}
+          {formatGameDate(displayGame.kickoff)} • {formatGameTime(displayGame.kickoff)}
         </div>
-        {game.specialLogo && SPECIAL_LOGOS[game.specialLogo] && (
+        {displayGame.specialLogo && SPECIAL_LOGOS[displayGame.specialLogo] && (
           <>
             <span style={{ color: "var(--ma-text-secondary)" }}>•</span>
-            <img src={SPECIAL_LOGOS[game.specialLogo]} alt="Special Game" className="h-5 w-auto object-contain" />
+            <img src={SPECIAL_LOGOS[displayGame.specialLogo]} alt="Special Game" className="h-5 w-auto object-contain" />
           </>
         )}
-        {game.tvInfo && TV_LOGOS[game.tvInfo] && (
+        {displayGame.tvInfo && TV_LOGOS[displayGame.tvInfo] && (
           <>
             <span style={{ color: "var(--ma-text-secondary)" }}>•</span>
             <div className="flex items-center gap-1.5">
-              <img src={TV_LOGOS[game.tvInfo]} alt={game.tvInfo} className="h-4 w-auto object-contain" />
+              <img src={TV_LOGOS[displayGame.tvInfo]} alt={displayGame.tvInfo} className="h-4 w-auto object-contain" />
               <span className="text-xs font-semibold" style={{ color: "var(--ma-text-primary)" }}>
-                {game.tvInfo}
+                {displayGame.tvInfo}
               </span>
             </div>
           </>
         )}
-        {game.primetime && (
+        {displayGame.primetime && (
           <>
             <span style={{ color: "var(--ma-text-secondary)" }}>•</span>
             <span className="text-xs font-bold" style={{ color: "var(--ma-text-primary)" }}>
-              {game.primetime}
+              {displayGame.primetime}
             </span>
           </>
         )}
-        {game.stadium && (
+        {displayGame.stadium && (
           <>
             <span style={{ color: "var(--ma-text-secondary)" }}>•</span>
             <span className="text-xs font-medium" style={{ color: "var(--ma-text-secondary)" }}>
-              {game.stadium}
+              {displayGame.stadium}
             </span>
           </>
         )}
@@ -570,35 +570,35 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
         >
           <div className="flex flex-col items-center justify-center gap-1">
             <div className="text-base font-semibold" style={{ color: "var(--ma-text-secondary)" }}>
-              {formatGameDate(game.kickoff)}
+              {formatGameDate(displayGame.kickoff)}
             </div>
             <div className="text-xs font-medium" style={{ color: "var(--ma-text-secondary)" }}>
-              {formatGameTime(game.kickoff)}
+              {formatGameTime(displayGame.kickoff)}
             </div>
-            {game.specialLogo && SPECIAL_LOGOS[game.specialLogo] && (
+            {displayGame.specialLogo && SPECIAL_LOGOS[displayGame.specialLogo] && (
               <div className="flex justify-center">
-                <img src={SPECIAL_LOGOS[game.specialLogo]} alt="Special Game" className="h-4 w-auto object-contain" />
+                <img src={SPECIAL_LOGOS[displayGame.specialLogo]} alt="Special Game" className="h-4 w-auto object-contain" />
               </div>
             )}
-            {game.tvInfo && TV_LOGOS[game.tvInfo] && (
+            {displayGame.tvInfo && TV_LOGOS[displayGame.tvInfo] && (
               <div className="flex items-center gap-1.5">
-                <img src={TV_LOGOS[game.tvInfo]} alt={game.tvInfo} className="h-3 w-auto object-contain" />
+                <img src={TV_LOGOS[displayGame.tvInfo]} alt={displayGame.tvInfo} className="h-3 w-auto object-contain" />
                 <span className="text-[10px] font-semibold" style={{ color: "var(--ma-text-primary)" }}>
-                  {game.tvInfo}
+                  {displayGame.tvInfo}
                 </span>
-                {game.primetime && (
+                {displayGame.primetime && (
                   <>
                     <span className="text-[10px]" style={{ color: "var(--ma-text-secondary)" }}>•</span>
                     <span className="text-[10px] font-bold" style={{ color: "var(--ma-text-primary)" }}>
-                      {game.primetime}
+                      {displayGame.primetime}
                     </span>
                   </>
                 )}
               </div>
             )}
-            {game.stadium && (
+            {displayGame.stadium && (
               <div className="text-[9px] font-medium text-center leading-tight" style={{ color: "var(--ma-text-secondary)" }}>
-                {game.stadium}
+                {displayGame.stadium}
               </div>
             )}
           </div>
@@ -1189,7 +1189,7 @@ function SplitsCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
         {/* Game Metadata Row */}
         <div className="flex items-center justify-center gap-2 flex-wrap mb-4 text-xs">
           <span className="font-medium" style={{ color: "var(--ma-text-secondary)" }}>
-            {formatGameDate(game.kickoff)} • {formatGameTime(game.kickoff)}
+            {formatGameDate(displayGame.kickoff)} • {formatGameTime(displayGame.kickoff)}
           </span>
           {displayGame.specialLogo && SPECIAL_LOGOS[displayGame.specialLogo] && (
             <>

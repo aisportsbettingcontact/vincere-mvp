@@ -22,6 +22,7 @@ import amazonPrimeLogo from "@/assets/Amazon-Prime.png";
 import cbsLogo from "@/assets/CBS.png";
 import espnLogo from "@/assets/ESPN.png";
 import nflBerlinLogo from "@/assets/nfl-berlin.png";
+import tntLogo from "@/assets/TNT.png";
 import { areColorsSimilar, getBestContrastColor } from "@/utils/colorSimilarity";
 
 // Map TV network names to their logos
@@ -34,6 +35,7 @@ const TV_LOGOS: Record<string, string> = {
   "ESPN": espnLogo,
   "Prime Video": amazonPrimeLogo,
   "NFL Network": espnLogo,
+  "TNT": tntLogo,
 };
 
 // Map special logos (e.g., international games)

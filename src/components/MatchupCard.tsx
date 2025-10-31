@@ -47,7 +47,7 @@ export function MatchupCard({ matchup, sport }: MatchupCardProps) {
                     />
                   </div>
                   <div className="relative shrink-0" data-name="Container">
-                    {sport === "CFB" ? (
+                    {(sport === "CFB" || sport === "CBB") ? (
                       <div className="flex flex-col">
                         <p className="font-['Inter:Semi_Bold',_sans-serif] font-semibold leading-[14px] not-italic text-[14px] text-nowrap text-white tracking-[-0.1912px] whitespace-pre">
                           {matchup.away.fullName?.split(' ')[0] || matchup.away.name}
@@ -83,7 +83,7 @@ export function MatchupCard({ matchup, sport }: MatchupCardProps) {
                     />
                   </div>
                   <div className="relative shrink-0" data-name="Container">
-                    {sport === "CFB" ? (
+                    {(sport === "CFB" || sport === "CBB") ? (
                       <div className="flex flex-col">
                         <p className="font-['Inter:Semi_Bold',_sans-serif] font-semibold leading-[14px] not-italic text-[14px] text-nowrap text-white tracking-[-0.1912px] whitespace-pre">
                           {matchup.home.fullName?.split(' ')[0] || matchup.home.name}

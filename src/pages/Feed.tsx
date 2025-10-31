@@ -23,7 +23,7 @@ import espn2Logo from "@/assets/ESPN2.png";
 import cbssnLogo from "@/assets/CBSSN.png";
 import nflBerlinLogo from "@/assets/nfl-berlin.png";
 import tntLogo from "@/assets/TNT.png";
-import { areColorsSimilar, getBestContrastColor } from "@/utils/colorSimilarity";
+import { areColorsSimilar, getBestContrastColor } from "@/utils/colorUtils";
 
 // Map TV network names to their logos
 const TV_LOGOS: Record<string, string> = {

@@ -3,7 +3,7 @@ import type { EdgeGuideLatestResponse } from "@/lib/edgeguide";
 import type { GameOdds } from "@/data/oddsData";
 import { getTeamInfo } from "@/utils/teamMappings";
 import { getTeamColors } from "@/utils/teamColors";
-import { filteredData } from "@/utils/filterGames";
+import latestOddsData from "@/data/latest-odds.json";
 
 // Map specific game IDs to their metadata
 const GAME_METADATA: Record<string, { time: string; tv: string; primetime?: string; stadium: string; specialLogo?: string }> = {
@@ -286,8 +286,8 @@ export function useEdgeGuideData() {
   return useQuery({
     queryKey: ["edgeguide-data"],
     queryFn: async () => {
-      console.log("📊 Using filtered static data (BAL @ MIA removed)");
-      const mockData = filteredData as unknown as EdgeGuideLatestResponse;
+      console.log("📊 Using latest odds data from 1030-VSiN-Splits-8.json");
+      const mockData = latestOddsData as unknown as EdgeGuideLatestResponse;
       return parseEdgeGuideData(mockData);
     },
     staleTime: Infinity, // Static data never goes stale

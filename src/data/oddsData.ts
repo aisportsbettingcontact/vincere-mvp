@@ -130,8 +130,3 @@ export interface GameOdds {
   };
 }
 
-// Import real NFL splits data
-import { parseRawSplits } from "@/utils/splitsParser";
-
-// Use real NFL splits data
-export const mockGameOdds: GameOdds[] = parseRawSplits();

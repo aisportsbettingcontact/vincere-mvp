@@ -1,9 +1,43 @@
 import { useQuery } from "@tanstack/react-query";
-import type { EdgeGuideLatestResponse } from "@/lib/edgeguide";
 import type { GameOdds } from "@/data/oddsData";
 import { getTeamInfo } from "@/utils/teamMappings";
 import { getTeamColors } from "@/utils/teamColors";
 import latestOddsData from "@/data/latest-odds.json";
+
+// EdgeGuide API response types
+interface RawSplitGame {
+  id: string;
+  d: string;
+  a: string;
+  h: string;
+  spr: [number, number, [number, number], [number, number]];
+  tot: [number, [number, number], [number, number]];
+  ml: [number, number, [number, number], [number, number]];
+  b: string;
+  s: string;
+}
+
+interface EdgeGuideLatestResponse {
+  generated_at: string;
+  tz_anchor?: string;
+  books: {
+    DK?: {
+      NFL?: Record<string, RawSplitGame[]>;
+      MLB?: Record<string, RawSplitGame[]>;
+      CFB?: Record<string, RawSplitGame[]>;
+      NBA?: Record<string, RawSplitGame[]>;
+      NHL?: Record<string, RawSplitGame[]>;
+      CBB?: Record<string, RawSplitGame[]>;
+    };
+    CIRCA?: {
+      NFL?: Record<string, RawSplitGame[]>;
+      MLB?: Record<string, RawSplitGame[]>;
+      CFB?: Record<string, RawSplitGame[]>;
+      NHL?: Record<string, RawSplitGame[]>;
+      CBB?: Record<string, RawSplitGame[]>;
+    };
+  };
+}
 
 // Map specific game IDs to their metadata
 const GAME_METADATA: Record<string, { time: string; tv: string; primetime?: string; stadium: string; specialLogo?: string }> = {

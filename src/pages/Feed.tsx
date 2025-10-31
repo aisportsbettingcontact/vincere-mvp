@@ -8,7 +8,7 @@ import { LineHistoryTable } from "@/components/LineHistoryTable";
 import type { Matchup } from "@/data/sportsData";
 import { getTeamLogo } from "@/data/sportsData";
 import type { Market } from "@/utils/bettingLogic";
-import { generateAIInsights } from "@/utils/aiAnalysis";
+import { useBettingInsights } from "@/hooks/useBettingInsights";
 import { formatSpreadLine } from "@/utils/bettingLogic";
 import { Brain, TrendingUp, Users, UserCircle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
@@ -1485,7 +1485,7 @@ function AIAnalysisCard({ game, selectedMarket, setSelectedMarket }: {
   selectedMarket: Market;
   setSelectedMarket: (m: Market) => void;
 }) {
-  const insights = useMemo(() => {
+  const analysisParams = useMemo(() => {
     const firstOdds = game.odds[0];
     let currentLine = "";
     let openLine = "";
@@ -1514,15 +1514,17 @@ function AIAnalysisCard({ game, selectedMarket, setSelectedMarket }: {
       money = { away: game.splits.moneyline.away.handle, home: game.splits.moneyline.home.handle };
     }
 
-    return generateAIInsights({
+    return {
       matchup: `${game.away.abbr} @ ${game.home.abbr}`,
       market: selectedMarket === "ML" ? "moneyline" : selectedMarket.toLowerCase() as "spread" | "moneyline" | "total",
       current_line: currentLine,
       tickets,
       money,
       move: { from: openLine, to: currentLine }
-    });
+    };
   }, [game, selectedMarket]);
+
+  const { insights, loading, error } = useBettingInsights(analysisParams);
 
   const extractPlay = (insightText: string) => {
     const play = insightText.split('.')[0].trim();
@@ -1699,31 +1701,58 @@ function AIAnalysisCard({ game, selectedMarket, setSelectedMarket }: {
         </div>
 
         {/* AI Insights Sections */}
-        <div className="space-y-3">
-          <InsightSection 
-            icon={TrendingUp}
-            iconBg="rgba(34, 197, 94, 0.12)"
-            iconBorder="rgba(34, 197, 94, 0.25)"
-            title="What Vegas Needs"
-            insight={insights.bookNeed}
-          />
-          
-          <InsightSection 
-            icon={Brain}
-            iconBg="rgba(245, 158, 11, 0.12)"
-            iconBorder="rgba(245, 158, 11, 0.25)"
-            title="Sharpest Play"
-            insight={insights.sharpSide}
-          />
-          
-          <InsightSection 
-            icon={Users}
-            iconBg="rgba(239, 68, 68, 0.12)"
-            iconBorder="rgba(239, 68, 68, 0.25)"
-            title="What The Public Is Hammering"
-            insight={insights.publicSide}
-          />
-        </div>
+        {loading ? (
+          <div className="space-y-3">
+            {[1, 2, 3].map((i) => (
+              <div 
+                key={i}
+                className="rounded-[14px] p-4 animate-pulse"
+                style={{
+                  background: "#16171D",
+                  border: "1px solid var(--ma-stroke)"
+                }}
+              >
+                <div className="h-20 bg-white/5 rounded"></div>
+              </div>
+            ))}
+          </div>
+        ) : error ? (
+          <div 
+            className="rounded-[14px] p-4"
+            style={{
+              background: "#16171D",
+              border: "1px solid rgba(239, 68, 68, 0.25)"
+            }}
+          >
+            <p className="text-sm text-red-400">Unable to load AI insights. Please try again later.</p>
+          </div>
+        ) : insights ? (
+          <div className="space-y-3">
+            <InsightSection 
+              icon={TrendingUp}
+              iconBg="rgba(34, 197, 94, 0.12)"
+              iconBorder="rgba(34, 197, 94, 0.25)"
+              title="What Vegas Needs"
+              insight={insights.bookNeed}
+            />
+            
+            <InsightSection 
+              icon={Brain}
+              iconBg="rgba(245, 158, 11, 0.12)"
+              iconBorder="rgba(245, 158, 11, 0.25)"
+              title="Sharpest Play"
+              insight={insights.sharpSide}
+            />
+            
+            <InsightSection 
+              icon={Users}
+              iconBg="rgba(239, 68, 68, 0.12)"
+              iconBorder="rgba(239, 68, 68, 0.25)"
+              title="What The Public Is Hammering"
+              insight={insights.publicSide}
+            />
+          </div>
+        ) : null}
       </div>
     </div>
   );

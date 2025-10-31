@@ -597,16 +597,11 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
             {/* Left: TV Network Logo + Name - Same width as team column */}
             <div className="flex items-center justify-center gap-2 flex-shrink-0 w-20">
               {game.tvInfo && TV_LOGOS[game.tvInfo] ? (
-                <>
-                  <img 
-                    src={TV_LOGOS[game.tvInfo]} 
-                    alt={game.tvInfo} 
-                    className={`w-auto object-contain ${game.tvInfo === 'ESPN2' ? 'h-1' : 'h-6'}`}
-                  />
-                  <span className="text-[7.5px] font-semibold whitespace-nowrap" style={{ color: "var(--ma-text-primary)" }}>
-                    {game.tvInfo}
-                  </span>
-                </>
+                <img 
+                  src={TV_LOGOS[game.tvInfo]} 
+                  alt={game.tvInfo} 
+                  className={`w-auto object-contain ${game.tvInfo === 'ESPN2' ? 'h-1' : 'h-6'}`}
+                />
               ) : null}
             </div>
 

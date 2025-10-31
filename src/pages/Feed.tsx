@@ -1094,8 +1094,15 @@ function SplitsCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
   
   // Calculate data for all three markets
   const spreadsData = useMemo(() => {
-    const tickets = { left: game.splits.spread.away.tickets, right: game.splits.spread.home.tickets };
-    const money = { left: game.splits.spread.away.handle, right: game.splits.spread.home.handle };
+    // Convert decimals to percentages (0.79 -> 79)
+    const tickets = { 
+      left: Math.round(game.splits.spread.away.tickets * 100), 
+      right: Math.round(game.splits.spread.home.tickets * 100) 
+    };
+    const money = { 
+      left: Math.round(game.splits.spread.away.handle * 100), 
+      right: Math.round(game.splits.spread.home.handle * 100) 
+    };
     const currentLine = firstOdds?.spread?.away?.line || 0;
     const hasSpread = currentLine !== 0;
     
@@ -1117,8 +1124,15 @@ function SplitsCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
   }, [game, firstOdds]);
   
   const totalsData = useMemo(() => {
-    const tickets = { left: game.splits.total.over.tickets, right: game.splits.total.under.tickets };
-    const money = { left: game.splits.total.over.handle, right: game.splits.total.under.handle };
+    // Convert decimals to percentages (0.79 -> 79)
+    const tickets = { 
+      left: Math.round(game.splits.total.over.tickets * 100), 
+      right: Math.round(game.splits.total.under.tickets * 100) 
+    };
+    const money = { 
+      left: Math.round(game.splits.total.over.handle * 100), 
+      right: Math.round(game.splits.total.under.handle * 100) 
+    };
     const currentLine = firstOdds?.total?.over?.line || 0;
     const hasTotal = currentLine !== 0;
     
@@ -1140,8 +1154,15 @@ function SplitsCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
   }, [game, firstOdds]);
   
   const mlData = useMemo(() => {
-    const tickets = { left: game.splits.moneyline.away.tickets, right: game.splits.moneyline.home.tickets };
-    const money = { left: game.splits.moneyline.away.handle, right: game.splits.moneyline.home.handle };
+    // Convert decimals to percentages (0.79 -> 79)
+    const tickets = { 
+      left: Math.round(game.splits.moneyline.away.tickets * 100), 
+      right: Math.round(game.splits.moneyline.home.tickets * 100) 
+    };
+    const money = { 
+      left: Math.round(game.splits.moneyline.away.handle * 100), 
+      right: Math.round(game.splits.moneyline.home.handle * 100) 
+    };
     const awayML = firstOdds?.moneyline?.away?.american;
     const hasML = awayML && awayML !== 0;
     

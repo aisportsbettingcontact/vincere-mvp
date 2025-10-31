@@ -7,6 +7,26 @@ import latestOddsData from "@/data/latest-odds.json";
 
 // Map specific game IDs to their metadata
 const GAME_METADATA: Record<string, { time: string; tv: string; primetime?: string; stadium: string; specialLogo?: string }> = {
+  // Oct 31, 2025 - CFB
+  "20251031CFB00205": { time: "19:00", tv: "ESPN", stadium: "Rice Stadium, Houston, TX" },
+  "20251031CFB00214": { time: "19:30", tv: "ESPN", stadium: "JMA Wireless Dome, Syracuse, NY" },
+  "20251031CFB00170": { time: "20:00", tv: "ESPN", stadium: "Joe Aillet Stadium, Ruston, LA" },
+  
+  // Oct 31, 2025 - NBA
+  "20251031NBA00073": { time: "19:10", tv: "NBA League Pass", stadium: "Gainbridge Fieldhouse, Indianapolis, IN" },
+  "20251031NBA00083": { time: "19:10", tv: "NBA League Pass", stadium: "Wells Fargo Center, Philadelphia, PA" },
+  "20251031NBA00067": { time: "19:40", tv: "NBA League Pass", stadium: "Rocket Mortgage FieldHouse, Cleveland, OH" },
+  "20251031NBA00066": { time: "20:10", tv: "NBA League Pass", stadium: "United Center, Chicago, IL" },
+  "20251031NBA00076": { time: "21:40", tv: "NBA League Pass", stadium: "FedExForum, Memphis, TN" },
+  "20251031NBA00085": { time: "22:10", tv: "NBA League Pass", stadium: "Moda Center, Portland, OR" },
+  "20251031NBA00084": { time: "22:10", tv: "NBA League Pass", stadium: "Footprint Center, Phoenix, AZ" },
+  "20251031NBA00074": { time: "22:40", tv: "NBA League Pass", stadium: "Intuit Dome, Inglewood, CA" },
+  
+  // Oct 31, 2025 - NHL
+  "20251031NHL01725": { time: "16:07", tv: "ESPN+", stadium: "T-Mobile Arena, Las Vegas, NV" },
+  "20251031NHL00107": { time: "16:07", tv: "ESPN+", stadium: "Capital One Arena, Washington, DC" },
+  "20251031NHL00118": { time: "19:07", tv: "ESPN+", stadium: "Honda Center, Anaheim, CA" },
+  
   // Week 9 - Nov 2-3, 2025
   "20251102NFL00036": { time: "13:00", tv: "CBS", stadium: "Paycor Stadium, Cincinnati, OH" },
   "20251102NFL00052": { time: "13:00", tv: "FOX", stadium: "Ford Field, Detroit, MI" },

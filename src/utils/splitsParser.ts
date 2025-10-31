@@ -47,8 +47,9 @@ const GAME_TIMES: Record<string, string> = {
   "20251102NFL00062": "16:05", // NO @ LAR - Sunday late afternoon
   "20251102NFL00031": "16:25", // KC @ BUF - Sunday late afternoon
   "20251102NFL00050": "16:25", // SEA @ WAS - Sunday late afternoon
-  "20251102NFL00047": "20:20", // NYJ @ ARI - Sunday Night Football
   "20251103NFL00040": "20:15", // TB @ KC - Monday Night Football
+  // MLB games
+  "20251102MLB00001": "20:00", // LAD @ TOR - FOX at Rogers Centre, Toronto, ON
 };
 
 function formatDate(dateStr: string, gameId: string, sport: string): string {

@@ -123,18 +123,30 @@ export function parseGame(game: RawSplitGame, book: string): GameOdds {
   
   if (sport === "CFB" || sport === "CBB") {
     // Use CFB mappings
-    awayInfo = CFB_TEAM_MAPPINGS[game.a] || { 
-      name: game.a, 
-      abbr: game.a.toUpperCase().slice(0, 4), 
-      espnAbbr: game.a, 
-      fullName: game.a 
-    };
-    homeInfo = CFB_TEAM_MAPPINGS[game.h] || { 
-      name: game.h, 
-      abbr: game.h.toUpperCase().slice(0, 4), 
-      espnAbbr: game.h, 
-      fullName: game.h 
-    };
+    awayInfo = CFB_TEAM_MAPPINGS[game.a];
+    if (!awayInfo) {
+      console.warn(`🚨 [CFB MAPPING MISSING] Away team slug not found: "${game.a}" in game ${game.id}`);
+      awayInfo = { 
+        name: game.a, 
+        abbr: game.a.toUpperCase().slice(0, 4), 
+        espnAbbr: game.a, 
+        fullName: game.a 
+      };
+    }
+    
+    homeInfo = CFB_TEAM_MAPPINGS[game.h];
+    if (!homeInfo) {
+      console.warn(`🚨 [CFB MAPPING MISSING] Home team slug not found: "${game.h}" in game ${game.id}`);
+      homeInfo = { 
+        name: game.h, 
+        abbr: game.h.toUpperCase().slice(0, 4), 
+        espnAbbr: game.h, 
+        fullName: game.h 
+      };
+    }
+    
+    console.log(`[CFB TEAM LOOKUP] Game: ${game.id} | Away: "${game.a}" → ${awayInfo.name} (ESPN: ${awayInfo.espnAbbr}) | Home: "${game.h}" → ${homeInfo.name} (ESPN: ${homeInfo.espnAbbr})`);
+    
     awayColors = getCFBTeamColors(awayInfo.fullName);
     homeColors = getCFBTeamColors(homeInfo.fullName);
   } else {

@@ -1,4 +1,4 @@
-// CFB Team Mappings for slugs to display names and ESPN IDs
+// CFB Team Mappings - slug is the primary identifier
 export const CFB_TEAM_MAPPINGS: Record<string, { 
   name: string; 
   abbr: string; 

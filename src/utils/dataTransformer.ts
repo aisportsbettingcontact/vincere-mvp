@@ -19,6 +19,7 @@ interface VSiNRawFormat {
  */
 export function transformVSiNData(rawData: VSiNRawFormat): EdgeGuideLatestResponse {
   console.log("🔄 [TRANSFORMER] Starting data transformation...");
+  console.log("🔄 [TRANSFORMER] Input data books:", Object.keys(rawData.books));
   
   const transformed: EdgeGuideLatestResponse = {
     generated_at: rawData.generated_at,
@@ -72,9 +73,15 @@ export function transformVSiNData(rawData: VSiNRawFormat): EdgeGuideLatestRespon
       const sport = String(market).toUpperCase();
       const date = String(yyyymmdd);
       
+      if (!sport || sport === 'UNDEFINED') {
+        console.error("🚨 [TRANSFORMER] Invalid sport:", market, "in row:", row);
+        return;
+      }
+      
       // Initialize sport group if needed
       if (!sportGroups[sport]) {
         sportGroups[sport] = {};
+        console.log(`  🆕 [TRANSFORMER] Created sport group: ${sport}`);
       }
       if (!sportGroups[sport][date]) {
         sportGroups[sport][date] = [];
@@ -115,8 +122,15 @@ export function transformVSiNData(rawData: VSiNRawFormat): EdgeGuideLatestRespon
       transformed.books[normalizedBookName]![sport] = dates;
       console.log(`  ✅ ${sport}: ${Object.keys(dates).length} dates, ${Object.values(dates).flat().length} games`);
     });
+    
+    console.log(`📊 [TRANSFORMER] ${bookName} sports:`, Object.keys(sportGroups));
   });
   
   console.log("✅ [TRANSFORMER] Transformation complete");
+  console.log("📊 [TRANSFORMER] Final structure - Books:", Object.keys(transformed.books));
+  Object.entries(transformed.books).forEach(([book, sports]) => {
+    console.log(`  📚 ${book} has sports:`, Object.keys(sports || {}));
+  });
+  
   return transformed;
 }

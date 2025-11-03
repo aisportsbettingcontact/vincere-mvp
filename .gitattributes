@@ -1,1 +1,5 @@
-*.png filter=lfs diff=lfs merge=lfs -text
+public/logos/** -filter -diff -merge -text
+public/logos/** -filter -diff -merge -text
+public/logos/** -filter -diff -merge -text
+public/logos/** -filter -diff -merge -text
+public/logos/** -filter -diff -merge -text

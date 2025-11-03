@@ -23,6 +23,12 @@ import espn2Logo from "@/assets/ESPN2.png";
 import cbssnLogo from "@/assets/CBSSN.png";
 import nflBerlinLogo from "@/assets/nfl-berlin.png";
 import tntLogo from "@/assets/TNT.png";
+import nflLogo from "@/assets/league-logos/nfl.png";
+import ncaafLogo from "@/assets/league-logos/ncaaf.png";
+import nbaLogo from "@/assets/league-logos/nba.png";
+import nhlLogo from "@/assets/league-logos/nhl.png";
+import ncaamLogo from "@/assets/league-logos/ncaam.png";
+import mlbLogo from "@/assets/league-logos/mlb.png";
 import { areColorsSimilar, getBestContrastColor } from "@/utils/colorUtils";
 
 // Map TV network names to their logos
@@ -323,9 +329,10 @@ export default function Feed() {
                 }`}
               >
                 <img 
-                  src="/logos/NFL/NFL.png"
+                  src={nflLogo}
                   alt="NFL"
                   className="w-6 h-6 object-contain"
+                  onError={(e) => console.error("NFL logo failed to load:", e)}
                 />
                 <span className="leading-tight">NFL</span>
               </button>
@@ -338,9 +345,10 @@ export default function Feed() {
                 }`}
               >
                 <img 
-                  src="/logos/MLB/MLB.png"
+                  src={mlbLogo}
                   alt="MLB"
                   className="w-6 h-6 object-contain"
+                  onError={(e) => console.error("MLB logo failed to load:", e)}
                 />
                 <span className="leading-tight">MLB</span>
               </button>
@@ -353,9 +361,10 @@ export default function Feed() {
                 }`}
               >
                 <img 
-                  src="/logos/NCAAF/NCAAF.png"
+                  src={ncaafLogo}
                   alt="NCAAF"
                   className="w-6 h-6 object-contain"
+                  onError={(e) => console.error("NCAAF logo failed to load:", e)}
                 />
                 <span className="leading-tight">NCAAF</span>
               </button>
@@ -368,9 +377,10 @@ export default function Feed() {
                 }`}
               >
                 <img 
-                  src="/logos/NBA/NBA.png"
+                  src={nbaLogo}
                   alt="NBA"
                   className="w-6 h-6 object-contain"
+                  onError={(e) => console.error("NBA logo failed to load:", e)}
                 />
                 <span className="leading-tight">NBA</span>
               </button>
@@ -383,9 +393,10 @@ export default function Feed() {
                 }`}
               >
                 <img 
-                  src="/logos/NHL/NHL.png"
+                  src={nhlLogo}
                   alt="NHL"
                   className="w-6 h-6 object-contain"
+                  onError={(e) => console.error("NHL logo failed to load:", e)}
                 />
                 <span className="leading-tight">NHL</span>
               </button>
@@ -398,9 +409,10 @@ export default function Feed() {
                 }`}
               >
                 <img 
-                  src="/logos/NCAAM/NCAAM.png"
+                  src={ncaamLogo}
                   alt="NCAAM"
                   className="w-6 h-6 object-contain"
+                  onError={(e) => console.error("NCAAM logo failed to load:", e)}
                 />
                 <span className="leading-tight">NCAAM</span>
               </button>

@@ -69,9 +69,13 @@ export function transformVSiNData(rawData: VSiNRawFormat): EdgeGuideLatestRespon
         book
       ] = row;
       
-      // Normalize sport name
-      const sport = String(market).toUpperCase();
+      // Normalize sport name and convert legacy names
+      let sport = String(market).toUpperCase();
       const date = String(yyyymmdd);
+      
+      // Convert legacy sport names to new names
+      if (sport === 'CFB') sport = 'NCAAF';
+      if (sport === 'CBB') sport = 'NCAAM';
       
       if (!sport || sport === 'UNDEFINED') {
         console.error("🚨 [TRANSFORMER] Invalid sport:", market, "in row:", row);

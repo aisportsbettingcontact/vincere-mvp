@@ -114,11 +114,16 @@ export function parseBookData(
  * Parse individual game
  */
 export function parseGame(game: RawSplitGame, book: string): GameOdds {
-  const sport = game.s as GameOdds["sport"];
+  // CRITICAL: Normalize sport name - convert legacy CFB/CBB to NCAAF/NCAAM
+  let sportStr = game.s.toUpperCase();
+  if (sportStr === 'CFB') sportStr = 'NCAAF';
+  if (sportStr === 'CBB') sportStr = 'NCAAM';
+  const sport = sportStr as GameOdds["sport"];
+  
   const kickoff = formatDate(game.d, game.id, sport);
   const metadata = getGameMetadata(game.id, sport, game.d);
   
-  // Get team info based on sport
+  // Get team info based on sport (CFB→NCAAF, CBB→NCAAM already converted above)
   let awayInfo, homeInfo, awayColors, homeColors;
   
   if (sport === "NCAAF" || sport === "NCAAM") {

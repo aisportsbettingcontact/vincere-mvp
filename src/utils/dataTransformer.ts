@@ -69,13 +69,21 @@ export function transformVSiNData(rawData: VSiNRawFormat): EdgeGuideLatestRespon
         book
       ] = row;
       
-      // Normalize sport name and convert legacy names
+      // CRITICAL: Normalize sport name and convert legacy names
+      // CFB → NCAAF (College Football)
+      // CBB → NCAAM (College Basketball - March Madness)
       let sport = String(market).toUpperCase();
       const date = String(yyyymmdd);
       
-      // Convert legacy sport names to new names
-      if (sport === 'CFB') sport = 'NCAAF';
-      if (sport === 'CBB') sport = 'NCAAM';
+      // HARDCODED CONVERSION: Legacy VSIN data uses CFB/CBB
+      if (sport === 'CFB') {
+        sport = 'NCAAF';
+        console.log(`[TRANSFORMER] ✅ Converted CFB → NCAAF for game on ${date}`);
+      }
+      if (sport === 'CBB') {
+        sport = 'NCAAM';
+        console.log(`[TRANSFORMER] ✅ Converted CBB → NCAAM for game on ${date}`);
+      }
       
       if (!sport || sport === 'UNDEFINED') {
         console.error("🚨 [TRANSFORMER] Invalid sport:", market, "in row:", row);

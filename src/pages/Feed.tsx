@@ -627,7 +627,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
           {/* Left: Teams */}
           <div className="flex flex-col justify-center items-center flex-shrink-0 w-20">
             <div className="flex flex-col items-center mb-1">
-              <img src={getTeamLogo(game.sport, game.away.espnAbbr)} alt="" className="w-12 h-12 rounded flex-shrink-0 mb-1.5" />
+              <img src={getTeamLogo(game.sport, game.away.espnAbbr, game.away.slug)} alt="" className="w-12 h-12 rounded flex-shrink-0 mb-1.5" />
               <div className="flex flex-col items-center text-center leading-tight">
                 <div className="text-[10px] font-semibold whitespace-nowrap" style={{ color: "var(--ma-text-primary)" }}>
                   {(() => {
@@ -666,7 +666,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
             </div>
             
             <div className="flex flex-col items-center mt-1">
-              <img src={getTeamLogo(game.sport, game.home.espnAbbr)} alt="" className="w-12 h-12 rounded flex-shrink-0 mb-1.5" />
+              <img src={getTeamLogo(game.sport, game.home.espnAbbr, game.home.slug)} alt="" className="w-12 h-12 rounded flex-shrink-0 mb-1.5" />
               <div className="flex flex-col items-center text-center leading-tight">
                 <div className="text-[10px] font-semibold whitespace-nowrap" style={{ color: "var(--ma-text-primary)" }}>
                   {(() => {
@@ -867,7 +867,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
             <div className="flex flex-col items-center justify-center h-full">
               {/* Away Team */}
               <div className="flex items-center justify-center gap-2 md:gap-3 py-1.5 md:py-2">
-                <img src={getTeamLogo(game.sport, game.away.espnAbbr)} alt="" className="w-6 h-6 md:w-8 md:h-8 rounded flex-shrink-0" />
+                <img src={getTeamLogo(game.sport, game.away.espnAbbr, game.away.slug)} alt="" className="w-6 h-6 md:w-8 md:h-8 rounded flex-shrink-0" />
                 <div className="flex flex-col text-center">
                   <div className="text-xs md:text-sm font-semibold" style={{ color: "var(--ma-text-primary)" }}>
                     {(() => {
@@ -902,7 +902,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
               
               {/* Home Team */}
               <div className="flex items-center justify-center gap-2 md:gap-3 py-1.5 md:py-2">
-                <img src={getTeamLogo(game.sport, game.home.espnAbbr)} alt="" className="w-6 h-6 md:w-8 md:h-8 rounded flex-shrink-0" />
+                <img src={getTeamLogo(game.sport, game.home.espnAbbr, game.home.slug)} alt="" className="w-6 h-6 md:w-8 md:h-8 rounded flex-shrink-0" />
                 <div className="flex flex-col text-center">
                   <div className="text-xs md:text-sm font-semibold" style={{ color: "var(--ma-text-primary)" }}>
                     {(() => {
@@ -1255,12 +1255,12 @@ function SplitsCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
         <div className="hidden md:block mb-4">
           {/* Team Nicknames Row - Centered */}
           <div className="flex items-center justify-center gap-2 mb-2">
-            <img src={getTeamLogo(game.sport, game.away.espnAbbr)} alt={game.away.name} className="w-8 h-8 rounded" />
+            <img src={getTeamLogo(game.sport, game.away.espnAbbr, game.away.slug)} alt={game.away.name} className="w-8 h-8 rounded" />
             <span className="font-bold text-lg text-white">
               {game.away.name}
             </span>
             <span className="text-sm font-semibold" style={{ color: "var(--ma-text-secondary)" }}>@</span>
-            <img src={getTeamLogo(game.sport, game.home.espnAbbr)} alt={game.home.name} className="w-8 h-8 rounded" />
+            <img src={getTeamLogo(game.sport, game.home.espnAbbr, game.home.slug)} alt={game.home.name} className="w-8 h-8 rounded" />
             <span className="font-bold text-lg text-white">
               {game.home.name}
             </span>
@@ -1306,10 +1306,10 @@ function SplitsCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
         {/* Mobile: Compact Teams + Metadata */}
         <div className="md:hidden mb-4">
           <div className="flex items-center gap-2 justify-center mb-2">
-            <img src={getTeamLogo(game.sport, game.away.espnAbbr)} alt={game.away.name} className="w-8 h-8 rounded" />
+            <img src={getTeamLogo(game.sport, game.away.espnAbbr, game.away.slug)} alt={game.away.name} className="w-8 h-8 rounded" />
             <span className="font-bold text-base text-white">{game.away.name}</span>
             <span className="text-sm" style={{ color: "var(--ma-text-secondary)" }}>@</span>
-            <img src={getTeamLogo(game.sport, game.home.espnAbbr)} alt={game.home.name} className="w-8 h-8 rounded" />
+            <img src={getTeamLogo(game.sport, game.home.espnAbbr, game.home.slug)} alt={game.home.name} className="w-8 h-8 rounded" />
             <span className="font-bold text-base text-white">{game.home.name}</span>
           </div>
           
@@ -1510,11 +1510,11 @@ function LineMovementCard({ game, selectedMarket, setSelectedMarket }: {
       {/* Game Header - same as BettingSplitsCard */}
       <div className="flex items-center justify-between gap-3 mb-4">
         <div className="flex items-center gap-3 min-w-0">
-          <img src={getTeamLogo(game.sport, game.away.espnAbbr)} alt={game.away.name} className="w-7 h-7 rounded" />
+          <img src={getTeamLogo(game.sport, game.away.espnAbbr, game.away.slug)} alt={game.away.name} className="w-7 h-7 rounded" />
           <div className="text-sm font-semibold text-white truncate">{game.away.abbr}</div>
           <span className="text-white/40 text-xs">@</span>
           <div className="flex items-center gap-2 min-w-0">
-            <img src={getTeamLogo(game.sport, game.home.espnAbbr)} alt={game.home.name} className="w-7 h-7 rounded" />
+            <img src={getTeamLogo(game.sport, game.home.espnAbbr, game.home.slug)} alt={game.home.name} className="w-7 h-7 rounded" />
             <div className="text-sm font-semibold text-white truncate">{game.home.abbr}</div>
           </div>
         </div>

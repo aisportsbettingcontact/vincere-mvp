@@ -10,6 +10,7 @@ export interface GameOdds {
     fullName?: string;
     abbr: string;
     espnAbbr: string;
+    slug?: string;
     color: string;
     secondaryColor: string;
     tertiaryColor: string;
@@ -19,6 +20,7 @@ export interface GameOdds {
     fullName?: string;
     abbr: string;
     espnAbbr: string;
+    slug?: string;
     color: string;
     secondaryColor: string;
     tertiaryColor: string;

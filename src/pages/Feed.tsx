@@ -716,9 +716,14 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
                 }
                 
                 return (
-                  <div className="text-sm font-bold" style={{ color: "#4ade80" }}>
-                    {odds && odds !== 0 ? `${odds > 0 ? '+' : ''}${odds}` : '-'}
-                  </div>
+                  <>
+                    <div className="text-sm font-bold leading-none" style={{ color: "var(--ma-text-primary)" }}>
+                      {formatSpreadLine(line)}
+                    </div>
+                    <div className="text-[10px] font-semibold leading-none mt-0.5" style={{ color: "#4ade80" }}>
+                      -110
+                    </div>
+                  </>
                 );
               })()}
             </div>
@@ -777,9 +782,14 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
                 }
                 
                 return (
-                  <div className="text-sm font-bold" style={{ color: "#4ade80" }}>
-                    {odds && odds !== 0 ? `${odds > 0 ? '+' : ''}${odds}` : '-'}
-                  </div>
+                  <>
+                    <div className="text-sm font-bold leading-none" style={{ color: "var(--ma-text-primary)" }}>
+                      {formatSpreadLine(line)}
+                    </div>
+                    <div className="text-[10px] font-semibold leading-none mt-0.5" style={{ color: "#4ade80" }}>
+                      -110
+                    </div>
+                  </>
                 );
               })()}
             </div>

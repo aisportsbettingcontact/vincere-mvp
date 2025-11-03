@@ -169,7 +169,10 @@ export function getTeamInfo(slug: string, sport: string = "NFL") {
       .join('')
       .slice(0, 3);
     
-    console.warn(`⚠️ ${sport} team not mapped: "${slug}" - using fallback: ${formattedName} (${abbreviation})`);
+    console.error(`🚨🚨🚨 [${sport} MAPPING MISSING] Team slug not found: "${slug}"`);
+    console.error(`Available ${sport} team slugs sample:`, Object.keys(mappings).slice(0, 10));
+    console.error(`Total ${sport} teams mapped:`, Object.keys(mappings).length);
+    console.error(`Using fallback: ${formattedName} (${abbreviation})`);
     
     return { 
       name: formattedName, 

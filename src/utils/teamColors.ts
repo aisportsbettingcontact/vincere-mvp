@@ -224,7 +224,12 @@ export function getTeamColors(teamName: string, sport: string = "NFL") {
     return getCFBTeamColors(teamName);
   }
   if (sport === "CBB") {
-    return CBB_TEAM_COLORS[teamName] || {
+    const colors = CBB_TEAM_COLORS[teamName];
+    if (!colors) {
+      console.error(`🎨🚨🚨🚨 [CBB COLORS MISSING] No colors found for "${teamName}"`);
+      console.error(`Available CBB teams:`, Object.keys(CBB_TEAM_COLORS));
+    }
+    return colors || {
       primary: "#003087",
       secondary: "#FFFFFF",
       tertiary: "#FFC72C"
@@ -234,7 +239,13 @@ export function getTeamColors(teamName: string, sport: string = "NFL") {
     : sport === "NHL" ? NHL_TEAM_COLORS 
     : sport === "MLB" ? MLB_TEAM_COLORS 
     : NFL_TEAM_COLORS;
-  return colors[teamName] || {
+  const result = colors[teamName];
+  if (!result) {
+    console.error(`🎨🚨🚨🚨 [${sport} COLORS MISSING] No colors found for "${teamName}"`);
+    console.error(`Available ${sport} teams sample:`, Object.keys(colors).slice(0, 10));
+    console.error(`Total ${sport} teams with colors:`, Object.keys(colors).length);
+  }
+  return result || {
     primary: "#6F74FF",
     secondary: "#000000",
     tertiary: "#FFFFFF"

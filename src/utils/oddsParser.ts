@@ -125,7 +125,8 @@ export function parseGame(game: RawSplitGame, book: string): GameOdds {
     // Use CFB mappings
     awayInfo = CFB_TEAM_MAPPINGS[game.a];
     if (!awayInfo) {
-      console.warn(`🚨 [CFB MAPPING MISSING] Away team slug not found: "${game.a}" in game ${game.id}`);
+      console.error(`🚨🚨🚨 [CFB MAPPING MISSING] Away team slug not found: "${game.a}" in game ${game.id}`);
+      console.error(`Available CFB team slugs sample:`, Object.keys(CFB_TEAM_MAPPINGS).slice(0, 10));
       awayInfo = { 
         name: game.a, 
         abbr: game.a.toUpperCase().slice(0, 4), 
@@ -136,7 +137,8 @@ export function parseGame(game: RawSplitGame, book: string): GameOdds {
     
     homeInfo = CFB_TEAM_MAPPINGS[game.h];
     if (!homeInfo) {
-      console.warn(`🚨 [CFB MAPPING MISSING] Home team slug not found: "${game.h}" in game ${game.id}`);
+      console.error(`🚨🚨🚨 [CFB MAPPING MISSING] Home team slug not found: "${game.h}" in game ${game.id}`);
+      console.error(`Available CFB team slugs sample:`, Object.keys(CFB_TEAM_MAPPINGS).slice(0, 10));
       homeInfo = { 
         name: game.h, 
         abbr: game.h.toUpperCase().slice(0, 4), 
@@ -145,10 +147,15 @@ export function parseGame(game: RawSplitGame, book: string): GameOdds {
       };
     }
     
-    console.log(`[CFB TEAM LOOKUP] Game: ${game.id} | Away: "${game.a}" → ${awayInfo.name} (ESPN: ${awayInfo.espnAbbr}) | Home: "${game.h}" → ${homeInfo.name} (ESPN: ${homeInfo.espnAbbr})`);
+    console.log(`[CFB TEAM LOOKUP] Game: ${game.id}`);
+    console.log(`  Away: slug="${game.a}" → name="${awayInfo.name}" espnAbbr="${awayInfo.espnAbbr}" fullName="${awayInfo.fullName}"`);
+    console.log(`  Home: slug="${game.h}" → name="${homeInfo.name}" espnAbbr="${homeInfo.espnAbbr}" fullName="${homeInfo.fullName}"`);
     
     awayColors = getCFBTeamColors(awayInfo.fullName);
     homeColors = getCFBTeamColors(homeInfo.fullName);
+    
+    console.log(`[CFB COLORS] Away colors for "${awayInfo.fullName}":`, awayColors);
+    console.log(`[CFB COLORS] Home colors for "${homeInfo.fullName}":`, homeColors);
   } else {
     // Use standard team mappings with correct sport parameter
     awayInfo = getTeamInfo(game.a, sport);

@@ -165,7 +165,9 @@ export function getCFBTeamColors(fullName: string) {
   const colors = CFB_TEAM_COLORS[normalizedName];
   
   if (!colors) {
-    console.warn(`🎨 [CFB COLORS] No colors found for team: "${fullName}" (normalized: "${normalizedName}")`);
+    console.error(`🎨🚨🚨🚨 [CFB COLORS MISSING] No colors found for team: "${fullName}" (normalized: "${normalizedName}")`);
+    console.error(`Available color keys sample:`, Object.keys(CFB_TEAM_COLORS).slice(0, 10));
+    console.error(`Total teams with colors:`, Object.keys(CFB_TEAM_COLORS).length);
     return {
       primary: "#333333",
       secondary: "#666666"

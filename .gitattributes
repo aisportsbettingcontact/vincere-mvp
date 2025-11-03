@@ -1,2 +1,3 @@
 public/logos/** -filter -diff -merge -text
 public/logos/** -filter -diff -merge -text
+public/logos/** -filter -diff -merge -text

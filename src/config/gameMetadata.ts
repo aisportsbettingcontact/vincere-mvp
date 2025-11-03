@@ -36,7 +36,7 @@ export function getDefaultGameTime(sport: string, dayOfWeek: number): string {
     return "13:00";
   }
   
-  if (sport === "CFB") {
+  if (sport === "NCAAF") {
     if (dayOfWeek === 6) return "12:00"; // Saturday
     return "19:00";
   }
@@ -50,7 +50,7 @@ export function getDefaultGameTime(sport: string, dayOfWeek: number): string {
     return "19:00";
   }
   
-  if (sport === "CBB") {
+  if (sport === "NCAAM") {
     return "19:00";
   }
   
@@ -66,14 +66,14 @@ export function getDefaultNetwork(sport: string, dayOfWeek: number): string {
     return "TBD";
   }
   
-  if (sport === "CFB") {
+  if (sport === "NCAAF") {
     return dayOfWeek === 6 ? "ABC/ESPN/FOX" : "ESPN";
   }
   
   if (sport === "NBA") return "TNT/ESPN";
   if (sport === "NHL") return "ESPN/TNT";
   if (sport === "MLB") return "TBS/ESPN";
-  if (sport === "CBB") return "ESPN/CBS";
+  if (sport === "NCAAM") return "ESPN/CBS";
   
   return "TBD";
 }
@@ -87,7 +87,7 @@ export function isPrimeTimeSlot(sport: string, date: Date): boolean {
     return (dayOfWeek === 0 && hour >= 20) || dayOfWeek === 1 || dayOfWeek === 4;
   }
   
-  if (sport === "CFB") {
+  if (sport === "NCAAF") {
     return hour >= 19;
   }
   

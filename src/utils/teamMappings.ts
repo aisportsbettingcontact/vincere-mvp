@@ -150,9 +150,9 @@ export const CBB_TEAM_MAPPINGS: Record<string, { name: string; abbr: string; esp
 export function getTeamInfo(slug: string, sport: string = "NFL") {
   const mappings = sport === "NBA" ? NBA_TEAM_MAPPINGS 
     : sport === "NHL" ? NHL_TEAM_MAPPINGS 
-    : sport === "CFB" ? CFB_TEAM_MAPPINGS 
+    : sport === "NCAAF" ? CFB_TEAM_MAPPINGS 
     : sport === "MLB" ? MLB_TEAM_MAPPINGS 
-    : sport === "CBB" ? CBB_TEAM_MAPPINGS 
+    : sport === "NCAAM" ? CBB_TEAM_MAPPINGS 
     : NFL_TEAM_MAPPINGS;
   const result = mappings[slug];
   

@@ -12,10 +12,10 @@ import { getCFBTeamColors } from "@/utils/cfbTeamColors";
 const SPORT_PRIORITY = { 
   NFL: 1, 
   MLB: 2, 
-  CFB: 3, 
+  NCAAF: 3, 
   NBA: 4, 
   NHL: 5, 
-  CBB: 6 
+  NCAAM: 6 
 } as const;
 
 /**
@@ -121,7 +121,7 @@ export function parseGame(game: RawSplitGame, book: string): GameOdds {
   // Get team info based on sport
   let awayInfo, homeInfo, awayColors, homeColors;
   
-  if (sport === "CFB" || sport === "CBB") {
+  if (sport === "NCAAF" || sport === "NCAAM") {
     // Use CFB mappings
     awayInfo = CFB_TEAM_MAPPINGS[game.a];
     if (!awayInfo) {

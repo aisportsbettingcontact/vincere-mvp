@@ -118,7 +118,7 @@ export function getTeamLogo(sport: string, espnAbbr: string, teamSlug?: string):
   }
   
   // Fallback to ESPN CDN for teams not in our local logos
-  if (sport === "CFB" || sport === "CBB") {
+  if (sport === "NCAAF" || sport === "NCAAM") {
     return `https://a.espncdn.com/combiner/i?img=/i/teamlogos/ncaa/500/${espnAbbr}.png&h=200&w=200`;
   }
   const sportPath = sport.toLowerCase();

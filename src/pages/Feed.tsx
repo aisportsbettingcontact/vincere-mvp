@@ -56,7 +56,7 @@ function formatGameTime(dateString: string, sport?: string): string {
     const ampm = hours >= 12 ? 'pm' : 'am';
     hours = hours % 12 || 12;
     
-    const timezone = sport === 'CBB' ? 'EST' : 'ET';
+    const timezone = sport === 'NCAAM' ? 'EST' : 'ET';
     return `${hours}:${minutes}${ampm} ${timezone}`;
   } catch {
     return dateString;
@@ -138,7 +138,7 @@ export default function Feed() {
   const [activeTab, setActiveTab] = useState<"lines" | "splits">("lines");
   const [globalMarket, setGlobalMarket] = useState<Market>("Spread");
   const [selectedBook, setSelectedBook] = useState<"DK" | "Circa">("DK");
-  const [selectedSport, setSelectedSport] = useState<"NFL" | "CFB" | "NBA" | "NHL" | "MLB" | "CBB">("NFL");
+  const [selectedSport, setSelectedSport] = useState<"NFL" | "NCAAF" | "NBA" | "NHL" | "MLB" | "NCAAM">("NFL");
   
   // Fetch live data from EdgeGuide with automatic fallback to mock data
   const { data: liveGames, isLoading: isLoadingGames } = useEdgeGuideData();
@@ -323,7 +323,7 @@ export default function Feed() {
                 }`}
               >
                 <img 
-                  src="https://a.espncdn.com/combiner/i?img=/i/teamlogos/leagues/500/nfl.png?w=100&h=100&transparent=true"
+                  src="/logos/NFL.png"
                   alt="NFL"
                   className="w-6 h-6 object-contain"
                 />
@@ -338,26 +338,26 @@ export default function Feed() {
                 }`}
               >
                 <img 
-                  src={worldSeriesLogo}
-                  alt="World Series"
+                  src="/logos/MLB.png"
+                  alt="MLB"
                   className="w-6 h-6 object-contain"
                 />
                 <span className="leading-tight">MLB</span>
               </button>
               <button
-                onClick={() => setSelectedSport("CFB")}
+                onClick={() => setSelectedSport("NCAAF")}
                 className={`flex flex-col items-center justify-center gap-1 px-2 py-1.5 rounded-lg text-xs font-semibold transition-all min-w-[56px] ${
-                  selectedSport === "CFB"
+                  selectedSport === "NCAAF"
                     ? "border border-white shadow-lg"
                     : "border border-transparent opacity-70 hover:opacity-100"
                 }`}
               >
                 <img 
-                  src="https://www.ncaa.com/modules/custom/casablanca_core/img/sportbanners/football.svg"
-                  alt="CFB"
+                  src="/logos/NCAAF.png"
+                  alt="NCAAF"
                   className="w-6 h-6 object-contain"
                 />
-                <span className="leading-tight">CFB</span>
+                <span className="leading-tight">NCAAF</span>
               </button>
               <button
                 onClick={() => setSelectedSport("NBA")}
@@ -368,7 +368,7 @@ export default function Feed() {
                 }`}
               >
                 <img 
-                  src="https://a.espncdn.com/combiner/i?img=/i/teamlogos/leagues/500/nba.png?w=100&h=100&transparent=true"
+                  src="/logos/NBA.png"
                   alt="NBA"
                   className="w-6 h-6 object-contain"
                 />
@@ -383,26 +383,26 @@ export default function Feed() {
                 }`}
               >
                 <img 
-                  src="https://a.espncdn.com/combiner/i?img=/i/teamlogos/leagues/500/nhl.png?w=100&h=100&transparent=true"
+                  src="/logos/NHL.png"
                   alt="NHL"
                   className="w-6 h-6 object-contain"
                 />
                 <span className="leading-tight">NHL</span>
               </button>
               <button
-                onClick={() => setSelectedSport("CBB")}
+                onClick={() => setSelectedSport("NCAAM")}
                 className={`flex flex-col items-center justify-center gap-1 px-2 py-1.5 rounded-lg text-xs font-semibold transition-all min-w-[56px] ${
-                  selectedSport === "CBB"
+                  selectedSport === "NCAAM"
                     ? "border border-white shadow-lg"
                     : "border border-transparent opacity-70 hover:opacity-100"
                 }`}
               >
                 <img 
-                  src="https://www.ncaa.com/modules/custom/casablanca_core/img/sportbanners/basketball-men.svg"
-                  alt="CBB"
+                  src="/logos/NCAAM.png"
+                  alt="NCAAM"
                   className="w-6 h-6 object-contain"
                 />
-                <span className="leading-tight">CBB</span>
+                <span className="leading-tight">NCAAM</span>
               </button>
             </div>
           </div>
@@ -631,7 +631,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
               <div className="flex flex-col items-center text-center leading-tight">
                 <div className="text-[10px] font-semibold whitespace-nowrap" style={{ color: "var(--ma-text-primary)" }}>
                   {(() => {
-                    if (game.sport === "CFB" || game.sport === "CBB") {
+                    if (game.sport === "NCAAF" || game.sport === "NCAAM") {
                       // For college: show school name on first line
                       return game.away.name;
                     } else {
@@ -646,7 +646,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
                 </div>
                 <div className="text-[8px] font-bold whitespace-nowrap" style={{ color: "var(--ma-text-primary)" }}>
                   {(() => {
-                    if (game.sport === "CFB" || game.sport === "CBB") {
+                    if (game.sport === "NCAAF" || game.sport === "NCAAM") {
                       // For college: show nickname on second line
                       const nickname = game.away.fullName?.replace(game.away.name, "").trim();
                       return nickname || game.away.abbr;
@@ -670,7 +670,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
               <div className="flex flex-col items-center text-center leading-tight">
                 <div className="text-[10px] font-semibold whitespace-nowrap" style={{ color: "var(--ma-text-primary)" }}>
                   {(() => {
-                    if (game.sport === "CFB" || game.sport === "CBB") {
+                    if (game.sport === "NCAAF" || game.sport === "NCAAM") {
                       // For college: show school name on first line
                       return game.home.name;
                     } else {
@@ -685,7 +685,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
                 </div>
                 <div className="text-[8px] font-bold whitespace-nowrap" style={{ color: "var(--ma-text-primary)" }}>
                   {(() => {
-                    if (game.sport === "CFB" || game.sport === "CBB") {
+                    if (game.sport === "NCAAF" || game.sport === "NCAAM") {
                       // For college: show nickname on second line
                       const nickname = game.home.fullName?.replace(game.home.name, "").trim();
                       return nickname || game.home.abbr;
@@ -871,7 +871,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
                 <div className="flex flex-col text-center">
                   <div className="text-xs md:text-sm font-semibold" style={{ color: "var(--ma-text-primary)" }}>
                     {(() => {
-                      if (game.sport === "CFB" || game.sport === "CBB") {
+                      if (game.sport === "NCAAF" || game.sport === "NCAAM") {
                         return game.away.name;
                       } else {
                         const fullName = game.away.fullName || game.away.name;
@@ -882,7 +882,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
                   </div>
                   <div className="text-[10px] md:text-xs font-bold" style={{ color: "var(--ma-text-primary)" }}>
                     {(() => {
-                      if (game.sport === "CFB" || game.sport === "CBB") {
+                      if (game.sport === "NCAAF" || game.sport === "NCAAM") {
                         const nickname = game.away.fullName?.replace(game.away.name, "").trim();
                         return nickname || game.away.abbr;
                       } else {
@@ -906,7 +906,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
                 <div className="flex flex-col text-center">
                   <div className="text-xs md:text-sm font-semibold" style={{ color: "var(--ma-text-primary)" }}>
                     {(() => {
-                      if (game.sport === "CFB" || game.sport === "CBB") {
+                      if (game.sport === "NCAAF" || game.sport === "NCAAM") {
                         return game.home.name;
                       } else {
                         const fullName = game.home.fullName || game.home.name;
@@ -917,7 +917,7 @@ function LinesCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
                   </div>
                   <div className="text-[10px] md:text-xs font-bold" style={{ color: "var(--ma-text-primary)" }}>
                     {(() => {
-                      if (game.sport === "CFB" || game.sport === "CBB") {
+                      if (game.sport === "NCAAF" || game.sport === "NCAAM") {
                         const nickname = game.home.fullName?.replace(game.home.name, "").trim();
                         return nickname || game.home.abbr;
                       } else {

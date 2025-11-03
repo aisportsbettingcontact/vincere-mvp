@@ -323,7 +323,7 @@ export default function Feed() {
                 }`}
               >
                 <img 
-                  src="/logos/NFL.png"
+                  src="/logos/NFL/NFL.png"
                   alt="NFL"
                   className="w-6 h-6 object-contain"
                 />
@@ -338,7 +338,7 @@ export default function Feed() {
                 }`}
               >
                 <img 
-                  src="/logos/MLB.png"
+                  src="/logos/MLB/MLB.png"
                   alt="MLB"
                   className="w-6 h-6 object-contain"
                 />
@@ -353,7 +353,7 @@ export default function Feed() {
                 }`}
               >
                 <img 
-                  src="/logos/NCAAF.png"
+                  src="/logos/NCAAF/NCAAF.png"
                   alt="NCAAF"
                   className="w-6 h-6 object-contain"
                 />
@@ -368,7 +368,7 @@ export default function Feed() {
                 }`}
               >
                 <img 
-                  src="/logos/NBA.png"
+                  src="/logos/NBA/NBA.png"
                   alt="NBA"
                   className="w-6 h-6 object-contain"
                 />
@@ -383,7 +383,7 @@ export default function Feed() {
                 }`}
               >
                 <img 
-                  src="/logos/NHL.png"
+                  src="/logos/NHL/NHL.png"
                   alt="NHL"
                   className="w-6 h-6 object-contain"
                 />
@@ -398,7 +398,7 @@ export default function Feed() {
                 }`}
               >
                 <img 
-                  src="/logos/NCAAM.png"
+                  src="/logos/NCAAM/NCAAM.png"
                   alt="NCAAM"
                   className="w-6 h-6 object-contain"
                 />

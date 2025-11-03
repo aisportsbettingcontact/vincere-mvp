@@ -19,7 +19,8 @@ function parseEdgeGuideData(data: EdgeGuideLatestResponse): GameOdds[] {
   // Parse DK data for all sports
   if (data.books.DK) {
     console.log("🎰 Processing DraftKings (DK) data...");
-    const sports = ['NFL', 'MLB', 'CFB', 'NBA', 'NHL', 'CBB'] as const;
+    // IMPORTANT: After transformation, CFB→NCAAF and CBB→NCAAM
+    const sports = ['NFL', 'MLB', 'NCAAF', 'NBA', 'NHL', 'NCAAM'] as const;
     sports.forEach(sport => {
       const sportData = data.books.DK?.[sport];
       if (sportData) {
@@ -38,7 +39,8 @@ function parseEdgeGuideData(data: EdgeGuideLatestResponse): GameOdds[] {
   // Parse CIRCA data for all sports
   if (data.books.CIRCA) {
     console.log("\n🎰 Processing Circa data...");
-    const sports = ['NFL', 'MLB', 'CFB', 'NHL', 'CBB'] as const;
+    // IMPORTANT: After transformation, CFB→NCAAF and CBB→NCAAM
+    const sports = ['NFL', 'MLB', 'NCAAF', 'NHL', 'NCAAM'] as const;
     sports.forEach(sport => {
       const sportData = data.books.CIRCA?.[sport];
       if (sportData) {

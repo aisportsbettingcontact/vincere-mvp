@@ -176,7 +176,7 @@ export const MLB_TEAM_COLORS: Record<string, {
  * Get the primary team color by team name
  */
 export function getTeamPrimaryColor(teamName: string, sport: string = "NFL"): string {
-  if (sport === "CFB") {
+  if (sport === "NCAAF") {
     const colors = getCFBTeamColors(teamName);
     return colors.primary;
   }
@@ -191,7 +191,7 @@ export function getTeamPrimaryColor(teamName: string, sport: string = "NFL"): st
  * Get the secondary team color by team name
  */
 export function getTeamSecondaryColor(teamName: string, sport: string = "NFL"): string {
-  if (sport === "CFB") {
+  if (sport === "NCAAF") {
     const colors = getCFBTeamColors(teamName);
     return colors.secondary;
   }
@@ -220,10 +220,10 @@ export const CBB_TEAM_COLORS: Record<string, {
  * Get all colors for a team
  */
 export function getTeamColors(teamName: string, sport: string = "NFL") {
-  if (sport === "CFB") {
+  if (sport === "NCAAF") {
     return getCFBTeamColors(teamName);
   }
-  if (sport === "CBB") {
+  if (sport === "NCAAM") {
     const colors = CBB_TEAM_COLORS[teamName];
     if (!colors) {
       console.error(`🎨🚨🚨🚨 [CBB COLORS MISSING] No colors found for "${teamName}"`);

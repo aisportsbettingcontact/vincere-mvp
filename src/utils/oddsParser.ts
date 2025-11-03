@@ -12,10 +12,10 @@ import { getCFBTeamColors } from "@/utils/cfbTeamColors";
 const SPORT_PRIORITY = { 
   NFL: 1, 
   MLB: 2, 
-  CFB: 3, 
+  NCAAF: 3, 
   NBA: 4, 
   NHL: 5, 
-  CBB: 6 
+  NCAAM: 6 
 } as const;
 
 /**
@@ -114,14 +114,19 @@ export function parseBookData(
  * Parse individual game
  */
 export function parseGame(game: RawSplitGame, book: string): GameOdds {
-  const sport = game.s as GameOdds["sport"];
+  // CRITICAL: Normalize sport name - convert legacy CFB/CBB to NCAAF/NCAAM
+  let sportStr = game.s.toUpperCase();
+  if (sportStr === 'CFB') sportStr = 'NCAAF';
+  if (sportStr === 'CBB') sportStr = 'NCAAM';
+  const sport = sportStr as GameOdds["sport"];
+  
   const kickoff = formatDate(game.d, game.id, sport);
   const metadata = getGameMetadata(game.id, sport, game.d);
   
-  // Get team info based on sport
+  // Get team info based on sport (CFB→NCAAF, CBB→NCAAM already converted above)
   let awayInfo, homeInfo, awayColors, homeColors;
   
-  if (sport === "CFB" || sport === "CBB") {
+  if (sport === "NCAAF" || sport === "NCAAM") {
     // Use CFB mappings
     awayInfo = CFB_TEAM_MAPPINGS[game.a];
     if (!awayInfo) {
@@ -174,6 +179,7 @@ export function parseGame(game: RawSplitGame, book: string): GameOdds {
       fullName: awayInfo.fullName,
       abbr: awayInfo.abbr,
       espnAbbr: awayInfo.espnAbbr,
+      slug: game.a,
       color: awayColors.primary,
       secondaryColor: awayColors.secondary,
       tertiaryColor: awayColors.tertiary,
@@ -183,6 +189,7 @@ export function parseGame(game: RawSplitGame, book: string): GameOdds {
       fullName: homeInfo.fullName,
       abbr: homeInfo.abbr,
       espnAbbr: homeInfo.espnAbbr,
+      slug: game.h,
       color: homeColors.primary,
       secondaryColor: homeColors.secondary,
       tertiaryColor: homeColors.tertiary,

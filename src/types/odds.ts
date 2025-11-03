@@ -2,7 +2,7 @@
 
 export interface GameOdds {
   gameId: string;
-  sport: "NFL" | "CFB" | "NBA" | "NHL" | "MLB" | "CBB";
+  sport: "NFL" | "NCAAF" | "NBA" | "NHL" | "MLB" | "NCAAM";
   kickoff: string;
   book: string; // DK or CIRCA
   away: {
@@ -10,6 +10,7 @@ export interface GameOdds {
     fullName?: string;
     abbr: string;
     espnAbbr: string;
+    slug?: string;
     color: string;
     secondaryColor: string;
     tertiaryColor: string;
@@ -19,6 +20,7 @@ export interface GameOdds {
     fullName?: string;
     abbr: string;
     espnAbbr: string;
+    slug?: string;
     color: string;
     secondaryColor: string;
     tertiaryColor: string;

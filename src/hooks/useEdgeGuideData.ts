@@ -1,8 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import type { GameOdds } from "@/types/odds";
-import latestOddsData from "@/data/latest-odds.json";
+import vsinRawData from "@/data/vsin-splits-raw.json";
 import { parseBookData, compareGames } from "@/utils/oddsParser";
 import { validateResponse, type EdgeGuideLatestResponse } from "@/utils/oddsValidation";
+import { transformVSiNData } from "@/utils/dataTransformer";
 
 /**
  * Parse EdgeGuide data from all books and sports
@@ -87,8 +88,10 @@ export function useEdgeGuideData() {
     queryFn: async () => {
       try {
         console.log("\n🚀 ========== EDGEGUIDE DATA HOOK TRIGGERED ==========");
-        console.log("📊 Loading latest VSIN odds data...");
-        const data = latestOddsData as unknown as EdgeGuideLatestResponse;
+        console.log("📊 Loading and transforming latest VSIN odds data...");
+        
+        // Transform raw VSiN data to expected format
+        const data = transformVSiNData(vsinRawData as any);
         
         console.log("🔍 Validating data structure...");
         // Validate data structure

@@ -127,6 +127,7 @@ export const NHL_TEAM_COLORS: Record<string, {
   "Tampa Bay Lightning": { primary: "#002868", secondary: "#FFFFFF", tertiary: "#FFCC00" },
   "Toronto Maple Leafs": { primary: "#003E7E", secondary: "#FFFFFF", tertiary: "#A2AAAD" },
   "Utah Hockey Club": { primary: "#6CACE3", secondary: "#FFFFFF", tertiary: "#000000" },
+  "Utah Mammoth": { primary: "#236192", secondary: "#000000", tertiary: "#FFFFFF" },
   "Vancouver Canucks": { primary: "#00205B", secondary: "#007E3A", tertiary: "#A1A1A4" },
   "Vegas Golden Knights": { primary: "#B4975A", secondary: "#000000", tertiary: "#C8102E" },
   "Washington Capitals": { primary: "#C8102E", secondary: "#041E42", tertiary: "#FFFFFF" },

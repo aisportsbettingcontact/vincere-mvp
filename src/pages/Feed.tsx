@@ -331,7 +331,7 @@ export default function Feed() {
               </button>
               <button
                 onClick={() => setSelectedSport("MLB")}
-                className={`flex flex-col items-center justify-center gap-1 px-2 py-1.5 rounded-lg text-xs font-semibold transition-all min-w-[56px] ${
+                className={`hidden flex-col items-center justify-center gap-1 px-2 py-1.5 rounded-lg text-xs font-semibold transition-all min-w-[56px] ${
                   selectedSport === "MLB"
                     ? "border border-white shadow-lg"
                     : "border border-transparent opacity-70 hover:opacity-100"

@@ -98,6 +98,7 @@ export const NHL_TEAM_MAPPINGS: Record<string, { name: string; abbr: string; esp
   "tampa-bay-lightning": { name: "Lightning", abbr: "TBL", espnAbbr: "tb", fullName: "Tampa Bay Lightning" },
   "toronto-maple-leafs": { name: "Maple Leafs", abbr: "TOR", espnAbbr: "tor", fullName: "Toronto Maple Leafs" },
   "utah-hockey-club": { name: "Hockey Club", abbr: "UTA", espnAbbr: "uta", fullName: "Utah Hockey Club" },
+  "utah-mammoth": { name: "Mammoth", abbr: "UTA", espnAbbr: "uta", fullName: "Utah Mammoth" },
   "vancouver-canucks": { name: "Canucks", abbr: "VAN", espnAbbr: "van", fullName: "Vancouver Canucks" },
   "vegas-golden-knights": { name: "Golden Knights", abbr: "VGK", espnAbbr: "vgk", fullName: "Vegas Golden Knights" },
   "washington-capitals": { name: "Capitals", abbr: "WSH", espnAbbr: "wsh", fullName: "Washington Capitals" },

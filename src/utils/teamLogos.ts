@@ -2,60 +2,171 @@
 // Paths must match exact GitHub directory structure
 
 /**
- * Calculate string similarity score (0-1) using Levenshtein-like approach
+ * ENHANCED FUZZY MATCHING SYSTEM
+ * Multiple strategies for maximum matching success
  */
-function stringSimilarity(str1: string, str2: string): number {
-  const s1 = str1.toLowerCase().replace(/[^a-z0-9]/g, '');
-  const s2 = str2.toLowerCase().replace(/[^a-z0-9]/g, '');
-  
-  if (s1 === s2) return 1;
-  if (s1.length === 0 || s2.length === 0) return 0;
-  
-  // Simple similarity: count matching characters
-  let matches = 0;
-  const minLen = Math.min(s1.length, s2.length);
-  for (let i = 0; i < minLen; i++) {
-    if (s1[i] === s2[i]) matches++;
-  }
-  
-  // Check if one contains the other
-  if (s1.includes(s2) || s2.includes(s1)) {
-    matches += minLen * 0.5;
-  }
-  
-  return matches / Math.max(s1.length, s2.length);
+
+/**
+ * Normalize string for comparison
+ */
+function normalize(str: string): string {
+  return str.toLowerCase()
+    .replace(/[^a-z0-9\s]/g, '') // Remove special chars but keep spaces
+    .replace(/\s+/g, ' ') // Normalize spaces
+    .trim();
 }
 
 /**
- * Find best matching logo path using fuzzy matching
+ * Calculate Levenshtein distance between two strings
+ */
+function levenshteinDistance(str1: string, str2: string): number {
+  const len1 = str1.length;
+  const len2 = str2.length;
+  const matrix: number[][] = [];
+
+  for (let i = 0; i <= len1; i++) {
+    matrix[i] = [i];
+  }
+  for (let j = 0; j <= len2; j++) {
+    matrix[0][j] = j;
+  }
+
+  for (let i = 1; i <= len1; i++) {
+    for (let j = 1; j <= len2; j++) {
+      const cost = str1[i - 1] === str2[j - 1] ? 0 : 1;
+      matrix[i][j] = Math.min(
+        matrix[i - 1][j] + 1,
+        matrix[i][j - 1] + 1,
+        matrix[i - 1][j - 1] + cost
+      );
+    }
+  }
+
+  return matrix[len1][len2];
+}
+
+/**
+ * Multi-strategy similarity scoring
+ */
+function calculateSimilarity(slug: string, candidate: string): number {
+  const s1 = normalize(slug);
+  const s2 = normalize(candidate);
+  
+  // Strategy 1: Exact match = 1.0
+  if (s1 === s2) return 1.0;
+  
+  let scores: number[] = [];
+  
+  // Strategy 2: Starts with (high weight)
+  if (s2.startsWith(s1) || s1.startsWith(s2)) {
+    scores.push(0.95);
+  }
+  
+  // Strategy 3: Contains (medium-high weight)
+  if (s1.includes(s2) || s2.includes(s1)) {
+    const containScore = Math.min(s1.length, s2.length) / Math.max(s1.length, s2.length);
+    scores.push(0.85 * containScore);
+  }
+  
+  // Strategy 4: Word matching (for multi-word teams)
+  const words1 = s1.split(' ').filter(w => w.length > 0);
+  const words2 = s2.split(' ').filter(w => w.length > 0);
+  let wordMatches = 0;
+  for (const w1 of words1) {
+    for (const w2 of words2) {
+      if (w1 === w2 || w1.includes(w2) || w2.includes(w1)) {
+        wordMatches++;
+        break;
+      }
+    }
+  }
+  if (words1.length > 0 && words2.length > 0) {
+    const wordScore = wordMatches / Math.max(words1.length, words2.length);
+    scores.push(0.8 * wordScore);
+  }
+  
+  // Strategy 5: Levenshtein distance
+  const maxLen = Math.max(s1.length, s2.length);
+  if (maxLen > 0) {
+    const distance = levenshteinDistance(s1, s2);
+    const levenScore = 1 - (distance / maxLen);
+    scores.push(0.75 * levenScore);
+  }
+  
+  // Strategy 6: Character overlap
+  const chars1 = new Set(s1.replace(/\s/g, ''));
+  const chars2 = new Set(s2.replace(/\s/g, ''));
+  let charOverlap = 0;
+  for (const char of chars1) {
+    if (chars2.has(char)) charOverlap++;
+  }
+  const charScore = charOverlap / Math.max(chars1.size, chars2.size);
+  scores.push(0.6 * charScore);
+  
+  // Return best score from all strategies
+  return Math.max(...scores, 0);
+}
+
+/**
+ * ENHANCED: Find best matching logo path using multi-strategy fuzzy matching
+ * ALWAYS filters by sport/league first
  */
 function findBestMatch(slug: string, logoPaths: Record<string, string>, sport: string): string | null {
-  console.log(`🔍 [FUZZY MATCH] Searching for slug: "${slug}" in ${sport}`);
+  console.log(`🔍 [${sport} MATCH] Searching for slug: "${slug}"`);
+  console.log(`📚 [${sport} MATCH] Available candidates: ${Object.keys(logoPaths).length} teams`);
   
-  // Try exact match first
+  // Strategy 1: Try exact match first
   if (logoPaths[slug]) {
-    console.log(`✅ [EXACT MATCH] Found: ${logoPaths[slug]}`);
+    console.log(`✅ [${sport} EXACT] Perfect match found!`);
+    console.log(`   Path: ${logoPaths[slug]}`);
     return logoPaths[slug];
   }
   
-  // Fuzzy match
-  let bestMatch = { key: '', score: 0, path: '' };
-  
+  // Strategy 2: Try case-insensitive exact match
+  const lowerSlug = slug.toLowerCase();
   for (const [key, path] of Object.entries(logoPaths)) {
-    const score = stringSimilarity(slug, key);
-    if (score > bestMatch.score) {
-      bestMatch = { key, score, path };
+    if (key.toLowerCase() === lowerSlug) {
+      console.log(`✅ [${sport} CASE-INSENSITIVE] Match: "${key}"`);
+      console.log(`   Path: ${path}`);
+      return path;
     }
   }
   
-  // Require at least 60% similarity
-  if (bestMatch.score >= 0.6) {
-    console.log(`✅ [FUZZY MATCH] "${slug}" → "${bestMatch.key}" (score: ${bestMatch.score.toFixed(2)})`);
-    console.log(`   Path: ${bestMatch.path}`);
-    return bestMatch.path;
+  // Strategy 3: Multi-strategy fuzzy matching
+  console.log(`🔄 [${sport} FUZZY] Running advanced fuzzy match...`);
+  
+  let matches: Array<{ key: string; score: number; path: string }> = [];
+  
+  for (const [key, path] of Object.entries(logoPaths)) {
+    const score = calculateSimilarity(slug, key);
+    if (score > 0.5) { // Lower threshold to see more candidates
+      matches.push({ key, score, path });
+    }
   }
   
-  console.warn(`❌ [NO MATCH] No good match for "${slug}" (best: "${bestMatch.key}" with score ${bestMatch.score.toFixed(2)})`);
+  // Sort by score descending
+  matches.sort((a, b) => b.score - a.score);
+  
+  // Log top 3 candidates
+  console.log(`🎯 [${sport} CANDIDATES] Top matches:`);
+  matches.slice(0, 3).forEach((m, i) => {
+    console.log(`   ${i + 1}. "${m.key}" (score: ${m.score.toFixed(3)})`);
+  });
+  
+  // Accept best match if score >= 0.65 (optimized threshold)
+  if (matches.length > 0 && matches[0].score >= 0.65) {
+    const best = matches[0];
+    console.log(`✅ [${sport} FUZZY MATCH] "${slug}" → "${best.key}"`);
+    console.log(`   Score: ${best.score.toFixed(3)}`);
+    console.log(`   Path: ${best.path}`);
+    return best.path;
+  }
+  
+  console.warn(`❌ [${sport} NO MATCH] No suitable match for "${slug}"`);
+  if (matches.length > 0) {
+    console.warn(`   Best candidate: "${matches[0].key}" (score: ${matches[0].score.toFixed(3)} - below threshold)`);
+  }
+  
   return null;
 }
 

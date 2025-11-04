@@ -37,46 +37,113 @@ function levenshteinDistance(str1: string, str2: string): number {
 }
 
 /**
- * Multi-strategy similarity scoring
+ * Enhanced multi-strategy similarity scoring with advanced fuzzy matching
  */
 function calculateSimilarity(slug: string, candidate: string): number {
   const s1 = normalize(slug);
   const s2 = normalize(candidate);
   
+  // Exact match
   if (s1 === s2) return 1.0;
   
   let scores: number[] = [];
   
-  if (s2.startsWith(s1) || s1.startsWith(s2)) scores.push(0.95);
+  // Extract key components (team name, mascot)
+  const extractComponents = (str: string) => {
+    const parts = str.split(' ').filter(w => w.length > 0);
+    return parts;
+  };
   
+  const comp1 = extractComponents(s1);
+  const comp2 = extractComponents(s2);
+  
+  // Strategy 1: Prefix/suffix matching (very strong signal)
+  if (s2.startsWith(s1) || s1.startsWith(s2)) scores.push(0.98);
+  if (s2.endsWith(s1) || s1.endsWith(s2)) scores.push(0.96);
+  
+  // Strategy 2: Substring containment with length ratio
   if (s1.includes(s2) || s2.includes(s1)) {
     const containScore = Math.min(s1.length, s2.length) / Math.max(s1.length, s2.length);
-    scores.push(0.85 * containScore);
+    scores.push(0.92 * containScore);
   }
   
-  const words1 = s1.split(' ').filter(w => w.length > 0);
-  const words2 = s2.split(' ').filter(w => w.length > 0);
-  let wordMatches = 0;
-  for (const w1 of words1) {
-    for (const w2 of words2) {
-      if (w1 === w2 || w1.includes(w2) || w2.includes(w1)) {
-        wordMatches++;
-        break;
+  // Strategy 3: Component-level exact matching (mascot/city match)
+  let exactComponentMatches = 0;
+  let partialComponentMatches = 0;
+  for (const c1 of comp1) {
+    for (const c2 of comp2) {
+      if (c1 === c2 && c1.length > 2) { // Ignore short words like "st", "at"
+        exactComponentMatches++;
+      } else if ((c1.includes(c2) || c2.includes(c1)) && Math.min(c1.length, c2.length) > 2) {
+        partialComponentMatches++;
       }
     }
   }
-  if (words1.length > 0 && words2.length > 0) {
-    const wordScore = wordMatches / Math.max(words1.length, words2.length);
-    scores.push(0.8 * wordScore);
+  if (comp1.length > 0 && comp2.length > 0) {
+    const exactCompScore = exactComponentMatches / Math.max(comp1.length, comp2.length);
+    const partialCompScore = partialComponentMatches / Math.max(comp1.length, comp2.length);
+    if (exactCompScore > 0) scores.push(0.95 * exactCompScore);
+    if (partialCompScore > 0) scores.push(0.88 * partialCompScore);
   }
   
+  // Strategy 4: Word order invariant matching
+  const allWords1Match = comp1.every(w1 => 
+    comp2.some(w2 => w1 === w2 || (w1.length > 3 && w2.length > 3 && (w1.includes(w2) || w2.includes(w1))))
+  );
+  const allWords2Match = comp2.every(w2 => 
+    comp1.some(w1 => w2 === w1 || (w1.length > 3 && w2.length > 3 && (w1.includes(w2) || w2.includes(w1))))
+  );
+  if (allWords1Match || allWords2Match) scores.push(0.94);
+  
+  // Strategy 5: Abbreviation handling (e.g., "st" for "state", "u" for "university")
+  const abbreviations: Record<string, string[]> = {
+    'u': ['university', 'univ'],
+    'st': ['state', 'saint'],
+    'mt': ['mount', 'mountain'],
+    'ft': ['fort'],
+    'tech': ['technical', 'technology'],
+    'am': ['a&m', 'agricultural', 'mechanical']
+  };
+  let abbrMatches = 0;
+  for (const c1 of comp1) {
+    for (const c2 of comp2) {
+      if (abbreviations[c1]?.includes(c2) || abbreviations[c2]?.includes(c1)) {
+        abbrMatches++;
+      }
+    }
+  }
+  if (abbrMatches > 0) {
+    scores.push(0.9 * (abbrMatches / Math.max(comp1.length, comp2.length)));
+  }
+  
+  // Strategy 6: Levenshtein distance with length normalization
   const maxLen = Math.max(s1.length, s2.length);
   if (maxLen > 0) {
     const distance = levenshteinDistance(s1, s2);
     const levenScore = 1 - (distance / maxLen);
-    scores.push(0.75 * levenScore);
+    scores.push(0.82 * levenScore);
   }
   
+  // Strategy 7: N-gram matching (trigrams)
+  const getNGrams = (str: string, n: number = 3): Set<string> => {
+    const grams = new Set<string>();
+    for (let i = 0; i <= str.length - n; i++) {
+      grams.add(str.substring(i, i + n));
+    }
+    return grams;
+  };
+  const ngrams1 = getNGrams(s1);
+  const ngrams2 = getNGrams(s2);
+  let ngramOverlap = 0;
+  for (const gram of ngrams1) {
+    if (ngrams2.has(gram)) ngramOverlap++;
+  }
+  if (ngrams1.size > 0 && ngrams2.size > 0) {
+    const ngramScore = ngramOverlap / Math.max(ngrams1.size, ngrams2.size);
+    scores.push(0.85 * ngramScore);
+  }
+  
+  // Strategy 8: Character overlap with position weighting
   const chars1 = new Set(s1.replace(/\s/g, ''));
   const chars2 = new Set(s2.replace(/\s/g, ''));
   let charOverlap = 0;
@@ -84,7 +151,7 @@ function calculateSimilarity(slug: string, candidate: string): number {
     if (chars2.has(char)) charOverlap++;
   }
   const charScore = charOverlap / Math.max(chars1.size, chars2.size);
-  scores.push(0.6 * charScore);
+  scores.push(0.75 * charScore);
   
   return Math.max(...scores, 0);
 }
@@ -110,7 +177,7 @@ function findBestMatch(slug: string, logoPaths: Record<string, string>, sport: s
     }
   }
   
-  // Multi-strategy fuzzy matching
+  // Enhanced multi-strategy fuzzy matching with 90% threshold
   let matches: Array<{ key: string; score: number; path: string }> = [];
   
   for (const [key, path] of Object.entries(logoPaths)) {
@@ -121,11 +188,24 @@ function findBestMatch(slug: string, logoPaths: Record<string, string>, sport: s
   matches.sort((a, b) => b.score - a.score);
   
   if (matches.length > 0) {
-    console.log(`🔍 [LOGO MATCH] Top fuzzy matches for "${slug}":`, matches.slice(0, 3).map(m => `${m.key} (${m.score.toFixed(2)})`));
+    console.log(`🔍 [LOGO MATCH] Top fuzzy matches for "${slug}":`, matches.slice(0, 5).map(m => `${m.key} (${m.score.toFixed(3)})`));
   }
   
-  if (matches.length > 0 && matches[0].score >= 0.6) {
-    console.log(`✅ [LOGO MATCH] Fuzzy match: "${slug}" → "${matches[0].key}" (score: ${matches[0].score.toFixed(2)})`);
+  // 90% threshold for high-quality matches
+  if (matches.length > 0 && matches[0].score >= 0.90) {
+    console.log(`✅ [LOGO MATCH] High-confidence fuzzy match: "${slug}" → "${matches[0].key}" (score: ${matches[0].score.toFixed(3)})`);
+    return matches[0].path;
+  }
+  
+  // For scores between 80-90%, log as medium confidence
+  if (matches.length > 0 && matches[0].score >= 0.80) {
+    console.log(`⚠️ [LOGO MATCH] Medium-confidence fuzzy match: "${slug}" → "${matches[0].key}" (score: ${matches[0].score.toFixed(3)})`);
+    return matches[0].path;
+  }
+  
+  // For scores between 70-80%, log as low confidence but still use
+  if (matches.length > 0 && matches[0].score >= 0.70) {
+    console.log(`⚠️ [LOGO MATCH] Low-confidence fuzzy match: "${slug}" → "${matches[0].key}" (score: ${matches[0].score.toFixed(3)})`);
     return matches[0].path;
   }
   

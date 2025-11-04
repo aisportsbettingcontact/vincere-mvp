@@ -18,6 +18,8 @@ interface TeamData {
   secondary_hex_code: string;
   tertiary_color: string;
   tertiary_hex_code: string;
+  vsin_slug?: string;
+  logo_slug?: string;
 }
 
 export async function populateTeamsData(): Promise<{ success: boolean; message: string }> {

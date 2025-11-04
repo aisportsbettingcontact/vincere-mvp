@@ -15,7 +15,9 @@
     "secondary_color": "Red",
     "secondary_hex_code": "#C60C30",
     "tertiary_color": "White",
-    "tertiary_hex_code": "#FFFFFF"
+    "tertiary_hex_code": "#FFFFFF",
+    "vsin_slug": "buffalo-bills",
+    "logo_slug": "buffalo-bills"
   },
   {
     "sport": "Football",
@@ -31,9 +33,11 @@
     "primary_color": "Aqua",
     "primary_hex_code": "#008E97",
     "secondary_color": "Orange",
-    "secondary_hex_code": "#F58220",
-    "tertiary_color": "Navy",
-    "tertiary_hex_code": "#002B5C"
+    "secondary_hex_code": "#FC4C02",
+    "tertiary_color": "Marine Blue",
+    "tertiary_hex_code": "#005778",
+    "vsin_slug": "miami-dolphins",
+    "logo_slug": "miami-dolphins"
   },
   {
     "sport": "Football",
@@ -46,12 +50,14 @@
     "arena_name": "Gillette Stadium",
     "arena_city": "Foxborough",
     "arena_state": "MA",
-    "primary_color": "Navy",
+    "primary_color": "Nautical Blue",
     "primary_hex_code": "#002244",
     "secondary_color": "Red",
-    "secondary_hex_code": "#C8102E",
-    "tertiary_color": "Silver",
-    "tertiary_hex_code": "#BEC0C2"
+    "secondary_hex_code": "#C60C30",
+    "tertiary_color": "New Century Silver",
+    "tertiary_hex_code": "#B0B7BC",
+    "vsin_slug": "new-england-patriots",
+    "logo_slug": "new-england-patriots"
   },
   {
     "sport": "Football",
@@ -66,10 +72,12 @@
     "arena_state": "NJ",
     "primary_color": "Gotham Green",
     "primary_hex_code": "#125740",
-    "secondary_color": "White",
-    "secondary_hex_code": "#FFFFFF",
-    "tertiary_color": "Black",
-    "tertiary_hex_code": "#000000"
+    "secondary_color": "Stealth Black",
+    "secondary_hex_code": "#000000",
+    "tertiary_color": "Spotlight White",
+    "tertiary_hex_code": "#FFFFFF",
+    "vsin_slug": "new-york-jets",
+    "logo_slug": "new-york-jets"
   },
   {
     "sport": "Football",
@@ -87,7 +95,9 @@
     "secondary_color": "Black",
     "secondary_hex_code": "#000000",
     "tertiary_color": "Metallic Gold",
-    "tertiary_hex_code": "#9E7C0C"
+    "tertiary_hex_code": "#9E7C0C",
+    "vsin_slug": "baltimore-ravens",
+    "logo_slug": "baltimore-ravens"
   },
   {
     "sport": "Football",
@@ -105,7 +115,9 @@
     "secondary_color": "Black",
     "secondary_hex_code": "#000000",
     "tertiary_color": "White",
-    "tertiary_hex_code": "#FFFFFF"
+    "tertiary_hex_code": "#FFFFFF",
+    "vsin_slug": "cincinnati-bengals",
+    "logo_slug": "cincinnati-bengals"
   },
   {
     "sport": "Football",
@@ -121,9 +133,11 @@
     "primary_color": "Brown",
     "primary_hex_code": "#311D00",
     "secondary_color": "Orange",
-    "secondary_hex_code": "#FF8000",
+    "secondary_hex_code": "#FF3C00",
     "tertiary_color": "White",
-    "tertiary_hex_code": "#FFFFFF"
+    "tertiary_hex_code": "#FFFFFF",
+    "vsin_slug": "cleveland-browns",
+    "logo_slug": "cleveland-browns"
   },
   {
     "sport": "Football",
@@ -136,12 +150,14 @@
     "arena_name": "Acrisure Stadium",
     "arena_city": "Pittsburgh",
     "arena_state": "PA",
-    "primary_color": "Black",
-    "primary_hex_code": "#000000",
-    "secondary_color": "Gold",
-    "secondary_hex_code": "#FFB612",
-    "tertiary_color": "White",
-    "tertiary_hex_code": "#FFFFFF"
+    "primary_color": "Steelers Gold",
+    "primary_hex_code": "#FFB612",
+    "secondary_color": "Black",
+    "secondary_hex_code": "#101820",
+    "tertiary_color": "Silver",
+    "tertiary_hex_code": "#A5ACAF",
+    "vsin_slug": "pittsburgh-steelers",
+    "logo_slug": "pittsburgh-steelers"
   },
   {
     "sport": "Football",
@@ -154,12 +170,14 @@
     "arena_name": "NRG Stadium",
     "arena_city": "Houston",
     "arena_state": "TX",
-    "primary_color": "Deep Steel",
+    "primary_color": "Deep Steel Blue",
     "primary_hex_code": "#03202F",
     "secondary_color": "Battle Red",
     "secondary_hex_code": "#A71930",
-    "tertiary_color": "Liberty Blue",
-    "tertiary_hex_code": "#002A5C"
+    "tertiary_color": "Liberty White",
+    "tertiary_hex_code": "#FFFFFF",
+    "vsin_slug": "houston-texans",
+    "logo_slug": "houston-texans"
   },
   {
     "sport": "Football",
@@ -172,12 +190,14 @@
     "arena_name": "Lucas Oil Stadium",
     "arena_city": "Indianapolis",
     "arena_state": "IN",
-    "primary_color": "Colts Blue",
+    "primary_color": "Speed Blue",
     "primary_hex_code": "#002C5F",
     "secondary_color": "White",
     "secondary_hex_code": "#FFFFFF",
     "tertiary_color": "Gray",
-    "tertiary_hex_code": "#A5ACAF"
+    "tertiary_hex_code": "#A2AAAD",
+    "vsin_slug": "indianapolis-colts",
+    "logo_slug": "indianapolis-colts"
   },
   {
     "sport": "Football",
@@ -193,9 +213,11 @@
     "primary_color": "Teal",
     "primary_hex_code": "#006778",
     "secondary_color": "Black",
-    "secondary_hex_code": "#000000",
+    "secondary_hex_code": "#101820",
     "tertiary_color": "Gold",
-    "tertiary_hex_code": "#B4975A"
+    "tertiary_hex_code": "#D7A22A",
+    "vsin_slug": "jacksonville-jaguars",
+    "logo_slug": "jacksonville-jaguars"
   },
   {
     "sport": "Football",
@@ -208,12 +230,14 @@
     "arena_name": "Nissan Stadium",
     "arena_city": "Nashville",
     "arena_state": "TN",
-    "primary_color": "Titan Blue",
-    "primary_hex_code": "#4B92DB",
-    "secondary_color": "Navy",
-    "secondary_hex_code": "#002B5C",
-    "tertiary_color": "White",
-    "tertiary_hex_code": "#FFFFFF"
+    "primary_color": "Titans Navy",
+    "primary_hex_code": "#0C2340",
+    "secondary_color": "Titans Blue",
+    "secondary_hex_code": "#4B92DB",
+    "tertiary_color": "Titans Red",
+    "tertiary_hex_code": "#C8102E",
+    "vsin_slug": "tennessee-titans",
+    "logo_slug": "tennessee-titans"
   },
   {
     "sport": "Football",
@@ -226,12 +250,14 @@
     "arena_name": "Empower Field at Mile High",
     "arena_city": "Denver",
     "arena_state": "CO",
-    "primary_color": "Orange",
+    "primary_color": "Broncos Orange",
     "primary_hex_code": "#FB4F14",
-    "secondary_color": "Navy",
+    "secondary_color": "Broncos Navy",
     "secondary_hex_code": "#002244",
     "tertiary_color": "White",
-    "tertiary_hex_code": "#FFFFFF"
+    "tertiary_hex_code": "#FFFFFF",
+    "vsin_slug": "denver-broncos",
+    "logo_slug": "denver-broncos"
   },
   {
     "sport": "Football",
@@ -249,7 +275,9 @@
     "secondary_color": "Gold",
     "secondary_hex_code": "#FFB81C",
     "tertiary_color": "White",
-    "tertiary_hex_code": "#FFFFFF"
+    "tertiary_hex_code": "#FFFFFF",
+    "vsin_slug": "kansas-city-chiefs",
+    "logo_slug": "kansas-city-chiefs"
   },
   {
     "sport": "Football",
@@ -262,12 +290,14 @@
     "arena_name": "Allegiant Stadium",
     "arena_city": "Paradise",
     "arena_state": "NV",
-    "primary_color": "Black",
+    "primary_color": "Raiders Black",
     "primary_hex_code": "#000000",
-    "secondary_color": "Silver",
-    "secondary_hex_code": "#A2AAAD",
+    "secondary_color": "Raiders Silver",
+    "secondary_hex_code": "#A5ACAF",
     "tertiary_color": "White",
-    "tertiary_hex_code": "#FFFFFF"
+    "tertiary_hex_code": "#FFFFFF",
+    "vsin_slug": "las-vegas-raiders",
+    "logo_slug": "las-vegas-raiders"
   },
   {
     "sport": "Football",
@@ -281,11 +311,13 @@
     "arena_city": "Inglewood",
     "arena_state": "CA",
     "primary_color": "Powder Blue",
-    "primary_hex_code": "#007AC1",
-    "secondary_color": "Gold",
-    "secondary_hex_code": "#FFC72C",
-    "tertiary_color": "Navy",
-    "tertiary_hex_code": "#002244"
+    "primary_hex_code": "#0080C6",
+    "secondary_color": "Sunshine Gold",
+    "secondary_hex_code": "#FFC20E",
+    "tertiary_color": "White",
+    "tertiary_hex_code": "#FFFFFF",
+    "vsin_slug": "los-angeles-chargers",
+    "logo_slug": "los-angeles-chargers"
   },
   {
     "sport": "Football",
@@ -298,12 +330,14 @@
     "arena_name": "AT&T Stadium",
     "arena_city": "Arlington",
     "arena_state": "TX",
-    "primary_color": "Royal Blue",
-    "primary_hex_code": "#003594",
-    "secondary_color": "Silver",
-    "secondary_hex_code": "#BEC0C2",
-    "tertiary_color": "White",
-    "tertiary_hex_code": "#FFFFFF"
+    "primary_color": "Blue",
+    "primary_hex_code": "#041E42",
+    "secondary_color": "Royal Blue",
+    "secondary_hex_code": "#003594",
+    "tertiary_color": "Metallic Silver",
+    "tertiary_hex_code": "#869397",
+    "vsin_slug": "dallas-cowboys",
+    "logo_slug": "dallas-cowboys"
   },
   {
     "sport": "Football",
@@ -316,12 +350,14 @@
     "arena_name": "MetLife Stadium",
     "arena_city": "East Rutherford",
     "arena_state": "NJ",
-    "primary_color": "Royal Blue",
+    "primary_color": "Dark Blue",
     "primary_hex_code": "#0B2265",
     "secondary_color": "Red",
     "secondary_hex_code": "#A71930",
-    "tertiary_color": "White",
-    "tertiary_hex_code": "#FFFFFF"
+    "tertiary_color": "Gray",
+    "tertiary_hex_code": "#A5ACAF",
+    "vsin_slug": "new-york-giants",
+    "logo_slug": "new-york-giants"
   },
   {
     "sport": "Football",
@@ -336,10 +372,12 @@
     "arena_state": "PA",
     "primary_color": "Midnight Green",
     "primary_hex_code": "#004C54",
-    "secondary_color": "Silver",
-    "secondary_hex_code": "#A5ACAF",
-    "tertiary_color": "Black",
-    "tertiary_hex_code": "#000000"
+    "secondary_color": "Black",
+    "secondary_hex_code": "#000000",
+    "tertiary_color": "Silver",
+    "tertiary_hex_code": "#A5ACAF",
+    "vsin_slug": "philadelphia-eagles",
+    "logo_slug": "philadelphia-eagles"
   },
   {
     "sport": "Football",
@@ -353,11 +391,13 @@
     "arena_city": "Landover",
     "arena_state": "MD",
     "primary_color": "Burgundy",
-    "primary_hex_code": "#773141",
+    "primary_hex_code": "#5A1414",
     "secondary_color": "Gold",
-    "secondary_hex_code": "#C4A00D",
+    "secondary_hex_code": "#FFB612",
     "tertiary_color": "White",
-    "tertiary_hex_code": "#FFFFFF"
+    "tertiary_hex_code": "#FFFFFF",
+    "vsin_slug": "washington-commanders",
+    "logo_slug": "washington-commanders"
   },
   {
     "sport": "Football",
@@ -370,12 +410,14 @@
     "arena_name": "Soldier Field",
     "arena_city": "Chicago",
     "arena_state": "IL",
-    "primary_color": "Navy",
+    "primary_color": "Navy Blue",
     "primary_hex_code": "#0B162A",
-    "secondary_color": "Orange",
+    "secondary_color": "Burnt Orange",
     "secondary_hex_code": "#C83803",
     "tertiary_color": "White",
-    "tertiary_hex_code": "#FFFFFF"
+    "tertiary_hex_code": "#FFFFFF",
+    "vsin_slug": "chicago-bears",
+    "logo_slug": "chicago-bears"
   },
   {
     "sport": "Football",
@@ -391,9 +433,11 @@
     "primary_color": "Honolulu Blue",
     "primary_hex_code": "#0076B6",
     "secondary_color": "Silver",
-    "secondary_hex_code": "#A5ACAF",
-    "tertiary_color": "White",
-    "tertiary_hex_code": "#FFFFFF"
+    "secondary_hex_code": "#B0B7BC",
+    "tertiary_color": "Black",
+    "tertiary_hex_code": "#000000",
+    "vsin_slug": "detroit-lions",
+    "logo_slug": "detroit-lions"
   },
   {
     "sport": "Football",
@@ -406,12 +450,14 @@
     "arena_name": "Lambeau Field",
     "arena_city": "Green Bay",
     "arena_state": "WI",
-    "primary_color": "Green",
+    "primary_color": "Dark Green",
     "primary_hex_code": "#203731",
     "secondary_color": "Gold",
     "secondary_hex_code": "#FFB612",
     "tertiary_color": "White",
-    "tertiary_hex_code": "#FFFFFF"
+    "tertiary_hex_code": "#FFFFFF",
+    "vsin_slug": "green-bay-packers",
+    "logo_slug": "green-bay-packers"
   },
   {
     "sport": "Football",
@@ -429,7 +475,9 @@
     "secondary_color": "Gold",
     "secondary_hex_code": "#FFC62F",
     "tertiary_color": "White",
-    "tertiary_hex_code": "#FFFFFF"
+    "tertiary_hex_code": "#FFFFFF",
+    "vsin_slug": "minnesota-vikings",
+    "logo_slug": "minnesota-vikings"
   },
   {
     "sport": "Football",
@@ -443,11 +491,13 @@
     "arena_city": "Atlanta",
     "arena_state": "GA",
     "primary_color": "Red",
-    "primary_hex_code": "#A6192E",
+    "primary_hex_code": "#A71930",
     "secondary_color": "Black",
     "secondary_hex_code": "#000000",
-    "tertiary_color": "White",
-    "tertiary_hex_code": "#FFFFFF"
+    "tertiary_color": "Silver",
+    "tertiary_hex_code": "#A5ACAF",
+    "vsin_slug": "atlanta-falcons",
+    "logo_slug": "atlanta-falcons"
   },
   {
     "sport": "Football",
@@ -460,12 +510,14 @@
     "arena_name": "Bank of America Stadium",
     "arena_city": "Charlotte",
     "arena_state": "NC",
-    "primary_color": "Panther Blue",
+    "primary_color": "Carolina Blue",
     "primary_hex_code": "#0085CA",
     "secondary_color": "Black",
-    "secondary_hex_code": "#000000",
+    "secondary_hex_code": "#101820",
     "tertiary_color": "Silver",
-    "tertiary_hex_code": "#BFC0BF"
+    "tertiary_hex_code": "#BFC0BF",
+    "vsin_slug": "carolina-panthers",
+    "logo_slug": "carolina-panthers"
   },
   {
     "sport": "Football",
@@ -478,12 +530,14 @@
     "arena_name": "Caesars Superdome",
     "arena_city": "New Orleans",
     "arena_state": "LA",
-    "primary_color": "Black",
-    "primary_hex_code": "#000000",
-    "secondary_color": "Old Gold",
-    "secondary_hex_code": "#D3BC8D",
+    "primary_color": "Old Gold",
+    "primary_hex_code": "#D3BC8D",
+    "secondary_color": "Black",
+    "secondary_hex_code": "#101820",
     "tertiary_color": "White",
-    "tertiary_hex_code": "#FFFFFF"
+    "tertiary_hex_code": "#FFFFFF",
+    "vsin_slug": "new-orleans-saints",
+    "logo_slug": "new-orleans-saints"
   },
   {
     "sport": "Football",
@@ -496,12 +550,14 @@
     "arena_name": "Raymond James Stadium",
     "arena_city": "Tampa",
     "arena_state": "FL",
-    "primary_color": "Red",
+    "primary_color": "Buccaneer Red",
     "primary_hex_code": "#D50A0A",
     "secondary_color": "Pewter",
-    "secondary_hex_code": "#5B6770",
-    "tertiary_color": "White",
-    "tertiary_hex_code": "#FFFFFF"
+    "secondary_hex_code": "#34302B",
+    "tertiary_color": "Bay Orange",
+    "tertiary_hex_code": "#FF7900",
+    "vsin_slug": "tampa-bay-buccaneers",
+    "logo_slug": "tampa-bay-buccaneers"
   },
   {
     "sport": "Football",
@@ -514,12 +570,14 @@
     "arena_name": "State Farm Stadium",
     "arena_city": "Glendale",
     "arena_state": "AZ",
-    "primary_color": "Cardinal",
+    "primary_color": "Cardinal Red",
     "primary_hex_code": "#97233F",
     "secondary_color": "Black",
     "secondary_hex_code": "#000000",
-    "tertiary_color": "White",
-    "tertiary_hex_code": "#FFFFFF"
+    "tertiary_color": "Yellow",
+    "tertiary_hex_code": "#FFB612",
+    "vsin_slug": "arizona-cardinals",
+    "logo_slug": "arizona-cardinals"
   },
   {
     "sport": "Football",
@@ -532,12 +590,14 @@
     "arena_name": "SoFi Stadium",
     "arena_city": "Inglewood",
     "arena_state": "CA",
-    "primary_color": "Rams Royal",
-    "primary_hex_code": "#0038A8",
-    "secondary_color": "Sol",
+    "primary_color": "Royal Blue",
+    "primary_hex_code": "#003594",
+    "secondary_color": "Yellow",
     "secondary_hex_code": "#FFD100",
     "tertiary_color": "White",
-    "tertiary_hex_code": "#FFFFFF"
+    "tertiary_hex_code": "#FFFFFF",
+    "vsin_slug": "los-angeles-rams",
+    "logo_slug": "los-angeles-rams"
   },
   {
     "sport": "Football",
@@ -554,8 +614,10 @@
     "primary_hex_code": "#AA0000",
     "secondary_color": "Gold",
     "secondary_hex_code": "#B3995D",
-    "tertiary_color": "White",
-    "tertiary_hex_code": "#FFFFFF"
+    "tertiary_color": "Black",
+    "tertiary_hex_code": "#000000",
+    "vsin_slug": "san-francisco-49ers",
+    "logo_slug": "san-francisco-49ers"
   },
   {
     "sport": "Football",
@@ -572,8 +634,10 @@
     "primary_hex_code": "#002244",
     "secondary_color": "Action Green",
     "secondary_hex_code": "#69BE28",
-    "tertiary_color": "Wolf Gray",
-    "tertiary_hex_code": "#818285"
+    "tertiary_color": "Wolf Grey",
+    "tertiary_hex_code": "#A5ACAF",
+    "vsin_slug": "seattle-seahawks",
+    "logo_slug": "seattle-seahawks"
   },
   {
     "sport": "Basketball",

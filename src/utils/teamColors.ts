@@ -202,7 +202,7 @@ export function getTeamSecondaryColor(teamName: string, sport: string = "NFL"): 
   return colors[teamName]?.secondary || "#000000";
 }
 
-// CBB Team Colors - Official hex codes
+// CBB Team Colors - Expanded with major programs
 export const CBB_TEAM_COLORS: Record<string, {
   primary: string;
   secondary: string;
@@ -213,41 +213,81 @@ export const CBB_TEAM_COLORS: Record<string, {
   "Villanova Wildcats": { primary: "#002664", secondary: "#41B6E6", tertiary: "#FFFFFF" },
   "BYU Cougars": { primary: "#002E5D", secondary: "#0062B8", tertiary: "#FFFFFF" },
   "Texas Longhorns": { primary: "#BF5700", secondary: "#333F48", tertiary: "#FFFFFF" },
-  "Duke Blue Devils": { primary: "#012169", secondary: "#00539B", tertiary: "#FFFFFF" }
+  "Duke Blue Devils": { primary: "#012169", secondary: "#00539B", tertiary: "#FFFFFF" },
+  "Kansas Jayhawks": { primary: "#0051BA", secondary: "#E8000D", tertiary: "#FFFFFF" },
+  "North Carolina Tar Heels": { primary: "#7BAFD4", secondary: "#13294B", tertiary: "#FFFFFF" },
+  "Kentucky Wildcats": { primary: "#0033A0", secondary: "#FFFFFF", tertiary: "#000000" },
+  "Gonzaga Bulldogs": { primary: "#041E42", secondary: "#C8102E", tertiary: "#FFFFFF" },
+  "UConn Huskies": { primary: "#000E2F", secondary: "#E4002B", tertiary: "#FFFFFF" },
+  "Oregon Ducks": { primary: "#154733", secondary: "#FEE123", tertiary: "#FFFFFF" },
+  "Hawaii Rainbow Warriors": { primary: "#024731", secondary: "#FFFFFF", tertiary: "#000000" },
+  "Michigan Wolverines": { primary: "#00274C", secondary: "#FFCB05", tertiary: "#FFFFFF" },
+  "Michigan State Spartans": { primary: "#18453B", secondary: "#FFFFFF", tertiary: "#000000" },
+  "Ohio State Buckeyes": { primary: "#BB0000", secondary: "#666666", tertiary: "#FFFFFF" },
+  "Purdue Boilermakers": { primary: "#CFB991", secondary: "#000000", tertiary: "#FFFFFF" },
+  "Illinois Fighting Illini": { primary: "#13294B", secondary: "#FF5F05", tertiary: "#FFFFFF" },
+  "Indiana Hoosiers": { primary: "#990000", secondary: "#EEEDEB", tertiary: "#000000" },
+  "Iowa Hawkeyes": { primary: "#000000", secondary: "#FFCD00", tertiary: "#FFFFFF" },
+  "Wisconsin Badgers": { primary: "#C5050C", secondary: "#FFFFFF", tertiary: "#000000" },
+  "Maryland Terrapins": { primary: "#E03A3E", secondary: "#FFD520", tertiary: "#000000" },
+  "Nebraska Cornhuskers": { primary: "#E41C38", secondary: "#FFFFFF", tertiary: "#000000" },
+  "Northwestern Wildcats": { primary: "#4E2A84", secondary: "#FFFFFF", tertiary: "#000000" },
+  "Penn State Nittany Lions": { primary: "#041E42", secondary: "#FFFFFF", tertiary: "#000000" },
+  "Rutgers Scarlet Knights": { primary: "#CC0033", secondary: "#5F6A72", tertiary: "#FFFFFF" },
+  "UCLA Bruins": { primary: "#2D68C4", secondary: "#FFD100", tertiary: "#FFFFFF" },
+  "USC Trojans": { primary: "#990000", secondary: "#FFCC00", tertiary: "#FFFFFF" },
+  "Washington Huskies": { primary: "#4B2E83", secondary: "#B7A57A", tertiary: "#FFFFFF" },
 };
 
 /**
  * Get all colors for a team
  */
 export function getTeamColors(teamName: string, sport: string = "NFL") {
+  console.log(`🎨 [TEAM COLORS] Looking up colors for: "${teamName}" (${sport})`);
+  
   if (sport === "NCAAF") {
-    return getCFBTeamColors(teamName);
+    const colors = getCFBTeamColors(teamName);
+    console.log(`🎨 [TEAM COLORS] CFB colors found:`, colors);
+    return colors;
   }
+  
   if (sport === "NCAAM") {
     const colors = CBB_TEAM_COLORS[teamName];
     if (!colors) {
-      console.error(`🎨🚨🚨🚨 [CBB COLORS MISSING] No colors found for "${teamName}"`);
-      console.error(`Available CBB teams:`, Object.keys(CBB_TEAM_COLORS));
+      console.error(`🎨🚨 [CBB COLORS MISSING] No colors found for "${teamName}"`);
+      console.error(`🎨 Available CBB teams:`, Object.keys(CBB_TEAM_COLORS).slice(0, 10));
+      console.error(`🎨 Total CBB teams with colors:`, Object.keys(CBB_TEAM_COLORS).length);
+      console.error(`🎨 Using fallback colors for "${teamName}"`);
     }
-    return colors || {
+    const result = colors || {
       primary: "#003087",
       secondary: "#FFFFFF",
       tertiary: "#FFC72C"
     };
+    console.log(`🎨 [TEAM COLORS] CBB colors:`, result);
+    return result;
   }
+  
   const colors = sport === "NBA" ? NBA_TEAM_COLORS 
     : sport === "NHL" ? NHL_TEAM_COLORS 
     : sport === "MLB" ? MLB_TEAM_COLORS 
     : NFL_TEAM_COLORS;
+    
   const result = colors[teamName];
+  
   if (!result) {
-    console.error(`🎨🚨🚨🚨 [${sport} COLORS MISSING] No colors found for "${teamName}"`);
-    console.error(`Available ${sport} teams sample:`, Object.keys(colors).slice(0, 10));
-    console.error(`Total ${sport} teams with colors:`, Object.keys(colors).length);
+    console.error(`🎨🚨 [${sport} COLORS MISSING] No colors found for "${teamName}"`);
+    console.error(`🎨 Available ${sport} teams sample:`, Object.keys(colors).slice(0, 10));
+    console.error(`🎨 Total ${sport} teams with colors:`, Object.keys(colors).length);
+    console.error(`🎨 Using fallback colors`);
   }
-  return result || {
+  
+  const finalColors = result || {
     primary: "#6F74FF",
     secondary: "#000000",
     tertiary: "#FFFFFF"
   };
+  
+  console.log(`🎨 [TEAM COLORS] Final colors for "${teamName}":`, finalColors);
+  return finalColors;
 }

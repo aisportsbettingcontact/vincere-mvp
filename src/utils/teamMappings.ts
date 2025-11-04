@@ -1,4 +1,5 @@
 import { CFB_TEAM_MAPPINGS } from "./cfbTeamMappings";
+import { teamMappingLogger } from "./teamMappingLogger";
 
 // Map team slugs to display names and ESPN abbreviations
 export const NFL_TEAM_MAPPINGS: Record<string, { name: string; abbr: string; espnAbbr: string; fullName: string }> = {
@@ -138,49 +139,88 @@ export const MLB_TEAM_MAPPINGS: Record<string, { name: string; abbr: string; esp
   "washington-nationals": { name: "Nationals", abbr: "WSH", espnAbbr: "wsh", fullName: "Washington Nationals" }
 };
 
+// CBB (NCAAM) Team Mappings - Expanded coverage
 export const CBB_TEAM_MAPPINGS: Record<string, { name: string; abbr: string; espnAbbr: string; fullName: string }> = {
+  // Major Conference Teams
   "florida": { name: "Florida", abbr: "FLA", espnAbbr: "57", fullName: "Florida Gators" },
   "arizona": { name: "Arizona", abbr: "ARIZ", espnAbbr: "12", fullName: "Arizona Wildcats" },
   "villanova": { name: "Villanova", abbr: "NOVA", espnAbbr: "222", fullName: "Villanova Wildcats" },
   "byu": { name: "BYU", abbr: "BYU", espnAbbr: "252", fullName: "BYU Cougars" },
   "texas": { name: "Texas", abbr: "TEX", espnAbbr: "251", fullName: "Texas Longhorns" },
-  "duke": { name: "Duke", abbr: "DUKE", espnAbbr: "150", fullName: "Duke Blue Devils" }
+  "duke": { name: "Duke", abbr: "DUKE", espnAbbr: "150", fullName: "Duke Blue Devils" },
+  "kansas": { name: "Kansas", abbr: "KU", espnAbbr: "2305", fullName: "Kansas Jayhawks" },
+  "north-carolina": { name: "North Carolina", abbr: "UNC", espnAbbr: "153", fullName: "North Carolina Tar Heels" },
+  "kentucky": { name: "Kentucky", abbr: "UK", espnAbbr: "96", fullName: "Kentucky Wildcats" },
+  "gonzaga": { name: "Gonzaga", abbr: "GONZ", espnAbbr: "2250", fullName: "Gonzaga Bulldogs" },
+  "uconn": { name: "UConn", abbr: "CONN", espnAbbr: "41", fullName: "UConn Huskies" },
+  "connecticut": { name: "UConn", abbr: "CONN", espnAbbr: "41", fullName: "UConn Huskies" },
+  "oregon": { name: "Oregon", abbr: "ORE", espnAbbr: "2483", fullName: "Oregon Ducks" },
+  "hawaii": { name: "Hawaii", abbr: "HAW", espnAbbr: "62", fullName: "Hawaii Rainbow Warriors" },
+  "michigan": { name: "Michigan", abbr: "MICH", espnAbbr: "130", fullName: "Michigan Wolverines" },
+  "michigan-state": { name: "Michigan State", abbr: "MSU", espnAbbr: "127", fullName: "Michigan State Spartans" },
+  "ohio-state": { name: "Ohio State", abbr: "OSU", espnAbbr: "194", fullName: "Ohio State Buckeyes" },
+  "purdue": { name: "Purdue", abbr: "PUR", espnAbbr: "2509", fullName: "Purdue Boilermakers" },
+  "illinois": { name: "Illinois", abbr: "ILL", espnAbbr: "356", fullName: "Illinois Fighting Illini" },
+  "indiana": { name: "Indiana", abbr: "IND", espnAbbr: "84", fullName: "Indiana Hoosiers" },
+  "iowa": { name: "Iowa", abbr: "IOWA", espnAbbr: "2294", fullName: "Iowa Hawkeyes" },
+  "wisconsin": { name: "Wisconsin", abbr: "WISC", espnAbbr: "275", fullName: "Wisconsin Badgers" },
+  "maryland": { name: "Maryland", abbr: "MD", espnAbbr: "120", fullName: "Maryland Terrapins" },
+  "nebraska": { name: "Nebraska", abbr: "NEB", espnAbbr: "158", fullName: "Nebraska Cornhuskers" },
+  "northwestern": { name: "Northwestern", abbr: "NU", espnAbbr: "77", fullName: "Northwestern Wildcats" },
+  "penn-state": { name: "Penn State", abbr: "PSU", espnAbbr: "213", fullName: "Penn State Nittany Lions" },
+  "rutgers": { name: "Rutgers", abbr: "RUTG", espnAbbr: "164", fullName: "Rutgers Scarlet Knights" },
+  "ucla": { name: "UCLA", abbr: "UCLA", espnAbbr: "26", fullName: "UCLA Bruins" },
+  "usc": { name: "USC", abbr: "USC", espnAbbr: "30", fullName: "USC Trojans" },
+  "washington": { name: "Washington", abbr: "WASH", espnAbbr: "264", fullName: "Washington Huskies" },
 };
 
 export function getTeamInfo(slug: string, sport: string = "NFL") {
+  console.log(`🔍 [TEAM MAPPING] Looking up slug: "${slug}" for sport: ${sport}`);
+  
   const mappings = sport === "NBA" ? NBA_TEAM_MAPPINGS 
     : sport === "NHL" ? NHL_TEAM_MAPPINGS 
     : sport === "NCAAF" ? CFB_TEAM_MAPPINGS 
     : sport === "MLB" ? MLB_TEAM_MAPPINGS 
     : sport === "NCAAM" ? CBB_TEAM_MAPPINGS 
     : NFL_TEAM_MAPPINGS;
+  
   const result = mappings[slug];
   
-  // If team not mapped, create proper display name from slug
-  if (!result) {
-    const formattedName = slug
-      .split('-')
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ');
-    
-    const abbreviation = slug
-      .split('-')
-      .map(word => word.charAt(0).toUpperCase())
-      .join('')
-      .slice(0, 3);
-    
-    console.error(`🚨🚨🚨 [${sport} MAPPING MISSING] Team slug not found: "${slug}"`);
-    console.error(`Available ${sport} team slugs sample:`, Object.keys(mappings).slice(0, 10));
-    console.error(`Total ${sport} teams mapped:`, Object.keys(mappings).length);
-    console.error(`Using fallback: ${formattedName} (${abbreviation})`);
-    
-    return { 
-      name: formattedName, 
-      abbr: abbreviation, 
-      espnAbbr: slug,
-      fullName: formattedName
-    };
+  // If team found, return it
+  if (result) {
+    console.log(`✅ [TEAM MAPPING] Direct match found: ${result.fullName} (${result.abbr})`);
+    return result;
   }
   
-  return result;
+  // Log missing team for reporting
+  teamMappingLogger.logMissing(slug, sport);
+  
+  // Try fuzzy matching before falling back to generated name
+  console.warn(`⚠️ [TEAM MAPPING] No direct match for "${slug}" in ${sport}`);
+  console.warn(`⚠️ [TEAM MAPPING] Available ${sport} teams: ${Object.keys(mappings).length} total`);
+  console.warn(`⚠️ [TEAM MAPPING] Sample slugs:`, Object.keys(mappings).slice(0, 5));
+  
+  // Could add fuzzy matching here in the future
+  
+  // Create fallback from slug
+  const formattedName = slug
+    .split('-')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+  
+  const abbreviation = slug
+    .split('-')
+    .map(word => word.charAt(0).toUpperCase())
+    .join('')
+    .slice(0, 3);
+  
+  console.error(`🚨 [TEAM MAPPING] Using fallback for "${slug}" → "${formattedName}" (${abbreviation})`);
+  console.error(`🚨 [TEAM MAPPING] This team should be added to ${sport}_TEAM_MAPPINGS`);
+  
+  return { 
+    name: formattedName, 
+    abbr: abbreviation, 
+    espnAbbr: slug,
+    fullName: formattedName
+  };
 }

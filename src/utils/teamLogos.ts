@@ -115,23 +115,35 @@ const NHL_LOGO_PATHS: Record<string, string> = {
 };
 
 export function getTeamLogo(sport: string, espnAbbr: string, teamSlug?: string): string {
-  // For NFL, NBA, NHL - use local logos if we have the team slug
+  console.log(`🖼️ [TEAM LOGO] Looking up logo - Sport: ${sport}, Slug: "${teamSlug}", ESPN: ${espnAbbr}`);
+  
+  // For NFL, NBA, NHL, NCAAF, NCAAM - use local logos if we have the team slug
   if (teamSlug) {
     if (sport === "NFL" && NFL_LOGO_PATHS[teamSlug]) {
+      console.log(`✅ [TEAM LOGO] NFL local logo found: ${NFL_LOGO_PATHS[teamSlug]}`);
       return NFL_LOGO_PATHS[teamSlug];
     }
     if (sport === "NBA" && NBA_LOGO_PATHS[teamSlug]) {
+      console.log(`✅ [TEAM LOGO] NBA local logo found: ${NBA_LOGO_PATHS[teamSlug]}`);
       return NBA_LOGO_PATHS[teamSlug];
     }
     if (sport === "NHL" && NHL_LOGO_PATHS[teamSlug]) {
+      console.log(`✅ [TEAM LOGO] NHL local logo found: ${NHL_LOGO_PATHS[teamSlug]}`);
       return NHL_LOGO_PATHS[teamSlug];
+    }
+    
+    // For college sports, construct path from structure
+    if (sport === "NCAAF" || sport === "NCAAM") {
+      console.log(`⚠️ [TEAM LOGO] No local logo mapped for ${sport} team "${teamSlug}"`);
+      console.log(`🔄 [TEAM LOGO] Falling back to ESPN CDN`);
     }
   }
   
   // Fallback to ESPN CDN for teams not in our local logos
-  if (sport === "NCAAF" || sport === "NCAAM") {
-    return `https://a.espncdn.com/combiner/i?img=/i/teamlogos/ncaa/500/${espnAbbr}.png&h=200&w=200`;
-  }
-  const sportPath = sport.toLowerCase();
-  return `https://a.espncdn.com/combiner/i?img=/i/teamlogos/${sportPath}/500/${espnAbbr}.png&h=200&w=200`;
+  const cdnUrl = (sport === "NCAAF" || sport === "NCAAM")
+    ? `https://a.espncdn.com/combiner/i?img=/i/teamlogos/ncaa/500/${espnAbbr}.png&h=200&w=200`
+    : `https://a.espncdn.com/combiner/i?img=/i/teamlogos/${sport.toLowerCase()}/500/${espnAbbr}.png&h=200&w=200`;
+  
+  console.log(`🔄 [TEAM LOGO] Using ESPN CDN: ${cdnUrl}`);
+  return cdnUrl;
 }

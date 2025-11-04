@@ -114,62 +114,99 @@ export function parseBookData(
  * Parse individual game
  */
 export function parseGame(game: RawSplitGame, book: string): GameOdds {
+  console.log(`\n🎮 [PARSER] ========== PARSING GAME ${game.id} ==========`);
+  console.log(`🎮 [PARSER] Raw sport: "${game.s}"`);
+  console.log(`🎮 [PARSER] Away slug: "${game.a}"`);
+  console.log(`🎮 [PARSER] Home slug: "${game.h}"`);
+  
   // CRITICAL: Normalize sport name - convert legacy CFB/CBB to NCAAF/NCAAM
   let sportStr = game.s.toUpperCase();
-  if (sportStr === 'CFB') sportStr = 'NCAAF';
-  if (sportStr === 'CBB') sportStr = 'NCAAM';
+  if (sportStr === 'CFB') {
+    console.log(`🔄 [PARSER] Converting CFB → NCAAF`);
+    sportStr = 'NCAAF';
+  }
+  if (sportStr === 'CBB') {
+    console.log(`🔄 [PARSER] Converting CBB → NCAAM`);
+    sportStr = 'NCAAM';
+  }
   const sport = sportStr as GameOdds["sport"];
+  console.log(`🎮 [PARSER] Final sport: "${sport}"`);
   
   const kickoff = formatDate(game.d, game.id, sport);
   const metadata = getGameMetadata(game.id, sport, game.d);
+  
+  console.log(`📅 [PARSER] Kickoff: ${kickoff}`);
+  console.log(`📺 [PARSER] Metadata:`, metadata);
   
   // Get team info based on sport (CFB→NCAAF, CBB→NCAAM already converted above)
   let awayInfo, homeInfo, awayColors, homeColors;
   
   if (sport === "NCAAF" || sport === "NCAAM") {
-    // Use CFB mappings
-    awayInfo = CFB_TEAM_MAPPINGS[game.a];
-    if (!awayInfo) {
-      console.error(`🚨🚨🚨 [CFB MAPPING MISSING] Away team slug not found: "${game.a}" in game ${game.id}`);
-      console.error(`Available CFB team slugs sample:`, Object.keys(CFB_TEAM_MAPPINGS).slice(0, 10));
-      awayInfo = { 
-        name: game.a, 
-        abbr: game.a.toUpperCase().slice(0, 4), 
-        espnAbbr: game.a, 
-        fullName: game.a 
-      };
+    console.log(`\n🏫 [PARSER] Processing COLLEGE sport (${sport})`);
+    
+    // Use CFB mappings for NCAAF
+    if (sport === "NCAAF") {
+      awayInfo = CFB_TEAM_MAPPINGS[game.a];
+      homeInfo = CFB_TEAM_MAPPINGS[game.h];
+      
+      if (!awayInfo) {
+        console.error(`🚨 [CFB MAPPING MISSING] Away team slug: "${game.a}"`);
+        console.error(`🚨 Available CFB slugs:`, Object.keys(CFB_TEAM_MAPPINGS).slice(0, 10));
+        awayInfo = { 
+          name: game.a, 
+          abbr: game.a.toUpperCase().slice(0, 4), 
+          espnAbbr: game.a, 
+          fullName: game.a 
+        };
+      }
+      
+      if (!homeInfo) {
+        console.error(`🚨 [CFB MAPPING MISSING] Home team slug: "${game.h}"`);
+        homeInfo = { 
+          name: game.h, 
+          abbr: game.h.toUpperCase().slice(0, 4), 
+          espnAbbr: game.h, 
+          fullName: game.h 
+        };
+      }
+      
+      console.log(`🏫 [CFB TEAM LOOKUP] Away: "${game.a}" → "${awayInfo.fullName}" (${awayInfo.abbr})`);
+      console.log(`🏫 [CFB TEAM LOOKUP] Home: "${game.h}" → "${homeInfo.fullName}" (${homeInfo.abbr})`);
+      
+      awayColors = getCFBTeamColors(awayInfo.fullName);
+      homeColors = getCFBTeamColors(homeInfo.fullName);
+    } else {
+      // NCAAM - Use CBB mappings
+      awayInfo = getTeamInfo(game.a, sport);
+      homeInfo = getTeamInfo(game.h, sport);
+      
+      console.log(`🏀 [CBB TEAM LOOKUP] Away: "${game.a}" → "${awayInfo.fullName}" (${awayInfo.abbr})`);
+      console.log(`🏀 [CBB TEAM LOOKUP] Home: "${game.h}" → "${homeInfo.fullName}" (${homeInfo.abbr})`);
+      
+      awayColors = getTeamColors(awayInfo.fullName, sport);
+      homeColors = getTeamColors(homeInfo.fullName, sport);
     }
     
-    homeInfo = CFB_TEAM_MAPPINGS[game.h];
-    if (!homeInfo) {
-      console.error(`🚨🚨🚨 [CFB MAPPING MISSING] Home team slug not found: "${game.h}" in game ${game.id}`);
-      console.error(`Available CFB team slugs sample:`, Object.keys(CFB_TEAM_MAPPINGS).slice(0, 10));
-      homeInfo = { 
-        name: game.h, 
-        abbr: game.h.toUpperCase().slice(0, 4), 
-        espnAbbr: game.h, 
-        fullName: game.h 
-      };
-    }
-    
-    console.log(`[CFB TEAM LOOKUP] Game: ${game.id}`);
-    console.log(`  Away: slug="${game.a}" → name="${awayInfo.name}" espnAbbr="${awayInfo.espnAbbr}" fullName="${awayInfo.fullName}"`);
-    console.log(`  Home: slug="${game.h}" → name="${homeInfo.name}" espnAbbr="${homeInfo.espnAbbr}" fullName="${homeInfo.fullName}"`);
-    
-    awayColors = getCFBTeamColors(awayInfo.fullName);
-    homeColors = getCFBTeamColors(homeInfo.fullName);
-    
-    console.log(`[CFB COLORS] Away colors for "${awayInfo.fullName}":`, awayColors);
-    console.log(`[CFB COLORS] Home colors for "${homeInfo.fullName}":`, homeColors);
+    console.log(`🎨 [COLLEGE COLORS] Away colors:`, awayColors);
+    console.log(`🎨 [COLLEGE COLORS] Home colors:`, homeColors);
   } else {
+    console.log(`\n🏈 [PARSER] Processing PRO sport (${sport})`);
+    
     // Use standard team mappings with correct sport parameter
     awayInfo = getTeamInfo(game.a, sport);
     homeInfo = getTeamInfo(game.h, sport);
+    
+    console.log(`🏈 [PRO TEAM LOOKUP] Away: "${game.a}" → "${awayInfo.fullName}" (${awayInfo.abbr})`);
+    console.log(`🏈 [PRO TEAM LOOKUP] Home: "${game.h}" → "${homeInfo.fullName}" (${homeInfo.abbr})`);
+    
     awayColors = getTeamColors(awayInfo.fullName, sport);
     homeColors = getTeamColors(homeInfo.fullName, sport);
+    
+    console.log(`🎨 [PRO COLORS] Away colors:`, awayColors);
+    console.log(`🎨 [PRO COLORS] Home colors:`, homeColors);
   }
 
-  return {
+  const parsedGame: GameOdds = {
     gameId: game.id,
     sport,
     kickoff,
@@ -231,6 +268,13 @@ export function parseGame(game: RawSplitGame, book: string): GameOdds {
       },
     },
   };
+  
+  console.log(`✅ [PARSER] Game parsed successfully:`);
+  console.log(`   Away: ${parsedGame.away.fullName} (${parsedGame.away.abbr}) - Color: ${parsedGame.away.color}`);
+  console.log(`   Home: ${parsedGame.home.fullName} (${parsedGame.home.abbr}) - Color: ${parsedGame.home.color}`);
+  console.log(`🎮 [PARSER] ========== END PARSING ${game.id} ==========\n`);
+  
+  return parsedGame;
 }
 
 /**

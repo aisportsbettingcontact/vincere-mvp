@@ -47,6 +47,48 @@ export type Database = {
         }
         Relationships: []
       }
+      team_logos: {
+        Row: {
+          conference: string | null
+          created_at: string
+          division: string | null
+          id: string
+          league: string
+          logo_url: string
+          sport: string
+          storage_path: string | null
+          team_name: string
+          team_slug: string
+          updated_at: string
+        }
+        Insert: {
+          conference?: string | null
+          created_at?: string
+          division?: string | null
+          id?: string
+          league: string
+          logo_url: string
+          sport: string
+          storage_path?: string | null
+          team_name: string
+          team_slug: string
+          updated_at?: string
+        }
+        Update: {
+          conference?: string | null
+          created_at?: string
+          division?: string | null
+          id?: string
+          league?: string
+          logo_url?: string
+          sport?: string
+          storage_path?: string | null
+          team_name?: string
+          team_slug?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       teams: {
         Row: {
           arena_city: string | null

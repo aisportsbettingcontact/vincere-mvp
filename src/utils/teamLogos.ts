@@ -1,6 +1,64 @@
 // Map team slugs to logo paths
 // Paths must match exact GitHub directory structure
 
+/**
+ * Calculate string similarity score (0-1) using Levenshtein-like approach
+ */
+function stringSimilarity(str1: string, str2: string): number {
+  const s1 = str1.toLowerCase().replace(/[^a-z0-9]/g, '');
+  const s2 = str2.toLowerCase().replace(/[^a-z0-9]/g, '');
+  
+  if (s1 === s2) return 1;
+  if (s1.length === 0 || s2.length === 0) return 0;
+  
+  // Simple similarity: count matching characters
+  let matches = 0;
+  const minLen = Math.min(s1.length, s2.length);
+  for (let i = 0; i < minLen; i++) {
+    if (s1[i] === s2[i]) matches++;
+  }
+  
+  // Check if one contains the other
+  if (s1.includes(s2) || s2.includes(s1)) {
+    matches += minLen * 0.5;
+  }
+  
+  return matches / Math.max(s1.length, s2.length);
+}
+
+/**
+ * Find best matching logo path using fuzzy matching
+ */
+function findBestMatch(slug: string, logoPaths: Record<string, string>, sport: string): string | null {
+  console.log(`🔍 [FUZZY MATCH] Searching for slug: "${slug}" in ${sport}`);
+  
+  // Try exact match first
+  if (logoPaths[slug]) {
+    console.log(`✅ [EXACT MATCH] Found: ${logoPaths[slug]}`);
+    return logoPaths[slug];
+  }
+  
+  // Fuzzy match
+  let bestMatch = { key: '', score: 0, path: '' };
+  
+  for (const [key, path] of Object.entries(logoPaths)) {
+    const score = stringSimilarity(slug, key);
+    if (score > bestMatch.score) {
+      bestMatch = { key, score, path };
+    }
+  }
+  
+  // Require at least 60% similarity
+  if (bestMatch.score >= 0.6) {
+    console.log(`✅ [FUZZY MATCH] "${slug}" → "${bestMatch.key}" (score: ${bestMatch.score.toFixed(2)})`);
+    console.log(`   Path: ${bestMatch.path}`);
+    return bestMatch.path;
+  }
+  
+  console.warn(`❌ [NO MATCH] No good match for "${slug}" (best: "${bestMatch.key}" with score ${bestMatch.score.toFixed(2)})`);
+  return null;
+}
+
 // NFL Logo Paths
 const NFL_LOGO_PATHS: Record<string, string> = {
   "buffalo-bills": "/logos/Leagues/NFL/AFC/AFC East/buffalo-bills.png",
@@ -149,43 +207,29 @@ export function getTeamLogo(sport: string, espnAbbr: string, teamSlug?: string):
   console.log('🔍 [LOGO DEBUG] getTeamLogo called:', { sport, espnAbbr, teamSlug });
   
   if (teamSlug) {
-    console.log('🔍 [LOGO DEBUG] teamSlug provided, checking paths...');
+    let logoPath: string | null = null;
     
-    let logoPath: string | undefined;
-    
+    // Use fuzzy matching to find best logo path by sport
     if (sport === "NFL") {
-      logoPath = NFL_LOGO_PATHS[teamSlug];
-      if (logoPath) console.log('✅ [LOGO DEBUG] NFL logo found:', logoPath);
+      logoPath = findBestMatch(teamSlug, NFL_LOGO_PATHS, sport);
     } else if (sport === "NBA") {
-      logoPath = NBA_LOGO_PATHS[teamSlug];
-      if (logoPath) console.log('✅ [LOGO DEBUG] NBA logo found:', logoPath);
+      logoPath = findBestMatch(teamSlug, NBA_LOGO_PATHS, sport);
     } else if (sport === "NHL") {
-      logoPath = NHL_LOGO_PATHS[teamSlug];
-      if (logoPath) console.log('✅ [LOGO DEBUG] NHL logo found:', logoPath);
+      logoPath = findBestMatch(teamSlug, NHL_LOGO_PATHS, sport);
     } else if (sport === "MLB") {
-      logoPath = MLB_LOGO_PATHS[teamSlug];
-      if (logoPath) console.log('✅ [LOGO DEBUG] MLB logo found:', logoPath);
+      logoPath = findBestMatch(teamSlug, MLB_LOGO_PATHS, sport);
     } else if (sport === "NCAAF") {
-      logoPath = NCAAF_LOGO_PATHS[teamSlug];
-      if (logoPath) console.log('✅ [LOGO DEBUG] NCAAF logo found:', logoPath);
+      logoPath = findBestMatch(teamSlug, NCAAF_LOGO_PATHS, sport);
     } else if (sport === "NCAAM") {
-      logoPath = NCAAM_LOGO_PATHS[teamSlug];
-      if (logoPath) console.log('✅ [LOGO DEBUG] NCAAM logo found:', logoPath);
+      logoPath = findBestMatch(teamSlug, NCAAM_LOGO_PATHS, sport);
     }
     
     if (logoPath) {
-      // URL encode the path to handle spaces
-      const encodedPath = logoPath.split('/').map(segment => encodeURIComponent(segment)).join('/');
-      console.log('🔗 [LOGO DEBUG] Encoded path:', encodedPath);
-      return logoPath; // Return original path, browser will handle encoding
+      console.log('✅ [LOGO RETURN] Returning local logo:', logoPath);
+      return logoPath;
     }
     
-    console.warn('⚠️ [LOGO DEBUG] No local logo found for slug:', teamSlug, 'in sport:', sport);
-    console.warn('⚠️ [LOGO DEBUG] Available keys sample:', 
-      sport === "NFL" ? Object.keys(NFL_LOGO_PATHS).slice(0, 5) :
-      sport === "NBA" ? Object.keys(NBA_LOGO_PATHS).slice(0, 5) :
-      sport === "NHL" ? Object.keys(NHL_LOGO_PATHS).slice(0, 5) : []
-    );
+    console.warn('⚠️ [LOGO FALLBACK] No match found, using ESPN CDN');
   } else {
     console.warn('⚠️ [LOGO DEBUG] No teamSlug provided, falling back to ESPN CDN');
   }
@@ -194,6 +238,6 @@ export function getTeamLogo(sport: string, espnAbbr: string, teamSlug?: string):
     ? `https://a.espncdn.com/combiner/i?img=/i/teamlogos/ncaa/500/${espnAbbr}.png&h=200&w=200`
     : `https://a.espncdn.com/combiner/i?img=/i/teamlogos/${sport.toLowerCase()}/500/${espnAbbr}.png&h=200&w=200`;
   
-  console.log('📡 [LOGO DEBUG] Using ESPN CDN fallback:', cdnUrl);
+  console.log('📡 [LOGO CDN] Using ESPN CDN:', cdnUrl);
   return cdnUrl;
 }

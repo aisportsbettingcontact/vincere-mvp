@@ -10,12 +10,8 @@ import type { Market } from "@/utils/bettingLogic";
 import { formatSpreadLine } from "@/utils/bettingLogic";
 import { UserCircle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-const draftKingsLogo = "/logos/sportsbooks/draftkings.png";
-const circaLogo = "/logos/sportsbooks/circasports.png";
-
-// Debug logging for logo paths
-console.log("🎰 [SPORTSBOOK LOGOS] DraftKings logo path:", draftKingsLogo);
-console.log("🎰 [SPORTSBOOK LOGOS] Circa logo path:", circaLogo);
+import draftKingsLogo from "@/assets/sportsbooks/draftkings.png";
+import circaLogo from "@/assets/sportsbooks/circasports.png";
 import worldSeriesLogo from "@/assets/worldseries.png";
 import foxLogo from "@/assets/FOX.png";
 import abcLogo from "@/assets/ABC.png";

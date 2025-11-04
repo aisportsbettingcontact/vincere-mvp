@@ -1,5 +1,6 @@
 import { supabase } from "@/integrations/supabase/client";
 import teamDetailsJson from "@/data/teamdetails.json";
+import { uploadTeamLogosToStorage } from "./uploadTeamLogos";
 
 interface TeamData {
   sport: string;
@@ -43,9 +44,14 @@ export async function populateTeamsData(): Promise<{ success: boolean; message: 
       }
     }
     
+    // Upload team logos to storage
+    console.log('Uploading team logos to storage...');
+    const logoResult = await uploadTeamLogosToStorage();
+    console.log('Logo upload result:', logoResult);
+    
     return { 
       success: true, 
-      message: `Successfully populated ${teams.length} teams` 
+      message: `Successfully populated ${teams.length} teams. ${logoResult.message}` 
     };
   } catch (error) {
     console.error('Error populating teams:', error);

@@ -11,7 +11,7 @@ import { formatSpreadLine } from "@/utils/bettingLogic";
 import { UserCircle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 const draftKingsLogo = "/logos/Sportsbooks/DraftKings.png";
-import circaLogo from "@/assets/circa-logo.jpg";
+const circaLogo = "/logos/Sportsbooks/Circa.png";
 import worldSeriesLogo from "@/assets/worldseries.png";
 import foxLogo from "@/assets/FOX.png";
 import abcLogo from "@/assets/ABC.png";

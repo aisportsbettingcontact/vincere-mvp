@@ -9,7 +9,7 @@ import { ArrowLeft, Moon, Sun, Bell, BookOpen, Settings, LogOut, Database } from
 import { toast } from "sonner";
 import { useTheme } from "@/contexts/ThemeContext";
 const draftKingsLogo = "/logos/Sportsbooks/DraftKings.png";
-import circaLogo from "@/assets/circa-logo.jpg";
+const circaLogo = "/logos/Sportsbooks/Circa.png";
 import { User } from "@supabase/supabase-js";
 import { populateTeamsData } from "@/utils/populateTeams";
 

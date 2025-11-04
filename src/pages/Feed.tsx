@@ -471,18 +471,17 @@ export default function Feed() {
               <div className="flex flex-col items-center gap-1">
                 <button
                   onClick={() => setSelectedBook("DK")}
-                  className="relative z-10 w-14 h-14 rounded-[7px] transition-all overflow-hidden flex items-center justify-center"
+                  className="relative z-10 w-14 h-14 rounded-[7px] transition-all overflow-hidden flex items-center justify-center p-0"
                   style={{
                     opacity: selectedBook === "DK" ? 1 : 0.6,
                     background: "white",
-                    border: selectedBook === "DK" ? "2px solid #68D391" : "1px solid rgba(255, 255, 255, 0.1)",
-                    padding: "4px"
+                    border: selectedBook === "DK" ? "2px solid #68D391" : "1px solid rgba(255, 255, 255, 0.1)"
                   }}
                 >
                   <img 
                     src={draftKingsLogo} 
                     alt="DraftKings" 
-                    className="w-full h-full object-contain" 
+                    className="w-full h-full object-cover" 
                     style={{ display: "block" }}
                     onLoad={() => console.log("✅ [LOGO] DraftKings logo loaded successfully from:", draftKingsLogo)}
                     onError={(e) => console.error("❌ [LOGO] DraftKings logo failed to load from:", draftKingsLogo, "Error:", e)}

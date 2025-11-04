@@ -93,13 +93,21 @@ function calculateSimilarity(slug: string, candidate: string): number {
  * Find best matching logo path using multi-strategy fuzzy matching
  */
 function findBestMatch(slug: string, logoPaths: Record<string, string>, sport: string): string | null {
+  console.log(`🔍 [LOGO MATCH] Searching for "${slug}" in ${Object.keys(logoPaths).length} ${sport} logo paths`);
+  
   // Try exact match first
-  if (logoPaths[slug]) return logoPaths[slug];
+  if (logoPaths[slug]) {
+    console.log(`✅ [LOGO MATCH] Exact match found for "${slug}"`);
+    return logoPaths[slug];
+  }
   
   // Try case-insensitive exact match
   const lowerSlug = slug.toLowerCase();
   for (const [key, path] of Object.entries(logoPaths)) {
-    if (key.toLowerCase() === lowerSlug) return path;
+    if (key.toLowerCase() === lowerSlug) {
+      console.log(`✅ [LOGO MATCH] Case-insensitive match: "${slug}" → "${key}"`);
+      return path;
+    }
   }
   
   // Multi-strategy fuzzy matching
@@ -112,10 +120,16 @@ function findBestMatch(slug: string, logoPaths: Record<string, string>, sport: s
   
   matches.sort((a, b) => b.score - a.score);
   
+  if (matches.length > 0) {
+    console.log(`🔍 [LOGO MATCH] Top fuzzy matches for "${slug}":`, matches.slice(0, 3).map(m => `${m.key} (${m.score.toFixed(2)})`));
+  }
+  
   if (matches.length > 0 && matches[0].score >= 0.6) {
+    console.log(`✅ [LOGO MATCH] Fuzzy match: "${slug}" → "${matches[0].key}" (score: ${matches[0].score.toFixed(2)})`);
     return matches[0].path;
   }
   
+  console.warn(`❌ [LOGO MATCH] No match found for "${slug}" in ${sport}`);
   return null;
 }
 
@@ -804,6 +818,8 @@ const NCAAM_LOGO_PATHS: Record<string, string> = {
 };
 
 export function getTeamLogo(sport: string, espnAbbr: string, teamSlug?: string): string {
+  console.log(`🖼️ [TEAM LOGO] Looking up logo for ${sport} - slug: "${teamSlug}", espnAbbr: "${espnAbbr}"`);
+  
   if (teamSlug) {
     let logoPath: string | null = null;
     
@@ -814,12 +830,20 @@ export function getTeamLogo(sport: string, espnAbbr: string, teamSlug?: string):
     else if (sport === "NCAAF") logoPath = findBestMatch(teamSlug, NCAAF_LOGO_PATHS, sport);
     else if (sport === "NCAAM") logoPath = findBestMatch(teamSlug, NCAAM_LOGO_PATHS, sport);
     
-    if (logoPath) return logoPath;
+    if (logoPath) {
+      console.log(`✅ [TEAM LOGO] Found local logo: ${logoPath}`);
+      return logoPath;
+    } else {
+      console.warn(`⚠️ [TEAM LOGO] No local logo found for "${teamSlug}" in ${sport}, falling back to CDN`);
+    }
+  } else {
+    console.warn(`⚠️ [TEAM LOGO] No teamSlug provided for ${sport}, using CDN`);
   }
   
   const cdnUrl = (sport === "NCAAF" || sport === "NCAAM")
     ? `https://a.espncdn.com/combiner/i?img=/i/teamlogos/ncaa/500/${espnAbbr}.png&h=200&w=200`
     : `https://a.espncdn.com/combiner/i?img=/i/teamlogos/${sport.toLowerCase()}/500/${espnAbbr}.png&h=200&w=200`;
   
+  console.log(`📡 [TEAM LOGO] Using CDN URL: ${cdnUrl}`);
   return cdnUrl;
 }

@@ -36,42 +36,46 @@ const NFL_LOGO_PATHS: Record<string, string> = {
 
 const NBA_LOGO_PATHS: Record<string, string> = {
   // Eastern Conference - Atlantic Division
-  "boston-celtics": "/logos/NBA/Eastern Conference/Atlantic/boston-celtics.png",
-  "brooklyn-nets": "/logos/NBA/Eastern Conference/Atlantic/brooklyn-nets.png",
-  "new-york-knicks": "/logos/NBA/Eastern Conference/Atlantic/new-york-knicks.png",
-  "philadelphia-76ers": "/logos/NBA/Eastern Conference/Atlantic/philadelphia-76ers.png",
-  "toronto-raptors": "/logos/NBA/Eastern Conference/Atlantic/toronto-raptors.png",
+  "boston-celtics": "/logos/Leagues/NBA/Eastern/Atlantic/boston-celtics.png",
+  "brooklyn-nets": "/logos/Leagues/NBA/Eastern/Atlantic/brooklyn-nets.png",
+  "new-york-knicks": "/logos/Leagues/NBA/Eastern/Atlantic/new-york-knicks.png",
+  "philadelphia-76ers": "/logos/Leagues/NBA/Eastern/Atlantic/philadelphia-76ers.png",
+  "toronto-raptors": "/logos/Leagues/NBA/Eastern/Atlantic/toronto-raptors.png",
   
   // Eastern Conference - Central Division
-  "chicago-bulls": "/logos/NBA/Eastern Conference/Central/chicago-bulls.png",
-  "cleveland-cavaliers": "/logos/NBA/Eastern Conference/Central/cleveland-cavaliers.png",
-  "detroit-pistons": "/logos/NBA/Eastern Conference/Central/detroit-pistons.png",
-  "indiana-pacers": "/logos/NBA/Eastern Conference/Central/indiana-pacers.png",
-  "milwaukee-bucks": "/logos/NBA/Eastern Conference/Central/milwaukee-bucks.png",
+  "chicago-bulls": "/logos/Leagues/NBA/Eastern/Central/chicago-bulls.png",
+  "cleveland-cavaliers": "/logos/Leagues/NBA/Eastern/Central/cleveland-cavaliers.png",
+  "detroit-pistons": "/logos/Leagues/NBA/Eastern/Central/detroit-pistons.png",
+  "indiana-pacers": "/logos/Leagues/NBA/Eastern/Central/indiana-pacers.png",
+  "milwaukee-bucks": "/logos/Leagues/NBA/Eastern/Central/milwaukee-bucks.png",
   
-  // Eastern Conference - Southeast Division (ESPN CDN fallback)
-  "atlanta-hawks": "/logos/NBA/Eastern/Southeast/atlanta-hawks.png",
-  "charlotte-hornets": "/logos/NBA/Eastern/Southeast/charlotte-hornets.png",
-  "miami-heat": "/logos/NBA/Eastern/Southeast/miami-heat.png",
-  "orlando-magic": "/logos/NBA/Eastern/Southeast/orlando-magic.png",
-  "washington-wizards": "/logos/NBA/Eastern/Southeast/washington-wizards.png",
+  // Eastern Conference - Southeast Division
+  "atlanta-hawks": "/logos/Leagues/NBA/Eastern/Southeast/atlanta-hawks.png",
+  "charlotte-hornets": "/logos/Leagues/NBA/Eastern/Southeast/charlotte-hornets.png",
+  "miami-heat": "/logos/Leagues/NBA/Eastern/Southeast/miami-heat.png",
+  "orlando-magic": "/logos/Leagues/NBA/Eastern/Southeast/orlando-magic.png",
+  "washington-wizards": "/logos/Leagues/NBA/Eastern/Southeast/washington-wizards.png",
   
-  // Western Conference (ESPN CDN fallback)
-  "dallas-mavericks": "/logos/NBA/Western/Southwest/dallas-mavericks.png",
-  "denver-nuggets": "/logos/NBA/Western/Northwest/denver-nuggets.png",
-  "golden-state-warriors": "/logos/NBA/Western/Pacific/golden-state-warriors.png",
-  "houston-rockets": "/logos/NBA/Western/Southwest/houston-rockets.png",
-  "la-lakers": "/logos/NBA/Western/Pacific/los-angeles-lakers.png",
-  "la-clippers": "/logos/NBA/Western/Pacific/la-clippers.png",
-  "memphis-grizzlies": "/logos/NBA/Western/Southwest/memphis-grizzlies.png",
-  "minnesota-timberwolves": "/logos/NBA/Western/Northwest/minnesota-timberwolves.png",
-  "new-orleans-pelicans": "/logos/NBA/Western/Southwest/new-orleans-pelicans.png",
-  "oklahoma-city-thunder": "/logos/NBA/Western/Northwest/oklahoma-city-thunder.png",
-  "phoenix-suns": "/logos/NBA/Western/Pacific/phoenix-suns.png",
-  "portland-trail-blazers": "/logos/NBA/Western/Northwest/portland-trail-blazers.png",
-  "sacramento-kings": "/logos/NBA/Western/Pacific/sacramento-kings.png",
-  "san-antonio-spurs": "/logos/NBA/Western/Southwest/san-antonio-spurs.png",
-  "utah-jazz": "/logos/NBA/Western/Northwest/utah-jazz.png"
+  // Western Conference - Southwest Division
+  "dallas-mavericks": "/logos/Leagues/NBA/Western/Southwest/dallas-mavericks.png",
+  "houston-rockets": "/logos/Leagues/NBA/Western/Southwest/houston-rockets.png",
+  "memphis-grizzlies": "/logos/Leagues/NBA/Western/Southwest/memphis-grizzlies.png",
+  "new-orleans-pelicans": "/logos/Leagues/NBA/Western/Southwest/new-orleans-pelicans.png",
+  "san-antonio-spurs": "/logos/Leagues/NBA/Western/Southwest/san-antonio-spurs.png",
+  
+  // Western Conference - Northwest Division
+  "denver-nuggets": "/logos/Leagues/NBA/Western/Northwest/denver-nuggets.png",
+  "minnesota-timberwolves": "/logos/Leagues/NBA/Western/Northwest/minnesota-timberwolves.png",
+  "oklahoma-city-thunder": "/logos/Leagues/NBA/Western/Northwest/oklahoma-city-thunder.png",
+  "portland-trail-blazers": "/logos/Leagues/NBA/Western/Northwest/portland-trail-blazers.png",
+  "utah-jazz": "/logos/Leagues/NBA/Western/Northwest/utah-jazz.png",
+  
+  // Western Conference - Pacific Division
+  "golden-state-warriors": "/logos/Leagues/NBA/Western/Pacific/golden-state-warriors.png",
+  "la-clippers": "/logos/Leagues/NBA/Western/Pacific/la-clippers.png",
+  "los-angeles-lakers": "/logos/Leagues/NBA/Western/Pacific/los-angeles-lakers.png",
+  "phoenix-suns": "/logos/Leagues/NBA/Western/Pacific/phoenix-suns.png",
+  "sacramento-kings": "/logos/Leagues/NBA/Western/Pacific/sacramento-kings.png"
 };
 
 const NHL_LOGO_PATHS: Record<string, string> = {

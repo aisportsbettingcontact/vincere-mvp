@@ -10,7 +10,7 @@ import type { Market } from "@/utils/bettingLogic";
 import { formatSpreadLine } from "@/utils/bettingLogic";
 import { UserCircle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import draftKingsLogo from "@/assets/draftkings-logo.png";
+const draftKingsLogo = "/logos/Sportsbooks/DraftKings.png";
 import circaLogo from "@/assets/circa-logo.jpg";
 import worldSeriesLogo from "@/assets/worldseries.png";
 import foxLogo from "@/assets/FOX.png";

@@ -8,7 +8,7 @@ import { Separator } from "@/components/ui/separator";
 import { ArrowLeft, Moon, Sun, Bell, BookOpen, Settings, LogOut, Database } from "lucide-react";
 import { toast } from "sonner";
 import { useTheme } from "@/contexts/ThemeContext";
-import draftKingsLogo from "@/assets/draftkings-logo.png";
+const draftKingsLogo = "/logos/Sportsbooks/DraftKings.png";
 import circaLogo from "@/assets/circa-logo.jpg";
 import { User } from "@supabase/supabase-js";
 import { populateTeamsData } from "@/utils/populateTeams";

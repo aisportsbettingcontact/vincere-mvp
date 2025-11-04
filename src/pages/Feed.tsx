@@ -12,6 +12,10 @@ import { UserCircle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 const draftKingsLogo = "/logos/sportsbooks/draftkings.png";
 const circaLogo = "/logos/sportsbooks/circa.png";
+
+// Debug logging for logo paths
+console.log("🎰 [SPORTSBOOK LOGOS] DraftKings logo path:", draftKingsLogo);
+console.log("🎰 [SPORTSBOOK LOGOS] Circa logo path:", circaLogo);
 import worldSeriesLogo from "@/assets/worldseries.png";
 import foxLogo from "@/assets/FOX.png";
 import abcLogo from "@/assets/ABC.png";
@@ -154,15 +158,28 @@ export default function Feed() {
     if (!liveGames) return { hasDK: false, hasCirca: false };
     const hasDK = liveGames.some(game => game.book === "DK" && game.sport === selectedSport);
     const hasCirca = liveGames.some(game => game.book === "CIRCA" && game.sport === selectedSport);
+    
+    console.log("🎰 [SPORTSBOOK DEBUG] Available books for sport:", selectedSport);
+    console.log("  - DraftKings available:", hasDK);
+    console.log("  - Circa available:", hasCirca);
+    console.log("  - Current selected book:", selectedBook);
+    
     return { hasDK, hasCirca };
-  }, [liveGames, selectedSport]);
+  }, [liveGames, selectedSport, selectedBook]);
 
   // Auto-select the only available book
   useEffect(() => {
+    console.log("🎰 [SPORTSBOOK AUTO-SELECT] Checking book availability...");
+    console.log("  - availableBooksForSport:", availableBooksForSport);
+    
     if (availableBooksForSport.hasDK && !availableBooksForSport.hasCirca) {
+      console.log("  ✅ Auto-selecting DraftKings (only available book)");
       setSelectedBook("DK");
     } else if (!availableBooksForSport.hasDK && availableBooksForSport.hasCirca) {
+      console.log("  ✅ Auto-selecting Circa (only available book)");
       setSelectedBook("Circa");
+    } else {
+      console.log("  ℹ️ Both books available or neither available, keeping current selection");
     }
   }, [availableBooksForSport]);
 
@@ -466,7 +483,14 @@ export default function Feed() {
                     padding: 0
                   }}
                 >
-                  <img src={draftKingsLogo} alt="DraftKings" className="w-full h-full object-cover rounded-[7px]" style={{ display: "block" }} />
+                  <img 
+                    src={draftKingsLogo} 
+                    alt="DraftKings" 
+                    className="w-full h-full object-cover rounded-[7px]" 
+                    style={{ display: "block" }}
+                    onLoad={() => console.log("✅ [LOGO] DraftKings logo loaded successfully from:", draftKingsLogo)}
+                    onError={(e) => console.error("❌ [LOGO] DraftKings logo failed to load from:", draftKingsLogo, "Error:", e)}
+                  />
                 </button>
                 <span 
                   className="text-[9px] font-semibold" 
@@ -488,7 +512,14 @@ export default function Feed() {
                     padding: 0
                   }}
                 >
-                  <img src={circaLogo} alt="Circa" className="w-full h-full object-cover rounded-[7px]" style={{ display: "block" }} />
+                  <img 
+                    src={circaLogo} 
+                    alt="Circa" 
+                    className="w-full h-full object-cover rounded-[7px]" 
+                    style={{ display: "block" }}
+                    onLoad={() => console.log("✅ [LOGO] Circa logo loaded successfully from:", circaLogo)}
+                    onError={(e) => console.error("❌ [LOGO] Circa logo failed to load from:", circaLogo, "Error:", e)}
+                  />
                 </button>
                 <span 
                   className="text-[9px] font-semibold" 

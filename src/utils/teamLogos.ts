@@ -1,51 +1,36 @@
 // Map team slugs to logo paths
 // Paths must match exact GitHub directory structure
 
-// NFL Logo Paths - Using URL encoded spaces for directory names
+// NFL Logo Paths
 const NFL_LOGO_PATHS: Record<string, string> = {
-  // AFC East
   "buffalo-bills": "/logos/Leagues/NFL/AFC/AFC%20East/buffalo-bills.png",
   "miami-dolphins": "/logos/Leagues/NFL/AFC/AFC%20East/miami-dolphins.png",
   "new-england-patriots": "/logos/Leagues/NFL/AFC/AFC%20East/new-england-patriots.png",
   "new-york-jets": "/logos/Leagues/NFL/AFC/AFC%20East/new-york-jets.png",
-  
-  // AFC North
   "baltimore-ravens": "/logos/Leagues/NFL/AFC/AFC%20North/baltimore-ravens.png",
   "cincinnati-bengals": "/logos/Leagues/NFL/AFC/AFC%20North/cincinnati-bengals.png",
   "cleveland-browns": "/logos/Leagues/NFL/AFC/AFC%20North/cleveland-browns.png",
   "pittsburgh-steelers": "/logos/Leagues/NFL/AFC/AFC%20North/pittsburgh-steelers.png",
-  
-  // AFC South
   "houston-texans": "/logos/Leagues/NFL/AFC/AFC%20South/houston-texans.png",
   "indianapolis-colts": "/logos/Leagues/NFL/AFC/AFC%20South/indianapolis-colts.png",
   "jacksonville-jaguars": "/logos/Leagues/NFL/AFC/AFC%20South/jacksonville-jaguars.png",
   "tennessee-titans": "/logos/Leagues/NFL/AFC/AFC%20South/tennessee-titans.png",
-  
-  // AFC West
   "denver-broncos": "/logos/Leagues/NFL/AFC/AFC%20West/denver-broncos.png",
   "kansas-city-chiefs": "/logos/Leagues/NFL/AFC/AFC%20West/kansas-city-chiefs.png",
   "las-vegas-raiders": "/logos/Leagues/NFL/AFC/AFC%20West/las-vegas-raiders.png",
   "los-angeles-chargers": "/logos/Leagues/NFL/AFC/AFC%20West/los-angeles-chargers.png",
-  
-  // NFC East
   "dallas-cowboys": "/logos/Leagues/NFL/NFC/NFC%20East/dallas-cowboys.png",
   "new-york-giants": "/logos/Leagues/NFL/NFC/NFC%20East/new-york-giants.png",
   "philadelphia-eagles": "/logos/Leagues/NFL/NFC/NFC%20East/philadelphia-eagles.png",
   "washington-commanders": "/logos/Leagues/NFL/NFC/NFC%20East/washington-commanders.png",
-  
-  // NFC North
   "chicago-bears": "/logos/Leagues/NFL/NFC/NFC%20North/chicago-bears.png",
   "detroit-lions": "/logos/Leagues/NFL/NFC/NFC%20North/detroit-lions.png",
   "green-bay-packers": "/logos/Leagues/NFL/NFC/NFC%20North/green-bay-packers.png",
   "minnesota-vikings": "/logos/Leagues/NFL/NFC/NFC%20North/minnesota-vikings.png",
-  
-  // NFC South
   "atlanta-falcons": "/logos/Leagues/NFL/NFC/NFC%20South/atlanta-falcons.png",
   "carolina-panthers": "/logos/Leagues/NFL/NFC/NFC%20South/carolina-panthers.png",
   "new-orleans-saints": "/logos/Leagues/NFL/NFC/NFC%20South/new-orleans-saints.png",
   "tampa-bay-buccaneers": "/logos/Leagues/NFL/NFC/NFC%20South/tampa-bay-buccaneers.png",
-  
-  // NFC West
   "arizona-cardinals": "/logos/Leagues/NFL/NFC/NFC%20West/arizona-cardinals.png",
   "los-angeles-rams": "/logos/Leagues/NFL/NFC/NFC%20West/los-angeles-rams.png",
   "san-francisco-49ers": "/logos/Leagues/NFL/NFC/NFC%20West/san-francisco-49ers.png",
@@ -54,42 +39,31 @@ const NFL_LOGO_PATHS: Record<string, string> = {
 
 // NBA Logo Paths
 const NBA_LOGO_PATHS: Record<string, string> = {
-  // Eastern Conference - Atlantic Division
   "boston-celtics": "/logos/Leagues/NBA/Eastern/Atlantic/boston-celtics.png",
   "brooklyn-nets": "/logos/Leagues/NBA/Eastern/Atlantic/brooklyn-nets.png",
   "new-york-knicks": "/logos/Leagues/NBA/Eastern/Atlantic/new-york-knicks.png",
   "philadelphia-76ers": "/logos/Leagues/NBA/Eastern/Atlantic/philadelphia-76ers.png",
   "toronto-raptors": "/logos/Leagues/NBA/Eastern/Atlantic/toronto-raptors.png",
-  
-  // Eastern Conference - Central Division
   "chicago-bulls": "/logos/Leagues/NBA/Eastern/Central/chicago-bulls.png",
   "cleveland-cavaliers": "/logos/Leagues/NBA/Eastern/Central/cleveland-cavaliers.png",
   "detroit-pistons": "/logos/Leagues/NBA/Eastern/Central/detroit-pistons.png",
   "indiana-pacers": "/logos/Leagues/NBA/Eastern/Central/indiana-pacers.png",
   "milwaukee-bucks": "/logos/Leagues/NBA/Eastern/Central/milwaukee-bucks.png",
-  
-  // Eastern Conference - Southeast Division
   "atlanta-hawks": "/logos/Leagues/NBA/Eastern/Southeast/atlanta-hawks.png",
   "charlotte-hornets": "/logos/Leagues/NBA/Eastern/Southeast/charlotte-hornets.png",
   "miami-heat": "/logos/Leagues/NBA/Eastern/Southeast/miami-heat.png",
   "orlando-magic": "/logos/Leagues/NBA/Eastern/Southeast/orlando-magic.png",
   "washington-wizards": "/logos/Leagues/NBA/Eastern/Southeast/washington-wizards.png",
-  
-  // Western Conference - Southwest Division
   "dallas-mavericks": "/logos/Leagues/NBA/Western/Southwest/dallas-mavericks.png",
   "houston-rockets": "/logos/Leagues/NBA/Western/Southwest/houston-rockets.png",
   "memphis-grizzlies": "/logos/Leagues/NBA/Western/Southwest/memphis-grizzlies.png",
   "new-orleans-pelicans": "/logos/Leagues/NBA/Western/Southwest/new-orleans-pelicans.png",
   "san-antonio-spurs": "/logos/Leagues/NBA/Western/Southwest/san-antonio-spurs.png",
-  
-  // Western Conference - Northwest Division
   "denver-nuggets": "/logos/Leagues/NBA/Western/Northwest/denver-nuggets.png",
   "minnesota-timberwolves": "/logos/Leagues/NBA/Western/Northwest/minnesota-timberwolves.png",
   "oklahoma-city-thunder": "/logos/Leagues/NBA/Western/Northwest/oklahoma-city-thunder.png",
   "portland-trail-blazers": "/logos/Leagues/NBA/Western/Northwest/portland-trail-blazers.png",
   "utah-jazz": "/logos/Leagues/NBA/Western/Northwest/utah-jazz.png",
-  
-  // Western Conference - Pacific Division
   "golden-state-warriors": "/logos/Leagues/NBA/Western/Pacific/golden-state-warriors.png",
   "la-clippers": "/logos/Leagues/NBA/Western/Pacific/la-clippers.png",
   "los-angeles-lakers": "/logos/Leagues/NBA/Western/Pacific/los-angeles-lakers.png",
@@ -127,43 +101,63 @@ const NHL_LOGO_PATHS: Record<string, string> = {
   "tampa-bay-lightning": "/logos/Leagues/NHL/Eastern/Atlantic/tampa-bay-lightning.png",
   "toronto-maple-leafs": "/logos/Leagues/NHL/Eastern/Atlantic/toronto-maple-leafs.png",
   "utah-hockey-club": "/logos/Leagues/NHL/Western/Central/utah-mammoth.png",
-  "utah-mammoth": "/logos/Leagues/NHL/Western/Central/utah-mammoth.png",
   "vancouver-canucks": "/logos/Leagues/NHL/Western/Pacific/vancouver-canucks.png",
   "vegas-golden-knights": "/logos/Leagues/NHL/Western/Pacific/vegas-golden-knights.png",
   "washington-capitals": "/logos/Leagues/NHL/Eastern/Metropolitan/washington-capitals.png",
   "winnipeg-jets": "/logos/Leagues/NHL/Western/Central/winnipeg-jets.png"
 };
 
+// MLB Logo Paths
+const MLB_LOGO_PATHS: Record<string, string> = {
+  "chicago-white-sox": "/logos/Leagues/MLB/Teams/AL/AL%20Central/chicago-white-sox.png",
+  "cleveland-guardians": "/logos/Leagues/MLB/Teams/AL/AL%20Central/cleveland-guardians.png",
+  "detroit-tigers": "/logos/Leagues/MLB/Teams/AL/AL%20Central/detroit-tigers.png",
+  "kansas-city-royals": "/logos/Leagues/MLB/Teams/AL/AL%20Central/kansas-city-royals.png",
+  "minnesota-twins": "/logos/Leagues/MLB/Teams/AL/AL%20Central/minnesota-twins.png",
+  "baltimore-orioles": "/logos/Leagues/MLB/Teams/AL/AL%20East/baltimore-orioles.png",
+  "boston-red-sox": "/logos/Leagues/MLB/Teams/AL/AL%20East/boston-red-sox.png",
+  "new-york-yankees": "/logos/Leagues/MLB/Teams/AL/AL%20East/new-york-yankees.png",
+  "tampa-bay-rays": "/logos/Leagues/MLB/Teams/AL/AL%20East/tampa-bay-rays.png",
+  "toronto-blue-jays": "/logos/Leagues/MLB/Teams/AL/AL%20East/toronto-blue-jays.png",
+  "athletics": "/logos/Leagues/MLB/Teams/AL/AL%20West/athletics.png",
+  "houston-astros": "/logos/Leagues/MLB/Teams/AL/AL%20West/houston-astros.png",
+  "los-angeles-angels": "/logos/Leagues/MLB/Teams/AL/AL%20West/los-angeles-angels.png",
+  "seattle-mariners": "/logos/Leagues/MLB/Teams/AL/AL%20West/seattle-mariners.png",
+  "texas-rangers": "/logos/Leagues/MLB/Teams/AL/AL%20West/texas-rangers.png",
+  "chicago-cubs": "/logos/Leagues/MLB/Teams/NL/NL%20Central/chicago-cubs.png",
+  "cincinnati-reds": "/logos/Leagues/MLB/Teams/NL/NL%20Central/cincinnati-reds.png",
+  "milwaukee-brewers": "/logos/Leagues/MLB/Teams/NL/NL%20Central/milwaukee-brewers.png",
+  "pittsburgh-pirates": "/logos/Leagues/MLB/Teams/NL/NL%20Central/pittsburgh-pirates.png",
+  "st-louis-cardinals": "/logos/Leagues/MLB/Teams/NL/NL%20Central/st-louis-cardinals.png",
+  "atlanta-braves": "/logos/Leagues/MLB/Teams/NL/NL%20East/atlanta-braves.png",
+  "miami-marlins": "/logos/Leagues/MLB/Teams/NL/NL%20East/miami-marlins.png",
+  "new-york-mets": "/logos/Leagues/MLB/Teams/NL/NL%20East/new-york-mets.png",
+  "philadelphia-phillies": "/logos/Leagues/MLB/Teams/NL/NL%20East/philadelphia-phillies.png",
+  "washington-nationals": "/logos/Leagues/MLB/Teams/NL/NL%20East/washington-nationals.png",
+  "arizona-diamondbacks": "/logos/Leagues/MLB/Teams/NL/NL%20West/arizona-diamondbacks.png",
+  "colorado-rockies": "/logos/Leagues/MLB/Teams/NL/NL%20West/colorado-rockies.png",
+  "los-angeles-dodgers": "/logos/Leagues/MLB/Teams/NL/NL%20West/los-angeles-dodgers.png",
+  "san-diego-padres": "/logos/Leagues/MLB/Teams/NL/NL%20West/san-diego-padres.png",
+  "san-francisco-giants": "/logos/Leagues/MLB/Teams/NL/NL%20West/san-francisco-giants.png",
+};
+
+// NCAAF & NCAAM - Placeholder for future expansion based on uploaded structure
+const NCAAF_LOGO_PATHS: Record<string, string> = {};
+const NCAAM_LOGO_PATHS: Record<string, string> = {};
+
 export function getTeamLogo(sport: string, espnAbbr: string, teamSlug?: string): string {
-  console.log(`🖼️ [TEAM LOGO] Looking up logo - Sport: ${sport}, Slug: "${teamSlug}", ESPN: ${espnAbbr}`);
-  
-  // For NFL, NBA, NHL, NCAAF, NCAAM - use local logos if we have the team slug
   if (teamSlug) {
-    if (sport === "NFL" && NFL_LOGO_PATHS[teamSlug]) {
-      console.log(`✅ [TEAM LOGO] NFL local logo found: ${NFL_LOGO_PATHS[teamSlug]}`);
-      return NFL_LOGO_PATHS[teamSlug];
-    }
-    if (sport === "NBA" && NBA_LOGO_PATHS[teamSlug]) {
-      console.log(`✅ [TEAM LOGO] NBA local logo found: ${NBA_LOGO_PATHS[teamSlug]}`);
-      return NBA_LOGO_PATHS[teamSlug];
-    }
-    if (sport === "NHL" && NHL_LOGO_PATHS[teamSlug]) {
-      console.log(`✅ [TEAM LOGO] NHL local logo found: ${NHL_LOGO_PATHS[teamSlug]}`);
-      return NHL_LOGO_PATHS[teamSlug];
-    }
-    
-    // For college sports, construct path from structure
-    if (sport === "NCAAF" || sport === "NCAAM") {
-      console.log(`⚠️ [TEAM LOGO] No local logo mapped for ${sport} team "${teamSlug}"`);
-      console.log(`🔄 [TEAM LOGO] Falling back to ESPN CDN`);
-    }
+    if (sport === "NFL" && NFL_LOGO_PATHS[teamSlug]) return NFL_LOGO_PATHS[teamSlug];
+    if (sport === "NBA" && NBA_LOGO_PATHS[teamSlug]) return NBA_LOGO_PATHS[teamSlug];
+    if (sport === "NHL" && NHL_LOGO_PATHS[teamSlug]) return NHL_LOGO_PATHS[teamSlug];
+    if (sport === "MLB" && MLB_LOGO_PATHS[teamSlug]) return MLB_LOGO_PATHS[teamSlug];
+    if (sport === "NCAAF" && NCAAF_LOGO_PATHS[teamSlug]) return NCAAF_LOGO_PATHS[teamSlug];
+    if (sport === "NCAAM" && NCAAM_LOGO_PATHS[teamSlug]) return NCAAM_LOGO_PATHS[teamSlug];
   }
   
-  // Fallback to ESPN CDN for teams not in our local logos
   const cdnUrl = (sport === "NCAAF" || sport === "NCAAM")
     ? `https://a.espncdn.com/combiner/i?img=/i/teamlogos/ncaa/500/${espnAbbr}.png&h=200&w=200`
     : `https://a.espncdn.com/combiner/i?img=/i/teamlogos/${sport.toLowerCase()}/500/${espnAbbr}.png&h=200&w=200`;
   
-  console.log(`🔄 [TEAM LOGO] Using ESPN CDN: ${cdnUrl}`);
   return cdnUrl;
 }

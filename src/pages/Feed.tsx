@@ -475,18 +475,18 @@ export default function Feed() {
               <div className="flex flex-col items-center gap-1">
                 <button
                   onClick={() => setSelectedBook("DK")}
-                  className="relative z-10 w-9 h-9 rounded-[7px] transition-all overflow-hidden"
+                  className="relative z-10 w-14 h-14 rounded-[7px] transition-all overflow-hidden flex items-center justify-center"
                   style={{
-                    opacity: selectedBook === "DK" ? 1 : 0.5,
-                    background: "transparent",
-                    border: selectedBook === "DK" ? "1.5px solid white" : "none",
-                    padding: 0
+                    opacity: selectedBook === "DK" ? 1 : 0.6,
+                    background: "white",
+                    border: selectedBook === "DK" ? "2px solid #68D391" : "1px solid rgba(255, 255, 255, 0.1)",
+                    padding: "4px"
                   }}
                 >
                   <img 
                     src={draftKingsLogo} 
                     alt="DraftKings" 
-                    className="w-full h-full object-cover rounded-[7px]" 
+                    className="w-full h-full object-contain" 
                     style={{ display: "block" }}
                     onLoad={() => console.log("✅ [LOGO] DraftKings logo loaded successfully from:", draftKingsLogo)}
                     onError={(e) => console.error("❌ [LOGO] DraftKings logo failed to load from:", draftKingsLogo, "Error:", e)}
@@ -504,18 +504,18 @@ export default function Feed() {
               <div className="flex flex-col items-center gap-1">
                 <button
                   onClick={() => setSelectedBook("Circa")}
-                  className="relative z-10 w-9 h-9 rounded-[7px] transition-all overflow-hidden"
+                  className="relative z-10 w-14 h-14 rounded-[7px] transition-all overflow-hidden flex items-center justify-center"
                   style={{
-                    opacity: selectedBook === "Circa" ? 1 : 0.5,
-                    background: "transparent",
-                    border: selectedBook === "Circa" ? "1.5px solid white" : "none",
-                    padding: 0
+                    opacity: selectedBook === "Circa" ? 1 : 0.6,
+                    background: "black",
+                    border: selectedBook === "Circa" ? "2px solid #68D391" : "1px solid rgba(255, 255, 255, 0.1)",
+                    padding: "4px"
                   }}
                 >
                   <img 
                     src={circaLogo} 
                     alt="Circa" 
-                    className="w-full h-full object-cover rounded-[7px]" 
+                    className="w-full h-full object-contain" 
                     style={{ display: "block" }}
                     onLoad={() => console.log("✅ [LOGO] Circa logo loaded successfully from:", circaLogo)}
                     onError={(e) => console.error("❌ [LOGO] Circa logo failed to load from:", circaLogo, "Error:", e)}

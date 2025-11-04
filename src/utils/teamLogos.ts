@@ -240,40 +240,47 @@ const NBA_LOGO_PATHS: Record<string, string> = {
   "sacramento-kings": "/logos/Leagues/NBA/Western/Pacific/sacramento-kings.png"
 };
 
-// NHL Logo Paths
+// NHL Logo Paths - Complete mappings from tree structure
 const NHL_LOGO_PATHS: Record<string, string> = {
-  "anaheim-ducks": "/logos/Leagues/NHL/Western/Pacific/anaheim-ducks.png",
+  // Eastern - Atlantic
   "boston-bruins": "/logos/Leagues/NHL/Eastern/Atlantic/boston-bruins.png",
   "buffalo-sabres": "/logos/Leagues/NHL/Eastern/Atlantic/buffalo-sabres.png",
-  "calgary-flames": "/logos/Leagues/NHL/Western/Pacific/calgary-flames.png",
-  "carolina-hurricanes": "/logos/Leagues/NHL/Eastern/Metropolitan/carolina-hurricanes.png",
-  "chicago-blackhawks": "/logos/Leagues/NHL/Western/Central/chicago-blackhawks.png",
-  "colorado-avalanche": "/logos/Leagues/NHL/Western/Central/colorado-avalanche.png",
-  "columbus-blue-jackets": "/logos/Leagues/NHL/Eastern/Metropolitan/columbus-blue-jackets.png",
-  "dallas-stars": "/logos/Leagues/NHL/Western/Central/dallas-stars.png",
   "detroit-red-wings": "/logos/Leagues/NHL/Eastern/Atlantic/detroit-red-wings.png",
-  "edmonton-oilers": "/logos/Leagues/NHL/Western/Pacific/edmonton-oilers.png",
   "florida-panthers": "/logos/Leagues/NHL/Eastern/Atlantic/florida-panthers.png",
-  "los-angeles-kings": "/logos/Leagues/NHL/Western/Pacific/los-angeles-kings.png",
-  "minnesota-wild": "/logos/Leagues/NHL/Western/Central/minnesota-wild.png",
   "montreal-canadiens": "/logos/Leagues/NHL/Eastern/Atlantic/montreal-canadiens.png",
-  "nashville-predators": "/logos/Leagues/NHL/Western/Central/nashville-predators.png",
-  "new-jersey-devils": "/logos/Leagues/NHL/Eastern/Metropolitan/new-jersey-devils.png",
-  "ny-islanders": "/logos/Leagues/NHL/Eastern/Metropolitan/new-york-islanders.png",
-  "ny-rangers": "/logos/Leagues/NHL/Eastern/Metropolitan/new-york-rangers.png",
   "ottawa-senators": "/logos/Leagues/NHL/Eastern/Atlantic/ottawa-senators.png",
-  "philadelphia-flyers": "/logos/Leagues/NHL/Eastern/Metropolitan/philadelphia-flyers.png",
-  "pittsburgh-penguins": "/logos/Leagues/NHL/Eastern/Metropolitan/pittsburgh-penguins.png",
-  "san-jose-sharks": "/logos/Leagues/NHL/Western/Pacific/san-jose-sharks.png",
-  "seattle-kraken": "/logos/Leagues/NHL/Western/Pacific/seattle-kraken.png",
-  "st-louis-blues": "/logos/Leagues/NHL/Western/Central/st-louis-blues.png",
   "tampa-bay-lightning": "/logos/Leagues/NHL/Eastern/Atlantic/tampa-bay-lightning.png",
   "toronto-maple-leafs": "/logos/Leagues/NHL/Eastern/Atlantic/toronto-maple-leafs.png",
+  // Eastern - Metropolitan
+  "carolina-hurricanes": "/logos/Leagues/NHL/Eastern/Metropolitan/carolina-hurricanes.png",
+  "columbus-blue-jackets": "/logos/Leagues/NHL/Eastern/Metropolitan/columbus-blue-jackets.png",
+  "new-jersey-devils": "/logos/Leagues/NHL/Eastern/Metropolitan/new-jersey-devils.png",
+  "new-york-islanders": "/logos/Leagues/NHL/Eastern/Metropolitan/new-york-islanders.png",
+  "ny-islanders": "/logos/Leagues/NHL/Eastern/Metropolitan/new-york-islanders.png",
+  "new-york-rangers": "/logos/Leagues/NHL/Eastern/Metropolitan/new-york-rangers.png",
+  "ny-rangers": "/logos/Leagues/NHL/Eastern/Metropolitan/new-york-rangers.png",
+  "philadelphia-flyers": "/logos/Leagues/NHL/Eastern/Metropolitan/philadelphia-flyers.png",
+  "pittsburgh-penguins": "/logos/Leagues/NHL/Eastern/Metropolitan/pittsburgh-penguins.png",
+  "washington-capitals": "/logos/Leagues/NHL/Eastern/Metropolitan/washington-capitals.png",
+  // Western - Central
+  "chicago-blackhawks": "/logos/Leagues/NHL/Western/Central/chicago-blackhawks.png",
+  "colorado-avalanche": "/logos/Leagues/NHL/Western/Central/colorado-avalanche.png",
+  "dallas-stars": "/logos/Leagues/NHL/Western/Central/dallas-stars.png",
+  "minnesota-wild": "/logos/Leagues/NHL/Western/Central/minnesota-wild.png",
+  "nashville-predators": "/logos/Leagues/NHL/Western/Central/nashville-predators.png",
+  "st-louis-blues": "/logos/Leagues/NHL/Western/Central/st-louis-blues.png",
   "utah-hockey-club": "/logos/Leagues/NHL/Western/Central/utah-mammoth.png",
+  "utah-mammoth": "/logos/Leagues/NHL/Western/Central/utah-mammoth.png",
+  "winnipeg-jets": "/logos/Leagues/NHL/Western/Central/winnipeg-jets.png",
+  // Western - Pacific
+  "anaheim-ducks": "/logos/Leagues/NHL/Western/Pacific/anaheim-ducks.png",
+  "calgary-flames": "/logos/Leagues/NHL/Western/Pacific/calgary-flames.png",
+  "edmonton-oilers": "/logos/Leagues/NHL/Western/Pacific/edmonton-oilers.png",
+  "los-angeles-kings": "/logos/Leagues/NHL/Western/Pacific/los-angeles-kings.png",
+  "san-jose-sharks": "/logos/Leagues/NHL/Western/Pacific/san-jose-sharks.png",
+  "seattle-kraken": "/logos/Leagues/NHL/Western/Pacific/seattle-kraken.png",
   "vancouver-canucks": "/logos/Leagues/NHL/Western/Pacific/vancouver-canucks.png",
   "vegas-golden-knights": "/logos/Leagues/NHL/Western/Pacific/vegas-golden-knights.png",
-  "washington-capitals": "/logos/Leagues/NHL/Eastern/Metropolitan/washington-capitals.png",
-  "winnipeg-jets": "/logos/Leagues/NHL/Western/Central/winnipeg-jets.png"
 };
 
 // MLB Logo Paths

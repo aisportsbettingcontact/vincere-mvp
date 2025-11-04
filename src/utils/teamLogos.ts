@@ -146,18 +146,54 @@ const NCAAF_LOGO_PATHS: Record<string, string> = {};
 const NCAAM_LOGO_PATHS: Record<string, string> = {};
 
 export function getTeamLogo(sport: string, espnAbbr: string, teamSlug?: string): string {
+  console.log('🔍 [LOGO DEBUG] getTeamLogo called:', { sport, espnAbbr, teamSlug });
+  
   if (teamSlug) {
-    if (sport === "NFL" && NFL_LOGO_PATHS[teamSlug]) return NFL_LOGO_PATHS[teamSlug];
-    if (sport === "NBA" && NBA_LOGO_PATHS[teamSlug]) return NBA_LOGO_PATHS[teamSlug];
-    if (sport === "NHL" && NHL_LOGO_PATHS[teamSlug]) return NHL_LOGO_PATHS[teamSlug];
-    if (sport === "MLB" && MLB_LOGO_PATHS[teamSlug]) return MLB_LOGO_PATHS[teamSlug];
-    if (sport === "NCAAF" && NCAAF_LOGO_PATHS[teamSlug]) return NCAAF_LOGO_PATHS[teamSlug];
-    if (sport === "NCAAM" && NCAAM_LOGO_PATHS[teamSlug]) return NCAAM_LOGO_PATHS[teamSlug];
+    console.log('🔍 [LOGO DEBUG] teamSlug provided, checking paths...');
+    
+    let logoPath: string | undefined;
+    
+    if (sport === "NFL") {
+      logoPath = NFL_LOGO_PATHS[teamSlug];
+      if (logoPath) console.log('✅ [LOGO DEBUG] NFL logo found:', logoPath);
+    } else if (sport === "NBA") {
+      logoPath = NBA_LOGO_PATHS[teamSlug];
+      if (logoPath) console.log('✅ [LOGO DEBUG] NBA logo found:', logoPath);
+    } else if (sport === "NHL") {
+      logoPath = NHL_LOGO_PATHS[teamSlug];
+      if (logoPath) console.log('✅ [LOGO DEBUG] NHL logo found:', logoPath);
+    } else if (sport === "MLB") {
+      logoPath = MLB_LOGO_PATHS[teamSlug];
+      if (logoPath) console.log('✅ [LOGO DEBUG] MLB logo found:', logoPath);
+    } else if (sport === "NCAAF") {
+      logoPath = NCAAF_LOGO_PATHS[teamSlug];
+      if (logoPath) console.log('✅ [LOGO DEBUG] NCAAF logo found:', logoPath);
+    } else if (sport === "NCAAM") {
+      logoPath = NCAAM_LOGO_PATHS[teamSlug];
+      if (logoPath) console.log('✅ [LOGO DEBUG] NCAAM logo found:', logoPath);
+    }
+    
+    if (logoPath) {
+      // URL encode the path to handle spaces
+      const encodedPath = logoPath.split('/').map(segment => encodeURIComponent(segment)).join('/');
+      console.log('🔗 [LOGO DEBUG] Encoded path:', encodedPath);
+      return logoPath; // Return original path, browser will handle encoding
+    }
+    
+    console.warn('⚠️ [LOGO DEBUG] No local logo found for slug:', teamSlug, 'in sport:', sport);
+    console.warn('⚠️ [LOGO DEBUG] Available keys sample:', 
+      sport === "NFL" ? Object.keys(NFL_LOGO_PATHS).slice(0, 5) :
+      sport === "NBA" ? Object.keys(NBA_LOGO_PATHS).slice(0, 5) :
+      sport === "NHL" ? Object.keys(NHL_LOGO_PATHS).slice(0, 5) : []
+    );
+  } else {
+    console.warn('⚠️ [LOGO DEBUG] No teamSlug provided, falling back to ESPN CDN');
   }
   
   const cdnUrl = (sport === "NCAAF" || sport === "NCAAM")
     ? `https://a.espncdn.com/combiner/i?img=/i/teamlogos/ncaa/500/${espnAbbr}.png&h=200&w=200`
     : `https://a.espncdn.com/combiner/i?img=/i/teamlogos/${sport.toLowerCase()}/500/${espnAbbr}.png&h=200&w=200`;
   
+  console.log('📡 [LOGO DEBUG] Using ESPN CDN fallback:', cdnUrl);
   return cdnUrl;
 }

@@ -182,11 +182,35 @@ export default function Feed() {
       
       return !isProhibited;
     });
-    return filtered.sort((a, b) => {
+    
+    const sorted = filtered.sort((a, b) => {
       const dateA = new Date(a.kickoff).getTime();
       const dateB = new Date(b.kickoff).getTime();
       return dateA - dateB;
     });
+    
+    // Log first game's team info for debugging
+    if (sorted.length > 0) {
+      const game = sorted[0];
+      console.log('🎮 [FEED DEBUG] First game details:');
+      console.log('  Sport:', game.sport);
+      console.log('  Away team:', {
+        name: game.away.name,
+        fullName: game.away.fullName,
+        abbr: game.away.abbr,
+        espnAbbr: game.away.espnAbbr,
+        slug: game.away.slug
+      });
+      console.log('  Home team:', {
+        name: game.home.name,
+        fullName: game.home.fullName,
+        abbr: game.home.abbr,
+        espnAbbr: game.home.espnAbbr,
+        slug: game.home.slug
+      });
+    }
+    
+    return sorted;
   }, [liveGames, selectedBook, selectedSport]);
 
   // Auto-switch to NHL/NBA if no NFL games available

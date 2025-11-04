@@ -12,7 +12,7 @@ interface LogoUpload {
 
 const NFL_LOGOS: LogoUpload[] = [
   {
-    filePath: "/logos/Leagues/NFL/NFC/NFC West/arizona-cardinals.png",
+    filePath: "/logos/Logos/Leagues/NFL/NFC/NFC West/arizona-cardinals.png",
     sport: "NFL",
     league: "NFL",
     teamSlug: "arizona-cardinals",
@@ -21,7 +21,7 @@ const NFL_LOGOS: LogoUpload[] = [
     conference: "NFC"
   },
   {
-    filePath: "/logos/Leagues/NFL/NFC/NFC South/atlanta-falcons.png",
+    filePath: "/logos/Logos/Leagues/NFL/NFC/NFC South/atlanta-falcons.png",
     sport: "NFL",
     league: "NFL",
     teamSlug: "atlanta-falcons",
@@ -30,7 +30,7 @@ const NFL_LOGOS: LogoUpload[] = [
     conference: "NFC"
   },
   {
-    filePath: "/logos/Leagues/NFL/NFC/NFC South/carolina-panthers.png",
+    filePath: "/logos/Logos/Leagues/NFL/NFC/NFC South/carolina-panthers.png",
     sport: "NFL",
     league: "NFL",
     teamSlug: "carolina-panthers",
@@ -39,7 +39,7 @@ const NFL_LOGOS: LogoUpload[] = [
     conference: "NFC"
   },
   {
-    filePath: "/logos/Leagues/NFL/NFC/NFC North/chicago-bears.png",
+    filePath: "/logos/Logos/Leagues/NFL/NFC/NFC North/chicago-bears.png",
     sport: "NFL",
     league: "NFL",
     teamSlug: "chicago-bears",
@@ -48,7 +48,7 @@ const NFL_LOGOS: LogoUpload[] = [
     conference: "NFC"
   },
   {
-    filePath: "/logos/Leagues/NFL/NFC/NFC East/dallas-cowboys.png",
+    filePath: "/logos/Logos/Leagues/NFL/NFC/NFC East/dallas-cowboys.png",
     sport: "NFL",
     league: "NFL",
     teamSlug: "dallas-cowboys",
@@ -57,7 +57,7 @@ const NFL_LOGOS: LogoUpload[] = [
     conference: "NFC"
   },
   {
-    filePath: "/logos/Leagues/NFL/NFC/NFC North/detroit-lions.png",
+    filePath: "/logos/Logos/Leagues/NFL/NFC/NFC North/detroit-lions.png",
     sport: "NFL",
     league: "NFL",
     teamSlug: "detroit-lions",
@@ -66,7 +66,7 @@ const NFL_LOGOS: LogoUpload[] = [
     conference: "NFC"
   },
   {
-    filePath: "/logos/Leagues/NFL/NFC/NFC North/green-bay-packers.png",
+    filePath: "/logos/Logos/Leagues/NFL/NFC/NFC North/green-bay-packers.png",
     sport: "NFL",
     league: "NFL",
     teamSlug: "green-bay-packers",
@@ -75,7 +75,7 @@ const NFL_LOGOS: LogoUpload[] = [
     conference: "NFC"
   },
   {
-    filePath: "/logos/Leagues/NFL/NFC/NFC West/los-angeles-rams.png",
+    filePath: "/logos/Logos/Leagues/NFL/NFC/NFC West/los-angeles-rams.png",
     sport: "NFL",
     league: "NFL",
     teamSlug: "los-angeles-rams",
@@ -84,7 +84,7 @@ const NFL_LOGOS: LogoUpload[] = [
     conference: "NFC"
   },
   {
-    filePath: "/logos/Leagues/NFL/NFC/NFC North/minnesota-vikings.png",
+    filePath: "/logos/Logos/Leagues/NFL/NFC/NFC North/minnesota-vikings.png",
     sport: "NFL",
     league: "NFL",
     teamSlug: "minnesota-vikings",
@@ -93,7 +93,7 @@ const NFL_LOGOS: LogoUpload[] = [
     conference: "NFC"
   },
   {
-    filePath: "/logos/Leagues/NFL/NFC/NFC South/new-orleans-saints.png",
+    filePath: "/logos/Logos/Leagues/NFL/NFC/NFC South/new-orleans-saints.png",
     sport: "NFL",
     league: "NFL",
     teamSlug: "new-orleans-saints",

@@ -40,7 +40,7 @@ function parseEdgeGuideData(data: EdgeGuideLatestResponse): GameOdds[] {
   if (data.books.CIRCA) {
     console.log("\n🎰 Processing Circa data...");
     // IMPORTANT: After transformation, CFB→NCAAF and CBB→NCAAM
-    const sports = ['NFL', 'MLB', 'NCAAF', 'NHL', 'NCAAM'] as const;
+    const sports = ['NFL', 'MLB', 'NCAAF', 'NBA', 'NHL', 'NCAAM'] as const;
     sports.forEach(sport => {
       const sportData = data.books.CIRCA?.[sport];
       if (sportData) {

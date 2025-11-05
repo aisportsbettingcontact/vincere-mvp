@@ -482,7 +482,7 @@ export default function Feed() {
                   <img 
                     src={draftKingsLogo} 
                     alt="DraftKings" 
-                    className="w-full h-full object-contain" 
+                    className="w-full h-full object-contain rounded-md" 
                     style={{ display: "block" }}
                     onLoad={() => console.log("✅ [LOGO] DraftKings logo loaded successfully from:", draftKingsLogo)}
                     onError={(e) => console.error("❌ [LOGO] DraftKings logo failed to load from:", draftKingsLogo, "Error:", e)}
@@ -511,7 +511,7 @@ export default function Feed() {
                   <img 
                     src={circaLogo} 
                     alt="Circa" 
-                    className="w-full h-full object-contain" 
+                    className="w-full h-full object-contain rounded-md" 
                     style={{ display: "block" }}
                     onLoad={() => console.log("✅ [LOGO] Circa logo loaded successfully from:", circaLogo)}
                     onError={(e) => console.error("❌ [LOGO] Circa logo failed to load from:", circaLogo, "Error:", e)}

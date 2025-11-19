@@ -36,25 +36,7 @@ function parseEdgeGuideData(data: EdgeGuideLatestResponse): GameOdds[] {
     console.warn("⚠️ No DK data found in response");
   }
   
-  // Parse CIRCA data for all sports
-  if (data.books.CIRCA) {
-    console.log("\n🎰 Processing Circa data...");
-    // IMPORTANT: After transformation, CFB→NCAAF and CBB→NCAAM
-    const sports = ['NFL', 'MLB', 'NCAAF', 'NBA', 'NHL', 'NCAAM'] as const;
-    sports.forEach(sport => {
-      const sportData = data.books.CIRCA?.[sport];
-      if (sportData) {
-        console.log(`\n--- ${sport} (CIRCA) ---`);
-        const games = parseBookData(sportData, "CIRCA", sport);
-        allGames.push(...games);
-        console.log(`📊 Total CIRCA ${sport} games: ${games.length}`);
-      } else {
-        console.log(`⚠️ No ${sport} data in CIRCA`);
-      }
-    });
-  } else {
-    console.warn("⚠️ No CIRCA data found in response");
-  }
+  // Only showing DraftKings splits (Circa removed per user request)
   
   console.log(`\n🔢 Total games before sorting: ${allGames.length}`);
   

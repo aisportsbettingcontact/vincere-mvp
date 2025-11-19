@@ -11,7 +11,6 @@ import { formatSpreadLine } from "@/utils/bettingLogic";
 import { UserCircle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import draftKingsLogo from "@/assets/sportsbooks/draftkings.png";
-import circaLogo from "@/assets/sportsbooks/circasports.png";
 import worldSeriesLogo from "@/assets/worldseries.png";
 import foxLogo from "@/assets/FOX.png";
 import abcLogo from "@/assets/ABC.png";
@@ -493,35 +492,6 @@ export default function Feed() {
                   style={{ color: selectedBook === "DK" ? "var(--ma-text-primary)" : "var(--ma-text-secondary)" }}
                 >
                   DK
-                </span>
-              </div>
-            )}
-            {availableBooksForSport.hasCirca && (
-              <div className="flex flex-col items-center gap-1">
-                <button
-                  onClick={() => setSelectedBook("Circa")}
-                  className="relative z-10 w-14 h-14 rounded-[7px] transition-all overflow-hidden flex items-center justify-center"
-                  style={{
-                    opacity: selectedBook === "Circa" ? 1 : 0.6,
-                    background: "black",
-                    border: selectedBook === "Circa" ? "2px solid #68D391" : "1px solid rgba(255, 255, 255, 0.1)",
-                    padding: "4px"
-                  }}
-                >
-                  <img 
-                    src={circaLogo} 
-                    alt="Circa" 
-                    className="w-full h-full object-contain rounded-md" 
-                    style={{ display: "block" }}
-                    onLoad={() => console.log("✅ [LOGO] Circa logo loaded successfully from:", circaLogo)}
-                    onError={(e) => console.error("❌ [LOGO] Circa logo failed to load from:", circaLogo, "Error:", e)}
-                  />
-                </button>
-                <span 
-                  className="text-[9px] font-semibold" 
-                  style={{ color: selectedBook === "Circa" ? "var(--ma-text-primary)" : "var(--ma-text-secondary)" }}
-                >
-                  Circa
                 </span>
               </div>
             )}

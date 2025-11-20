@@ -10,7 +10,6 @@ import type { Market } from "@/utils/bettingLogic";
 import { formatSpreadLine } from "@/utils/bettingLogic";
 import { UserCircle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import draftKingsLogo from "@/assets/sportsbooks/draftkings.png";
 import worldSeriesLogo from "@/assets/worldseries.png";
 import foxLogo from "@/assets/FOX.png";
 import abcLogo from "@/assets/ABC.png";
@@ -453,48 +452,6 @@ export default function Feed() {
                 <span className="leading-tight">NCAAM</span>
               </button>
             </div>
-          </div>
-        </div>
-
-        {/* Bookmaker Toggle - Show buttons only for books with data */}
-        <div className="flex justify-center mb-3 px-3">
-          <div 
-            className="flex gap-1.5 rounded-[10px]"
-            style={{
-              background: "var(--ma-surface)",
-              border: "1px solid var(--ma-stroke)",
-              padding: "6px"
-            }}
-          >
-            {availableBooksForSport.hasDK && (
-              <div className="flex flex-col items-center gap-1">
-                <button
-                  onClick={() => setSelectedBook("DK")}
-                  className="relative z-10 w-14 h-14 rounded-[7px] transition-all overflow-hidden flex items-center justify-center"
-                  style={{
-                    opacity: selectedBook === "DK" ? 1 : 0.6,
-                    background: "#1a1a1a",
-                    border: selectedBook === "DK" ? "2px solid #68D391" : "1px solid rgba(255, 255, 255, 0.1)",
-                    padding: "4px"
-                  }}
-                >
-                  <img 
-                    src={draftKingsLogo} 
-                    alt="DraftKings" 
-                    className="w-full h-full object-contain rounded-md" 
-                    style={{ display: "block" }}
-                    onLoad={() => console.log("✅ [LOGO] DraftKings logo loaded successfully from:", draftKingsLogo)}
-                    onError={(e) => console.error("❌ [LOGO] DraftKings logo failed to load from:", draftKingsLogo, "Error:", e)}
-                  />
-                </button>
-                <span 
-                  className="text-[9px] font-semibold" 
-                  style={{ color: selectedBook === "DK" ? "var(--ma-text-primary)" : "var(--ma-text-secondary)" }}
-                >
-                  DK
-                </span>
-              </div>
-            )}
           </div>
         </div>
 

@@ -503,6 +503,7 @@ const NCAAF_LOGO_PATHS: Record<string, string> = {
 const NCAAM_LOGO_PATHS: Record<string, string> = {
   // A-10
   "davidson-wildcats": "/logos/leagues/ncaam/a-10/davidson-wildcats.png",
+  "davidson": "/logos/leagues/ncaam/a-10/davidson-wildcats.png",
   "dayton-flyers": "/logos/leagues/ncaam/a-10/dayton-flyers.png",
   "duquesne-dukes": "/logos/leagues/ncaam/a-10/duquesne-dukes.png",
   "fordham-rams": "/logos/leagues/ncaam/a-10/fordham-rams.png",
@@ -559,6 +560,7 @@ const NCAAM_LOGO_PATHS: Record<string, string> = {
   "uab-blazers": "/logos/leagues/ncaam/american/uab-blazers.png",
   "utsa-roadrunners": "/logos/leagues/ncaam/american/utsa-roadrunners.png",
   "wichita-state-shockers": "/logos/leagues/ncaam/american/wichita-state-shockers.png",
+  "south-florida": "/logos/leagues/ncaam/american/south-florida-bulls.png",
   // ASUN
   "austin-peay-governors": "/logos/leagues/ncaam/asun/austin-peay-governors.png",
   "bellarmine-knights": "/logos/leagues/ncaam/asun/bellarmine-knights.png",
@@ -653,6 +655,16 @@ const NCAAM_LOGO_PATHS: Record<string, string> = {
   "uc-riverside-highlanders": "/logos/leagues/ncaam/big-west/uc-riverside-highlanders.png",
   "uc-san-diego-tritons": "/logos/leagues/ncaam/big-west/uc-san-diego-tritons.png",
   "uc-santa-barbara-gauchos": "/logos/leagues/ncaam/big-west/uc-santa-barbara-gauchos.png",
+  // Big West aliases
+  "cal-poly-slo": "/logos/leagues/ncaam/big-west/cal-poly-mustangs.png",
+  "cal-poly": "/logos/leagues/ncaam/big-west/cal-poly-mustangs.png",
+  "csu-bakersfield": "/logos/leagues/ncaam/big-west/cal-state-bakersfield-roadrunners.png",
+  "csu-fullerton": "/logos/leagues/ncaam/big-west/cal-state-fullerton-titans.png",
+  "csu-northridge": "/logos/leagues/ncaam/big-west/cal-state-northridge-matadors.png",
+  "long-beach-st": "/logos/leagues/ncaam/big-west/long-beach-state-beach.png",
+  "uc-santa-barbara": "/logos/leagues/ncaam/big-west/uc-santa-barbara-gauchos.png",
+  "uc-riverside": "/logos/leagues/ncaam/big-west/uc-riverside-highlanders.png",
+  "uc-irvine": "/logos/leagues/ncaam/big-west/uc-irvine-anteaters.png",
   // C-USA
   "delaware-blue-hens": "/logos/leagues/ncaam/c-usa/delaware-blue-hens.png",
   "florida-international-panthers": "/logos/leagues/ncaam/c-usa/florida-international-panthers.png",
@@ -690,6 +702,9 @@ const NCAAM_LOGO_PATHS: Record<string, string> = {
   "oakland-golden-grizzlies": "/logos/leagues/ncaam/horizon/oakland-golden-grizzlies.png",
   "purdue-fort-wayne-mastodons": "/logos/leagues/ncaam/horizon/purdue-fort-wayne-mastodons.png",
   "robert-morris-colonials": "/logos/leagues/ncaam/horizon/robert-morris-colonials.png",
+  "robert-morris": "/logos/leagues/ncaam/horizon/robert-morris-colonials.png",
+  "uw-green-bay": "/logos/leagues/ncaam/horizon/green-bay-phoenix.png",
+  "green-bay": "/logos/leagues/ncaam/horizon/green-bay-phoenix.png",
   "wright-state-raiders": "/logos/leagues/ncaam/horizon/wright-state-raiders.png",
   "youngstown-state-penguins": "/logos/leagues/ncaam/horizon/youngstown-state-penguins.png",
   // Ivy League
@@ -712,6 +727,8 @@ const NCAAM_LOGO_PATHS: Record<string, string> = {
   "niagara-purple-eagles": "/logos/leagues/ncaam/maac/niagara-purple-eagles.png",
   "quinnipiac-bobcats": "/logos/leagues/ncaam/maac/quinnipiac-bobcats.png",
   "rider-broncs": "/logos/leagues/ncaam/maac/rider-broncs.png",
+  "rider": "/logos/leagues/ncaam/maac/rider-broncs.png",
+  "merrimack": "/logos/leagues/ncaam/maac/merrimack-warriors.png",
   "sacred-heart-pioneers": "/logos/leagues/ncaam/maac/sacred-heart-pioneers.png",
   "saint-peters-peacocks": "/logos/leagues/ncaam/maac/saint-peters-peacocks.png",
   "siena-saints": "/logos/leagues/ncaam/maac/siena-saints.png",
@@ -764,6 +781,7 @@ const NCAAM_LOGO_PATHS: Record<string, string> = {
   "san-jose-state-spartans": "/logos/leagues/ncaam/mwc/san-jose-state-spartans.png",
   "unlv-rebels": "/logos/leagues/ncaam/mwc/unlv-rebels.png",
   "utah-state-aggies": "/logos/leagues/ncaam/mwc/utah-state-aggies.png",
+  "utah-st": "/logos/leagues/ncaam/mwc/utah-state-aggies.png",
   "wyoming-cowboys": "/logos/leagues/ncaam/mwc/wyoming-cowboys.png",
   // NEC
   "central-connecticut-blue-devils": "/logos/leagues/ncaam/nec/central-connecticut-blue-devils.png",
@@ -823,6 +841,7 @@ const NCAAM_LOGO_PATHS: Record<string, string> = {
   "mercer-bears": "/logos/leagues/ncaam/southern/mercer-bears.png",
   "samford-bulldogs": "/logos/leagues/ncaam/southern/samford-bulldogs.png",
   "the-citadel-bulldogs": "/logos/leagues/ncaam/southern/the-citadel-bulldogs.png",
+  "the-citadel": "/logos/leagues/ncaam/southern/the-citadel-bulldogs.png",
   "unc-greensboro-spartans": "/logos/leagues/ncaam/southern/unc-greensboro-spartans.png",
   "vmi-keydets": "/logos/leagues/ncaam/southern/vmi-keydets.png",
   "western-carolina-catamounts": "/logos/leagues/ncaam/southern/western-carolina-catamounts.png",

@@ -172,6 +172,10 @@ export const CBB_TEAM_MAPPINGS: Record<string, { name: string; abbr: string; esp
   "ucla": { name: "UCLA", abbr: "UCLA", espnAbbr: "26", fullName: "UCLA Bruins" },
   "usc": { name: "USC", abbr: "USC", espnAbbr: "30", fullName: "USC Trojans" },
   "washington": { name: "Washington", abbr: "WASH", espnAbbr: "264", fullName: "Washington Huskies" },
+  "south-florida-bulls": { name: "South Florida", abbr: "USF", espnAbbr: "58", fullName: "South Florida Bulls" },
+  "south-florida": { name: "South Florida", abbr: "USF", espnAbbr: "58", fullName: "South Florida Bulls" },
+  "utah-state-aggies": { name: "Utah State", abbr: "USU", espnAbbr: "328", fullName: "Utah State Aggies" },
+  "utah-state": { name: "Utah State", abbr: "USU", espnAbbr: "328", fullName: "Utah State Aggies" },
 };
 
 export function getTeamInfo(slug: string, sport: string = "NFL") {

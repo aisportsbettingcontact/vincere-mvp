@@ -1,42 +1,37 @@
 import { useQuery } from "@tanstack/react-query";
 import type { GameOdds } from "@/types/odds";
-import vsinRawData from "@/data/vsin-splits-raw.json";
+import circaData from "@/data/circa-splits.json";
 import { parseBookData, compareGames } from "@/utils/oddsParser";
 import { validateResponse, type EdgeGuideLatestResponse } from "@/utils/oddsValidation";
 import { transformVSiNData } from "@/utils/dataTransformer";
 
 /**
- * Parse EdgeGuide data from all books and sports
- * Automatically filters out past games using dynamic date detection
+ * Parse EdgeGuide data from Circa book for all sports
  */
 function parseEdgeGuideData(data: EdgeGuideLatestResponse): GameOdds[] {
-  console.log("📊 ========== STARTING VSIN ODDS PARSING ==========");
+  console.log("📊 ========== STARTING CIRCA ODDS PARSING ==========");
   console.log(`📅 Data generated at: ${data.generated_at}`);
-  console.log(`🌍 Timezone anchor: ${data.tz_anchor || 'Not provided'}`);
   
   const allGames: GameOdds[] = [];
   
-  // Parse DK data for all sports
-  if (data.books.DK) {
-    console.log("🎰 Processing DraftKings (DK) data...");
-    // IMPORTANT: After transformation, CFB→NCAAF and CBB→NCAAM
+  // Parse CIRCA data for all sports
+  if (data.books.CIRCA) {
+    console.log("🎰 Processing Circa data...");
     const sports = ['NFL', 'MLB', 'NCAAF', 'NBA', 'NHL', 'NCAAM'] as const;
     sports.forEach(sport => {
-      const sportData = data.books.DK?.[sport];
+      const sportData = data.books.CIRCA?.[sport];
       if (sportData) {
-        console.log(`\n--- ${sport} (DK) ---`);
-        const games = parseBookData(sportData, "DK", sport);
+        console.log(`\n--- ${sport} (CIRCA) ---`);
+        const games = parseBookData(sportData, "CIRCA", sport);
         allGames.push(...games);
-        console.log(`📊 Total DK ${sport} games: ${games.length}`);
+        console.log(`📊 Total CIRCA ${sport} games: ${games.length}`);
       } else {
-        console.log(`⚠️ No ${sport} data in DK`);
+        console.log(`⚠️ No ${sport} data in CIRCA`);
       }
     });
   } else {
-    console.warn("⚠️ No DK data found in response");
+    console.warn("⚠️ No CIRCA data found in response");
   }
-  
-  // Only showing DraftKings splits (Circa removed per user request)
   
   console.log(`\n🔢 Total games before sorting: ${allGames.length}`);
   
@@ -45,7 +40,6 @@ function parseEdgeGuideData(data: EdgeGuideLatestResponse): GameOdds[] {
   
   console.log(`\n✅ ========== PARSING COMPLETE ==========`);
   console.log(`✅ Successfully parsed ${allGames.length} live games`);
-  console.log(`📊 Current time: ${new Date().toLocaleString()}`);
   
   if (allGames.length > 0) {
     console.log(`\n📋 First 3 games:`);
@@ -71,14 +65,13 @@ export function useEdgeGuideData() {
     queryKey: ["edgeguide-data"],
     queryFn: async () => {
       try {
-        console.log("\n🚀 ========== EDGEGUIDE DATA HOOK TRIGGERED ==========");
-        console.log("📊 Loading and transforming latest VSIN odds data...");
+        console.log("\n🚀 ========== CIRCA DATA HOOK TRIGGERED ==========");
+        console.log("📊 Loading Circa splits data...");
         
-        // Transform raw VSiN data to expected format
-        const data = transformVSiNData(vsinRawData as any);
+        // Transform Circa data to expected format
+        const data = transformVSiNData(circaData as any);
         
         console.log("🔍 Validating data structure...");
-        // Validate data structure
         if (!validateResponse(data)) {
           console.error("❌ Validation failed!");
           throw new Error("Invalid data structure: Failed validation checks");
@@ -97,8 +90,6 @@ export function useEdgeGuideData() {
         
         if (parsed.length === 0) {
           console.warn("⚠️ ========== WARNING: NO GAMES FOUND ==========");
-          console.warn("⚠️ All games may be filtered out as past games");
-          console.warn("⚠️ Check date filtering logic in gameFilters.ts");
         } else {
           console.log(`✅ Successfully returning ${parsed.length} games to UI`);
         }

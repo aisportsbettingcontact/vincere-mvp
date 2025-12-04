@@ -1336,11 +1336,11 @@ function SplitsCard({ game, book }: { game: GameOdds; book: "DK" | "Circa" }) {
               <span className="text-lg font-bold" style={{ color: "var(--ma-text-primary)" }}>
                 {viewMode === "tickets" ? mlData.tickets.left : mlData.money.left}%
               </span>
-              <span className="text-xs" style={{ color: "var(--ma-text-secondary)" }}>{mlData.leftLabel}</span>
+              <span className="text-xs" style={{ color: "var(--ma-text-secondary)" }}>{mlData.leftLabel} ML</span>
             </div>
             <span className="text-xs font-semibold" style={{ color: "var(--ma-text-secondary)" }}>Moneyline</span>
             <div className="flex items-center gap-2">
-              <span className="text-xs" style={{ color: "var(--ma-text-secondary)" }}>{mlData.rightLabel}</span>
+              <span className="text-xs" style={{ color: "var(--ma-text-secondary)" }}>{mlData.rightLabel} ML</span>
               <span className="text-lg font-bold" style={{ color: "var(--ma-text-primary)" }}>
                 {viewMode === "tickets" ? mlData.tickets.right : mlData.money.right}%
               </span>

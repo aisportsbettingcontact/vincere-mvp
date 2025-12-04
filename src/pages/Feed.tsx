@@ -141,47 +141,19 @@ export default function Feed() {
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<"lines" | "splits">("lines");
   const [globalMarket, setGlobalMarket] = useState<Market>("Spread");
-  const [selectedBook, setSelectedBook] = useState<"DK" | "Circa">("DK");
+  const selectedBook = "Circa" as const; // Hardcoded to Circa
   const [selectedSport, setSelectedSport] = useState<"NFL" | "NCAAF" | "NBA" | "NHL" | "MLB" | "NCAAM">("NFL");
   
   // Fetch live data from EdgeGuide with automatic fallback to mock data
   const { data: liveGames, isLoading: isLoadingGames } = useEdgeGuideData();
   
-  // Check which books have data for the selected sport
-  const availableBooksForSport = useMemo(() => {
-    if (!liveGames) return { hasDK: false, hasCirca: false };
-    const hasDK = liveGames.some(game => game.book === "DK" && game.sport === selectedSport);
-    const hasCirca = liveGames.some(game => game.book === "CIRCA" && game.sport === selectedSport);
-    
-    console.log("🎰 [SPORTSBOOK DEBUG] Available books for sport:", selectedSport);
-    console.log("  - DraftKings available:", hasDK);
-    console.log("  - Circa available:", hasCirca);
-    console.log("  - Current selected book:", selectedBook);
-    
-    return { hasDK, hasCirca };
-  }, [liveGames, selectedSport, selectedBook]);
-
-  // Auto-select the only available book
-  useEffect(() => {
-    console.log("🎰 [SPORTSBOOK AUTO-SELECT] Checking book availability...");
-    console.log("  - availableBooksForSport:", availableBooksForSport);
-    
-    if (availableBooksForSport.hasDK && !availableBooksForSport.hasCirca) {
-      console.log("  ✅ Auto-selecting DraftKings (only available book)");
-      setSelectedBook("DK");
-    } else if (!availableBooksForSport.hasDK && availableBooksForSport.hasCirca) {
-      console.log("  ✅ Auto-selecting Circa (only available book)");
-      setSelectedBook("Circa");
-    } else {
-      console.log("  ℹ️ Both books available or neither available, keeping current selection");
-    }
-  }, [availableBooksForSport]);
+  // Circa is hardcoded as the only book
 
   // Filter by book, sport, and sort games by date (earliest first)
   // Exclude specific prohibited matchups
   const sortedGames = useMemo(() => {
     if (!liveGames) return [];
-    const bookFilter = selectedBook === "Circa" ? "CIRCA" : selectedBook;
+    const bookFilter = "CIRCA"; // Hardcoded to Circa
     const filtered = liveGames.filter(game => {
       // Filter by book and sport
       if (game.book !== bookFilter || game.sport !== selectedSport) return false;
@@ -228,10 +200,9 @@ export default function Feed() {
   useEffect(() => {
     if (!liveGames || liveGames.length === 0) return;
     
-    const bookFilter = selectedBook === "Circa" ? "CIRCA" : selectedBook;
-    const hasNFL = liveGames.some(game => game.book === bookFilter && game.sport === "NFL");
-    const hasNHL = liveGames.some(game => game.book === bookFilter && game.sport === "NHL");
-    const hasNBA = liveGames.some(game => game.book === bookFilter && game.sport === "NBA");
+    const hasNFL = liveGames.some(game => game.book === "CIRCA" && game.sport === "NFL");
+    const hasNHL = liveGames.some(game => game.book === "CIRCA" && game.sport === "NHL");
+    const hasNBA = liveGames.some(game => game.book === "CIRCA" && game.sport === "NBA");
     
     if (selectedSport === "NFL" && !hasNFL) {
       if (hasNHL) {
@@ -240,7 +211,7 @@ export default function Feed() {
         setSelectedSport("NBA");
       }
     }
-  }, [liveGames, selectedBook, selectedSport]);
+  }, [liveGames, selectedSport]);
 
   useEffect(() => {
     const checkAuth = async () => {

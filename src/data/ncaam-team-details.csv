@@ -1,0 +1,366 @@
+team,abbreviation,slug,primary_color_name,primary_color_hex_code,secondary_color_name,secondary_color_hex_code,tertiary_color_name,tertiary_color_hex_code
+abilene christian wildcats,acu,abilene-christian-wildcats,purple,#4F2D7F,white,#FFFFFF,black,#000000
+air force falcons,af,air-force-falcons,air force blue,#00308F,silver,#A7A8AA,white,#FFFFFF
+akron zips,akr,akron-zips,akron blue,#041E42,old gold,#B7A57A,white,#FFFFFF
+alabama am bulldogs,aamu,alabama-am-bulldogs,maroon,#660000,white,#FFFFFF,black,#000000
+alabama crimson tide,ala,alabama-crimson-tide,crimson,#9E1B32,white,#FFFFFF,gray,#828A8F
+alabama state hornets,alst,alabama-state-hornets,black,#000000,old gold,#FFC72C,white,#FFFFFF
+alcorn state braves,alcn,alcorn-state-braves,purple,#512D6D,gold,#CC8A00,white,#FFFFFF
+american university eagles,amer,american-university-eagles,blue,#004B8D,red,#C8102E,white,#FFFFFF
+app state mountaineers,app,app-state-mountaineers,black,#000000,app gold,#FFCC00,white,#FFFFFF
+arizona state sun devils,asu,arizona-state-sun-devils,maroon,#8C1D40,gold,#FFC627,black,#000000
+arizona wildcats,ariz,arizona-wildcats,cardinal,#CC0033,navy,#003366,white,#FFFFFF
+arkansas pine bluff golden lions,uapb,arkansas-pine-bluff-golden-lions,black,#000000,gold,#FFB81C,white,#FFFFFF
+arkansas razorbacks,ark,arkansas-razorbacks,cardinal,#9D2235,white,#FFFFFF,black,#000000
+arkansas state red wolves,arst,arkansas-state-red-wolves,scarlet,#CC0000,black,#000000,white,#FFFFFF
+army black knights,army,army-black-knights,black,#000000,gold,#D4BF91,gray,#9D9D9C
+auburn tigers,aub,auburn-tigers,auburn blue,#0C2340,auburn orange,#E87722,white,#FFFFFF
+austin peay governors,apsu,austin-peay-governors,govs red,#C41E3A,black,#000000,white,#FFFFFF
+ball state cardinals,ball,ball-state-cardinals,cardinal red,#C41E3A,black,#000000,white,#FFFFFF
+baylor bears,bay,baylor-bears,baylor green,#154734,baylor gold,#FFB81C,white,#FFFFFF
+bellarmine knights,bell,bellarmine-knights,scarlet,#820024,silver,#8A8D8E,white,#FFFFFF
+belmont bruins,bel,belmont-bruins,navy,#0C2340,red,#E31C3D,white,#FFFFFF
+bethune cookman wildcats,bcu,bethune-cookman-wildcats,maroon,#6C1D45,gold,#FFC72C,white,#FFFFFF
+binghamton bearcats,bing,binghamton-bearcats,green,#005A43,black,#000000,cool gray,#5A5C5B
+boise state broncos,bsu,boise-state-broncos,bronco blue,#0033A0,bronco orange,#D64309,white,#FFFFFF
+boston college eagles,bc,boston-college-eagles,maroon,#98002E,gold,#BC9B6A,gray,#726158
+boston university terriers,bu,boston-university-terriers,scarlet,#CC0000,white,#FFFFFF,black,#000000
+bowling green falcons,bgsu,bowling-green-falcons,falcon brown,#4F2C1D,falcon orange,#FE5000,white,#FFFFFF
+bradley braves,brad,bradley-braves,red,#D50032,black,#000000,white,#FFFFFF
+brown bears,brown,brown-bears,brown,#381C00,red,#E4002B,black,#000000
+bryant bulldogs,bry,bryant-bulldogs,gold,#B4975B,black,#000000,white,#FFFFFF
+bucknell bison,buck,bucknell-bison,blue,#003E7E,orange,#E87722,white,#FFFFFF
+buffalo bulls,buff,buffalo-bulls,royal blue,#005BBB,gray,#A7A9AC,white,#FFFFFF
+butler bulldogs,but,butler-bulldogs,butler blue,#13294B,butler gray,#9EA2A2,white,#FFFFFF
+byu cougars,byu,byu-cougars,navy,#002E5D,royal,#0062B8,white,#FFFFFF
+cal poly mustangs,calp,cal-poly-mustangs,cal poly green,#154734,cal poly gold,#C69214,white,#FFFFFF
+cal state bakersfield roadrunners,csub,cal-state-bakersfield-roadrunners,roadrunner blue,#003594,roadrunner gold,#FFC72C,white,#FFFFFF
+cal state fullerton titans,csuf,cal-state-fullerton-titans,titan blue,#003DA5,titan orange,#FF8200,white,#FFFFFF
+cal state northridge matadors,csun,cal-state-northridge-matadors,matador red,#AD0000,black,#000000,white,#FFFFFF
+california baptist lancers,cbu,california-baptist-lancers,navy,#0033A0,gold,#B9975B,white,#FFFFFF
+california golden bears,cal,california-golden-bears,berkeley blue,#003262,california gold,#FDB515,founder's rock,#3B7EA1
+campbell fighting camels,camp,campbell-fighting-camels,campbell orange,#FF7F00,black,#000000,white,#FFFFFF
+canisius golden griffins,can,canisius-golden-griffins,blue,#002D72,gold,#F1BE48,white,#FFFFFF
+central arkansas bears,uca,central-arkansas-bears,purple,#582C83,gray,#7C878E,white,#FFFFFF
+central connecticut blue devils,ccsu,central-connecticut-blue-devils,blue,#003DA5,white,#FFFFFF,gray,#A7A9AC
+central michigan chippewas,cmu,central-michigan-chippewas,maroon,#6A0032,gold,#F1BE48,white,#FFFFFF
+charleston cougars,cofc,charleston-cougars,cougar maroon,#7C1218,cougar gold,#C4A777,white,#FFFFFF
+charleston southern buccaneers,chso,charleston-southern-buccaneers,blue,#002855,gold,#A89968,white,#FFFFFF
+charlotte 49ers,clt,charlotte-49ers,green,#046A38,gold,#B9975B,black,#000000
+chattanooga mocs,chat,chattanooga-mocs,navy,#041E42,gold,#FFC72C,white,#FFFFFF
+chicago state cougars,csu,chicago-state-cougars,green,#006747,black,#000000,white,#FFFFFF
+cincinnati bearcats,cin,cincinnati-bearcats,red,#E00122,black,#000000,white,#FFFFFF
+clemson tigers,clem,clemson-tigers,clemson orange,#F56600,purple,#522D80,white,#FFFFFF
+cleveland state vikings,clev,cleveland-state-vikings,viking green,#006747,gray,#A7A8AA,white,#FFFFFF
+coastal carolina chanticleers,ccu,coastal-carolina-chanticleers,teal,#006F71,bronze,#A37C41,black,#000000
+colgate raiders,colg,colgate-raiders,maroon,#862633,gray,#8A8D8F,white,#FFFFFF
+colorado buffaloes,colo,colorado-buffaloes,black,#000000,gold,#CFB87C,silver,#565A5C
+colorado state rams,csu-r,colorado-state-rams,ram green,#1E4D2B,ram gold,#C8C372,white,#FFFFFF
+columbia lions,col,columbia-lions,athletic dark blue,#003865,columbia blue,#9BCBEB,white,#FFFFFF
+coppin state eagles,copp,coppin-state-eagles,blue,#003DA5,gold,#FDB927,white,#FFFFFF
+cornell big red,cor,cornell-big-red,carnelian,#B31B1B,white,#FFFFFF,black,#000000
+creighton bluejays,crei,creighton-bluejays,bluejay blue,#1665C1,dark blue,#0C2340,white,#FFFFFF
+dartmouth big green,dart,dartmouth-big-green,dartmouth green,#00693E,white,#FFFFFF,black,#000000
+davidson wildcats,dav,davidson-wildcats,red,#C8102E,black,#000000,white,#FFFFFF
+dayton flyers,day,dayton-flyers,flyer red,#CE1141,flyer blue,#004B8D,white,#FFFFFF
+delaware blue hens,del,delaware-blue-hens,delaware blue,#00539F,delaware yellow-gold,#FFD200,white,#FFFFFF
+delaware state hornets,dsu,delaware-state-hornets,columbia blue,#00B5E2,red,#C8102E,navy,#002B5C
+denver pioneers,den,denver-pioneers,crimson,#8B2131,gold,#B4975A,white,#FFFFFF
+depaul blue demons,dpu,depaul-blue-demons,depaul blue,#003DA5,depaul red,#C60033,black,#000000
+detroit mercy titans,udm,detroit-mercy-titans,titan red,#C8102E,titan blue,#0C2340,silver,#A7A8AA
+drake bulldogs,drak,drake-bulldogs,blue,#1D65AE,gray,#8A8D8F,white,#FFFFFF
+drexel dragons,drex,drexel-dragons,dragon blue,#012D6B,dragon gold,#F8CD3D,dragon red,#D21034
+duke blue devils,duke,duke-blue-devils,duke blue,#003087,white,#FFFFFF,duke navy,#012169
+duquesne dukes,duq,duquesne-dukes,red,#BA0C2F,blue,#041E42,gold,#B4975A
+east carolina pirates,ecu,east-carolina-pirates,purple,#592A8A,gold,#FDC82F,black,#000000
+east tennessee state buccaneers,etsu,east-tennessee-state-buccaneers,navy,#041E42,gold,#FFC72C,gray,#A7A9AC
+east texas am lions,tamuc,east-texas-am-lions,blue,#0033A0,gold,#FFB81C,white,#FFFFFF
+eastern illinois panthers,eiu,eastern-illinois-panthers,blue,#0033A0,white,#FFFFFF,gray,#8A8D8F
+eastern kentucky colonels,eku,eastern-kentucky-colonels,maroon,#861F41,white,#FFFFFF,black,#000000
+eastern michigan eagles,emu,eastern-michigan-eagles,eagle green,#006633,silver,#A7A8AA,white,#FFFFFF
+eastern washington eagles,ewu,eastern-washington-eagles,red,#A10022,gray,#A7A8AA,black,#000000
+elon phoenix,elon,elon-phoenix,maroon,#7D2239,gold,#C4A37E,white,#FFFFFF
+evansville purple aces,evan,evansville-purple-aces,purple,#4F2D7F,orange,#F47621,white,#FFFFFF
+fairfield stags,fair,fairfield-stags,red,#E41C38,white,#FFFFFF,black,#000000
+fairleigh dickinson knights,fdu,fairleigh-dickinson-knights,burgundy,#7C2348,blue,#003E7E,white,#FFFFFF
+florida am rattlers,famu,florida-am-rattlers,orange,#F47321,green,#006747,white,#FFFFFF
+florida atlantic owls,fau,florida-atlantic-owls,red,#C8102E,blue,#003A70,white,#FFFFFF
+florida gators,fla,florida-gators,gator blue,#0021A5,gator orange,#FA4616,white,#FFFFFF
+florida gulf coast eagles,fgcu,florida-gulf-coast-eagles,cobalt blue,#002D72,emerald green,#007749,gold,#B9975B
+florida international panthers,fiu,florida-international-panthers,fiu blue,#081E3F,fiu gold,#B6862C,white,#FFFFFF
+florida state seminoles,fsu,florida-state-seminoles,garnet,#782F40,gold,#CEB888,black,#000000
+fordham rams,for,fordham-rams,maroon,#862633,gray,#8A8D8F,white,#FFFFFF
+fresno state bulldogs,fs,fresno-state-bulldogs,red,#C41230,blue,#002D62,white,#FFFFFF
+furman paladins,fur,furman-paladins,purple,#4B306A,white,#FFFFFF,silver,#A7A9AD
+gardner webb runnin bulldogs,gwu,gardner-webb-runnin-bulldogs,red,#BB0000,black,#141414,white,#FFFFFF
+george mason patriots,gmu,george-mason-patriots,mason green,#006633,mason gold,#FFCC33,white,#FFFFFF
+george washington revolutionaries,gw,george-washington-revolutionaries,blue,#002855,buff,#B3A369,white,#FFFFFF
+georgetown hoyas,gtwn,georgetown-hoyas,hoya blue,#041E42,hoya gray,#8D817B,white,#FFFFFF
+georgia bulldogs,uga,georgia-bulldogs,bulldog red,#BA0C2F,black,#000000,silver,#B3B5B8
+georgia southern eagles,gaso,georgia-southern-eagles,navy,#041E42,gold,#A99260,white,#FFFFFF
+georgia state panthers,gast,georgia-state-panthers,panther blue,#0039A6,white,#FFFFFF,black,#000000
+georgia tech yellow jackets,gt,georgia-tech-yellow-jackets,tech gold,#B3A369,navy blue,#003057,metallic gold,#A28D5B
+gonzaga bulldogs,gonz,gonzaga-bulldogs,navy,#041E42,red,#C8102E,gray,#A7A8AA
+grambling tigers,gram,grambling-tigers,black,#000000,gold,#F2A900,white,#FFFFFF
+grand canyon lopes,gcu,grand-canyon-lopes,gcu purple,#522398,white,#FFFFFF,black,#000000
+green bay phoenix,gb,green-bay-phoenix,phoenix green,#006747,black,#000000,white,#FFFFFF
+hampton pirates,hamp,hampton-pirates,hampton blue,#004B87,pirate gold,#F2A900,white,#FFFFFF
+harvard crimson,harv,harvard-crimson,crimson,#A51C30,black,#000000,white,#FFFFFF
+hawaii rainbow warriors,haw,hawaii-rainbow-warriors,warrior green,#024731,black,#000000,silver,#A2AAAD
+high point panthers,hpu,high-point-panthers,royal purple,#330072,white,#FFFFFF,black,#000000
+hofstra pride,hof,hofstra-pride,royal blue,#0038A8,university gold,#FFB81C,white,#FFFFFF
+holy cross crusaders,hc,holy-cross-crusaders,purple,#4F2D7F,white,#FFFFFF,black,#000000
+houston christian huskies,hcu,houston-christian-huskies,official blue,#273A80,orange,#F05123,deep blue,#001B4D
+houston cougars,hou,houston-cougars,red,#C8102E,dark red,#76232F,gray,#B2B4B2
+howard bison,how,howard-bison,navy,#0C2340,red,#E41C38,white,#FFFFFF
+idaho state bengals,idst,idaho-state-bengals,orange,#F47920,black,#000000,white,#FFFFFF
+idaho vandals,idho,idaho-vandals,vandal gold,#C5B783,black,#000000,white,#FFFFFF
+illinois fighting illini,ill,illinois-fighting-illini,illinois orange,#E84A27,illinois blue,#13294B,white,#FFFFFF
+illinois state redbirds,ilst,illinois-state-redbirds,red,#CE1126,black,#000000,white,#FFFFFF
+incarnate word cardinals,uiw,incarnate-word-cardinals,red,#C8102E,black,#000000,white,#FFFFFF
+indiana hoosiers,ind,indiana-hoosiers,crimson,#990000,cream,#EEEDEB,black,#000000
+indiana state sycamores,ins,indiana-state-sycamores,royal blue,#0047AB,white,#FFFFFF,gray,#A7A9AC
+iona gaels,iona,iona-gaels,maroon,#7A0019,gold,#FFC72C,blue,#003A70
+iowa hawkeyes,iowa,iowa-hawkeyes,herky gold,#FFCD00,black,#000000,white,#FFFFFF
+iowa state cyclones,isu,iowa-state-cyclones,cardinal,#C8102E,gold,#F1BE48,white,#FFFFFF
+iu indianapolis jaguars,iui,iu-indianapolis-jaguars,iu crimson,#9D2235,iu cream,#DFD1A7,black,#000000
+jackson state tigers,jackst,jackson-state-tigers,navy,#0C2340,light blue,#9DB7D5,white,#FFFFFF
+jacksonville dolphins,jax,jacksonville-dolphins,green,#004E44,gold,#C5B78A,white,#FFFFFF
+jacksonville state gamecocks,jaxst,jacksonville-state-gamecocks,red,#CC0000,white,#FFFFFF,black,#000000
+james madison dukes,jmu,james-madison-dukes,purple,#450084,gold,#CBB677,white,#FFFFFF
+kansas city roos,kc,kansas-city-roos,yellow,#FFC72C,navy,#004B87,white,#FFFFFF
+kansas jayhawks,ku,kansas-jayhawks,ku blue,#0051BA,crimson,#E8000D,jayhawk yellow,#FFC82D
+kansas state wildcats,ksu,kansas-state-wildcats,purple,#512888,gray,#D1D1D1,white,#FFFFFF
+kennesaw state owls,kenn,kennesaw-state-owls,hooty hoo gold,#FFC629,legacy black,#000000,gray,#A2AAAD
+kent state golden flashes,kent,kent-state-golden-flashes,midnight blue,#0C2340,flashes gold,#FFD200,white,#FFFFFF
+kentucky wildcats,uk,kentucky-wildcats,kentucky blue,#0033A0,white,#FFFFFF,black,#000000
+la salle explorers,las,la-salle-explorers,blue,#003594,gold,#FDB913,white,#FFFFFF
+lafayette leopards,laf,lafayette-leopards,maroon,#7A0019,white,#FFFFFF,black,#000000
+lamar cardinals,lam,lamar-cardinals,cardinal red,#C41E3A,black,#000000,white,#FFFFFF
+le moyne dolphins,lemo,le-moyne-dolphins,green,#006A52,gold,#B9975B,white,#FFFFFF
+lehigh mountain hawks,leh,lehigh-mountain-hawks,brown,#5B3715,white,#FFFFFF,gold,#C5B783
+liberty flames,lib,liberty-flames,navy,#041E42,red,#A6192E,white,#FFFFFF
+lindenwood lions,lind,lindenwood-lions,black,#000000,old gold,#B9975B,white,#FFFFFF
+lipscomb bisons,lip,lipscomb-bisons,purple,#331E54,gold,#F4AA00,white,#FFFFFF
+little rock trojans,lr,little-rock-trojans,maroon,#7C2529,silver,#8A8D8F,black,#000000
+long beach state beach,lbsu,long-beach-state-beach,championship black,#000000,go beach gold,#FFC72A,white,#FFFFFF
+long island university sharks,liu,long-island-university-sharks,liu blue,#005EB8,liu gold,#FFC72C,white,#FFFFFF
+longwood lancers,long,longwood-lancers,blue,#15213B,gray,#999D9E,white,#FFFFFF
+louisiana ragin cajuns,la,louisiana-ragin-cajuns,vermilion,#CE181E,black,#000000,white,#FFFFFF
+louisiana tech bulldogs,lt,louisiana-tech-bulldogs,royal blue,#003087,tech red,#D50032,white,#FFFFFF
+louisville cardinals,lou,louisville-cardinals,cardinal red,#AD0000,black,#000000,white,#FFFFFF
+loyola chicago ramblers,luc,loyola-chicago-ramblers,maroon,#7A003C,gold,#FFCC33,black,#000000
+loyola maryland greyhounds,loymd,loyola-maryland-greyhounds,loyola green,#115740,gray,#9EA2A2,black,#000000
+loyola marymount lions,lmu,loyola-marymount-lions,crimson,#8B2332,blue,#00407A,gray,#A7A8AA
+lsu tigers,lsu,lsu-tigers,lsu purple,#461D7C,lsu gold,#FDD023,white,#FFFFFF
+maine black bears,maine,maine-black-bears,navy blue,#003263,light blue,#B0D7FF,white,#FFFFFF
+manhattan jaspers,man,manhattan-jaspers,jasper green,#007A53,white,#FFFFFF,black,#000000
+marist red foxes,mrst,marist-red-foxes,red,#CE1126,white,#FFFFFF,black,#000000
+marquette golden eagles,marq,marquette-golden-eagles,marquette blue,#003366,marquette gold,#FFCC00,white,#FFFFFF
+marshall thundering herd,mrsh,marshall-thundering-herd,kelly green,#00A651,black,#000000,white,#FFFFFF
+maryland eastern shore hawks,umes,maryland-eastern-shore-hawks,maroon,#7A0019,gray,#A7A9AC,black,#000000
+maryland terrapins,md,maryland-terrapins,red,#E03A3E,gold,#FFD100,black,#000000
+massachusetts minutemen,umass,massachusetts-minutemen,maroon,#971B2F,black,#000000,white,#FFFFFF
+mcneese cowboys,mcns,mcneese-cowboys,blue,#0033A0,gold,#FFCC00,white,#FFFFFF
+memphis tigers,mem,memphis-tigers,blue,#003087,gray,#898D8D,orange,#F8992E
+mercer bears,mer,mercer-bears,orange,#FF6A13,black,#000000,white,#FFFFFF
+mercyhurst lakers,mercy,mercyhurst-lakers,green,#00563C,vegas gold,#C5B783,white,#FFFFFF
+merrimack warriors,merr,merrimack-warriors,navy,#00205B,gold,#FFC72C,white,#FFFFFF
+miami hurricanes,mia,miami-hurricanes,hurricane orange,#F47321,hurricane green,#005030,white,#FFFFFF
+miami oh redhawks,m-oh,miami-oh-redhawks,redhawk red,#B61E2E,black,#000000,white,#FFFFFF
+michigan state spartans,msu,michigan-state-spartans,spartan green,#18453B,white,#FFFFFF,silver,#A5A5A5
+michigan wolverines,mich,michigan-wolverines,blue,#00274C,maize,#FFCB05,white,#FFFFFF
+middle tennessee blue raiders,mtsu,middle-tennessee-blue-raiders,true blue,#005A9C,gray,#A7A9AC,white,#FFFFFF
+milwaukee panthers,mke,milwaukee-panthers,black,#000000,panther gold,#FFC72C,white,#FFFFFF
+minnesota golden gophers,minn,minnesota-golden-gophers,maroon,#7A0019,gopher gold,#FFB71B,black,#000000
+mississippi state bulldogs,msst,mississippi-state-bulldogs,maroon,#660000,gray,#B1B3B3,white,#FFFFFF
+mississippi valley state delta devils,mvsu,mississippi-valley-state-delta-devils,green,#006747,red,#C8102E,white,#FFFFFF
+missouri state bears,most,missouri-state-bears,maroon,#5E0009,white,#FFFFFF,black,#000000
+missouri tigers,mizz,missouri-tigers,mizzou gold,#F1B82D,black,#000000,white,#FFFFFF
+monmouth hawks,mon,monmouth-hawks,monmouth blue,#003A63,gray,#A7A8AA,white,#FFFFFF
+montana grizzlies,mont,montana-grizzlies,maroon,#660033,silver,#999999,black,#000000
+montana state bobcats,mtst,montana-state-bobcats,blue,#00205B,gold,#B9975B,white,#FFFFFF
+morehead state eagles,mor,morehead-state-eagles,blue,#0033A0,gold,#FFCC00,white,#FFFFFF
+morgan state bears,msu-m,morgan-state-bears,blue,#003A70,orange,#FF8200,white,#FFFFFF
+mount st. marys mountaineers,msm,mount-st-marys-mountaineers,navy,#002855,light blue,#6AADE4,gray,#A7A9AC
+murray state racers,murr,murray-state-racers,navy,#072A5E,gold,#FFC61E,white,#FFFFFF
+navy midshipmen,navy,navy-midshipmen,navy blue,#00205B,gold,#C5B783,white,#FFFFFF
+nc state wolfpack,ncst,nc-state-wolfpack,wolfpack red,#CC0000,black,#000000,white,#FFFFFF
+nebraska cornhuskers,neb,nebraska-cornhuskers,scarlet,#E41C38,cream,#FDF2D9,black,#000000
+nevada wolf pack,nev,nevada-wolf-pack,nevada blue,#003366,silver,#9D9FA2,white,#FFFFFF
+new hampshire wildcats,unh,new-hampshire-wildcats,blue,#041E42,silver,#BBBCBC,white,#FFFFFF
+new haven chargers,newh,new-haven-chargers,charger blue,#0033A0,charger gold,#FFD100,white,#FFFFFF
+new mexico lobos,unm,new-mexico-lobos,cherry,#BA0C2F,silver,#A7A8AA,black,#000000
+new mexico state aggies,nmsu,new-mexico-state-aggies,crimson,#861F41,white,#FFFFFF,black,#000000
+new orleans privateers,uno,new-orleans-privateers,navy,#041E42,silver,#8A8D8F,white,#FFFFFF
+niagara purple eagles,niag,niagara-purple-eagles,purple,#582C83,white,#FFFFFF,black,#000000
+nicholls colonels,nich,nicholls-colonels,red,#C8102E,gray,#8A8D8F,black,#000000
+njit highlanders,njit,njit-highlanders,njit red,#D22630,navy,#071D49,gray,#C1C6C8
+norfolk state spartans,nsu,norfolk-state-spartans,green,#046A38,gold,#F0B323,white,#FFFFFF
+north alabama lions,una,north-alabama-lions,una purple,#46166B,una gold,#DB9F11,una grey,#5F6062
+north carolina at aggies,ncat,north-carolina-at-aggies,aggie blue,#004684,aggie gold,#FDB927,white,#FFFFFF
+north carolina central eagles,nccu,north-carolina-central-eagles,maroon,#862633,gray,#8A8D8F,white,#FFFFFF
+north carolina tar heels,unc,north-carolina-tar-heels,carolina blue,#7BAFD4,navy,#13294B,white,#FFFFFF
+north dakota fighting hawks,und,north-dakota-fighting-hawks,kelly green,#009A44,black,#000000,white,#FFFFFF
+north dakota state bison,ndsu,north-dakota-state-bison,green,#006A4E,yellow,#FDBB30,white,#FFFFFF
+north florida ospreys,unf,north-florida-ospreys,osprey blue,#0A233F,osprey gray,#A7A8A9,white,#FFFFFF
+north texas mean green,unt,north-texas-mean-green,green,#00853E,black,#000000,white,#FFFFFF
+northeastern huskies,neu,northeastern-huskies,red,#E4002B,black,#000000,white,#FFFFFF
+northern arizona lumberjacks,nau,northern-arizona-lumberjacks,blue,#002454,gold,#FAC01A,white,#FFFFFF
+northern colorado bears,ncol,northern-colorado-bears,navy,#002855,gold,#F2A900,white,#FFFFFF
+northern illinois huskies,niu,northern-illinois-huskies,red,#E41C38,black,#000000,white,#FFFFFF
+northern iowa panthers,uni,northern-iowa-panthers,purple,#3E2680,gold,#FFB81C,white,#FFFFFF
+northern kentucky norse,nku,northern-kentucky-norse,black,#000000,norse gold,#FFC72C,white,#FFFFFF
+northwestern state demons,nwst,northwestern-state-demons,purple,#4F2D7F,orange,#F47A20,white,#FFFFFF
+northwestern wildcats,nu,northwestern-wildcats,northwestern purple,#4E2A84,white,#FFFFFF,black,#000000
+notre dame fighting irish,nd,notre-dame-fighting-irish,notre dame blue,#0C2340,irish gold,#C99700,irish green,#00B140
+oakland golden grizzlies,oak,oakland-golden-grizzlies,black,#000000,grizzlies gold,#C5B783,white,#FFFFFF
+ohio bobcats,ohio,ohio-bobcats,ohio green,#00694E,white,#FFFFFF,black,#000000
+ohio state buckeyes,osu,ohio-state-buckeyes,scarlet,#BB0000,gray,#666666,black,#000000
+oklahoma sooners,ou,oklahoma-sooners,crimson,#841617,cream,#FDF9D8,white,#FFFFFF
+oklahoma state cowboys,okst,oklahoma-state-cowboys,orange,#FF7300,black,#000000,white,#FFFFFF
+old dominion monarchs,odu,old-dominion-monarchs,monarch blue,#003057,silver,#8A8D8F,white,#FFFFFF
+ole miss rebels,miss,ole-miss-rebels,rebel red,#CE1126,navy,#14213D,powder blue,#9BB5CF
+omaha mavericks,oma,omaha-mavericks,black,#000000,red,#C8102E,white,#FFFFFF
+oral roberts golden eagles,oru,oral-roberts-golden-eagles,navy,#002D62,vegas gold,#C5B783,white,#FFFFFF
+oregon ducks,ore,oregon-ducks,apple green,#154733,lightning yellow,#FEE123,black,#000000
+oregon state beavers,orst,oregon-state-beavers,beaver orange,#D73F09,black,#000000,white,#FFFFFF
+pacific tigers,pac,pacific-tigers,orange,#F47937,black,#000000,white,#FFFFFF
+penn state nittany lions,psu,penn-state-nittany-lions,penn state blue,#041E42,white,#FFFFFF,gray,#A7A8AA
+pennsylvania quakers,penn,pennsylvania-quakers,penn blue,#011F5B,penn red,#990000,white,#FFFFFF
+pepperdine waves,pep,pepperdine-waves,blue,#003087,orange,#FF6A13,white,#FFFFFF
+pittsburgh panthers,pitt,pittsburgh-panthers,royal blue,#003594,university gold,#FFB81C,white,#FFFFFF
+portland pilots,port,portland-pilots,purple,#4F2D7F,gray,#A7A9AC,white,#FFFFFF
+portland state vikings,prst,portland-state-vikings,green,#154734,white,#FFFFFF,black,#000000
+prairie view am panthers,pvam,prairie-view-am-panthers,purple,#582C83,gold,#EAAA00,black,#000000
+presbyterian blue hose,pres,presbyterian-blue-hose,blue,#034592,red,#9D2235,white,#FFFFFF
+princeton tigers,prin,princeton-tigers,princeton orange,#E87722,black,#000000,white,#FFFFFF
+providence friars,prov,providence-friars,silver,#8A8D8F,black,#000000,white,#FFFFFF
+purdue boilermakers,pur,purdue-boilermakers,old gold,#CEB888,black,#000000,white,#FFFFFF
+purdue fort wayne mastodons,pfw,purdue-fort-wayne-mastodons,royal blue,#003A70,mastodon gold,#B9975B,white,#FFFFFF
+queens university royals,queens,queens-university-royals,blue,#192C66,gold,#857040,white,#FFFFFF
+quinnipiac bobcats,quinn,quinnipiac-bobcats,navy,#0C2340,gold,#FFC72C,blue,#003087
+radford highlanders,rad,radford-highlanders,red,#C2011B,gray,#D1D3D4,blue,#003C71
+rhode island rams,uri,rhode-island-rams,keaney blue,#75B2DD,navy,#1E3A5F,white,#FFFFFF
+rice owls,rice,rice-owls,blue,#002469,gray,#D1D3D4,white,#FFFFFF
+richmond spiders,rich,richmond-spiders,blue,#041E42,red,#BA0C2F,white,#FFFFFF
+rider broncs,rid,rider-broncs,cranberry,#862633,gray,#8A8D8F,white,#FFFFFF
+robert morris colonials,rmu,robert-morris-colonials,colonial red,#C8102E,colonial blue,#0C2340,white,#FFFFFF
+rutgers scarlet knights,rutg,rutgers-scarlet-knights,scarlet,#CC0033,gray,#5F6A72,black,#000000
+sacramento state hornets,sacst,sacramento-state-hornets,sac state green,#043927,hornet gold,#C4B581,white,#FFFFFF
+sacred heart pioneers,sacrd,sacred-heart-pioneers,red,#C8102E,gray,#8A8D8F,white,#FFFFFF
+saint francis red flash,sfu,saint-francis-red-flash,red,#C8102E,black,#000000,white,#FFFFFF
+saint josephs hawks,sju,saint-josephs-hawks,crimson,#9E1B32,black,#000000,gray,#8A8D8F
+saint louis billikens,slu,saint-louis-billikens,billiken blue,#003DA5,silver,#A7A9AC,white,#FFFFFF
+saint marys gaels,smc,saint-marys-gaels,navy,#0C2340,red,#D50032,white,#FFFFFF
+saint peters peacocks,spu,saint-peters-peacocks,blue,#003A63,gold,#A28E5C,white,#FFFFFF
+sam houston bearkats,shsu,sam-houston-bearkats,orange,#F47321,blue,#0033A0,white,#FFFFFF
+samford bulldogs,sam,samford-bulldogs,red,#C8102E,navy,#0C2340,gray,#A7A9AC
+san diego state aztecs,sdsu,san-diego-state-aztecs,scarlet,#A6192E,black,#000000,gray,#A7A9AC
+san diego toreros,usd,san-diego-toreros,torero blue,#006A91,navy,#002A5C,gray,#8A8D8F
+san francisco dons,usf,san-francisco-dons,green,#006747,gold,#FDBB30,white,#FFFFFF
+san jose state spartans,sjsu,san-jose-state-spartans,blue,#0055A2,gold,#F9A01B,white,#FFFFFF
+santa clara broncos,scu,santa-clara-broncos,bronco red,#862633,gray,#A7A8AA,white,#FFFFFF
+se louisiana lions,sela,se-louisiana-lions,green,#006747,gold,#F0B323,white,#FFFFFF
+seattle u redhawks,su,seattle-u-redhawks,red,#C8102E,black,#000000,white,#FFFFFF
+seton hall pirates,shu,seton-hall-pirates,seton hall blue,#004488,seton hall gray,#A2AAAD,white,#FFFFFF
+siena saints,sie,siena-saints,green,#006747,gold,#FDB927,white,#FFFFFF
+siu edwardsville cougars,siue,siu-edwardsville-cougars,red,#BA0C2F,black,#000000,white,#FFFFFF
+smu mustangs,smu,smu-mustangs,red,#E01E38,blue,#002855,white,#FFFFFF
+south alabama jaguars,usa,south-alabama-jaguars,red,#CE1141,blue,#0033A0,white,#FFFFFF
+south carolina gamecocks,sc,south-carolina-gamecocks,garnet,#73000A,black,#000000,white,#FFFFFF
+south carolina state bulldogs,scsu,south-carolina-state-bulldogs,garnet,#862633,blue,#003DA5,white,#FFFFFF
+south carolina upstate spartans,uscu,south-carolina-upstate-spartans,green,#046A38,black,#000000,white,#FFFFFF
+south dakota coyotes,usd,south-dakota-coyotes,red,#C8102E,black,#000000,white,#FFFFFF
+south dakota state jackrabbits,sdst,south-dakota-state-jackrabbits,blue,#0033A0,yellow,#FFC72C,white,#FFFFFF
+south florida bulls,usf,south-florida-bulls,green,#006747,gold,#CFC493,white,#FFFFFF
+southeast missouri state redhawks,semo,southeast-missouri-state-redhawks,red,#BA0C2F,black,#000000,gray,#A7A9AC
+southern illinois salukis,siu,southern-illinois-salukis,maroon,#7D2239,black,#000000,gray,#A7A9AC
+southern indiana screaming eagles,usi,southern-indiana-screaming-eagles,red,#E41C38,navy,#0C2340,white,#FFFFFF
+southern jaguars,south,southern-jaguars,columbia blue,#69B3E7,gold,#FFC72C,white,#FFFFFF
+southern miss golden eagles,usm,southern-miss-golden-eagles,black,#000000,gold,#FFB81C,white,#FFFFFF
+southern utah thunderbirds,suu,southern-utah-thunderbirds,red,#CE1126,black,#000000,gray,#A7A8AA
+st. bonaventure bonnies,sbu,st-bonaventure-bonnies,brown,#653819,gold,#C2A14D,white,#FFFFFF
+st. johns red storm,stj,st-johns-red-storm,red,#BA0C2F,blue,#041C2C,silver gray,#A7A8AA
+st. thomas minnesota tommies,ust,st-thomas-minnesota-tommies,purple,#512773,gray,#98999B,white,#FFFFFF
+stanford cardinal,stan,stanford-cardinal,cardinal,#8C1515,black,#2E2D29,cool gray,#4D4F53
+stephen f austin lumberjacks,sfa,stephen-f-austin-lumberjacks,purple,#4F2D7F,white,#FFFFFF,gray,#A7A8AA
+stetson hatters,stet,stetson-hatters,hunter stetson green,#095540,hatter green,#4A8B2C,white,#FFFFFF
+stonehill skyhawks,ston,stonehill-skyhawks,purple,#4B2E83,silver,#A7A8AA,black,#000000
+stony brook seawolves,sb,stony-brook-seawolves,seawolves red,#C8102E,navy,#003087,silver,#8A8D8F
+syracuse orange,syr,syracuse-orange,syracuse orange,#F76900,navy blue,#000E54,white,#FFFFFF
+tarleton state texans,tarl,tarleton-state-texans,purple,#5A2B81,gray,#6D6E71,black,#000000
+tcu horned frogs,tcu,tcu-horned-frogs,purple,#4D1979,black,#231F20,gray,#A7A8AA
+temple owls,tem,temple-owls,cherry,#9E1B32,white,#FFFFFF,black,#000000
+tennessee state tigers,tsu,tennessee-state-tigers,royal blue,#0033A0,red,#C8102E,white,#FFFFFF
+tennessee tech golden eagles,tntech,tennessee-tech-golden-eagles,purple,#4F2683,gold,#F2A900,white,#FFFFFF
+tennessee volunteers,tenn,tennessee-volunteers,tennessee orange,#FF8200,white,#FFFFFF,smokey gray,#58595B
+texas am aggies,tamu,texas-am-aggies,aggie maroon,#500000,white,#FFFFFF,silver,#A7A8AA
+texas am corpus christi islanders,amcc,texas-am-corpus-christi-islanders,blue,#0067C5,green,#007F3E,dark blue,#003463
+texas longhorns,tex,texas-longhorns,burnt orange,#BF5700,white,#FFFFFF,dark gray,#333F48
+texas southern tigers,txso,texas-southern-tigers,maroon,#7C2529,gray,#8A8D8F,white,#FFFFFF
+texas state bobcats,txst,texas-state-bobcats,maroon,#501214,gold,#C6AA76,white,#FFFFFF
+texas tech red raiders,ttu,texas-tech-red-raiders,scarlet,#CC0000,black,#000000,white,#FFFFFF
+the citadel bulldogs,cit,the-citadel-bulldogs,citadel blue,#78B5E3,navy,#0054A4,white,#FFFFFF
+toledo rockets,tol,toledo-rockets,midnight blue,#00205B,rocket gold,#FFCD00,white,#FFFFFF
+towson tigers,tow,towson-tigers,towson gold,#FF9E16,black,#000000,white,#FFFFFF
+troy trojans,troy,troy-trojans,cardinal,#8A2432,silver,#C5C7C9,black,#000000
+tulane green wave,tuln,tulane-green-wave,dark green,#006747,kelly green,#43B02A,blue,#418FDE
+tulsa golden hurricane,tlsa,tulsa-golden-hurricane,royal blue,#002D72,red,#E31837,gold,#C69214
+uab blazers,uab,uab-blazers,green,#2C5234,old gold,#CEB888,white,#FFFFFF
+ualbany great danes,alb,ualbany-great-danes,ualbany purple,#46166B,ualbany gold,#EEB211,black,#000000
+uc davis aggies,ucd,uc-davis-aggies,aggie blue,#002855,aggie gold,#B9975B,white,#FFFFFF
+uc irvine anteaters,uci,uc-irvine-anteaters,anteater blue,#0064A4,anteater gold,#FFB81C,white,#FFFFFF
+uc riverside highlanders,ucr,uc-riverside-highlanders,ucr blue,#2E6DB4,highlander gold,#FFC72C,white,#FFFFFF
+uc san diego tritons,ucsd,uc-san-diego-tritons,ucsd navy,#182B49,ucsd yellow,#FFCD00,ucsd gold,#C69214
+uc santa barbara gauchos,ucsb,uc-santa-barbara-gauchos,ucsb blue,#003660,ucsb gold,#FFCC00,white,#FFFFFF
+ucf knights,ucf,ucf-knights,black,#000000,ucf gold,#B4975A,anthracite,#58595B
+ucla bruins,ucla,ucla-bruins,ucla blue,#2774AE,ucla gold,#FFD100,white,#FFFFFF
+uconn huskies,uconn,uconn-huskies,navy,#0C2340,red,#C8102E,gray,#869397
+uic flames,uic,uic-flames,fire engine red,#D50032,navy pier blue,#001E62,white,#FFFFFF
+ul monroe warhawks,ulm,ul-monroe-warhawks,maroon,#840029,gold,#B4975A,white,#FFFFFF
+umass lowell river hawks,uml,umass-lowell-river-hawks,blue,#0067B1,red,#C8102E,gray,#97999B
+umbc retrievers,umbc,umbc-retrievers,black,#000000,gold,#FDB515,white,#FFFFFF
+unc asheville bulldogs,unca,unc-asheville-bulldogs,blue,#003DA5,white,#FFFFFF,grey,#808285
+unc greensboro spartans,uncg,unc-greensboro-spartans,navy,#041E42,gold,#FDB913,gray,#A7A9AC
+unc wilmington seahawks,uncw,unc-wilmington-seahawks,teal,#006666,navy,#003366,yellow,#FFD600
+unlv rebels,unlv,unlv-rebels,scarlet,#CC0000,gray,#808080,black,#000000
+usc trojans,usc,usc-trojans,cardinal,#990000,gold,#FFC72C,white,#FFFFFF
+ut arlington mavericks,uta,ut-arlington-mavericks,blue,#0064B1,orange,#F47920,white,#FFFFFF
+ut martin skyhawks,utm,ut-martin-skyhawks,navy,#0C2340,orange,#F47A20,gray,#8A8D8F
+ut rio grande valley vaqueros,utrgv,ut-rio-grande-valley-vaqueros,orange,#F05023,navy,#0C2340,green,#00843D
+utah state aggies,usu,utah-state-aggies,aggie navy,#0C2340,silver,#9EA2A2,white,#FFFFFF
+utah tech trailblazers,utt,utah-tech-trailblazers,rock red,#BA1C21,brooks blue,#003058,white,#FFFFFF
+utah utes,utah,utah-utes,red,#CC0000,black,#000000,white,#FFFFFF
+utah valley wolverines,uvu,utah-valley-wolverines,green,#00843D,black,#000000,white,#FFFFFF
+utep miners,utep,utep-miners,miner orange,#FF8200,miner blue,#041E42,white,#FFFFFF
+utsa roadrunners,utsa,utsa-roadrunners,utsa orange,#F15A22,midnight blue,#0C2340,white,#FFFFFF
+valparaiso beacons,valpo,valparaiso-beacons,yellow,#FFE300,gold,#F5B80A,brown,#5C3000
+vanderbilt commodores,van,vanderbilt-commodores,black,#000000,old gold,#B9975B,white,#FFFFFF
+vcu rams,vcu,vcu-rams,black,#231F20,vcu gold,#F0B323,white,#FFFFFF
+vermont catamounts,uvm,vermont-catamounts,green,#154734,gold,#FFB81C,brown,#8B5B29
+villanova wildcats,nova,villanova-wildcats,villanova blue (navy),#00205B,villanova light blue,#6CACE4,white,#FFFFFF
+virginia cavaliers,uva,virginia-cavaliers,jefferson blue,#232D4B,cavalier orange,#F84C1E,white,#FFFFFF
+virginia tech hokies,vt,virginia-tech-hokies,chicago maroon,#630031,burnt orange,#CF4420,white,#FFFFFF
+vmi keydets,vmi,vmi-keydets,red,#CE1126,gold,#F4D92F,white,#FFFFFF
+wagner seahawks,wag,wagner-seahawks,green,#006747,gray,#A7A8AA,white,#FFFFFF
+wake forest demon deacons,wake,wake-forest-demon-deacons,old gold,#9E7E38,black,#000000,white,#FFFFFF
+washington huskies,wash,washington-huskies,purple,#4B2E83,gold,#B7A57A,metallic gold,#85754D
+washington state cougars,wsu,washington-state-cougars,crimson,#981E32,gray,#5E6A71,white,#FFFFFF
+weber state wildcats,weber,weber-state-wildcats,purple,#4B2E83,silver,#A7A8AA,black,#000000
+west georgia wolves,uwg,west-georgia-wolves,uwg blue,#005EB8,uwg red,#DA291C,white,#FFFFFF
+west virginia mountaineers,wvu,west-virginia-mountaineers,blue,#002855,gold,#EAAA00,gray,#7F7F7F
+western carolina catamounts,wcu,western-carolina-catamounts,purple,#592A8A,gold,#C99700,white,#FFFFFF
+western illinois leathernecks,wiu,western-illinois-leathernecks,purple,#4E2A84,gold,#FFCC00,white,#FFFFFF
+western kentucky hilltoppers,wku,western-kentucky-hilltoppers,wku red,#D50032,black,#000000,white,#FFFFFF
+western michigan broncos,wmu,western-michigan-broncos,bronco brown,#4B3621,bronco gold,#FFCC00,black,#000000
+wichita state shockers,wich,wichita-state-shockers,shocker yellow,#FFCD00,black,#000000,white,#FFFFFF
+william mary tribe,wm,william-mary-tribe,tribe green,#115740,old gold,#B9975B,white,#FFFFFF
+winthrop eagles,wint,winthrop-eagles,garnet,#7C2529,gold,#FFCC00,white,#FFFFFF
+wisconsin badgers,wisc,wisconsin-badgers,badger red,#C5050C,white,#FFFFFF,black,#121212
+wofford terriers,wof,wofford-terriers,black,#000000,old gold,#B4975A,white,#FFFFFF
+wright state raiders,wrst,wright-state-raiders,raiders green,#004833,old gold,#B9975B,white,#FFFFFF
+wyoming cowboys,wyo,wyoming-cowboys,brown,#512D00,prairie gold,#FFCC00,white,#FFFFFF
+xavier musketeers,xav,xavier-musketeers,navy,#0C2340,silver,#C0C0C0,white,#FFFFFF
+yale bulldogs,yale,yale-bulldogs,yale blue,#00356B,white,#FFFFFF,gray,#A5A9AC
+youngstown state penguins,ysu,youngstown-state-penguins,red,#C8102E,black,#000000,white,#FFFFFF

@@ -561,6 +561,8 @@ const NCAAM_LOGO_PATHS: Record<string, string> = {
   "utsa-roadrunners": "/logos/leagues/ncaam/american/utsa-roadrunners.png",
   "wichita-state-shockers": "/logos/leagues/ncaam/american/wichita-state-shockers.png",
   "south-florida": "/logos/leagues/ncaam/american/south-florida-bulls.png",
+  "usf": "/logos/leagues/ncaam/american/south-florida-bulls.png",
+  "usf-bulls": "/logos/leagues/ncaam/american/south-florida-bulls.png",
   // ASUN
   "austin-peay-governors": "/logos/leagues/ncaam/asun/austin-peay-governors.png",
   "bellarmine-knights": "/logos/leagues/ncaam/asun/bellarmine-knights.png",

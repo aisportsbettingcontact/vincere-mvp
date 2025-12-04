@@ -451,8 +451,10 @@ const NCAAF_LOGO_PATHS: Record<string, string> = {
   "ohio-bobcats": "/logos/leagues/ncaaf/mid-american/ohio-bobcats.png",
   "toledo-rockets": "/logos/leagues/ncaaf/mid-american/toledo-rockets.png",
   "western-michigan-broncos": "/logos/leagues/ncaaf/mid-american/western-michigan-broncos.png",
+  "w-michigan-broncos": "/logos/leagues/ncaaf/mid-american/western-michigan-broncos.png",
   "air-force-falcons": "/logos/leagues/ncaaf/mountain-west/air-force-falcons.png",
   "boise-state-broncos": "/logos/leagues/ncaaf/mountain-west/boise-state-broncos.png",
+  "boise-st-broncos": "/logos/leagues/ncaaf/mountain-west/boise-state-broncos.png",
   "colorado-state-rams": "/logos/leagues/ncaaf/mountain-west/colorado-state-rams.png",
   "fresno-state-bulldogs": "/logos/leagues/ncaaf/mountain-west/fresno-state-bulldogs.png",
   "hawaii-rainbow-warriors": "/logos/leagues/ncaaf/mountain-west/hawaii-rainbow-warriors.png",
@@ -727,6 +729,7 @@ const NCAAM_LOGO_PATHS: Record<string, string> = {
   "ohio-bobcats": "/logos/leagues/ncaam/mac/ohio-bobcats.png",
   "toledo-rockets": "/logos/leagues/ncaam/mac/toledo-rockets.png",
   "western-michigan-broncos": "/logos/leagues/ncaam/mac/western-michigan-broncos.png",
+  "w-michigan-broncos": "/logos/leagues/ncaam/mac/western-michigan-broncos.png",
   // MEAC
   "coppin-state-eagles": "/logos/leagues/ncaam/meac/coppin-state-eagles.png",
   "delaware-state-hornets": "/logos/leagues/ncaam/meac/delaware-state-hornets.png",
@@ -751,6 +754,7 @@ const NCAAM_LOGO_PATHS: Record<string, string> = {
   // MWC (Mountain West)
   "air-force-falcons": "/logos/leagues/ncaam/mwc/air-force-falcons.png",
   "boise-state-broncos": "/logos/leagues/ncaam/mwc/boise-state-broncos.png",
+  "boise-st-broncos": "/logos/leagues/ncaam/mwc/boise-state-broncos.png",
   "colorado-state-rams": "/logos/leagues/ncaam/mwc/colorado-state-rams.png",
   "fresno-state-bulldogs": "/logos/leagues/ncaam/mwc/fresno-state-bulldogs.png",
   "grand-canyon-lopes": "/logos/leagues/ncaam/mwc/grand-canyon-lopes.png",
